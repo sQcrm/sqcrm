@@ -1,0 +1,52 @@
+DirectoryIndex index.php index.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase   /
+
+RewriteRule ^modules/(.*)/(.*)$ /module.php?sfmodname=$1&sfaction=$2&%{QUERY_STRING}
+RewriteRule ^popups/(.*)$ /popup_modal.php?modalname=$1&%{QUERY_STRING}
+
+</IfModule>
+  
+  SetEnv radria 1
+
+#  AuthType        Basic
+#  AuthName        "Site Administration"
+#  AuthUserFile    /server/etc/.htuser
+
+#  <Limit GET POST>
+#    require valid-user 
+#  </Limit>
+
+  <Files ~ "\.ftp\.prj$">
+    Order allow,deny
+    Deny from all
+  </Files>
+  <Files ~ "\.inc\.php$">
+    Order allow,deny
+    Deny from all
+  </Files>
+  <Files ~ "\.class\.php$">
+    Order allow,deny
+    Deny from all
+  </Files>
+  <Files ~ ".log$">
+    Order allow,deny
+    Deny from all
+  </Files>
+  <Files ~ "\.xml$">
+    Order allow,deny
+    Deny from all
+  </Files>
+
+ # Options Indexes FollowSymLinks MultiViews
+ # Order allow,deny
+ # Allow from all
+    
+#  AddType application/x-httpd-php .html .php
+AddType text/cache-manifest .manifest
+  #php_flag display_errors off
+ php_flag register_globals Off
+ php_flag magic_quotes_gpc Off
+# php_value include_path ".:/var/www/glolib:/var/www/RadriaCore"
+
