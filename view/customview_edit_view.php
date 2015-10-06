@@ -245,7 +245,7 @@ echo $e_edit_cv->getFormEvent();
 			</div>
 			<hr class="form_hr">
 			<div class="left_600">
-				<a href="<?php echo NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$target_module_id]["name"],"list");?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$module_obj->idmodule]["name"],"list");?>" class="btn btn-inverse">
 				<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 				<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
 			</div>
