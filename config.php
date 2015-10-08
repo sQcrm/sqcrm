@@ -5,9 +5,11 @@
 * Include that file in all the files that will uses PAS objects.
 */
 
-if (!isset($GLOBALS['cfg_full_path'])) { $GLOBALS['cfg_full_path'] = ''; }
-set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
-$cfg_project_directory = $GLOBALS['cfg_full_path'];
+//if (!isset($GLOBALS['cfg_full_path'])) { $GLOBALS['cfg_full_path'] = ''; }
+//set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
+//$cfg_project_directory = $GLOBALS['cfg_full_path'];
+
+$cfg_project_directory = dirname(__FILE__).'/';
 $cfg_local_db = 'mysql';
 $GLOBALS['cfg_local_db'] = 'mysql';
 $cfg_eventcontroler = 'eventcontroler.php';
