@@ -163,40 +163,48 @@ class Calendar extends DataObject {
 	* @see RecurrentEvents::get_recurrent_dates()
 	*/
 	public function eventAddRecord(EventControler $evctl) { 
-		$do_crm_fields = new CRMFields();
-		$fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
-		$idevents = $this->add_events($evctl,$fields);
-		if (false === $idevents) {
-			$next_page = $evctl->error_page ;
-			$dis = new Display($next_page); 
-			$evctl->setDisplayNext($dis) ; 
-		} else {
-			if ($evctl->event_repeat == 'on') {
-				$do_recurrent_event = new RecurrentEvents();
-				$recurrent_dates = $do_recurrent_event->get_recurrent_dates($evctl);
-				$recurrent_pattern = $do_recurrent_event->get_recurrent_event_pattern() ;
-				if (is_array($recurrent_dates) && count($recurrent_dates) > 0) {
-					foreach ($recurrent_dates as $recurrent_dates) {
-						$idevents_rec = $this->add_events($evctl,$fields);
-						$qry = "
-						update ".$this->getTable()." set 
-						`start_date` = ? ,
-						`end_date` = ?,
-						`parent_recurrent_event_id` = ? 
-						where `idevents` = ? ";
-						$this->getDbConnection()->executeQuery($qry,array($recurrent_dates,$recurrent_dates,$idevents,$idevents_rec));
+		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',2);
+		if (true === $permission) {
+			$do_crm_fields = new CRMFields();
+			$fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
+			$idevents = $this->add_events($evctl,$fields);
+			if (false === $idevents) {
+				$next_page = $evctl->error_page ;
+				$dis = new Display($next_page); 
+				$evctl->setDisplayNext($dis) ; 
+			} else {
+				if ($evctl->event_repeat == 'on') {
+					$do_recurrent_event = new RecurrentEvents();
+					$recurrent_dates = $do_recurrent_event->get_recurrent_dates($evctl);
+					$recurrent_pattern = $do_recurrent_event->get_recurrent_event_pattern() ;
+					if (is_array($recurrent_dates) && count($recurrent_dates) > 0) {
+						foreach ($recurrent_dates as $recurrent_dates) {
+							$idevents_rec = $this->add_events($evctl,$fields);
+							$qry = "
+							update ".$this->getTable()." set 
+							`start_date` = ? ,
+							`end_date` = ?,
+							`parent_recurrent_event_id` = ? 
+							where `idevents` = ? ";
+							$this->getDbConnection()->executeQuery($qry,array($recurrent_dates,$recurrent_dates,$idevents,$idevents_rec));
+						}
+						$this->insert('recurrent_events',array('idevents'=>$idevents,'recurrent_pattern'=>json_encode($recurrent_pattern)));
 					}
-					$this->insert('recurrent_events',array('idevents'=>$idevents,'recurrent_pattern'=>json_encode($recurrent_pattern)));
 				}
+				if ($evctl->event_alert == 'on') {
+					$do_events_reminder = new EventsReminder() ;
+					$do_events_reminder->add_event_reminder($idevents,$evctl);
+				}
+				$_SESSION["do_crm_messages"]->set_message('success',_('Event has been added successfully ! '));
+				$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$idevents);
+				$evctl->setDisplayNext($dis) ;
 			}
-			if ($evctl->event_alert == 'on') {
-				$do_events_reminder = new EventsReminder() ;
-				$do_events_reminder->add_event_reminder($idevents,$evctl);
-			}
-			$_SESSION["do_crm_messages"]->set_message('success',_('Event has been added successfully ! '));
-			$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record ! '));
+			$next_page = NavigationControl::getNavigationLink($evctl->module,"list");
 			$dis = new Display($next_page);
-			$dis->addParam("sqrecord",$idevents);
 			$evctl->setDisplayNext($dis) ;
 		}
 	}
@@ -284,64 +292,72 @@ class Calendar extends DataObject {
 	* @param object $evctl
 	*/  
 	public function eventEditRecord(EventControler $evctl) {
-		$do_crm_fields = new CRMFields();
-		$fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
-		// edit the event
-		$idevents = $this->edit_event($evctl,$fields);
-		if (false === $id_entity) { // if error re-direct
-			$next_page = $evctl->error_page ;
-			$dis = new Display($next_page);
-			$evctl->setDisplayNext($dis) ; 
-		} else {
-			$do_recurrent_event = new RecurrentEvents();
-			$has_recurrent_events  = $do_recurrent_event->has_recurrent_events($idevents);
-			if ($evctl->event_repeat == 'on') { 
-				$recurrent_dates = $do_recurrent_event->get_recurrent_dates($evctl);
-				$recurrent_pattern = $do_recurrent_event->get_recurrent_event_pattern() ;
-				if (is_array($recurrent_dates) && count($recurrent_dates) > 0) {
-					$add_recurrent_events = false ;
-					// if existing recurrent events found and its not eqaul to the submitted one 
-					if (false !== $has_recurrent_events && trim(json_encode($recurrent_pattern)) != trim($has_recurrent_events)) {
-						$this->delete_related_recurrent_events($idevents); 
-						$do_recurrent_event->delete_recurrent_pattern($idevents) ;
-						$add_recurrent_events = true ;
-					} elseif ($has_recurrent_events === false) {
-						$add_recurrent_events = true ;
-					}
-					if (true === $add_recurrent_events) {
-						foreach ($recurrent_dates as $recurrent_dates) {
-							$idevents_rec = $this->add_events($evctl,$fields);
-							$qry = "
-							update ".$this->getTable()." set 
-							`start_date` = ?, 
-							`end_date` = ?,
-							`parent_recurrent_event_id` = ? 
-							where `idevents` = ?";
-							$stmt = $this->getDbConnection()->executeQuery($qry,array($recurrent_dates,$recurrent_dates,$idevents,$idevents_rec)) ;
+		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('edit',2,(int)$evctl->sqrecord) ; 
+		if (true === $permission) {
+			$do_crm_fields = new CRMFields();
+			$fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
+			// edit the event
+			$idevents = $this->edit_event($evctl,$fields);
+			if (false === $idevents) { // if error re-direct
+				$next_page = $evctl->error_page ;
+				$dis = new Display($next_page);
+				$evctl->setDisplayNext($dis) ; 
+			} else {
+				$do_recurrent_event = new RecurrentEvents();
+				$has_recurrent_events  = $do_recurrent_event->has_recurrent_events($idevents);
+				if ($evctl->event_repeat == 'on') { 
+					$recurrent_dates = $do_recurrent_event->get_recurrent_dates($evctl);
+					$recurrent_pattern = $do_recurrent_event->get_recurrent_event_pattern() ;
+					if (is_array($recurrent_dates) && count($recurrent_dates) > 0) {
+						$add_recurrent_events = false ;
+						// if existing recurrent events found and its not eqaul to the submitted one 
+						if (false !== $has_recurrent_events && trim(json_encode($recurrent_pattern)) != trim($has_recurrent_events)) {
+							$this->delete_related_recurrent_events($idevents); 
+							$do_recurrent_event->delete_recurrent_pattern($idevents) ;
+							$add_recurrent_events = true ;
+						} elseif ($has_recurrent_events === false) {
+							$add_recurrent_events = true ;
 						}
-						$this->insert('recurrent_events',array('idevents'=>$idevents,'recurrent_pattern'=>json_encode($recurrent_pattern)));
+						if (true === $add_recurrent_events) {
+							foreach ($recurrent_dates as $recurrent_dates) {
+								$idevents_rec = $this->add_events($evctl,$fields);
+								$qry = "
+								update ".$this->getTable()." set 
+								`start_date` = ?, 
+								`end_date` = ?,
+								`parent_recurrent_event_id` = ? 
+								where `idevents` = ?";
+								$stmt = $this->getDbConnection()->executeQuery($qry,array($recurrent_dates,$recurrent_dates,$idevents,$idevents_rec)) ;
+							}
+							$this->insert('recurrent_events',array('idevents'=>$idevents,'recurrent_pattern'=>json_encode($recurrent_pattern)));
+						}
+					}
+				} else {
+					if(false !== $recurrent_pattern){
+						$this->delete_related_recurrent_events($idevents);
+						$do_recurrent_event->delete_recurrent_pattern($idevents) ;
 					}
 				}
-			} else {
-				if(false !== $recurrent_pattern){
-					$this->delete_related_recurrent_events($idevents);
-					$do_recurrent_event->delete_recurrent_pattern($idevents) ;
+				// Event reminder
+				$do_events_reminder = new EventsReminder();
+				if ($evctl->event_alert == 'on') {
+					$do_events_reminder->update_event_reminder($idevents,$evctl);
+				} else {
+					if (false !== $do_events_reminder->get_event_reminder($idevents)) {
+						$do_events_reminder->delete_event_reminder($idevents);
+					}
 				}
+				
+				$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$idevents);
+				$evctl->setDisplayNext($dis) ; 
 			}
-			// Event reminder
-			$do_events_reminder = new EventsReminder();
-			if ($evctl->event_alert == 'on') {
-				$do_events_reminder->update_event_reminder($idevents,$evctl);
-			} else {
-				if (false !== $do_events_reminder->get_event_reminder($idevents)) {
-					$do_events_reminder->delete_event_reminder($idevents);
-				}
-			}
-			
-			$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to edit the record ! '));
+			$next_page = NavigationControl::getNavigationLink($evctl->module,"list");
 			$dis = new Display($next_page);
-			$dis->addParam("sqrecord",$idevents);
-			$evctl->setDisplayNext($dis) ; 
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
     
