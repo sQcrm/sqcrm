@@ -28,10 +28,24 @@ use Doctrine\DBAL\Sharding\ShardChoser\ShardChoser;
  */
 class PoolingShardManager implements ShardManager
 {
+    /**
+     * @var PoolingShardConnection
+     */
     private $conn;
+
+    /**
+     * @var ShardChoser
+     */
     private $choser;
+
+    /**
+     * @var string|null
+     */
     private $currentDistributionValue;
 
+    /**
+     * @param PoolingShardConnection $conn
+     */
     public function __construct(PoolingShardConnection $conn)
     {
         $params       = $conn->getParams();
@@ -39,12 +53,20 @@ class PoolingShardManager implements ShardManager
         $this->choser = $params['shardChoser'];
     }
 
+    /**
+     * @return void
+     */
     public function selectGlobal()
     {
         $this->conn->connect(0);
         $this->currentDistributionValue = null;
     }
 
+    /**
+     * @param string $distributionValue
+     *
+     * @return void
+     */
     public function selectShard($distributionValue)
     {
         $shardId = $this->choser->pickShard($distributionValue, $this->conn);
@@ -52,11 +74,17 @@ class PoolingShardManager implements ShardManager
         $this->currentDistributionValue = $distributionValue;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCurrentDistributionValue()
     {
         return $this->currentDistributionValue;
     }
 
+    /**
+     * @return array
+     */
     public function getShards()
     {
         $params = $this->conn->getParams();
@@ -69,6 +97,15 @@ class PoolingShardManager implements ShardManager
         return $shards;
     }
 
+    /**
+     * @param string $sql
+     * @param array  $params
+     * @param array  $types
+     *
+     * @return array
+     *
+     * @throws \RuntimeException
+     */
     public function queryAll($sql, array $params, array $types)
     {
         $shards = $this->getShards();
@@ -80,7 +117,7 @@ class PoolingShardManager implements ShardManager
         $oldDistribution = $this->getCurrentDistributionValue();
 
         foreach ($shards as $shard) {
-            $this->selectShard($shard['id']);
+            $this->conn->connect($shard['id']);
             foreach ($this->conn->fetchAll($sql, $params, $types) as $row) {
                 $result[] = $row;
             }
@@ -95,4 +132,3 @@ class PoolingShardManager implements ShardManager
         return $result;
     }
 }
-
