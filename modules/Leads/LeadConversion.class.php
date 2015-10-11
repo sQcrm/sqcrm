@@ -56,13 +56,13 @@ class LeadConversion extends Leads {
 			"assigned_to_as_group"=>$assigned_to_as_group,
 			"group_id"=>$group_id
 		);
-		if ($evctl->pot_convertion == 'on') {
+		if ($evctl->pot_convertion == 'on' && true === $_SESSION["do_crm_action_permission"]->action_permitted('add',5)) {
 			$create_potential = true;
 		}
-		if ($evctl->org_convertion == 'on') {
+		if ($evctl->org_convertion == 'on' && true === $_SESSION["do_crm_action_permission"]->action_permitted('add',6)) {
 			$create_organization = true;
 		}
-		if ($evctl->cnt_convertion == 'on') {
+		if ($evctl->cnt_convertion == 'on' && true === $_SESSION["do_crm_action_permission"]->action_permitted('add',4)) {
 			$create_contact = true;
 		}
 		$do_convert = true ;
