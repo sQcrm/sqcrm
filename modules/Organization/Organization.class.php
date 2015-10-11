@@ -126,77 +126,85 @@ class Organization extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAddRecord(EventControler $evctl) { 
-		$do_crm_fields = new CRMFields();
-		$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
-		// Insert the data into the related tables - organization,organization_address,organization_custom_fld
-		$table_entity = 'organization';
-		$table_entity_address = 'organization_address';
-		$table_entity_custom = 'organization_custom_fld';
-		$table_entity_to_grp = 'org_to_grp_rel';
-		
-		$entity_data_array = array();
-		$custom_data_array = array();
-		$addr_data_array = array();
-		$assigned_to_as_group = false ;
-		
-		foreach ($crm_fields as $crm_fields) {
-			$field_name = $crm_fields["field_name"];
-			if ($field_name == 'assigned_to' && $crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) 
-				$field_name = 'iduser' ;
-			$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
-			if (is_array($field_value) && count($field_value) > 0) {
-				if ($field_value["field_type"] == 15) {
-					$value = $field_value["value"];
-					$assigned_to_as_group = $field_value["assigned_to_as_group"];
+		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',6) ; 
+		if (true === $permission) {
+			$do_crm_fields = new CRMFields();
+			$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
+			// Insert the data into the related tables - organization,organization_address,organization_custom_fld
+			$table_entity = 'organization';
+			$table_entity_address = 'organization_address';
+			$table_entity_custom = 'organization_custom_fld';
+			$table_entity_to_grp = 'org_to_grp_rel';
+			
+			$entity_data_array = array();
+			$custom_data_array = array();
+			$addr_data_array = array();
+			$assigned_to_as_group = false ;
+			
+			foreach ($crm_fields as $crm_fields) {
+				$field_name = $crm_fields["field_name"];
+				if ($field_name == 'assigned_to' && $crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) 
+					$field_name = 'iduser' ;
+				$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
+				if (is_array($field_value) && count($field_value) > 0) {
+					if ($field_value["field_type"] == 15) {
+						$value = $field_value["value"];
+						$assigned_to_as_group = $field_value["assigned_to_as_group"];
+					}
+				} else { $value = $field_value ; }
+				if ($crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) {
+					$entity_data_array[$field_name] = $value ;
+				} elseif ($crm_fields["table_name"] == $table_entity_custom && $crm_fields["idblock"] > 0) {
+					$custom_data_array[$field_name] = $value ;
+				} elseif ($crm_fields["table_name"] == $table_entity_address && $crm_fields["idblock"] > 0 ) {
+					$addr_data_array[$field_name] = $value ;
 				}
-			} else { $value = $field_value ; }
-			if ($crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) {
-				$entity_data_array[$field_name] = $value ;
-			} elseif ($crm_fields["table_name"] == $table_entity_custom && $crm_fields["idblock"] > 0) {
-				$custom_data_array[$field_name] = $value ;
-			} elseif ($crm_fields["table_name"] == $table_entity_address && $crm_fields["idblock"] > 0 ) {
-				$addr_data_array[$field_name] = $value ;
 			}
-		}
-		$this->insert($table_entity,$entity_data_array);
-		$id_entity = $this->getInsertId() ;
-		if ($id_entity > 0) {
-			//adding the added_on
-			$q_upd = "
-			update `".$this->getTable()."` 
-			set `added_on` = ?
-			where `".$this->primary_key."` = ?";
-			$this->query($q_upd,array(date("Y-m-d H:i:s"),$id_entity));
-			
-			$custom_data_array[$this->primary_key] = $id_entity;
-			$addr_data_array[$this->primary_key] = $id_entity;
-			$this->insert($table_entity_custom,$custom_data_array);
-			$this->insert($table_entity_address,$addr_data_array);
-			//If the assigned_to to set as group then it goes to the table org_to_grp_rel
-			if ($assigned_to_as_group === true) {
-				$this->insert($table_entity_to_grp,array("idorganization"=>$id_entity,"idgroup"=>$group_id));
+			$this->insert($table_entity,$entity_data_array);
+			$id_entity = $this->getInsertId() ;
+			if ($id_entity > 0) {
+				//adding the added_on
+				$q_upd = "
+				update `".$this->getTable()."` 
+				set `added_on` = ?
+				where `".$this->primary_key."` = ?";
+				$this->query($q_upd,array(date("Y-m-d H:i:s"),$id_entity));
+				
+				$custom_data_array[$this->primary_key] = $id_entity;
+				$addr_data_array[$this->primary_key] = $id_entity;
+				$this->insert($table_entity_custom,$custom_data_array);
+				$this->insert($table_entity_address,$addr_data_array);
+				//If the assigned_to to set as group then it goes to the table org_to_grp_rel
+				if ($assigned_to_as_group === true) {
+					$this->insert($table_entity_to_grp,array("idorganization"=>$id_entity,"idgroup"=>$group_id));
+				}
+				// record the data history
+				$do_data_history = new DataHistory();
+				$do_data_history->add_history($id_entity,(int)$evctl->idmodule,'add'); 
+				//record the feed
+				$feed_other_assigne = array() ;
+				if ($assigned_to_as_group === true) {
+					$feed_other_assigne = array("related"=>"group","data" => array("key"=>"newgroup","val"=>$group_id));
+				}
+				$do_feed_queue = new LiveFeedQueue();
+				$do_feed_queue->add_feed_queue($id_entity,(int)$evctl->idmodule,$evctl->organization_name,'add',$feed_other_assigne);
+				
+				$_SESSION["do_crm_messages"]->set_message('success',_('New Organization has been added successfully ! '));
+				$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$id_entity);
+				$evctl->setDisplayNext($dis) ; 
+			} else {
+				$_SESSION["do_crm_messages"]->set_message('error',_('Operation failed due to query error !'));
+				$next_page = $evctl->error_page ;
+				$dis = new Display($next_page); 
+				$evctl->setDisplayNext($dis) ; 
 			}
-			// record the data history
-			$do_data_history = new DataHistory();
-			$do_data_history->add_history($id_entity,(int)$evctl->idmodule,'add'); 
-			//record the feed
-			$feed_other_assigne = array() ;
-			if ($assigned_to_as_group === true) {
-				$feed_other_assigne = array("related"=>"group","data" => array("key"=>"newgroup","val"=>$group_id));
-			}
-			$do_feed_queue = new LiveFeedQueue();
-			$do_feed_queue->add_feed_queue($id_entity,(int)$evctl->idmodule,$evctl->organization_name,'add',$feed_other_assigne);
-			
-			$_SESSION["do_crm_messages"]->set_message('success',_('New Organization has been added successfully ! '));
-			$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
-			$dis = new Display($next_page);
-			$dis->addParam("sqrecord",$id_entity);
-			$evctl->setDisplayNext($dis) ; 
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('Operation failed due to query error !'));
-			$next_page = $evctl->error_page ;
-			$dis = new Display($next_page); 
-			$evctl->setDisplayNext($dis) ; 
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record ! '));
+			$next_page = NavigationControl::getNavigationLink($evctl->module,"list");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
     
@@ -206,7 +214,7 @@ class Organization extends DataObject {
 	*/
 	public function eventEditRecord(EventControler $evctl) {
 		$id_entity = (int)$evctl->sqrecord;
-		if ($id_entity > 0) {
+		if ($id_entity > 0 && true === $_SESSION["do_crm_action_permission"]->action_permitted('edit',6,(int)$evctl->sqrecord)) {
 			$obj = $this->getId($id_entity);
 			$obj = (object)$obj; // convert the data array to Object
 			$do_crm_fields = new CRMFields();
@@ -289,6 +297,11 @@ class Organization extends DataObject {
 			$dis = new Display($next_page);
 			$dis->addParam("sqrecord",$id_entity);
 			$evctl->setDisplayNext($dis) ; 
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to edit the record ! '));
+			$next_page = NavigationControl::getNavigationLink($evctl->module,"list");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
 	

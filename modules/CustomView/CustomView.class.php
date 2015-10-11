@@ -80,7 +80,6 @@ class CustomView extends DataObject {
 	* @return void
 	*/
 	public function eventAddRecord(EventControler $evctl) { 
-		//print_r($evctl->cv_fields); exit;
 		if (trim($evctl->cvname) == '') { 
 			$_SESSION["do_crm_messages"]->set_message('error',_('Please add a custom view name before saving !'));
 			$next_page = NavigationControl::getNavigationLink("CustomView","add");
@@ -90,6 +89,11 @@ class CustomView extends DataObject {
 		} elseif ((int)$evctl->target_module_id == 0) {
 			$_SESSION["do_crm_messages"]->set_message('error',_('Missing target module for custom view !'));
 			$next_page = NavigationControl::getNavigationLink("CustomView","add");
+			$dis = new Display($next_page); 
+			$evctl->setDisplayNext($dis);
+		} elseif (false === $_SESSION["do_crm_action_permission"]->action_permitted('add',17)) {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$evctl->target_module_id]["name"],"list");
 			$dis = new Display($next_page); 
 			$evctl->setDisplayNext($dis);
 		} else {
@@ -162,6 +166,25 @@ class CustomView extends DataObject {
 		} elseif (trim($evctl->cvname) == '') {
 			$error_message = _('Please add a custom view name before saving !');
 			$do_edit = false ;
+		} elseif ((int)$evctl->sqrecord > 0) {
+			$this->getId($evctl->sqrecord) ;
+			if ($this->getNumRows() > 0) {
+				if ($module_obj->iduser != $_SESSION["do_user"]->iduser) {
+					$error_message = _('You do not have permission to edit the record !');
+					$do_edit = false  ;
+				} 
+				if ($module_obj->is_editable == 0) {
+					$error_message = _('You do not have permission to edit the record !');
+					$do_edit = false  ;
+				}
+				if ($module_obj->deleted == 1) {
+					$error_message = _('You do not have permission to edit the record !');
+					$do_edit = false  ;
+				}
+			} else {
+				$error_message = _('Custom view not found !');
+				$do_edit = false ;
+			}
 		}
 		
 		if (true === $do_edit) {
