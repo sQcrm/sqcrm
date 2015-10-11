@@ -43,17 +43,25 @@ class ModuleToDatashareRelation extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventUpdateModuleDataShareRel(EventControler $evctl) {
-		$qry = "select idmodule_datashare_rel,idmodule from `".$this->getTable()."`";
-		$stmt = $this->getDbConnection()->executeQuery($qry);
-		while ($data = $stmt->fetch()) {
-			$datashare_permission_form_name = 'mod_'.$data["idmodule"];
-			$permission_flag = $evctl->$datashare_permission_form_name;
-			$this->cleanValues();
-			$this->permission_flag = $permission_flag ;
-			$this->update($data["idmodule_datashare_rel"]);
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$qry = "select idmodule_datashare_rel,idmodule from `".$this->getTable()."`";
+			$stmt = $this->getDbConnection()->executeQuery($qry);
+			while ($data = $stmt->fetch()) {
+				$datashare_permission_form_name = 'mod_'.$data["idmodule"];
+				$permission_flag = $evctl->$datashare_permission_form_name;
+				$this->cleanValues();
+				$this->permission_flag = $permission_flag ;
+				$this->update($data["idmodule_datashare_rel"]);
+			}
+			$dis = new Display($evctl->next_page);
+			$evctl->setDisplayNext($dis) ;
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record ! '));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
-		$dis = new Display($evctl->next_page);
-		$evctl->setDisplayNext($dis) ;
 	}
 
 	/**

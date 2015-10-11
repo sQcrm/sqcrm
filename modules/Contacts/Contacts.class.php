@@ -129,7 +129,7 @@ class Contacts extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAddRecord(EventControler $evctl) {
-		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',3) ; 
+		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',4) ; 
 		if (true === $permission) {
 			$do_crm_fields = new CRMFields();
 			$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);

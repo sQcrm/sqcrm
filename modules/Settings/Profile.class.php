@@ -54,90 +54,18 @@ class Profile extends DataObject {
 	* @see Profile::add_profile()
 	*/
 	public function eventAddNewProfile(EventControler $evctl) {
-		$idprofile = $this->add_profile($_SESSION["profilename"],$_SESSION["description"]);
-		// first check if the global permissions are set or not
-		if ($evctl->global_view_all == 'on') { $global_view_all = 1; }else{ $global_view_all = 0; }
-		if ($evctl->global_addedit_all == 'on') { $global_addedit_all = 1; } else { $global_addedit_all = 0; }
-		// All the standard permissions allowed for modules, example Home module does not have any add/edit/dele permissions
-		$do_module = new Module();
-		
-		$do_mod_standard_permission = new ModuleStandardPermission();
-		$do_mod_standard_permission->getAll();
-		// Getting All the standard permissions ends here
-		// 1=add/edit, 2 = view, 3 = delete ,this is hard coded
-		$standard_permissions = array(1,2,3);
-		// Array to keep all the profile to module permissions
-		$profile_to_mod_permission_values = array();
-		// Array to keep all the profile to module standard permissions
-		$profile_to_mod_standard_permission_values = array() ;
-		$do_module->get_all_active_module();
-		while ($do_module->next()) {
-			$form_post_variable_mod_permission = 'mod_'.$do_module->idmodule;
-			$profile_to_mod_permission_values[$do_module->idmodule] = $evctl->$form_post_variable_mod_permission;
-			foreach ($standard_permissions as $std_permission) {
-				$form_post_variable_mod_standard_permission = 'm_'.$do_module->idmodule.'_'.$std_permission;
-				$profile_to_mod_standard_permission_values[$do_module->idmodule][$std_permission] = $evctl->$form_post_variable_mod_standard_permission;
-			}
-		}
-		// Adding to profile_module_rel 
-		$do_profile_to_module_rel = new ProfileToModuleRelation();
-		foreach ($profile_to_mod_permission_values as $idmodule=>$permissions) {
-			// add profile to module permissions
-			if ($permissions == 'on') { $permission = 1; } else { $permission = 0; }
-			$do_profile_to_module_rel->addNew();
-			$do_profile_to_module_rel->idprofile = $idprofile ;
-			$do_profile_to_module_rel->idmodule = $idmodule;
-			$do_profile_to_module_rel->permission_flag = $permission;
-			$do_profile_to_module_rel->add();  	
-		}
-		// Adding to profile_standard_permission_rel
-		$do_profile_standard_permission_rel = new ProfileToStandardPermissionRelation();
-		foreach ($profile_to_mod_standard_permission_values as $idmodule=>$permissions) {
-			foreach ($permissions as $std_permission=>$permission) {
-				if ($permission == 'on') { $permission = 1;} else { $permission = 0; }
-				$do_profile_standard_permission_rel->addNew();
-				$do_profile_standard_permission_rel->idmodule = $idmodule;
-				$do_profile_standard_permission_rel->idprofile = $idprofile;
-				$do_profile_standard_permission_rel->idstandard_permission = $std_permission;
-				$do_profile_standard_permission_rel->permission_flag = $permission;
-				$do_profile_standard_permission_rel->add();
-			}
-		}
-		// And finally add the global permissions
-		$do_profile_global_permission_rel = new ProfileToGlobalPermissionRelation();
-		$do_profile_global_permission_rel->addNew();
-		$do_profile_global_permission_rel->idprofile = $idprofile;
-		$do_profile_global_permission_rel->idglobal_permission = 1;
-		$do_profile_global_permission_rel->permission_flag = $global_view_all;
-		$do_profile_global_permission_rel->add();
-		
-		$do_profile_global_permission_rel->addNew();
-		$do_profile_global_permission_rel->idprofile = $idprofile ;
-		$do_profile_global_permission_rel->idglobal_permission = 2;
-		$do_profile_global_permission_rel->permission_flag = $global_addedit_all;
-		$do_profile_global_permission_rel->add();
-		// Setting the session values to NULL
-		$_SESSION["profilename"] = '';
-		$_SESSION["description"] = '';
-		
-		$next_page  = NavigationControl::getNavigationLink("Settings","profile_details");
-		$dis = new Display($next_page);
-		$dis->addParam("sqrecord",$idprofile);
-		$evctl->setDisplayNext($dis) ;
-	}
-
-	/**
-	* Update the profile permission information
-	* @param object $evctl
-	*/
-	public function eventUpdateProfile(EventControler $evctl) {
-		$idprofile  = $evctl->idprofile ; 
-		if ($idprofile != '') {
-			if ($evctl->global_view_all == 'on') { $global_view_all = 1; } else { $global_view_all = 0; }
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$idprofile = $this->add_profile($_SESSION["profilename"],$_SESSION["description"]);
+			// first check if the global permissions are set or not
+			if ($evctl->global_view_all == 'on') { $global_view_all = 1; }else{ $global_view_all = 0; }
 			if ($evctl->global_addedit_all == 'on') { $global_addedit_all = 1; } else { $global_addedit_all = 0; }
+			// All the standard permissions allowed for modules, example Home module does not have any add/edit/dele permissions
 			$do_module = new Module();
+			
 			$do_mod_standard_permission = new ModuleStandardPermission();
 			$do_mod_standard_permission->getAll();
+			// Getting All the standard permissions ends here
 			// 1=add/edit, 2 = view, 3 = delete ,this is hard coded
 			$standard_permissions = array(1,2,3);
 			// Array to keep all the profile to module permissions
@@ -153,52 +81,140 @@ class Profile extends DataObject {
 					$profile_to_mod_standard_permission_values[$do_module->idmodule][$std_permission] = $evctl->$form_post_variable_mod_standard_permission;
 				}
 			}
+			// Adding to profile_module_rel 
 			$do_profile_to_module_rel = new ProfileToModuleRelation();
 			foreach ($profile_to_mod_permission_values as $idmodule=>$permissions) {
-				// update profile to module permissions
+				// add profile to module permissions
 				if ($permissions == 'on') { $permission = 1; } else { $permission = 0; }
-				$qry = "
-				update profile_module_rel 
-				set permission_flag = ?
-				where
-				idprofile = ? AND idmodule = ? limit 1";
-				$do_profile_to_module_rel->query($qry,array($permission,$idprofile,$idmodule));
+				$do_profile_to_module_rel->addNew();
+				$do_profile_to_module_rel->idprofile = $idprofile ;
+				$do_profile_to_module_rel->idmodule = $idmodule;
+				$do_profile_to_module_rel->permission_flag = $permission;
+				$do_profile_to_module_rel->add();  	
 			}
-			// updating to profile_standard_permission_rel
+			// Adding to profile_standard_permission_rel
 			$do_profile_standard_permission_rel = new ProfileToStandardPermissionRelation();
 			foreach ($profile_to_mod_standard_permission_values as $idmodule=>$permissions) {
 				foreach ($permissions as $std_permission=>$permission) {
-					if ($permission == 'on') { $permission = 1; } else { $permission = 0; }
-					$qry = "
-					update profile_standard_permission_rel 
-					set permission_flag = ?
-					where
-					idmodule = ?
-					AND idprofile = ?
-					AND idstandard_permission = ? LIMIT 1";
-					$do_profile_standard_permission_rel->query($qry,array($permission,$idmodule,$idprofile,$std_permission));
+					if ($permission == 'on') { $permission = 1;} else { $permission = 0; }
+					$do_profile_standard_permission_rel->addNew();
+					$do_profile_standard_permission_rel->idmodule = $idmodule;
+					$do_profile_standard_permission_rel->idprofile = $idprofile;
+					$do_profile_standard_permission_rel->idstandard_permission = $std_permission;
+					$do_profile_standard_permission_rel->permission_flag = $permission;
+					$do_profile_standard_permission_rel->add();
 				}
 			}
-			// And finally update the global permissions
+			// And finally add the global permissions
 			$do_profile_global_permission_rel = new ProfileToGlobalPermissionRelation();
-			$qry = "
-			update profile_global_permission_rel 
-			set permission_flag = ?
-			where 
-			idprofile = ?
-			AND idglobal_permission = 1 LIMIT 1" ;
-			$do_profile_global_permission_rel->query($qry,array($global_view_all,$idprofile));
+			$do_profile_global_permission_rel->addNew();
+			$do_profile_global_permission_rel->idprofile = $idprofile;
+			$do_profile_global_permission_rel->idglobal_permission = 1;
+			$do_profile_global_permission_rel->permission_flag = $global_view_all;
+			$do_profile_global_permission_rel->add();
 			
-			$qry = "
-			update profile_global_permission_rel 
-			set permission_flag = ?
-			where 
-			idprofile = ?
-			AND idglobal_permission = 2 LIMIT 1";
-			$do_profile_global_permission_rel->query($qry,array($global_addedit_all,$idprofile));
+			$do_profile_global_permission_rel->addNew();
+			$do_profile_global_permission_rel->idprofile = $idprofile ;
+			$do_profile_global_permission_rel->idglobal_permission = 2;
+			$do_profile_global_permission_rel->permission_flag = $global_addedit_all;
+			$do_profile_global_permission_rel->add();
+			// Setting the session values to NULL
+			$_SESSION["profilename"] = '';
+			$_SESSION["description"] = '';
+			
 			$next_page  = NavigationControl::getNavigationLink("Settings","profile_details");
 			$dis = new Display($next_page);
 			$dis->addParam("sqrecord",$idprofile);
+			$evctl->setDisplayNext($dis) ;
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
+		}
+	}
+
+	/**
+	* Update the profile permission information
+	* @param object $evctl
+	*/
+	public function eventUpdateProfile(EventControler $evctl) {
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$idprofile  = $evctl->idprofile ; 
+			if ($idprofile != '') {
+				if ($evctl->global_view_all == 'on') { $global_view_all = 1; } else { $global_view_all = 0; }
+				if ($evctl->global_addedit_all == 'on') { $global_addedit_all = 1; } else { $global_addedit_all = 0; }
+				$do_module = new Module();
+				$do_mod_standard_permission = new ModuleStandardPermission();
+				$do_mod_standard_permission->getAll();
+				// 1=add/edit, 2 = view, 3 = delete ,this is hard coded
+				$standard_permissions = array(1,2,3);
+				// Array to keep all the profile to module permissions
+				$profile_to_mod_permission_values = array();
+				// Array to keep all the profile to module standard permissions
+				$profile_to_mod_standard_permission_values = array() ;
+				$do_module->get_all_active_module();
+				while ($do_module->next()) {
+					$form_post_variable_mod_permission = 'mod_'.$do_module->idmodule;
+					$profile_to_mod_permission_values[$do_module->idmodule] = $evctl->$form_post_variable_mod_permission;
+					foreach ($standard_permissions as $std_permission) {
+						$form_post_variable_mod_standard_permission = 'm_'.$do_module->idmodule.'_'.$std_permission;
+						$profile_to_mod_standard_permission_values[$do_module->idmodule][$std_permission] = $evctl->$form_post_variable_mod_standard_permission;
+					}
+				}
+				$do_profile_to_module_rel = new ProfileToModuleRelation();
+				foreach ($profile_to_mod_permission_values as $idmodule=>$permissions) {
+					// update profile to module permissions
+					if ($permissions == 'on') { $permission = 1; } else { $permission = 0; }
+					$qry = "
+					update profile_module_rel 
+					set permission_flag = ?
+					where
+					idprofile = ? AND idmodule = ? limit 1";
+					$do_profile_to_module_rel->query($qry,array($permission,$idprofile,$idmodule));
+				}
+				// updating to profile_standard_permission_rel
+				$do_profile_standard_permission_rel = new ProfileToStandardPermissionRelation();
+				foreach ($profile_to_mod_standard_permission_values as $idmodule=>$permissions) {
+					foreach ($permissions as $std_permission=>$permission) {
+						if ($permission == 'on') { $permission = 1; } else { $permission = 0; }
+						$qry = "
+						update profile_standard_permission_rel 
+						set permission_flag = ?
+						where
+						idmodule = ?
+						AND idprofile = ?
+						AND idstandard_permission = ? LIMIT 1";
+						$do_profile_standard_permission_rel->query($qry,array($permission,$idmodule,$idprofile,$std_permission));
+					}
+				}
+				// And finally update the global permissions
+				$do_profile_global_permission_rel = new ProfileToGlobalPermissionRelation();
+				$qry = "
+				update profile_global_permission_rel 
+				set permission_flag = ?
+				where 
+				idprofile = ?
+				AND idglobal_permission = 1 LIMIT 1" ;
+				$do_profile_global_permission_rel->query($qry,array($global_view_all,$idprofile));
+				
+				$qry = "
+				update profile_global_permission_rel 
+				set permission_flag = ?
+				where 
+				idprofile = ?
+				AND idglobal_permission = 2 LIMIT 1";
+				$do_profile_global_permission_rel->query($qry,array($global_addedit_all,$idprofile));
+				$next_page  = NavigationControl::getNavigationLink("Settings","profile_details");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$idprofile);
+				$evctl->setDisplayNext($dis) ;
+			}
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to edit record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
 			$evctl->setDisplayNext($dis) ;
 		}
 	}
@@ -222,43 +238,51 @@ class Profile extends DataObject {
 	* @see popups/delete_profile_modal.php
 	*/
 	public function eventDeleteRecord(EventControler $evctl) {
-		$do_delete = false ;
-		$idprofile = (int)$evctl->id;
-		if ($idprofile > 0) {
-			if ($idprofile == 1) {
-				$msg = _('You are trying to delete a profile which is not allowed');
-			} else {
-				$this->getId($idprofile);
-				if ($this->getNumRows() > 0) {
-					if ($evctl->profile_transfer == 'yes') {
-						if ((int)$evctl->idprofile_transfer == 0) {
-							$msg = _('No profile selected for transfer roles!');
-						} else { $do_delete = true; }
-					} else { $do_delete = true; }
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$do_delete = false ;
+			$idprofile = (int)$evctl->id;
+			if ($idprofile > 0) {
+				if ($idprofile == 1) {
+					$msg = _('You are trying to delete a profile which is not allowed');
 				} else {
-					$msg = _('The profile you are trying to delete does not exist!');
+					$this->getId($idprofile);
+					if ($this->getNumRows() > 0) {
+						if ($evctl->profile_transfer == 'yes') {
+							if ((int)$evctl->idprofile_transfer == 0) {
+								$msg = _('No profile selected for transfer roles!');
+							} else { $do_delete = true; }
+						} else { $do_delete = true; }
+					} else {
+						$msg = _('The profile you are trying to delete does not exist!');
+					}
 				}
+			} else { 
+				$msg = _('Missing profile id to perform delete operation!');
 			}
-		} else { 
-			$msg = _('Missing profile id to perform delete operation!');
-		}
-		if ($do_delete === false) {
-			$_SESSION["do_crm_messages"]->set_message('error',$msg);
-			$dis = new Display($evctl->next_page);
-			$evctl->setDisplayNext($dis) ;
+			if ($do_delete === false) {
+				$_SESSION["do_crm_messages"]->set_message('error',$msg);
+				$dis = new Display($evctl->next_page);
+				$evctl->setDisplayNext($dis) ;
+			} else {
+				$this->query("delete from `profile` where `idprofile` = ?",array($idprofile));
+				$this->query("delete from `profile_global_permission_rel` where `idprofile` = ?",array($idprofile));
+				$this->query("delete from `profile_module_rel` where `idprofile` = ?",array($idprofile));
+				$this->query("delete from `profile_standard_permission_rel` where `idprofile` = ?",array($idprofile));
+				if ($evctl->profile_transfer == 'yes') {
+					$idprofile_transfer = (int)$evctl->idprofile_transfer ;
+					$this->query("update `role_profile_rel` set `idprofile` = ? where `idprofile` = ?",
+									array($idprofile_transfer,$idprofile)
+								);
+				}
+				$_SESSION["do_crm_messages"]->set_message('success',_('Profile has been deleted successfully ! '));
+				$dis = new Display($evctl->next_page);
+				$evctl->setDisplayNext($dis) ;
+			}
 		} else {
-			$this->query("delete from `profile` where `idprofile` = ?",array($idprofile));
-			$this->query("delete from `profile_global_permission_rel` where `idprofile` = ?",array($idprofile));
-			$this->query("delete from `profile_module_rel` where `idprofile` = ?",array($idprofile));
-			$this->query("delete from `profile_standard_permission_rel` where `idprofile` = ?",array($idprofile));
-			if ($evctl->profile_transfer == 'yes') {
-				$idprofile_transfer = (int)$evctl->idprofile_transfer ;
-				$this->query("update `role_profile_rel` set `idprofile` = ? where `idprofile` = ?",
-								array($idprofile_transfer,$idprofile)
-							);
-			}
-			$_SESSION["do_crm_messages"]->set_message('success',_('Profile has been deleted successfully ! '));
-			$dis = new Display($evctl->next_page);
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to delete record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
 			$evctl->setDisplayNext($dis) ;
 		}
 	}

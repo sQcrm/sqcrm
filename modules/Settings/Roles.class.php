@@ -134,44 +134,52 @@ class Roles extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAddNewRole(EventControler $evctl) {
-		if ($evctl->rolename != '' && $evctl->parentrole != '') {
-			$role_detail = $this->get_role_detail($evctl->parentrole);
-			if (is_array($role_detail) && count($role_detail) > 0) {
-				$depth_lookup = $role_detail["depth"] + 1 ;
-				$qry = "select max(idrole) as max_role from `role`";
-				$stmt = $this->getDbConnection()->executeQuery($qry);
-				$data = $stmt->fetch();
-				$max_role = $data["max_role"];
-				if ($max_role != '') {
-					$role_int = str_replace("N","",$max_role);
-					$new_role_int = $role_int+1;
-					$new_role = "N".$new_role_int;
-					$new_parent_role = $role_detail["parentrole"]."::".$new_role;
-					$this->insert(
-						$this->getTable(),
-						array(
-							"idrole"=>$new_role,
-							"rolename"=>CommonUtils::purify_input($evctl->rolename),
-							"parentrole"=>$new_parent_role,
-							"depth"=>$depth_lookup,
-							"editable"=>1
-						)
-					);
-					// Adding role profile relation
-					$profiles = $evctl->select_to ;
-					foreach ($profiles as $idprofile) {
-						$do_role_prof_rel = new RoleProfileRelation();
-						$do_role_prof_rel->addNew();
-						$do_role_prof_rel->idrole = $new_role;
-						$do_role_prof_rel->idprofile = $idprofile;
-						$do_role_prof_rel->add();
-						$do_role_prof_rel->free();
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($evctl->rolename != '' && $evctl->parentrole != '') {
+				$role_detail = $this->get_role_detail($evctl->parentrole);
+				if (is_array($role_detail) && count($role_detail) > 0) {
+					$depth_lookup = $role_detail["depth"] + 1 ;
+					$qry = "select max(idrole) as max_role from `role`";
+					$stmt = $this->getDbConnection()->executeQuery($qry);
+					$data = $stmt->fetch();
+					$max_role = $data["max_role"];
+					if ($max_role != '') {
+						$role_int = str_replace("N","",$max_role);
+						$new_role_int = $role_int+1;
+						$new_role = "N".$new_role_int;
+						$new_parent_role = $role_detail["parentrole"]."::".$new_role;
+						$this->insert(
+							$this->getTable(),
+							array(
+								"idrole"=>$new_role,
+								"rolename"=>CommonUtils::purify_input($evctl->rolename),
+								"parentrole"=>$new_parent_role,
+								"depth"=>$depth_lookup,
+								"editable"=>1
+							)
+						);
+						// Adding role profile relation
+						$profiles = $evctl->select_to ;
+						foreach ($profiles as $idprofile) {
+							$do_role_prof_rel = new RoleProfileRelation();
+							$do_role_prof_rel->addNew();
+							$do_role_prof_rel->idrole = $new_role;
+							$do_role_prof_rel->idprofile = $idprofile;
+							$do_role_prof_rel->add();
+							$do_role_prof_rel->free();
+						}
+						$dis = new Display($evctl->next_page);
+						$dis->addParam("sqrecord",$idprofile);
+						$evctl->setDisplayNext($dis) ;
 					}
-					$dis = new Display($evctl->next_page);
-					$dis->addParam("sqrecord",$idprofile);
-					$evctl->setDisplayNext($dis) ;
 				}
 			}
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
 
@@ -180,17 +188,25 @@ class Roles extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventEditRole(EventControler $evctl) {
-		if ($evctl->idrole != '' && $evctl->rolename != '') {
-			$qry = "
-			update ".$this->getTable()." 
-			set rolename = ? 
-			where idrole = ?
-			limit 1";
-			$this->getDbConnection()->executeQuery($qry,array($evctl->rolename,$evctl->idrole));
-			if (is_array($evctl->select_to) && count($evctl->select_to) > 0) {
-				$do_role_prof_rel = new RoleProfileRelation();
-				$do_role_prof_rel->update_profile_related_to_role($evctl->select_to,$evctl->idrole);
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($evctl->idrole != '' && $evctl->rolename != '') {
+				$qry = "
+				update ".$this->getTable()." 
+				set rolename = ? 
+				where idrole = ?
+				limit 1";
+				$this->getDbConnection()->executeQuery($qry,array($evctl->rolename,$evctl->idrole));
+				if (is_array($evctl->select_to) && count($evctl->select_to) > 0) {
+					$do_role_prof_rel = new RoleProfileRelation();
+					$do_role_prof_rel->update_profile_related_to_role($evctl->select_to,$evctl->idrole);
+				}
 			}
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to edit record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
     
@@ -238,53 +254,61 @@ class Roles extends DataObject {
 	* @see popups/role_delete.php
 	*/
 	public function eventDeleteRole(EventControler $evctl) {
-		$do_delete = false ;
-		$msg = '';
-		if ($evctl->idrole != '') {
-			if ($evctl->idrole == 'N1' || $evctl->idrole == 'N2') {
-				$msg = _('The role you are trying to delete is not allowd !');
-			} else {
-				$role_detail = $this->get_role_detail($evctl->idrole);
-				if (count($role_detail) > 0) {
-					if ($evctl->role_transfer == 'yes') {
-						if ($evctl->idrole_transfer == '') {
-							$msg = _('No role selected to re-assign users !');
-						} else { $do_delete = true ; }
-					} else { $do_delete = true ; }
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$do_delete = false ;
+			$msg = '';
+			if ($evctl->idrole != '') {
+				if ($evctl->idrole == 'N1' || $evctl->idrole == 'N2') {
+					$msg = _('The role you are trying to delete is not allowd !');
 				} else {
-					$msg = _('The role you are trying to delete does not exist !');
+					$role_detail = $this->get_role_detail($evctl->idrole);
+					if (count($role_detail) > 0) {
+						if ($evctl->role_transfer == 'yes') {
+							if ($evctl->idrole_transfer == '') {
+								$msg = _('No role selected to re-assign users !');
+							} else { $do_delete = true ; }
+						} else { $do_delete = true ; }
+					} else {
+						$msg = _('The role you are trying to delete does not exist !');
+					}
 				}
+			} else {
+				$msg = _('Invalid roleid to perform delete operation !');
+			}
+			if ($do_delete === false) {
+				$_SESSION["do_crm_messages"]->set_message('error',$msg);
+				$dis = new Display($evctl->next_page);
+				$evctl->setDisplayNext($dis) ;
+			} else {
+				$qry = "select * from `role` where `parentrole` like ? AND `idrole` <> ?";
+				$this->query($qry,array($role_detail["parentrole"].'%',$role_detail["idrole"]));
+				if ($this->getNumRows() > 0) {
+					while ($this->next()) {
+						$depth = $this->depth ;
+						$depth = $depth-1;
+						$qry1 = "update `role` set `depth` = ? where `idrole` = ? ";
+						$this->getDbConnection()->executeQuery($qry1,array($depth,$this->idrole));
+					}
+				}
+				$this->query("delete from `role` where `idrole` = ?",array($role_detail["idrole"]));
+				$this->query("delete from `role_profile_rel` where `idrole` = ?",array($role_detail["idrole"]));
+				if ($evctl->idrole_transfer != '') {
+					$q_upd = "
+					update `user` 
+					set `idrole` = ?
+					where `idrole` = ?
+					" ;
+					$this->query($q_upd,array($evctl->idrole_transfer,$role_detail["idrole"]));
+				}
+				$_SESSION["do_crm_messages"]->set_message('success',_('Role has been deleted successfully ! '));
+				$dis = new Display($evctl->next_page);
+				$evctl->setDisplayNext($dis) ;
 			}
 		} else {
-			$msg = _('Invalid roleid to perform delete operation !');
-		}
-		if ($do_delete === false) {
-			$_SESSION["do_crm_messages"]->set_message('error',$msg);
-			$dis = new Display($evctl->next_page);
-			$evctl->setDisplayNext($dis) ;
-		} else {
-			$qry = "select * from `role` where `parentrole` like ? AND `idrole` <> ?";
-			$this->query($qry,array($role_detail["parentrole"].'%',$role_detail["idrole"]));
-			if ($this->getNumRows() > 0) {
-				while ($this->next()) {
-					$depth = $this->depth ;
-					$depth = $depth-1;
-					$qry1 = "update `role` set `depth` = ? where `idrole` = ? ";
-					$this->getDbConnection()->executeQuery($qry1,array($depth,$this->idrole));
-				}
-			}
-			$this->query("delete from `role` where `idrole` = ?",array($role_detail["idrole"]));
-			$this->query("delete from `role_profile_rel` where `idrole` = ?",array($role_detail["idrole"]));
-			if ($evctl->idrole_transfer != '') {
-				$q_upd = "
-				update `user` 
-				set `idrole` = ?
-				where `idrole` = ?
-				" ;
-				$this->query($q_upd,array($evctl->idrole_transfer,$role_detail["idrole"]));
-			}
-			$_SESSION["do_crm_messages"]->set_message('success',_('Role has been deleted successfully ! '));
-			$dis = new Display($evctl->next_page);
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to delete record !'));
+			$next_page = NavigationControl::getNavigationLink("Settings","index");
+			$dis = new Display($next_page);
 			$evctl->setDisplayNext($dis) ;
 		}
 	}

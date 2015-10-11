@@ -17,37 +17,40 @@ class CRMGlobalSettings extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAjaxUpdateCurrencySettings(EventControler $evctl) {
-		$qry = "
-		select * from ".$this->getTable()."
-		where `setting_name` = 'currency_setting' " ;
-		$this->query($qry);
-		$this->next();
-		$id = $this->idcrm_global_settings ;
-		$currency = $evctl->currency ;
-		$currency_explode = explode("-",$currency);
-		$currency_iso_code = $currency_explode[0];
-		$currency_symbol = $currency_explode[1];
-		$currency_symbol_position = $evctl->currency_symbol_position ;
-		$decimal_point = $evctl->decimal_point;
-		$decimal_symbol = $evctl->decimal_symbol ;
-		$thousand_seperator = $evctl->thousand_seperator ;
-		$setting_data = json_encode(
-			array(
-				"currency_iso_code"=>$currency_iso_code,
-				"currency_sysmbol"=>$currency_symbol,
-				"currency_symbol_position"=>$currency_symbol_position,
-				"decimal_point"=>$decimal_point,
-				"decimal_symbol"=>$decimal_symbol,
-				"thousand_seperator"=>$thousand_seperator
-			)
-		);
-		$qry = "
-		update ".$this->getTable()." 
-		set `setting_data` = ?
-		where 
-		`idcrm_global_settings` = ?" ;
-		$this->query($qry,array($setting_data,$id));
-		echo _('Setting data updates successfully');
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$qry = "
+			select * from ".$this->getTable()."
+			where `setting_name` = 'currency_setting' " ;
+			$this->query($qry);
+			$this->next();
+			$id = $this->idcrm_global_settings ;
+			$currency = $evctl->currency ;
+			$currency_explode = explode("-",$currency);
+			$currency_iso_code = $currency_explode[0];
+			$currency_symbol = $currency_explode[1];
+			$currency_symbol_position = $evctl->currency_symbol_position ;
+			$decimal_point = $evctl->decimal_point;
+			$decimal_symbol = $evctl->decimal_symbol ;
+			$thousand_seperator = $evctl->thousand_seperator ;
+			$setting_data = json_encode(
+				array(
+					"currency_iso_code"=>$currency_iso_code,
+					"currency_sysmbol"=>$currency_symbol,
+					"currency_symbol_position"=>$currency_symbol_position,
+					"decimal_point"=>$decimal_point,
+					"decimal_symbol"=>$decimal_symbol,
+					"thousand_seperator"=>$thousand_seperator
+				)
+			);
+			$qry = "
+			update ".$this->getTable()." 
+			set `setting_data` = ?
+			where 
+			`idcrm_global_settings` = ?" ;
+			$this->query($qry,array($setting_data,$id));
+			echo _('Setting data updates successfully');
+		}
 	}
   
 	/**
@@ -115,30 +118,33 @@ class CRMGlobalSettings extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAjaxUpdateInventoryPrefixes(EventControler $evctl) {
-		if ($evctl->type != '') {
-			$qry = '';
-			switch ($evctl->type) {
-				case 'quote_num_prefix':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'quote_num_prefix'" ;
-					break;
-				case 'invoice_num_prefix':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'invoice_num_prefix'" ;
-					break;
-				case 'so_num_prefix':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'salesorder_num_prefix'" ;
-					break;
-				case 'po_num_prefix':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'purchaseorder_num_prefix'" ;
-					break;
-				default :
-					$qry = '';
-					break;
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($evctl->type != '') {
+				$qry = '';
+				switch ($evctl->type) {
+					case 'quote_num_prefix':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'quote_num_prefix'" ;
+						break;
+					case 'invoice_num_prefix':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'invoice_num_prefix'" ;
+						break;
+					case 'so_num_prefix':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'salesorder_num_prefix'" ;
+						break;
+					case 'po_num_prefix':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'purchaseorder_num_prefix'" ;
+						break;
+					default :
+						$qry = '';
+						break;
+				}
+				if (strlen($qry) > 3) {
+					$this->query($qry,array($evctl->value));
+				}
 			}
-			if (strlen($qry) > 3) {
-				$this->query($qry,array($evctl->value));
-			}
+			echo '1';
 		}
-		echo '1';
 	}
   
 	/**
@@ -146,28 +152,31 @@ class CRMGlobalSettings extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAjaxUpdateInventoryTermsCond(EventControler $evctl) {
-		if ($evctl->type != '') {
-			$qry = '';
-			switch ($evctl->type) {
-				case 'q':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'quote_terms_condition'" ;
-					break;
-				case 'i':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'invoice_terms_condition'" ;
-					break;
-				case 's':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'salesorder_terms_condition'" ;
-					break;
-				case 'p':
-					$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'purchaseorder_terms_condition'" ;
-					break;
-				default :
-					$qry = '';
-					break;
-			}
-			if (strlen($qry) > 3) {
-				$this->query($qry,array($evctl->term_cond));
-				echo nl2br($evctl->term_cond);
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($evctl->type != '') {
+				$qry = '';
+				switch ($evctl->type) {
+					case 'q':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'quote_terms_condition'" ;
+						break;
+					case 'i':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'invoice_terms_condition'" ;
+						break;
+					case 's':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'salesorder_terms_condition'" ;
+						break;
+					case 'p':
+						$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'purchaseorder_terms_condition'" ;
+						break;
+					default :
+						$qry = '';
+						break;
+				}
+				if (strlen($qry) > 3) {
+					$this->query($qry,array($evctl->term_cond));
+					echo nl2br($evctl->term_cond);
+				}
 			}
 		}
 	}
@@ -177,19 +186,22 @@ class CRMGlobalSettings extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAjaxUpdateInventoryLogo(EventControler $evctl) {
-		if ($_FILES["inventory_logo"]["name"] == '') {
-			echo '0';
-		} else {
-			$upload_path = $GLOBALS['FILE_UPLOAD_PATH'];
-			$filename = $_FILES["inventory_logo"]["name"];
-			$tempname = $_FILES["inventory_logo"]["tmp_name"];
-			$new_name = str_replace(" ","",microtime());
-			$file_ext = end(explode('.',$filename));
-			$upload_file_name = $new_name.'.'.$file_ext ;
-			move_uploaded_file($tempname,$upload_path.'/'.$upload_file_name);
-			$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'inventory_logo'";
-			$this->query($qry,array($upload_file_name));
-			echo $upload_file_name;
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($_FILES["inventory_logo"]["name"] == '') {
+				echo '0';
+			} else {
+				$upload_path = $GLOBALS['FILE_UPLOAD_PATH'];
+				$filename = $_FILES["inventory_logo"]["name"];
+				$tempname = $_FILES["inventory_logo"]["tmp_name"];
+				$new_name = str_replace(" ","",microtime());
+				$file_ext = end(explode('.',$filename));
+				$upload_file_name = $new_name.'.'.$file_ext ;
+				move_uploaded_file($tempname,$upload_path.'/'.$upload_file_name);
+				$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'inventory_logo'";
+				$this->query($qry,array($upload_file_name));
+				echo $upload_file_name;
+			}
 		}
 	}
   
@@ -198,10 +210,13 @@ class CRMGlobalSettings extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAjaxUpdateCompanyAddress(EventControler $evctl) {
-		if (trim($evctl->company_address) != '') {
-			$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'company_address'";
-			$this->query($qry,array($evctl->company_address));
-			echo nl2br($evctl->company_address);
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if (trim($evctl->company_address) != '') {
+				$qry = "update `".$this->getTable()."` set setting_data = ? where setting_name = 'company_address'";
+				$this->query($qry,array($evctl->company_address));
+				echo nl2br($evctl->company_address);
+			}
 		}
 	}
 }

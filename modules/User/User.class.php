@@ -96,47 +96,55 @@ class User extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventAddRecord(EventControler $evctl) { 
-		$do_crm_fields = new CRMFields();
-		$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
-		$data_array = array() ; 
-		foreach ($crm_fields as $crm_fields) {
-			$field_name = $crm_fields["field_name"];
-			$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
-			if (is_array($field_value) && count($field_value) > 0) {
-				if ($field_value["field_type"] == 12) {
-					$value = $field_value["name"];
-					$avatar_array[] = $field_value ;
-				}
-			} else { $value = $field_value ; }
-			$data_array[$field_name] = $value ;
-		}
-		$this->insert($this->getTable(),$data_array);
-		$iduser = $this->getInsertId() ;
-		if ($iduser > 0) {
-		// check if the avatar is uploaded and if yes update the files and attachment object
-			if (is_array($avatar_array) && count($avatar_array) > 0) {
-				foreach ($avatar_array as $avatar) {
-					if (is_array($avatar) && array_key_exists('name',$avatar)) {
-						$do_files_and_attachment = new CRMFilesAndAttachments();
-						$do_files_and_attachment->addNew();
-						$do_files_and_attachment->file_name = $avatar["name"];
-						$do_files_and_attachment->file_mime = $avatar["mime"];
-						$do_files_and_attachment->file_size = $avatar["file_size"];
-						$do_files_and_attachment->file_extension = $avatar["extension"];
-						$do_files_and_attachment->idmodule = 7;
-						$do_files_and_attachment->id_referrer = $iduser;
-						$do_files_and_attachment->iduser = $iduser;
-						$do_files_and_attachment->date_modified = date("Y-m-d H:i:s");
-						$do_files_and_attachment->add() ;
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$do_crm_fields = new CRMFields();
+			$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
+			$data_array = array() ; 
+			foreach ($crm_fields as $crm_fields) {
+				$field_name = $crm_fields["field_name"];
+				$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
+				if (is_array($field_value) && count($field_value) > 0) {
+					if ($field_value["field_type"] == 12) {
+						$value = $field_value["name"];
+						$avatar_array[] = $field_value ;
+					}
+				} else { $value = $field_value ; }
+				$data_array[$field_name] = $value ;
+			}
+			$this->insert($this->getTable(),$data_array);
+			$iduser = $this->getInsertId() ;
+			if ($iduser > 0) {
+			// check if the avatar is uploaded and if yes update the files and attachment object
+				if (is_array($avatar_array) && count($avatar_array) > 0) {
+					foreach ($avatar_array as $avatar) {
+						if (is_array($avatar) && array_key_exists('name',$avatar)) {
+							$do_files_and_attachment = new CRMFilesAndAttachments();
+							$do_files_and_attachment->addNew();
+							$do_files_and_attachment->file_name = $avatar["name"];
+							$do_files_and_attachment->file_mime = $avatar["mime"];
+							$do_files_and_attachment->file_size = $avatar["file_size"];
+							$do_files_and_attachment->file_extension = $avatar["extension"];
+							$do_files_and_attachment->idmodule = 7;
+							$do_files_and_attachment->id_referrer = $iduser;
+							$do_files_and_attachment->iduser = $iduser;
+							$do_files_and_attachment->date_modified = date("Y-m-d H:i:s");
+							$do_files_and_attachment->add() ;
+						}
 					}
 				}
+				$_SESSION["do_crm_messages"]->set_message('success',_('New user has been added successfully ! '));
+			} else {
+				$_SESSION["do_crm_messages"]->set_message('error',_('User could not be added !'));
 			}
-			$_SESSION["do_crm_messages"]->set_message('success',_('New user has been added successfully ! '));
+			$dis = new Display(NavigationControl::getNavigationLink("User","users"));
+			$evctl->setDisplayNext($dis) ; 
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('User could not be added !'));
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink("User","list");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
-		$dis = new Display(NavigationControl::getNavigationLink("User","users"));
-		$evctl->setDisplayNext($dis) ; 
 	}
 
 	/**
@@ -144,8 +152,9 @@ class User extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventEditRecord(EventControler $evctl) {
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
 		$iduser = (int)$evctl->sqrecord;
-		if ($iduser > 0) {
+		if ($iduser > 0 && true === $permission) {
 			$this->getId($iduser);
 			$do_crm_fields = new CRMFields();
 			$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
@@ -184,7 +193,10 @@ class User extends DataObject {
 			$do_data_history->add_history_value_changes($iduser,7,$this,$evctl);
 			$_SESSION["do_crm_messages"]->set_message('success',_('Data updated successfully !'));
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('Operation failed due to query error !'));
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink("User","list");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
 
@@ -193,19 +205,27 @@ class User extends DataObject {
 	* @param object $evctl
 	*/
 	public function eventChangePassword(EventControler $evctl) {
-		if ($evctl->fieldname !='' && $evctl->sqrecord > 0) {
-			if ($evctl->password !='') {
-				$sql = "
-				update ".$this->getTable()." 
-				set `".$evctl->fieldname."` = ? 
-				where iduser = ? ";
-				$this->getDbConnection()->executeUpdate($sql,array(MD5($evctl->password),$evctl->sqrecord));
-				$_SESSION["do_crm_messages"]->set_message('success',_('Password is changed successfully !'));
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			if ($evctl->fieldname !='' && $evctl->sqrecord > 0) {
+				if ($evctl->password !='') {
+					$sql = "
+					update ".$this->getTable()." 
+					set `".$evctl->fieldname."` = ? 
+					where iduser = ? ";
+					$this->getDbConnection()->executeUpdate($sql,array(MD5($evctl->password),$evctl->sqrecord));
+					$_SESSION["do_crm_messages"]->set_message('success',_('Password is changed successfully !'));
+				} else {
+					$_SESSION["do_crm_messages"]->set_message('error',_('Error updating the password !'));
+				}
 			} else {
 				$_SESSION["do_crm_messages"]->set_message('error',_('Error updating the password !'));
 			}
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('Error updating the password !'));
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to add record !'));
+			$next_page = NavigationControl::getNavigationLink("User","list");
+			$dis = new Display($next_page);
+			$evctl->setDisplayNext($dis) ;
 		}
 	}
 
@@ -388,14 +408,19 @@ class User extends DataObject {
 	* @see modules/User/UserDelete.class.php
 	*/
 	public function eventDeleteRecordMul(EventControler $evctl) {
-		$ids = $evctl->ids;
-		$id_to_transfer = $evctl->user_selector ;
-		include_once("modules/User/UserDelete.class.php");
-		$do_user_delete = new UserDelete() ;
-		if ($do_user_delete->delete_multiple_user($ids,$id_to_transfer) === true) {
-			$_SESSION["do_crm_messages"]->set_message('success',_('Users have been deleted successfully and the related data has been transferred to the selected user !'));
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$ids = $evctl->ids;
+			$id_to_transfer = $evctl->user_selector ;
+			include_once("modules/User/UserDelete.class.php");
+			$do_user_delete = new UserDelete() ;
+			if ($do_user_delete->delete_multiple_user($ids,$id_to_transfer) === true) {
+				$_SESSION["do_crm_messages"]->set_message('success',_('Users have been deleted successfully and the related data has been transferred to the selected user !'));
+			} else {
+				$_SESSION["do_crm_messages"]->set_message('error',_('Users can not be deleted !'));
+			}
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('Users can not be deleted !'));
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to delete record !'));
 		}
 	}
 		
@@ -406,14 +431,19 @@ class User extends DataObject {
 	* @see modules/User/UserDelete.class.php
 	*/
 	public function eventDeleteRecord(EventControler $evctl) {
-		$id = (int)$evctl->id;
-		$id_to_transfer = $evctl->user_selector ;
-		include_once("modules/User/UserDelete.class.php");
-		$do_user_delete = new UserDelete() ;
-		if ($do_user_delete->delete_single_user($id,$id_to_transfer) === true) {
-			$_SESSION["do_crm_messages"]->set_message('success',_('User has been deleted successfully and the related data has been transferred to the selected user !'));
+		$permission = ($_SESSION["do_user"]->is_admin == 1 ? true:false);
+		if (true === $permission) {
+			$id = (int)$evctl->id;
+			$id_to_transfer = $evctl->user_selector ;
+			include_once("modules/User/UserDelete.class.php");
+			$do_user_delete = new UserDelete() ;
+			if ($do_user_delete->delete_single_user($id,$id_to_transfer) === true) {
+				$_SESSION["do_crm_messages"]->set_message('success',_('User has been deleted successfully and the related data has been transferred to the selected user !'));
+			} else {
+				$_SESSION["do_crm_messages"]->set_message('error',_('User can not be deleted !'));
+			}
 		} else {
-			$_SESSION["do_crm_messages"]->set_message('error',_('User can not be deleted !'));
+			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to delete record !'));
 		}
 	}
 		

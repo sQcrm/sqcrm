@@ -19,45 +19,48 @@ class Notes extends DataObject {
 	* @see view/detail_view_notes.php
 	*/
 	function eventAddNotes(EventControler $evctl) {
-		$add_note = false ;
-		$error = '';
-		if ((int)$evctl->idmodule > 0  && (int)$evctl->sqrecord > 0) {
-			if (trim($evctl->entity_notes) != '') {
-				$add_note = true ;
-				$this->addNew();
-				$this->notes = CommonUtils::purify_input($evctl->entity_notes);
-				$this->sqcrm_record_id = (int)$evctl->sqrecord ;
-				$this->related_module_id = (int)$evctl->idmodule ;
-				$this->date_added = date("Y-m-d H:i:s");
-				$this->iduser = $_SESSION["do_user"]->iduser ;
-				$this->add();
-				$idnotes = $this->getInsertId() ;
-				$files_count = count($_FILES["note_files"]["name"]);
-				if ($files_count > 0) {
-					for ($i=0;$i<$files_count;$i++) {
-						$this->upload_and_save_notes_files( 
-							$_FILES["note_files"]["name"][$i],
-							$_FILES["note_files"]["tmp_name"][$i],
-							$_FILES["note_files"]["type"][$i],
-							$_FILES["note_files"]["size"][$i],
-							$idnotes
-						);
+		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',8) ;
+		if (true === $permission) {
+			$add_note = false ;
+			$error = '';
+			if ((int)$evctl->idmodule > 0  && (int)$evctl->sqrecord > 0) {
+				if (trim($evctl->entity_notes) != '') {
+					$add_note = true ;
+					$this->addNew();
+					$this->notes = CommonUtils::purify_input($evctl->entity_notes);
+					$this->sqcrm_record_id = (int)$evctl->sqrecord ;
+					$this->related_module_id = (int)$evctl->idmodule ;
+					$this->date_added = date("Y-m-d H:i:s");
+					$this->iduser = $_SESSION["do_user"]->iduser ;
+					$this->add();
+					$idnotes = $this->getInsertId() ;
+					$files_count = count($_FILES["note_files"]["name"]);
+					if ($files_count > 0) {
+						for ($i=0;$i<$files_count;$i++) {
+							$this->upload_and_save_notes_files( 
+								$_FILES["note_files"]["name"][$i],
+								$_FILES["note_files"]["tmp_name"][$i],
+								$_FILES["note_files"]["type"][$i],
+								$_FILES["note_files"]["size"][$i],
+								$idnotes
+							);
+						}
 					}
+				} else {
+					$error = _('<strong>Please add some note before saving.</strong>');
 				}
 			} else {
-				$error = _('<strong>Please add some note before saving.</strong>');
+				$error = _('<strong>Notes can not be added, missing record id or module name.</strong>');
 			}
-		} else {
-			$error = _('<strong>Notes can not be added, missing record id or module name.</strong>');
-		}
-		if ($add_note === true) {
-			echo 1;
-		} else {
-			$error_html = '';
-			$error_html .= '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-			$error_html .= $error;
-			$error_html .= '</div>';
-			echo $error_html ;
+			if ($add_note === true) {
+				echo 1;
+			} else {
+				$error_html = '';
+				$error_html .= '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				$error_html .= $error;
+				$error_html .= '</div>';
+				echo $error_html ;
+			}
 		}
 	}
   
@@ -237,7 +240,7 @@ html;
 	* @param object $evctl
 	*/ 
 	function eventAjaxUpdateNotes(EventControler $evctl) {
-		if ((int)$evctl->idnotes > 0) {
+		if ((int)$evctl->idnotes > 0 && $_SESSION["do_crm_action_permission"]->action_permitted('edit',8,(int)$evctl->idnotes) === true) {
 			$notes = CommonUtils::purify_input($evctl->notes_edit_data);
 			$this->cleanValues();
 			$this->notes = $notes;
