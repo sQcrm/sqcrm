@@ -41,15 +41,18 @@ $product_service_tax = $do_tax->product_service_tax();
 					<a href="#" class="btn btn-primary btn-mini bs-prompt delete_line_item" id="1"><i class="icon-white icon-trash"></i></a>
 				</td>
 				<td>
-					<select name="line_item_selector_opt[]" id="line_item_selector_opt_1">
+					<select name="line_item_selector_opt[]" id="line_item_selector_opt_1" onchange="lineItemTypeChanged('1');">
 						<option value="product"><?php echo _('Products'); ?></option>
+						<option value="manual"><?php echo _('Manual'); ?></option>
 					</select>
 					<br /><br />
-					<input name="line_item_name[]" id="line_item_name_1" autocomplete="off" type="text" class="input-xlarge-100">
+					<input name="line_item_name[]" id="line_item_name_1" autocomplete="off" type="text" class="input-xlarge-100" readonly>
 					<input type="hidden" name="line_item_value[]" id="line_item_value_1">
 					<input type="hidden" name="line_item_type[]" id="line_item_type_1">
 					&nbsp;&nbsp;
-					<a href="#"  id="1"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>
+					<span id="line_item_selector_block_1">
+						<a href="#"  id="1"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>
+					</span>
 					<br /><br />
 					<textarea name="line_item_description[]" id="line_item_description_1" class="input-xlarge-100"></textarea>
 				</td>
@@ -57,7 +60,7 @@ $product_service_tax = $do_tax->product_service_tax();
 					<input class="input-mini line_item_quantity" name="line_item_quantity[]" id="1" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number"></td>
 				<td>	
 					<div style="height:40px;">
-						<input class="input-small" name="line_item_price[]" id="line_item_price_1" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
+						<input class="input-small line_item_price" name="line_item_price[]" id="line_item_price_1" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" readonly>
 					</div>
 					
 					<div style="height:40px;">
@@ -429,3 +432,21 @@ $product_service_tax = $do_tax->product_service_tax();
 		<input type="button" id="" class="btn btn-primary line_item_delete_true" value="<?php echo _('Yes')?>"/>
 	</div>
 </div>
+<script>
+/**
+* item type selector change function
+*/
+function lineItemTypeChanged(current_id) {
+	var selector_id = 'line_item_selector_opt_'+current_id ;
+	var line_item_type = $('#'+selector_id).val();
+	if (line_item_type === 'manual') {
+		$('#line_item_name_'+current_id).prop('readonly', false);
+		$('#line_item_price_'+current_id).prop('readonly', false);
+		$('#line_item_selector_block_'+current_id).hide();
+	} else if (line_item_type === 'product') {
+		$('#line_item_name_'+current_id).prop('readonly', true);
+		$('#line_item_price_'+current_id).prop('readonly', true);
+		$('#line_item_selector_block_'+current_id).show();
+	}
+}
+</script>

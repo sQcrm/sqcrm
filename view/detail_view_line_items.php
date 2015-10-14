@@ -33,9 +33,14 @@ if (is_array($lineitems) && count($lineitems) > 0) { ?>
 				<tr>
 					<td>
 						<?php
+						$item_name = $items["item_name"] ;
+						$item_name_display = '' ;
 						if ($items["item_type"] == 'product') {
-							echo '<span style="font-size:12px;line-height:1.3;">'.FieldType166::display_value($items["item_value"],$items["item_name"]).'</span>';
+							$item_name_display = FieldType166::display_value($items["item_value"],$items["item_name"]) ;
+						} else {
+							$item_name_display = $items["item_name"] ;
 						}
+						echo '<span style="font-size:12px;line-height:1.3;">'.$item_name_display.'</span>';
 						echo '<br /><br /><br />';
 						echo '<span style="font-size:12px;line-height:1.3;">'.$items["item_description"].'</span>';
 						?>

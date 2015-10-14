@@ -21,7 +21,7 @@ class Lineitems extends DataObject {
 	* @param integer $idrecord
 	*/
 	public function get_line_items($idmodule,$idrecord) {
-		$qry = "select * from `".$this->getTable()."` where `recordid` = ? and `idmodule` = ? ";
+		$qry = "select * from `".$this->getTable()."` where `recordid` = ? and `idmodule` = ? order by `idlineitems`";
 		$this->query($qry,array((int)$idrecord,(int)$idmodule));
 	}
 
@@ -31,7 +31,7 @@ class Lineitems extends DataObject {
 	* @param integer $idrecord
 	* @param array $data 
 	*/
-	public function add_line_items($idmodule,$idrecord,$data)	{
+	public function add_line_items($idmodule,$idrecord,$data) {
 		if ((int)$idmodule > 0 && (int)$idrecord > 0 && is_array($data) && count($data) > 1) {
 			foreach ($data["line_item_selector_opt"] as $key=>$val) {
 				$item_type = $val;

@@ -64,17 +64,31 @@ $product_service_tax = $do_tax->product_service_tax();
 							</a>
 						</td>
 						<td>
-							<select name="line_item_selector_opt[]" id="line_item_selector_opt_<?php echo $lineitem["idlineitems"]; ?>">
+							<select name="line_item_selector_opt[]" id="line_item_selector_opt_<?php echo $lineitem["idlineitems"]; ?>" onchange="lineItemTypeChanged(<?php echo $lineitem["idlineitems"];?>);">
 								<option value="product" <?php echo ($lineitem["item_type"] == 'product' ? "SELECTED":""); ?>>
 									<?php echo _('Products'); ?>
 								</option>
+								<option value="manual" <?php echo ($lineitem["item_type"] == 'manual' ? "SELECTED":""); ?>>
+									<?php echo _('Manual'); ?>
+								</option>
 							</select>
+							<?php
+							$item_selector_block_style = 'display:block;float:right;margin-top:3px;margin-right:35px;';
+							$readonly = 'readonly';
+							
+							if ($lineitem["item_type"] == 'manual') {
+								$item_selector_block_style = 'display:none;float:right;margin-top:3px;margin-right:35px;';
+								$readonly = '';
+							}
+							?>
 							<br /><br />
-							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="input-xlarge-100">
+							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="input-xlarge-100" <?php echo $readonly;?>>
 							<input type="hidden" value="<?php echo $lineitem["item_value"]; ?>" name="line_item_value[]" id="line_item_value_<?php echo $lineitem["idlineitems"]; ?>">
 							<input type="hidden" value="<?php echo $lineitem["item_type"]; ?>" name="line_item_type[]" id="line_item_type_<?php echo $lineitem["idlineitems"]; ?>">
-							&nbsp;&nbsp;
-							<a href="#"  id="<?php echo $lineitem["idlineitems"]; ?>"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>
+							
+							<span style="<?php echo $item_selector_block_style;?>" id="line_item_selector_block_<?php echo $lineitem["idlineitems"];?>">
+							<a href="#" id="<?php echo $lineitem["idlineitems"]; ?>"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>
+							</span>
 							<br /><br />
 							<textarea name="line_item_description[]" id="line_item_description_<?php echo $lineitem["idlineitems"]; ?>" class="input-xlarge-100"><?php echo $lineitem["item_description"];?></textarea>
 						</td>
@@ -83,7 +97,7 @@ $product_service_tax = $do_tax->product_service_tax();
 						</td>
 						<td>
 							<div style="height:40px;">
-								<input class="input-small" value="<?php echo $lineitem["item_price"]; ?>" name="line_item_price[]" id="line_item_price_<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
+								<input class="input-small line_item_price" value="<?php echo $lineitem["item_price"]; ?>" name="line_item_price[]" id="line_item_price_<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" <?php echo $readonly;?>>
 							</div>
 							<div style="height:40px;">
 								<a href="#" id="<?php echo $lineitem["idlineitems"]; ?>" class="line_item_discount_edit"><?php echo _('Discount'); ?></a>
@@ -665,3 +679,21 @@ $product_service_tax = $do_tax->product_service_tax();
 		<input type="button" id="" class="btn btn-primary line_item_delete_true" value="<?php echo _('Yes')?>"/>
 	</div>
 </div>
+<script>
+/**
+* item type selector change function
+*/
+function lineItemTypeChanged(current_id) {
+	var selector_id = 'line_item_selector_opt_'+current_id ;
+	var line_item_type = $('#'+selector_id).val();
+	if (line_item_type === 'manual') {
+		$('#line_item_name_'+current_id).prop('readonly', false);
+		$('#line_item_price_'+current_id).prop('readonly', false);
+		$('#line_item_selector_block_'+current_id).hide();
+	} else if (line_item_type === 'product') {
+		$('#line_item_name_'+current_id).prop('readonly', true);
+		$('#line_item_price_'+current_id).prop('readonly', true);
+		$('#line_item_selector_block_'+current_id).show();
+	}
+}
+</script>
