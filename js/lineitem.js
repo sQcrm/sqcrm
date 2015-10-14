@@ -41,30 +41,30 @@ $(document).ready(function() {
 	//-- add a new line item by appending to the line item table
 	$(".add_new_line_item").on('click', function(e) {
 		e.preventDefault();
-		var row_count = $("#table_line_items tr").length ;
-		if(row_count == 0 ) row_count = 1 ;
+		var row_count = generateRandonString(20);
 		var line_item = '';
 		line_item +='<tr id="'+row_count+'">';
 		line_item +=	'<td>';
 		line_item += 		'<a href="#" class="btn btn-primary btn-mini bs-prompt delete_line_item" id="'+row_count+'"><i class="icon-white icon-trash"></i></a>';
 		line_item +=	'</td>';
 		line_item +=	'<td>';
-		line_item += 		'<select name="line_item_selector_opt[]" id="line_item_selector_opt_'+row_count+'">';
+		line_item += 		'<select name="line_item_selector_opt[]" id="line_item_selector_opt_'+row_count+'" onchange="lineItemTypeChanged(\''+row_count+'\');">';
 		line_item +=			'<option value="product">Products</option>';
+		line_item +=			'<option value="manual">Manual</option>';
 		line_item +=		'</select>';
 		line_item +=		'<br /><br />';
-		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="input-xlarge-100">';
+		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="input-xlarge-100" readonly>';
 		line_item +=		'<input type="hidden" name="line_item_value[]" id="line_item_value_'+row_count+'">';
 		line_item +=		'<input type="hidden" name="line_item_type[]" id="line_item_type_'+row_count+'">';
 		line_item +=		'&nbsp;&nbsp;';
-		line_item +=		'<a href="#"  id="'+row_count+'"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
+		line_item +=		'<span id="line_item_selector_block_'+row_count+'"><a href="#"  id="'+row_count+'"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a></span>';
 		line_item +=		'<br /><br />';
 		line_item +=		'<textarea name="line_item_description[]" id="line_item_description_'+row_count+'" class="input-xlarge-100"></textarea>';
 		line_item +=	'</td>';
 		line_item +=	'<td><input class="input-mini line_item_quantity" name="line_item_quantity[]" id="'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number"></td>';
 		line_item +=	'<td>';
 		line_item += 		'<div style="height:40px;">';
-		line_item +=			'<input class="input-small" name="line_item_price[]" id="line_item_price_'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">';
+		line_item +=			'<input class="input-small line_item_price" name="line_item_price[]" id="line_item_price_'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" readonly>';
 		line_item +=		'</div>';
 		line_item +=		'<div style="height:40px;">';
 		line_item +=			'<a href="#" id="'+row_count+'" class="line_item_discount">Discount</a>';
@@ -143,6 +143,29 @@ $(document).ready(function() {
 	});
 	//-- quantity change calculation ends --//
 	
+	//-- price change/add for manual add calculation
+	$(document.body).on('change keyup mouseup blur','.line_item_price',function() {
+		var id = this.id;
+		var current_id =  id.split("_").pop();
+		var line_item_price = parseFloat($(this).val()).toFixed(2);
+		var qty = parseInt($('#'+current_id+'.line_item_quantity').val(),10);
+		if (qty > 0) {
+			var total_price = parseFloat(line_item_price*qty).toFixed(2);
+			$("#line_item_total_"+current_id).attr('value',total_price);
+			$("#total_"+current_id).html(total_price);
+			$("#line_total_after_discount_given_"+current_id).html(total_price);
+			$("#line_net_price_"+current_id).attr('value',total_price);
+			$("#line_net_price_section_"+current_id).html(total_price);
+		} else {
+			var total_price = line_item_price ;
+			$("#line_item_total_"+current_id).attr('value',total_price);
+			$("#total_"+current_id).html(total_price);
+			$("#line_total_after_discount_given_"+current_id).html(total_price);
+			$("#line_net_price_"+current_id).attr('value',total_price);
+			$("#line_net_price_section_"+current_id).html(total_price);
+		}
+		reset_line_values(current_id);
+	});
 	
 	//-- function doing all the calculation to get the net line price
 	function reset_line_values(current_id) {

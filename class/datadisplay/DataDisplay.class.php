@@ -434,7 +434,7 @@ class DataDisplay extends DataObject {
 								$special_field_name = $_GET["special_field_name"] ;
 								$chk_input = '<input type="checkbox" data-dismiss="modal" id="chk_popup'.$this->$pkey.'" onclick="return return_popup_selected_special(\'chk_popup'.$this->$pkey.'\');" value="'.$this->$pkey.'::'.$retrun_field.'">';
 							} elseif ($_REQUEST["line_item"] == 'yes') {
-								$chk_input = '<input type="checkbox" data-dismiss="modal" id="chk_popup'.$this->$pkey.'" onclick="return return_popup_line_item(\'chk_popup'.$this->$pkey.'\',\''.$module_name.'\','.(int)$_REQUEST["line_level"].');" value="'.$this->$pkey.'">';
+								$chk_input = '<input type="checkbox" data-dismiss="modal" id="chk_popup'.$this->$pkey.'" onclick="return return_popup_line_item(\'chk_popup'.$this->$pkey.'\',\''.$module_name.'\',\''.$_REQUEST["line_level"].'\');" value="'.$this->$pkey.'">';
 							} elseif (isset($_REQUEST["copy_org_address"])  && $_REQUEST["copy_org_address"]== 'yes') {
 								$chk_input = '<input type="checkbox" data-dismiss="modal" id="chk_popup'.$this->$pkey.'" onclick="return return_popup_copy_org_addr(\'chk_popup'.$this->$pkey.'\',\''.$_REQUEST["target_module"].'\');" value="'.$this->$pkey.'::'.$retrun_field.'">';
 							} elseif (isset($_REQUEST['copy_cnt_address']) && $_REQUEST['copy_cnt_address'] =='yes') {
