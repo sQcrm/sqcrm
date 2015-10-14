@@ -224,6 +224,6 @@ function custom_validator(mid) {
 function generateRandonString(length) {
 	var strings = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' ;
 	var result = '';
-    for (var i = length; i > 0; --i) result += strings[Math.round(Math.random() * (strings.length - 1))];
-    return result;
+	for (var i = length; i > 0; --i) result += strings[Math.round(Math.random() * (strings.length - 1))];
+	return result;
 }
