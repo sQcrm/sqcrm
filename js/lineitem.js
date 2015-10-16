@@ -120,7 +120,7 @@ $(document).ready(function() {
 	//-- delete line item ends --//
 	
 	//-- when the qunatity is changed do the calculation
-	$(document.body).on('change keyup mouseup blur','.line_item_quantity',function() {
+	$(document.body).on('change keyup mouseup blur focus','.line_item_quantity',function() {
 		var current_id = this.id;
 		var qty = parseInt($(this).val(),10);
 		var line_item_price = $("#line_item_price_"+current_id).val();

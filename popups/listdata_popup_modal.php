@@ -99,7 +99,8 @@ function return_popup_line_item(id,module,line_level) {
 					$("#line_item_value_"+line_level).attr('value',return_data);
 					$("#line_item_description_"+line_level).html(obj.description);
 					$("#line_item_price_"+line_level).attr('value',parseFloat(obj.product_price).toFixed(2));
-					$("#line_item_quantity_"+line_level).focus();
+					$("#line_item_tax_values_"+line_level).attr('value','');
+					$("#"+line_level+" .line_item_quantity").focus();
 					if (obj.tax_value != '') {
 						$("#line_has_tax_"+line_level).attr('value','1');
 						var tax_value = obj.tax_value ;
