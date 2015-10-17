@@ -42,7 +42,7 @@ class FieldType103 extends CRMFields {
 			}
 		}
 		
-		$html .='<input type="text" class = "'.$css.'" name="role_name" id="role_name" value="'.$role_name.'">';
+		$html .='<input type="text" class = "'.$css.'" name="role_name" id="role_name" value="'.$role_name.'" readonly>';
 		$html .='&nbsp;&nbsp;<a href="#" onclick="get_roles_popup();" class="btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
 		$html .='&nbsp;&nbsp;<a href="#" onclick="remove_role(\''.$name.'\');" class="btn btn-primary btn-mini"><i class="icon-white icon-remove"></i></a>';
 		$html .='<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
