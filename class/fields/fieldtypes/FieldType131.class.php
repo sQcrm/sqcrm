@@ -55,7 +55,7 @@ class FieldType131 extends CRMFields {
 			$name = 'organization_'.$name_explode[1];
 			$special_field = true ;
 		}
-		$html .='<input type="text" class = "'.$css.'" name="organization_'.$name.'" id="organization_'.$name.'" value="'.$display_val.'">';
+		$html .='<input type="text" class = "'.$css.'" name="organization_'.$name.'" id="organization_'.$name.'" value="'.$display_val.'" readonly>';
 		$html .='&nbsp;&nbsp;<a href="#"  id="select_'.$name.'"  class="btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
 		$html .='&nbsp;&nbsp;<a href="#" id="remove_'.$name.'" class="btn btn-primary btn-mini"><i class="icon-white icon-remove"></i></a>';
 		$html .='<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
