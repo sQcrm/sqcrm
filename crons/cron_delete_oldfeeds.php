@@ -15,7 +15,6 @@
 $GLOBALS['cfg_full_path'] = '/var/www/sqcrm/';
 
 include_once($GLOBALS['cfg_full_path'].'config.php');
-$q = new sqlQuery($GLOBALS['conx']);
 
 $do_live_feed_queue = new LiveFeedQueue();
 $do_live_feed_queue->get_feeds_to_be_deleted();

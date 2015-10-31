@@ -27,6 +27,11 @@ function remove_role(fieldname) {
 
 // function to close the autoclose messages
 $(document).ready( function() {
+	$.ajax({
+		type: "GET",
+		url: '/message.php',
+		data : "clean_message=1&r="+generateRandonString(10)
+	});
 	window.setInterval(
 		function() {
 			$("#sqcrm_auto_close_messages").fadeTo(700,0).slideUp(700, function() {
@@ -61,63 +66,22 @@ function display_js_error(error_msg,div_element) {
 */
 function load_deail_view_data(module,sqcrm_id,section) {
 	var action_name = '';
-	if (section == 'detail') {
-		action_name = 'detail';
-		if ($("#topbar_detail").hasClass('active')) {
-			return false ;
-		}
-		$("#topbar_history").removeClass('active');
-		$("#topbar_related").removeClass('active');
-		$("#topbar_detail").addClass('active');
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
-		}
-	} else if (section == 'history') {
-		action_name = 'history';
-		if ($("#topbar_history").hasClass('active')) {
-			return false ;
-		}
-		$("#topbar_history").addClass('active');
-		$("#topbar_related").removeClass('active');
-		$("#topbar_detail").removeClass('active');
-    
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
-		}
-	} else if (section == 'related') {
-		action_name = 'related';
-		if ($("#topbar_related").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_related").addClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
+	action_name = section;
+	var current_tab_id = '';
+	$('#detail_view_tab_section>li').each(function(){ 
+		current_tab_id = $(this).attr('id') ;
 		
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
+		if (~current_tab_id.indexOf('plugin_') == -1) {
+			$("#"+current_tab_id).removeClass('active');
+		} else {
+			if (current_tab_id == 'topbar_'+section) {
+				$("#"+current_tab_id).addClass('active');
+			} else {
+				$("#"+current_tab_id).removeClass('active');
+			}
 		}
-	} else if (section == 'loginaudit') {
-		action_name = 'loginaudit';
-		if ($("#topbar_loginaudit").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_loginaudit").addClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
-		$("#topbar_homepage_components").removeClass('active');
-	} else if (section == 'homepage_components') {
-		action_name = 'homepage_components';
-		if ($("#topbar_homepage_components").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_homepage_components").addClass('active');
-		$("#topbar_loginaudit").removeClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
-	}
+	}) ; 
+	
 	$.ajax({
 		type: "GET",
 		url: action_name,

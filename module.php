@@ -40,7 +40,7 @@ if (!is_object($_SESSION["do_crm_messages"])) {
 	$do_crm_messages = new CRMMessages();
 	$do_crm_messages->sessionPersistent("do_crm_messages", "logout.php", TTL);
 }
-  
+
 /**
 * Check the request params which are defined in the mod rewrite in .htaccess
 * sfmodname :: The module name

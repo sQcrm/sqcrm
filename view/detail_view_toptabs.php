@@ -12,7 +12,7 @@ if ($converted_lead == true && $module_id == 3) {
 } else {
 ?>
 <div class="tabtable">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs" id="detail_view_tab_section">
 		<?php
 		if ($current_file == 'detail') { 
 			$detail_css = "active"; 
@@ -57,6 +57,11 @@ if ($converted_lead == true && $module_id == 3) {
 		</li>
 		<?php 
 		} ?>
+		<?php
+		// process the detail view right block active modules
+		$do_process_plugins = new CRMPluginProcessor() ;
+		$do_process_plugins->process_detail_view_tab_plugin($module_id,$sqcrm_record_id,$active_plugins);
+		?>
 	</ul>
 </div>
 <?php

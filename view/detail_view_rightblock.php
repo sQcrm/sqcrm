@@ -23,6 +23,9 @@
 		} else {
 			require("detail_view_notes.php");
 		}
+		// process the detail view right block active modules
+		$do_process_plugins = new CRMPluginProcessor() ;
+		$do_process_plugins->process_detail_view_plugin($module_id,$sqcrm_record_id,$active_plugins);
 		?>
 	</div>
 </div>
