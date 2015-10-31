@@ -118,7 +118,6 @@ class Leads extends DataObject {
 		if (true === $permission) {
 			$do_process_plugins = new CRMPluginProcessor() ;
 			$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl);
-			//echo $do_process_plugins->get_error();exit;
 			if (strlen($do_process_plugins->get_error()) > 2) {
 				$_SESSION["do_crm_messages"]->set_message('error',$do_process_plugins->get_error());
 				$next_page = NavigationControl::getNavigationLink($evctl->module,"add");
