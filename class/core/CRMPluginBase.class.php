@@ -174,6 +174,10 @@ class CRMPluginBase extends DataObject {
 		return $this->error ;
 	}
 	
+	public function reset_plugin() {
+		$this->error = '';
+	}
+	
 	/**
 	* function to load the active plugins
 	* the active plugins are loaded on persistent object to be accessed across the application

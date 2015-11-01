@@ -56,7 +56,12 @@ $(document).ready(function() {
 						var err_msg = err_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
 						$("#message").html(err_msg);
 						$("#message").show();
-					} else {
+					} else if (ret_data.length > 2) {
+						var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+						var err_msg = err_element+'<strong>'+ret_data+'</strong></div>';
+						$("#message").html(err_msg);
+						$("#message").show();
+					}else {
 						$.ajax({
 							type: "GET",
 							url: "list",
@@ -97,6 +102,11 @@ $(document).ready(function() {
 					if (ret_data == '0') {
 						var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 						var err_msg = err_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
+						$("#message").html(err_msg);
+						$("#message").show();
+					} else if (ret_data.length > 2) {
+						var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+						var err_msg = err_element+'<strong>'+ret_data+'</strong></div>';
 						$("#message").html(err_msg);
 						$("#message").show();
 					} else {

@@ -2,8 +2,8 @@
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt  
 
 /**
-* Class Roles
-* Maintain the Roles and user hierarchy information of crm
+* Class HelloWorld
+* A demo plugin for crm
 * @author Abhik Chakraborty
 */
 
@@ -20,9 +20,5 @@ class HelloWorld extends CRMPluginProcessor {
 		$this->set_plugin_position(1); // required
 		$this->set_resource_name('test.php'); // optional else it will look for index.php in your plugin folder
 		$this->set_plugin_description(_('This is a test plugin called HelloWorld for the detail view right block')); // optional
-	}
-	
-	public function before_add($idmodule,$form_object) {
-		$this->raise_error(_('There is a error in the form please check this'));
 	}
 }

@@ -117,7 +117,7 @@ class Leads extends DataObject {
 		$permission = $_SESSION["do_crm_action_permission"]->action_permitted('add',3) ; 
 		if (true === $permission) {
 			$do_process_plugins = new CRMPluginProcessor() ;
-			$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl);
+			$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl,1);
 			if (strlen($do_process_plugins->get_error()) > 2) {
 				$_SESSION["do_crm_messages"]->set_message('error',$do_process_plugins->get_error());
 				$next_page = NavigationControl::getNavigationLink($evctl->module,"add");
@@ -182,6 +182,9 @@ class Leads extends DataObject {
 					$do_feed_queue = new LiveFeedQueue();
 					$do_feed_queue->add_feed_queue($id_entity,(int)$evctl->idmodule,$evctl->firstname.' '.$evctl->lastname,'add',$feed_other_assigne);
 					
+					// process after add plugin
+					$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl,2,$id_entity);
+					
 					$_SESSION["do_crm_messages"]->set_message('success',_('New lead has been added successfully ! '));
 					$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
 					$dis = new Display($next_page);
@@ -211,85 +214,102 @@ class Leads extends DataObject {
 		if ($id_entity > 0 && true === $_SESSION["do_crm_action_permission"]->action_permitted('edit',3,(int)$evctl->sqrecord)) {
 			$obj = $this->getId($id_entity);
 			$obj = (object)$obj; // convert the data array to Object
-			$do_crm_fields = new CRMFields();
-			$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
-			$table_entity = 'leads';
-			$table_entity_address = 'leads_address';
-			$table_entity_custom = 'leads_custom_fld';
-			$table_entity_to_grp = 'leads_to_grp_rel';
-			$entity_data_array = array();
-			$custom_data_array = array();
-			$addr_data_array = array();
-			$assigned_to_as_group = false ;
-			foreach ($crm_fields as $crm_fields) {
-				$field_name = $crm_fields["field_name"];
-				$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
-				if (is_array($field_value) && count($field_value) > 0) {
-					if ($field_value["field_type"] == 15) {
-						$field_name = 'iduser';
-						$value = $field_value["value"];
-						$assigned_to_as_group = $field_value["assigned_to_as_group"];
-						$group_id = $field_value["group_id"];
-					}
-				} else { $value = $field_value ; }
-				if ($crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) {
-					$entity_data_array[$field_name] = $value ;
-				} elseif ($crm_fields["table_name"] == $table_entity_custom && $crm_fields["idblock"] > 0) {
-					$custom_data_array[$field_name] = $value ;
-				} elseif ($crm_fields["table_name"] == $table_entity_address && $crm_fields["idblock"] > 0 ) {
-					$addr_data_array[$field_name] = $value ;
+			$do_process_plugins = new CRMPluginProcessor() ;
+			// process before update plugin. If any error is raised display that.
+			$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl,3,$id_entity,$obj);
+			if (strlen($do_process_plugins->get_error()) > 2) {
+				$_SESSION["do_crm_messages"]->set_message('error',$do_process_plugins->get_error());
+				$next_page = NavigationControl::getNavigationLink($evctl->module,"edit");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$id_entity); 
+				if ($evctl->return_page != '') { 
+					$dis->addParam("return_page",$evctl->return_page);
 				}
-			}
-			$this->update(array($this->primary_key=>$id_entity),$table_entity,$entity_data_array);
-			//updating the last_modified,last_modified_by
-			$q_upd = "
-			update `".$this->getTable()."` 
-			set `last_modified` = ?,
-			`last_modified_by` = ?
-			where `".$this->primary_key."` = ?";
-			$this->query($q_upd,array(date("Y-m-d H:i:s"),$_SESSION["do_user"]->iduser,$id_entity));
-			
-			if (count($custom_data_array) > 0) {
-				$this->update(array($this->primary_key=>$id_entity),$table_entity_custom,$custom_data_array);
-			}
-			if (count($addr_data_array) > 0) {
-				$this->update(array($this->primary_key=>$id_entity),$table_entity_address,$addr_data_array);
-			}
-			if ($assigned_to_as_group === false) {
-				$qry_grp_rel = "DELETE from `$table_entity_to_grp` where idleads = ? LIMIT 1";
-				$this->query($qry_grp_rel,array($id_entity));
+				$evctl->setDisplayNext($dis) ;
 			} else {
-				$qry_grp_rel = "select * from `$table_entity_to_grp` where idleads = ?";
-				$this->query($qry_grp_rel,array($id_entity));
-				if ($this->getNumRows() > 0) {
-					$this->next();
-					$id_grp_rel = $this->idleads_to_grp_rel ;
-					$q_upd = "
-					update `$table_entity_to_grp` set `idgroup` = ? 
-					where `idleads_to_grp_rel` = ? LIMIT 1" ;
-					$this->query($q_upd,array($group_id,$id_grp_rel));
-				} else {
-					$this->insert($table_entity_to_grp,array("idleads"=>$id_entity,"idgroup"=>$group_id));
+				$do_crm_fields = new CRMFields();
+				$crm_fields = $do_crm_fields->get_field_information_by_module_as_array((int)$evctl->idmodule);
+				$table_entity = 'leads';
+				$table_entity_address = 'leads_address';
+				$table_entity_custom = 'leads_custom_fld';
+				$table_entity_to_grp = 'leads_to_grp_rel';
+				$entity_data_array = array();
+				$custom_data_array = array();
+				$addr_data_array = array();
+				$assigned_to_as_group = false ;
+				foreach ($crm_fields as $crm_fields) {
+					$field_name = $crm_fields["field_name"];
+					$field_value = $do_crm_fields->convert_field_value_onsave($crm_fields,$evctl);
+					if (is_array($field_value) && count($field_value) > 0) {
+						if ($field_value["field_type"] == 15) {
+							$field_name = 'iduser';
+							$value = $field_value["value"];
+							$assigned_to_as_group = $field_value["assigned_to_as_group"];
+							$group_id = $field_value["group_id"];
+						}
+					} else { $value = $field_value ; }
+					if ($crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) {
+						$entity_data_array[$field_name] = $value ;
+					} elseif ($crm_fields["table_name"] == $table_entity_custom && $crm_fields["idblock"] > 0) {
+						$custom_data_array[$field_name] = $value ;
+					} elseif ($crm_fields["table_name"] == $table_entity_address && $crm_fields["idblock"] > 0 ) {
+						$addr_data_array[$field_name] = $value ;
+					}
 				}
+				$this->update(array($this->primary_key=>$id_entity),$table_entity,$entity_data_array);
+				//updating the last_modified,last_modified_by
+				$q_upd = "
+				update `".$this->getTable()."` 
+				set `last_modified` = ?,
+				`last_modified_by` = ?
+				where `".$this->primary_key."` = ?";
+				$this->query($q_upd,array(date("Y-m-d H:i:s"),$_SESSION["do_user"]->iduser,$id_entity));
+				
+				if (count($custom_data_array) > 0) {
+					$this->update(array($this->primary_key=>$id_entity),$table_entity_custom,$custom_data_array);
+				}
+				if (count($addr_data_array) > 0) {
+					$this->update(array($this->primary_key=>$id_entity),$table_entity_address,$addr_data_array);
+				}
+				if ($assigned_to_as_group === false) {
+					$qry_grp_rel = "DELETE from `$table_entity_to_grp` where idleads = ? LIMIT 1";
+					$this->query($qry_grp_rel,array($id_entity));
+				} else {
+					$qry_grp_rel = "select * from `$table_entity_to_grp` where idleads = ?";
+					$this->query($qry_grp_rel,array($id_entity));
+					if ($this->getNumRows() > 0) {
+						$this->next();
+						$id_grp_rel = $this->idleads_to_grp_rel ;
+						$q_upd = "
+						update `$table_entity_to_grp` set `idgroup` = ? 
+						where `idleads_to_grp_rel` = ? LIMIT 1" ;
+						$this->query($q_upd,array($group_id,$id_grp_rel));
+					} else {
+						$this->insert($table_entity_to_grp,array("idleads"=>$id_entity,"idgroup"=>$group_id));
+					}
+				}
+				// Record the history
+				$do_data_history = new DataHistory();
+				$do_data_history->add_history($id_entity,(int)$evctl->idmodule,'edit');
+				$do_data_history->add_history_value_changes($id_entity,(int)$evctl->idmodule,$obj,$evctl);
+				
+				//record the feed
+				$feed_other_assigne = array() ;
+				if ($assigned_to_as_group === true) {
+					$feed_other_assigne = array("related"=>"group","data" => array("key"=>"newgroup","val"=>$group_id));
+				}
+				$do_feed_queue = new LiveFeedQueue();
+				$do_feed_queue->add_feed_queue($id_entity,(int)$evctl->idmodule,$evctl->firstname.' '.$evctl->lastname,'edit',$feed_other_assigne);
+				
+				// process after update plugin
+				$do_process_plugins->process_action_plugins((int)$evctl->idmodule,$evctl,4,$id_entity,$obj);
+				
+				$_SESSION["do_crm_messages"]->set_message('success',_('Data updated successfully !'));
+				$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$id_entity);
+				$evctl->setDisplayNext($dis) ; 
 			}
-			// Record the history
-			$do_data_history = new DataHistory();
-			$do_data_history->add_history($id_entity,(int)$evctl->idmodule,'edit');
-			$do_data_history->add_history_value_changes($id_entity,(int)$evctl->idmodule,$obj,$evctl);
-			
-			//record the feed
-			$feed_other_assigne = array() ;
-			if ($assigned_to_as_group === true) {
-				$feed_other_assigne = array("related"=>"group","data" => array("key"=>"newgroup","val"=>$group_id));
-			}
-			$do_feed_queue = new LiveFeedQueue();
-			$do_feed_queue->add_feed_queue($id_entity,(int)$evctl->idmodule,$evctl->firstname.' '.$evctl->lastname,'edit',$feed_other_assigne);
-		
-			$_SESSION["do_crm_messages"]->set_message('success',_('Data updated successfully !'));
-			$next_page = NavigationControl::getNavigationLink($evctl->module,"detail");
-			$dis = new Display($next_page);
-			$dis->addParam("sqrecord",$id_entity);
-			$evctl->setDisplayNext($dis) ; 
 		} else {
 			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to edit the record ! '));
 			$next_page = NavigationControl::getNavigationLink($evctl->module,"list");

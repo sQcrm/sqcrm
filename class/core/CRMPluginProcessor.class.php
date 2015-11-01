@@ -83,7 +83,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 	* @mix $active_plugins
 	* @return void
 	*/
-	public function process_action_plugins($idmodule,$form_object,$sqcrm_record_id=0,$entity_object = null,$active_plugins = null) {
+	public function process_action_plugins($idmodule,$form_object=null,$action_type,$sqcrm_record_id=0,$entity_object = null,$active_plugins = null) {
 		if ($active_plugins == null) {
 			parent::load_active_plugins();
 			$active_plugins = parent::get_active_plugins();
@@ -93,15 +93,16 @@ class CRMPluginProcessor extends CRMPluginBase {
 				$plugin_object = new $plugin() ;
 				if (in_array($idmodule,$plugin_object->get_plugin_modules())) {
 					$plugin_type = $plugin_object->get_plugin_type() ;
-					//if ($plugin_type == 1 || $plugin_type == 2 || $plugin_type == 3 || $plugin_type == 4 || $plugin_type == 5 || $plugin_type == 6) {
-						foreach ($plugin_type as $key=>$type) {
+					foreach ($plugin_type as $key=>$type) {
+						if ($action_type == $type) {
+							$this->reset_plugin();
 							$this->call_action_plugin_method($plugin_object,$type,$idmodule,$form_object,$sqcrm_record_id,$entity_object) ;
 							if (strlen($plugin_object->get_error()) > 2) {
 								parent::raise_error($plugin_object->get_error()) ;
 								return ;
 							}
 						}
-					//}
+					}
 				}
 			}
 		}
@@ -120,27 +121,39 @@ class CRMPluginProcessor extends CRMPluginBase {
 	public function call_action_plugin_method($plugin_object,$type,$idmodule,$form_object,$sqcrm_record_id=0,$entity_object = null) {
 		switch ($type) {
 			case 1 :
-				$plugin_object->before_add($idmodule,$form_object) ;
+				if (method_exists($plugin_object,'before_add')) {
+					$plugin_object->before_add($idmodule,$form_object) ;
+				}
 				break ;
 				
 			case 2 :
-				$plugin_object->after_add($idmodule,$form_object,$sqcrm_record_id,$entity_object) ;
+				if (method_exists($plugin_object,'after_add')) {
+					$plugin_object->after_add($idmodule,$form_object,$sqcrm_record_id) ;
+				}
 				break ;
 			
 			case 3 :
-				$plugin_object->before_edit($idmodule,$form_object,$sqcrm_record_id) ;
+				if (method_exists($plugin_object,'before_edit')) {
+					$plugin_object->before_edit($idmodule,$form_object,$sqcrm_record_id,$entity_object) ;
+				}
 				break ;
 				
 			case 4 :
-				$plugin_object->after_edit($idmodule,$form_object,$sqcrm_record_id,$entity_object) ;
+				if (method_exists($plugin_object,'after_edit')) {
+					$plugin_object->after_edit($idmodule,$form_object,$sqcrm_record_id,$entity_object) ;
+				}
 				break ;
 				
 			case 5 :
-				$plugin_object->before_delete($idmodule,$sqcrm_record_id,$entity_object) ;
+				if (method_exists($plugin_object,'before_delete')) {
+					$plugin_object->before_delete($idmodule,$sqcrm_record_id) ;
+				}
 				break ;
 				
 			case 6 :
-				$plugin_object->after_delete($idmodule,$sqcrm_record_id,$entity_object) ;
+				if (method_exists($plugin_object,'after_delete')) {
+					$plugin_object->after_delete($idmodule,$sqcrm_record_id) ;
+				}
 				break ;
 		}
 	}
