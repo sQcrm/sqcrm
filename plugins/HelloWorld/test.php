@@ -9,5 +9,6 @@ $sqcrm_record_id = (int)$_GET["sqrecord"] ;
 $do_module = new Module();
 $do_module->getId($idmodule);
 $module_name = $do_module->name ;
+$do_module_object = new $module_name();
 include_once('view/plugin_view.php');
 ?>

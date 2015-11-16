@@ -58,7 +58,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==2) {
 					echo '<li id="plugin_'.$plugin_object->get_plugin_name().'" class="">' ;
 					echo '<a href="#" onclick = "process_detail_view_tab_plugin(\''.$plugin.'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.')" data-toggle ="tab" >';
-					echo $plugin_object->get_plugin_title();
+					echo $plugin_object->get_plugin_tab_name();
 					echo '</a>';
 					echo '</li>';
 				}

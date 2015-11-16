@@ -59,6 +59,23 @@ function display_js_error(error_msg,div_element) {
 }
 
 /*
+* Function to display the JS success in the top section of the CRM like showing serverside messages
+* @param success_msg
+* @param div_element, element within which the message should be added before showing it
+*/
+function display_js_success(success_msg,div_element) {
+	success_msg = '<strong>'+success_msg+'</strong>';
+	if (success_msg != '') {
+		var success_html_start = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+		var success_html_end = '</div>';      
+		if (div_element !='') {
+			$("#"+div_element).html(success_html_start+success_msg+success_html_end);
+			$("#"+div_element).show();
+		}
+	}
+}
+
+/*
 * function to load the detail view tabs data
 * @param module
 * @param sqcrm_id
