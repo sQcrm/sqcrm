@@ -44,27 +44,37 @@ class CRMDeleteEntity extends DataObject {
 				$do_data_history = new DataHistory();
 				$crm_entity = new CRMEntity();
 				$do_feed_queue = new LiveFeedQueue();
+				$do_process_plugins = new CRMPluginProcessor() ;
 				//delete code for the record goes here
 				foreach ($record_ids as $id) {
-					$this->delete_record($id,$module) ;
-					// Record the history
-					$do_data_history->add_history($id,$module_id,'delete');
-					// Add to feed
-					$feed_other_assigne = array() ;
-					$entity_assigned_to = $crm_entity->get_assigned_to_id($id,$module);
-					if (is_array($entity_assigned_to) && sizeof($entity_assigned_to) > 0) {
-						if (array_key_exists("idgroup",$entity_assigned_to) && $entity_assigned_to["idgroup"]) {
-							$feed_other_assigne = array("related"=>"group","data" => array("key"=>"oldgroup","val"=>(int)$entity_assigned_to["idgroup"]));
+					// process before delete plugin
+					$do_process_plugins->process_action_plugins($module_id,null,5,$id) ;
+					if (strlen($do_process_plugins->get_error()) > 2) {
+						echo $do_process_plugins->get_error() ;
+						break;
+					} else {
+						$this->delete_record($id,$module) ;
+						// Record the history
+						$do_data_history->add_history($id,$module_id,'delete');
+						// Add to feed
+						$feed_other_assigne = array() ;
+						$entity_assigned_to = $crm_entity->get_assigned_to_id($id,$module);
+						if (is_array($entity_assigned_to) && sizeof($entity_assigned_to) > 0) {
+							if (array_key_exists("idgroup",$entity_assigned_to) && $entity_assigned_to["idgroup"]) {
+								$feed_other_assigne = array("related"=>"group","data" => array("key"=>"oldgroup","val"=>(int)$entity_assigned_to["idgroup"]));
+							}
 						}
+						$record_identity = $crm_entity->get_entity_identifier($id,$module);
+						$do_feed_queue->add_feed_queue($id,$module_id,$record_identity,'delete',$feed_other_assigne);
+						// process after delete plugin
+						$do_process_plugins->process_action_plugins($module_id,null,5,$id) ;
 					}
-					$record_identity = $crm_entity->get_entity_identifier($id,$module);
-					$do_feed_queue->add_feed_queue($id,$module_id,$record_identity,'delete',$feed_other_assigne);
+					echo '1';
 				}
-				echo '1';
-			}else{
+			} else {
 				echo '0';
 			}
-		}else{
+		} else { 
 			echo '0';
 		}
 	}
@@ -96,26 +106,35 @@ class CRMDeleteEntity extends DataObject {
 				$do_data_history = new DataHistory();
 				$crm_entity = new CRMEntity();
 				$do_feed_queue = new LiveFeedQueue();
+				$do_process_plugins = new CRMPluginProcessor() ;
 				//delete code for the record goes here
-				$this->delete_record($id,$module) ;
-				$do_data_history->add_history($id,$module_id,'delete');
-				// Add to feed
-				$feed_other_assigne = array() ;
-				$entity_assigned_to = $crm_entity->get_assigned_to_id($id,$module);
-				if (is_array($entity_assigned_to) && sizeof($entity_assigned_to) > 0) {
-					if (array_key_exists("idgroup",$entity_assigned_to) && $entity_assigned_to["idgroup"]) {
-						$feed_other_assigne = array(
-							"related"=>"group",
-							"data" => array(
-								"key"=>"oldgroup",
-								"val"=>(int)$entity_assigned_to["idgroup"]
-							)
-						);
+				// process before delete plugin
+				$do_process_plugins->process_action_plugins($module_id,null,5,$id) ;
+				if (strlen($do_process_plugins->get_error()) > 2) {
+					echo $do_process_plugins->get_error() ;
+				} else {
+					$this->delete_record($id,$module) ;
+					$do_data_history->add_history($id,$module_id,'delete');
+					// Add to feed
+					$feed_other_assigne = array() ;
+					$entity_assigned_to = $crm_entity->get_assigned_to_id($id,$module);
+					if (is_array($entity_assigned_to) && sizeof($entity_assigned_to) > 0) {
+						if (array_key_exists("idgroup",$entity_assigned_to) && $entity_assigned_to["idgroup"]) {
+							$feed_other_assigne = array(
+								"related"=>"group",
+								"data" => array(
+									"key"=>"oldgroup",
+									"val"=>(int)$entity_assigned_to["idgroup"]
+								)
+							);
+						}
 					}
+					$record_identity = $crm_entity->get_entity_identifier($id,$module);
+					$do_feed_queue->add_feed_queue($id,$module_id,$record_identity,'delete',$feed_other_assigne);
+					// process after delete plugin
+					$do_process_plugins->process_action_plugins($module_id,null,5,$id) ;
+					echo '1';
 				}
-				$record_identity = $crm_entity->get_entity_identifier($id,$module);
-				$do_feed_queue->add_feed_queue($id,$module_id,$record_identity,'delete',$feed_other_assigne);
-				echo '1';
 			} else {
 				echo '0';
 			}

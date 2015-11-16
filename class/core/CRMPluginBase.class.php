@@ -2,7 +2,6 @@
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
 /**
 * Class CRMPluginBase 
-* Mantain the Owner of the CRM
 * @author Abhik Chakraborty
 */
 
@@ -33,6 +32,9 @@ class CRMPluginBase extends DataObject {
 	
 	// holds the plugin description
 	protected $plugin_description = '' ;
+	
+	// holds the tab name of the plugin (detail view top tab)
+	protected $plugin_tab_name = '';
 	
 	// holds error
 	protected $error = '' ;
@@ -167,11 +169,31 @@ class CRMPluginBase extends DataObject {
 	}
 	
 	/**
+	* set the tab name of the plugin (detail view top tab)
+	* @param string $tab_name 
+	*/
+	public function set_plugin_tab_name($tab_name) {
+		$this->plugin_tab_name = $tab_name ;
+	}
+	
+	/**
+	* get the plugin tab name for detail view top tab 
+	* @return string
+	*/
+	public function get_plugin_tab_name() {
+		return $this->plugin_tab_name ;
+	}
+	
+	/**
 	* get error
 	* @return string 
 	*/
 	public function get_error() {
 		return $this->error ;
+	}
+	
+	public function reset_plugin() {
+		$this->error = '';
 	}
 	
 	/**
