@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.44-0ubuntu0.14.04.1
+-- Server version	5.5.46-0ubuntu0.14.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `block` (
   PRIMARY KEY (`idblock`),
   KEY `block_idblock_idx` (`idblock`),
   KEY `block_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +57,7 @@ CREATE TABLE `cnt_to_grp_rel` (
   KEY `cnttogrprel_idcnt_to_grp_rel_idx` (`idcnt_to_grp_rel`),
   KEY `cnttogrprel_idcontacts_idx` (`idcontacts`),
   KEY `cnttogrprel_idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `combo_values` (
   `sequence` int(10) NOT NULL,
   PRIMARY KEY (`idcombo_values`),
   KEY `combo_idfields_idx` (`idfields`)
-) ENGINE=MyISAM AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `contacts` (
   KEY `cnt_iduser_idx` (`iduser`),
   KEY `cnt_firstname_idx` (`firstname`),
   KEY `cnt_lastname_idx` (`lastname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `contacts_address` (
   `cnt_other_country` varchar(50) DEFAULT NULL,
   KEY `cntaddr_idcontacts_address_idx` (`idcontacts_address`),
   KEY `cntaddr_idcontacts_idx` (`idcontacts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +200,7 @@ CREATE TABLE `contacts_custom_fld` (
   `idcontacts` int(19) NOT NULL,
   KEY `cntcf_idcontacts_custom_fld_idx` (`idcontacts_custom_fld`),
   KEY `cntcf_idcontacts_idx` (`idcontacts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `crm_global_settings` (
   PRIMARY KEY (`idcrm_global_settings`),
   KEY `globalsetting_idcrm_global_settings_idx` (`idcrm_global_settings`),
   KEY `globalsetting_setting_name_idx` (`setting_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +252,7 @@ CREATE TABLE `crm_owner` (
   `active` int(1) DEFAULT NULL,
   PRIMARY KEY (`idcrm_owner`),
   KEY `owner_crm_owner_idx` (`idcrm_owner`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +280,7 @@ CREATE TABLE `custom_field_mapping` (
   `potentials_mapped_to` int(19) DEFAULT NULL,
   PRIMARY KEY (`idcustom_field_mapping`),
   KEY `custfldmap_mapping_field_id` (`mapping_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -481,7 +481,7 @@ CREATE TABLE `data_history` (
   KEY `datahty_iduser_idx` (`iduser`),
   KEY `datahty_idfields_idx` (`idfields`),
   KEY `datahty_id_referrer_idx` (`id_referrer`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +530,7 @@ CREATE TABLE `datashare_standard_permission` (
   `description` varchar(200) NOT NULL,
   PRIMARY KEY (`iddatashare_standard_permission`),
   KEY `dsp_iddatashare_standard_permission_idx` (`iddatashare_standard_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -567,7 +567,7 @@ CREATE TABLE `emailtemplate` (
   KEY `emailt_idemailtemplate_idx` (`idemailtemplate`),
   KEY `emailt_iduser_idx` (`iduser`),
   KEY `emailt_name_idx` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -610,7 +610,7 @@ CREATE TABLE `events` (
   KEY `deleted_idx` (`deleted`),
   KEY `event_type_idx` (`event_type`),
   KEY `subject_idx` (`subject`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -634,7 +634,7 @@ CREATE TABLE `events_custom_fld` (
   `idevents` int(19) NOT NULL,
   KEY `eventcf_idevents_custom_fld_idx` (`idevents_custom_fld`),
   KEY `eventcf_idevents_idx` (`idevents`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -662,7 +662,7 @@ CREATE TABLE `events_related_to` (
   KEY `evrelto_idevents_related_to_idx` (`idevents_related_to`),
   KEY `evrelto_idevents_idx` (`idevents`),
   KEY `evrelto_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -691,7 +691,7 @@ CREATE TABLE `events_reminder` (
   `reminder_send` int(1) DEFAULT '0',
   KEY `eremind_idevents_reminder_idx` (`idevents_reminder`),
   KEY `eremind_idevents_idx` (`idevents`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -717,7 +717,7 @@ CREATE TABLE `events_to_grp_rel` (
   KEY `eventgrprel_idevents_to_grp_rel_idx` (`idevents_to_grp_rel`),
   KEY `eventgrprel_idevents_idx` (`idevents`),
   KEY `eventgrprel_idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -754,7 +754,7 @@ CREATE TABLE `feed_queue` (
   KEY `feed_queue_iduser_idx` (`iduser`),
   KEY `feed_queue_iduser_for_idx` (`iduser_for`),
   KEY `feed_queue_viewed_idx` (`viewed`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -790,7 +790,7 @@ CREATE TABLE `fields` (
   KEY `fields_field_name_idx` (`field_name`),
   KEY `fields_idblock_idx` (`idblock`),
   KEY `fields_field_validation_idx` (`field_validation`)
-) ENGINE=MyISAM AUTO_INCREMENT=322 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=322 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -818,7 +818,7 @@ CREATE TABLE `fields_mapping` (
   KEY `fldmap_idfields_mapping_idx` (`idfields_mapping`),
   KEY `fldmap_idfields_idx` (`idfields`),
   KEY `fldmap_mapped_to_idx` (`idfields`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -852,7 +852,7 @@ CREATE TABLE `file_uploads` (
   KEY `file_idmodule_idx` (`idmodule`),
   KEY `file_file_name_idx` (`file_name`),
   KEY `file_idreferrer_idx` (`id_referrer`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -876,7 +876,7 @@ CREATE TABLE `global_permission` (
   `permission_name` varchar(100) NOT NULL,
   PRIMARY KEY (`idglobal_permission`),
   KEY `global_permission_idglobal_permission_idx` (`idglobal_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +903,7 @@ CREATE TABLE `group` (
   PRIMARY KEY (`idgroup`),
   KEY `grp_idgroup_idx` (`idgroup`),
   KEY `grp_group_name_idx` (`group_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -931,7 +931,7 @@ CREATE TABLE `group_user_rel` (
   KEY `grpurel_idgroup_user_rel_idx` (`idgroup_user_rel`),
   KEY `grpurel_idgroup_idx` (`idgroup`),
   KEY `grpurel_iduser_idx` (`iduser`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -958,7 +958,7 @@ CREATE TABLE `homepage_component` (
   `sequence` int(3) DEFAULT NULL,
   PRIMARY KEY (`idhomepage_component`),
   KEY `hmpage_component_idhomepage_component_idx` (`idhomepage_component`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -988,7 +988,7 @@ CREATE TABLE `import` (
   KEY `import_idimport_idx` (`idimport`),
   KEY `import_idmodule_idx` (`idmodule`),
   KEY `import_idrecord_idx` (`idrecord`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1070,7 +1070,7 @@ CREATE TABLE `invoice` (
   PRIMARY KEY (`idinvoice`),
   KEY `deleted_idx` (`deleted`),
   KEY `invoice_key_idx` (`invoice_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1106,7 +1106,7 @@ CREATE TABLE `invoice_address` (
   `inv_shipping_country` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idinvoice_address`),
   KEY `idinvoice_idx` (`idinvoice`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1130,7 +1130,7 @@ CREATE TABLE `invoice_custom_fld` (
   `idinvoice` int(11) NOT NULL,
   PRIMARY KEY (`idinvoice_custom_fld`),
   KEY `idinvoice_idx` (`idinvoice`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1156,7 +1156,7 @@ CREATE TABLE `invoice_to_grp_rel` (
   PRIMARY KEY (`idinvoice_to_grp_rel`),
   KEY `idinvoice_idx` (`idinvoice`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1203,7 +1203,7 @@ CREATE TABLE `leads` (
   KEY `leads_iduser_idx` (`iduser`),
   KEY `leads_firstname_idx` (`firstname`),
   KEY `leads_lastname_idx` (`lastname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1233,7 +1233,7 @@ CREATE TABLE `leads_address` (
   `state` varchar(100) DEFAULT NULL,
   KEY `leadsaddr_idleads_address_idx` (`idleads_address`),
   KEY `leads_idleads_idx` (`idleads`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1266,7 +1266,7 @@ CREATE TABLE `leads_conversion_matrix` (
   KEY `leadsconv_idcontacts_idx` (`idcontacts`),
   KEY `leadsconv_idorganization_idx` (`idorganization`),
   KEY `leadsconv_idleads_idx` (`idleads`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1290,7 +1290,7 @@ CREATE TABLE `leads_custom_fld` (
   `idleads` int(19) NOT NULL,
   KEY `leadcf_idleads_custom_fld_idx` (`idleads_custom_fld`),
   KEY `leads_idleads_idx` (`idleads`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1316,7 +1316,7 @@ CREATE TABLE `leads_to_grp_rel` (
   KEY `leadstogrprel_idleads_to_grp_rel_idx` (`idleads_to_grp_rel`),
   KEY `leadstogrprel_idleads_idx` (`idleads`),
   KEY `leadstogrprel_idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1356,7 +1356,7 @@ CREATE TABLE `lineitems` (
   PRIMARY KEY (`idlineitems`),
   KEY `idmodule_idx` (`idmodule`),
   KEY `recordid_idx` (`recordid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1384,7 +1384,7 @@ CREATE TABLE `login_audit` (
   PRIMARY KEY (`idlogin_audit`),
   KEY `login_audit_idlogin_audit_idx` (`idlogin_audit`),
   KEY `login_audit_iduser_idx` (`iduser`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1413,7 +1413,7 @@ CREATE TABLE `module` (
   PRIMARY KEY (`idmodule`),
   KEY `module_idmodule_idx` (`idmodule`),
   KEY `module_module_label_idx` (`module_label`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1440,7 +1440,7 @@ CREATE TABLE `module_datashare_rel` (
   PRIMARY KEY (`idmodule_datashare_rel`),
   KEY `mdr_idmodule_datashare_rel_idx` (`idmodule_datashare_rel`),
   KEY `mdr_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1468,7 +1468,7 @@ CREATE TABLE `module_standard_permission` (
   KEY `mstdperm_idmodule_standard_permission_idx` (`idmodule_standard_permission`),
   KEY `mstdperm_idmodule_idx` (`idmodule`),
   KEY `mstdperm_idstandard_permission_idx` (`idstandard_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1502,7 +1502,7 @@ CREATE TABLE `notes` (
   KEY `notes_sqcrm_record_id_idx` (`sqcrm_record_id`),
   KEY `notes_related_module_id_idx` (`related_module_id`),
   KEY `notes_iduser_idx` (`iduser`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1528,7 +1528,7 @@ CREATE TABLE `org_to_grp_rel` (
   KEY `orgtogrprel_idorg_to_grp_rel_idx` (`idorg_to_grp_rel`),
   KEY `orgtogrprel_idleads_idx` (`idorganization`),
   KEY `orgtogrprel_idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1572,7 +1572,7 @@ CREATE TABLE `organization` (
   KEY `org_idorganization_idx` (`idorganization`),
   KEY `org_iduser_idx` (`iduser`),
   KEY `org_organization_name_idx` (`organization_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1608,7 +1608,7 @@ CREATE TABLE `organization_address` (
   `org_ship_country` varchar(50) DEFAULT NULL,
   KEY `orgaddr_idorganization_address_idx` (`idorganization_address`),
   KEY `orgaddr_idorganization_idx` (`idorganization`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1632,7 +1632,7 @@ CREATE TABLE `organization_custom_fld` (
   `idorganization` int(19) NOT NULL,
   KEY `orgcf_idorganization_custom_fld_idx` (`idorganization_custom_fld`),
   KEY `orgcf_idorganization_idx` (`idorganization`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1642,6 +1642,33 @@ CREATE TABLE `organization_custom_fld` (
 LOCK TABLES `organization_custom_fld` WRITE;
 /*!40000 ALTER TABLE `organization_custom_fld` DISABLE KEYS */;
 /*!40000 ALTER TABLE `organization_custom_fld` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plugins`
+--
+
+DROP TABLE IF EXISTS `plugins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `plugins` (
+  `idplugins` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `action_priority` int(11) DEFAULT NULL,
+  `display_priority` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idplugins`),
+  KEY `action_priority_idx` (`action_priority`),
+  KEY `display_priority_idx` (`display_priority`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plugins`
+--
+
+LOCK TABLES `plugins` WRITE;
+/*!40000 ALTER TABLE `plugins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plugins` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1658,7 +1685,7 @@ CREATE TABLE `pot_to_grp_rel` (
   KEY `pottogrprel_idpot_to_grp_rel_idx` (`idpot_to_grp_rel`),
   KEY `pottogrprel_idpotentials_idx` (`idpotentials`),
   KEY `pottogrprel_idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1698,7 +1725,7 @@ CREATE TABLE `potentials` (
   KEY `pot_iduser_idx` (`iduser`),
   KEY `pot_potential_name_idx` (`potential_name`),
   KEY `pot_sales_stage_idx` (`sales_stage`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1722,7 +1749,7 @@ CREATE TABLE `potentials_custom_fld` (
   `idpotentials` int(19) NOT NULL,
   KEY `potcf_idpotentials_custom_fld_idx` (`idpotentials_custom_fld`),
   KEY `potcf_idpotentials_idx` (`idpotentials`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1750,7 +1777,7 @@ CREATE TABLE `potentials_related_to` (
   KEY `potrelto_idpotentials_related_to_idx` (`idpotentials_related_to`),
   KEY `potrelto_idpotentials_idx` (`idpotentials`),
   KEY `potrelto_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1813,7 +1840,7 @@ CREATE TABLE `products` (
   KEY `idvendor_idx` (`idvendor`),
   KEY `iduser_idx` (`iduser`),
   KEY `deleted_idx` (`deleted`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1837,7 +1864,7 @@ CREATE TABLE `products_custom_fld` (
   `idproducts` int(11) NOT NULL,
   PRIMARY KEY (`idproducts_custom_fld`),
   KEY `idproducts_idx` (`idproducts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1863,7 +1890,7 @@ CREATE TABLE `products_pricing` (
   `commission_rate` float(10,3) DEFAULT NULL,
   PRIMARY KEY (`idproducts_pricing`),
   KEY `idproducts_idx` (`idproducts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1890,7 +1917,7 @@ CREATE TABLE `products_stock` (
   `quantity_in_demand` float(10,3) DEFAULT NULL,
   PRIMARY KEY (`idproducts_stock`),
   KEY `idproducts_idx` (`idproducts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1914,7 +1941,7 @@ CREATE TABLE `products_tax` (
   `tax_name` varchar(100) DEFAULT NULL,
   `tax_value` float(7,3) DEFAULT NULL,
   KEY `idproducts_idx` (`idproducts`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1940,7 +1967,7 @@ CREATE TABLE `products_to_grp_rel` (
   PRIMARY KEY (`idproducts_to_grp_rel`),
   KEY `idproducts_idx` (`idproducts`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1966,7 +1993,7 @@ CREATE TABLE `profile` (
   `editable` int(1) DEFAULT NULL,
   PRIMARY KEY (`idprofile`),
   KEY `profile_idprofile_idx` (`idprofile`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1997,7 +2024,7 @@ CREATE TABLE `profile_fields_rel` (
   KEY `profile_fields_rel_idprofile_idx` (`idprofile`),
   KEY `profile_fields_rel_idmodule_idx` (`idmodule`),
   KEY `profile_fields_rel_idfields_idx` (`idfields`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2024,7 +2051,7 @@ CREATE TABLE `profile_global_permission_rel` (
   PRIMARY KEY (`idprofile_global_permission_rel`),
   KEY `progperrel_idprofile_global_permission_rel_idx` (`idprofile_global_permission_rel`),
   KEY `progperrel_idprofile_idx` (`idprofile`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2053,7 +2080,7 @@ CREATE TABLE `profile_module_rel` (
   KEY `profile_module_rel_idprofile_module_rel_idx` (`idprofile_module_rel`),
   KEY `profile_module_rel_idprofile_idx` (`idprofile`),
   KEY `profile_module_rel_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2083,7 +2110,7 @@ CREATE TABLE `profile_standard_permission_rel` (
   KEY `prostdperrel_idprofile_standard_permission_rel_idx` (`idprofile_standard_permission_rel`),
   KEY `prostdperrel_idprofile_idx` (`idprofile`),
   KEY `prostdperrel_idmodule_idx` (`idmodule`)
-) ENGINE=MyISAM AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2134,7 +2161,7 @@ CREATE TABLE `purchase_order` (
   PRIMARY KEY (`idpurchase_order`),
   KEY `deleted_idx` (`deleted`),
   KEY `po_key_idx` (`po_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2170,7 +2197,7 @@ CREATE TABLE `purchase_order_address` (
   `po_shipping_country` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idpurchase_order_address`),
   KEY `idpurchase_order_idx` (`idpurchase_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2194,7 +2221,7 @@ CREATE TABLE `purchase_order_custom_fld` (
   `idpurchase_order` int(11) NOT NULL,
   PRIMARY KEY (`idpurchase_order_custom_fld`),
   KEY `idpurchase_order_idx` (`idpurchase_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2220,7 +2247,7 @@ CREATE TABLE `purchase_order_to_grp_rel` (
   PRIMARY KEY (`idpurchase_order_to_grp_rel`),
   KEY `idpurchase_order_idx` (`idpurchase_order`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2270,7 +2297,7 @@ CREATE TABLE `quotes` (
   PRIMARY KEY (`idquotes`),
   KEY `deleted_idx` (`deleted`),
   KEY `quote_key_idx` (`quote_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2306,7 +2333,7 @@ CREATE TABLE `quotes_address` (
   `q_shipping_country` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idquotes_address`),
   KEY `idquotes_idx` (`idquotes`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2330,7 +2357,7 @@ CREATE TABLE `quotes_custom_fld` (
   `idquotes` int(11) NOT NULL,
   PRIMARY KEY (`idquotes_custom_fld`),
   KEY `idquotes_idx` (`idquotes`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2356,7 +2383,7 @@ CREATE TABLE `quotes_to_grp_rel` (
   PRIMARY KEY (`idquotes_to_grp_rel`),
   KEY `idquotes_idx` (`idquotes`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2381,7 +2408,7 @@ CREATE TABLE `recurrent_events` (
   `recurrent_pattern` text,
   KEY `rec_event_idrecurrent_events_idx` (`idrecurrent_events`),
   KEY `rec_event_idevents_idx` (`idevents`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2410,7 +2437,7 @@ CREATE TABLE `related_information` (
   PRIMARY KEY (`idrelated_information`),
   KEY `relinfo_idrelated_information` (`idrelated_information`),
   KEY `relinfo_idmodule` (`idmodule`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2630,7 +2657,7 @@ CREATE TABLE `role` (
   `editable` int(1) DEFAULT NULL,
   PRIMARY KEY (`idrole`),
   KEY `role_idrole_idx` (`idrole`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2658,7 +2685,7 @@ CREATE TABLE `role_profile_rel` (
   KEY `role_profile_rel_idrole_profile_rel_idx` (`idrole_profile_rel`),
   KEY `role_profile_rel_idrole_idx` (`idrole`),
   KEY `role_profile_rel_idprofile_idx` (`idprofile`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2711,7 +2738,7 @@ CREATE TABLE `sales_order` (
   PRIMARY KEY (`idsales_order`),
   KEY `deleted_idx` (`deleted`),
   KEY `sales_order_key_idx` (`sales_order_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2747,7 +2774,7 @@ CREATE TABLE `sales_order_address` (
   `so_shipping_country` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idsales_order_address`),
   KEY `idsales_order_idx` (`idsales_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2771,7 +2798,7 @@ CREATE TABLE `sales_order_custom_fld` (
   `idsales_order` int(11) NOT NULL,
   PRIMARY KEY (`idsales_order_custom_fld`),
   KEY `idsales_order_idx` (`idsales_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2797,7 +2824,7 @@ CREATE TABLE `sales_order_to_grp_rel` (
   PRIMARY KEY (`idsales_order_to_grp_rel`),
   KEY `idsales_order_idx` (`idsales_order`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2846,7 +2873,7 @@ CREATE TABLE `standard_permission` (
   `permission_name` varchar(100) NOT NULL,
   PRIMARY KEY (`idstandard_permission`),
   KEY `standard_permission_idstandard_permission_idx` (`idstandard_permission`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2876,7 +2903,7 @@ CREATE TABLE `test_related_to` (
   KEY `test_idtest_idx` (`idtest`),
   KEY `test_related_to_idx` (`related_to`),
   KEY `test_module_idx` (`module`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2928,7 +2955,7 @@ CREATE TABLE `user` (
   KEY `user_iduser_idx` (`iduser`),
   KEY `user_idrole_idx` (`idrole`),
   KEY `user_reports_to_idx` (`reports_to`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2956,7 +2983,7 @@ CREATE TABLE `user_homepage_component` (
   KEY `hmpage_user_component_iduser_homepage_component_idx` (`iduser_homepage_component`),
   KEY `hmpage_user_component_iduser_idx` (`iduser`),
   KEY `hmpage_user_component_idhomepage_component_idx` (`idhomepage_component`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2991,7 +3018,7 @@ CREATE TABLE `vendor` (
   PRIMARY KEY (`idvendor`),
   KEY `iduser_idx` (`iduser`),
   KEY `deleted_idx` (`deleted`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3021,7 +3048,7 @@ CREATE TABLE `vendor_address` (
   `vendor_country` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idvendor_address`),
   KEY `idvendor_idx` (`idvendor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3045,7 +3072,7 @@ CREATE TABLE `vendor_custom_fld` (
   `idvendor` int(11) NOT NULL,
   PRIMARY KEY (`idvendor_custom_fld`),
   KEY `idvendor_idx` (`idvendor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3071,7 +3098,7 @@ CREATE TABLE `vendor_to_grp_rel` (
   PRIMARY KEY (`idvendor_to_grp_rel`),
   KEY `idvendor_idx` (`idvendor`),
   KEY `idgroup_idx` (`idgroup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3092,4 +3119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-05 21:47:12
+-- Dump completed on 2015-11-29 22:56:16
