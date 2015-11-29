@@ -202,20 +202,20 @@ class CRMPluginBase extends DataObject {
 	* @return void
 	*/
 	public function load_active_plugins() {
-		/*$qry = "
+		$qry = "
 		select * from `".$this->getTable()."`" ;
 		$stmt = $this->getDbConnection()->prepare($qry);
 		$stmt->execute();
 		if ($stmt->rowCount() > 0) {
 			$plugins = array();
 			while ($row = $stmt->fetch()) {
-				$plugins[$row["idplugins"]] = array("name"=>$row["name"]) ;
+				$plugins[$row["idplugins"]] = array(
+					"name"=>$row["name"],
+					"action_priority"=>$row["action_priority"],
+					"display_priority"=>$row["display_priority"]
+				) ;
 			}
 			$this->active_plugins = $plugins ;
-		}*/
-		$this->active_plugins = array('HelloWorld') ;
+		}
 	}
-	
-	
-	
 }

@@ -21,6 +21,7 @@
 				foreach ($settings as $name=>$files) {
 					$li_class = '';
 					if (in_array($current_file,$files['files_list'])) {
+						//$current_file name is parsed in module.php
 						$li_clas = 'class="active"';
 					} else { $li_clas = '';}
 					echo '<li '.$li_clas.'><a href="'.NavigationControl::getNavigationLink($files["module"],$files['default_file']).'">'.$name.'</a></li>';

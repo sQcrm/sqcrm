@@ -24,15 +24,18 @@ class CRMPluginProcessor extends CRMPluginBase {
 			$active_plugins = parent::get_active_plugins();
 		}
 		if (is_array($active_plugins) && count($active_plugins) > 0) {
+			usort($active_plugins, function($a, $b) {
+				return $a['display_priority'] - $b['display_priority'];
+			});
 			foreach ($active_plugins as $key=>$plugin) {
-				$plugin_object = new $plugin() ;
+				$plugin_object = new $plugin["name"]() ;
 				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==1) {
-					echo '<div class="box_content" id="'.$plugin.'">' ;
+					echo '<div class="box_content" id="'.$plugin["name"].'">' ;
 					echo '</div>';
 					echo '
 					<script>
 						$(document).ready(function() {
-							load_detail_view_plugin(\''.$plugin.'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.');
+							load_detail_view_plugin(\''.$plugin["name"].'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.');
 						});
 					</script>' ;
 					echo '<br />' ;
@@ -53,11 +56,14 @@ class CRMPluginProcessor extends CRMPluginBase {
 			$active_plugins = parent::get_active_plugins();
 		}
 		if (is_array($active_plugins) && count($active_plugins) > 0) {
+			usort($active_plugins, function($a, $b) {
+				return $a['display_priority'] - $b['display_priority'];
+			});
 			foreach ($active_plugins as $key=>$plugin) {
-				$plugin_object = new $plugin() ;
+				$plugin_object = new $plugin["name"]() ;
 				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==2) {
 					echo '<li id="plugin_'.$plugin_object->get_plugin_name().'" class="">' ;
-					echo '<a href="#" onclick = "process_detail_view_tab_plugin(\''.$plugin.'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.')" data-toggle ="tab" >';
+					echo '<a href="#" onclick = "process_detail_view_tab_plugin(\''.$plugin["name"].'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.')" data-toggle ="tab" >';
 					echo $plugin_object->get_plugin_tab_name();
 					echo '</a>';
 					echo '</li>';
@@ -89,8 +95,11 @@ class CRMPluginProcessor extends CRMPluginBase {
 			$active_plugins = parent::get_active_plugins();
 		}
 		if (is_array($active_plugins) && count($active_plugins) > 0) {
+			usort($active_plugins, function($a, $b) {
+				return $a['action_priority'] - $b['action_priority'];
+			});
 			foreach ($active_plugins as $key=>$plugin) {
-				$plugin_object = new $plugin() ;
+				$plugin_object = new $plugin["name"]() ;
 				if (in_array($idmodule,$plugin_object->get_plugin_modules())) {
 					$plugin_type = $plugin_object->get_plugin_type() ;
 					foreach ($plugin_type as $key=>$type) {

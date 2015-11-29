@@ -65,6 +65,8 @@ spl_autoload_register(function ($class) {
 
 	include_once($cfg_project_directory."modules/Settings/CRMGlobalSettings.class.php");
 	include_once($cfg_project_directory."modules/Settings/TaxSettings.class.php");
+	
+	include_once($cfg_project_directory."modules/Settings/PluginSettings.class.php");
 
 	//Fields Object Related
 	include_once($cfg_project_directory."class/fields/CRMFields.class.php");

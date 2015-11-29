@@ -21,7 +21,7 @@
 		if ($module_id == 3 && $converted_lead === true) {
 			// do nothing
 		} else {
-			require("detail_view_notes.php");
+			//require("detail_view_notes.php");
 		}
 		// process the detail view right block active modules
 		$do_process_plugins = new CRMPluginProcessor() ;

@@ -124,3 +124,10 @@ if ($module_id == 13 || $module_id == 14 || $module_id == 15 || $module_id == 16
 </div>
 <div class="clear_float"></div>
 <hr class="form_hr">
+<?php
+if ($module_id == 3 && $converted_lead === true) {
+	// do nothing
+} else {
+	require("detail_view_notes.php");
+}
+?>
