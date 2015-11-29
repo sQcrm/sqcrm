@@ -8,7 +8,7 @@ $(document).ready(function() {
 	* @see popups/delete_user_modal.php
 	*/
 	$('#delete_data_user').click(function() {
-    	ar sData = oTable.$('input:checkbox').serialize();
+    	var sData = oTable.$('input:checkbox').serialize();
 		if (sData == '') {
 			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var err_msg = err_element+'<strong>'+SELECT_ONE_RECORD_BEFORE_DELETE+'</strong></div>';

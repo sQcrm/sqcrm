@@ -27,6 +27,11 @@ function remove_role(fieldname) {
 
 // function to close the autoclose messages
 $(document).ready( function() {
+	$.ajax({
+		type: "GET",
+		url: '/message.php',
+		data : "clean_message=1&r="+generateRandonString(10)
+	});
 	window.setInterval(
 		function() {
 			$("#sqcrm_auto_close_messages").fadeTo(700,0).slideUp(700, function() {
@@ -54,6 +59,23 @@ function display_js_error(error_msg,div_element) {
 }
 
 /*
+* Function to display the JS success in the top section of the CRM like showing serverside messages
+* @param success_msg
+* @param div_element, element within which the message should be added before showing it
+*/
+function display_js_success(success_msg,div_element) {
+	success_msg = '<strong>'+success_msg+'</strong>';
+	if (success_msg != '') {
+		var success_html_start = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+		var success_html_end = '</div>';      
+		if (div_element !='') {
+			$("#"+div_element).html(success_html_start+success_msg+success_html_end);
+			$("#"+div_element).show();
+		}
+	}
+}
+
+/*
 * function to load the detail view tabs data
 * @param module
 * @param sqcrm_id
@@ -61,63 +83,22 @@ function display_js_error(error_msg,div_element) {
 */
 function load_deail_view_data(module,sqcrm_id,section) {
 	var action_name = '';
-	if (section == 'detail') {
-		action_name = 'detail';
-		if ($("#topbar_detail").hasClass('active')) {
-			return false ;
-		}
-		$("#topbar_history").removeClass('active');
-		$("#topbar_related").removeClass('active');
-		$("#topbar_detail").addClass('active');
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
-		}
-	} else if (section == 'history') {
-		action_name = 'history';
-		if ($("#topbar_history").hasClass('active')) {
-			return false ;
-		}
-		$("#topbar_history").addClass('active');
-		$("#topbar_related").removeClass('active');
-		$("#topbar_detail").removeClass('active');
-    
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
-		}
-	} else if (section == 'related') {
-		action_name = 'related';
-		if ($("#topbar_related").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_related").addClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
+	action_name = section;
+	var current_tab_id = '';
+	$('#detail_view_tab_section>li').each(function(){ 
+		current_tab_id = $(this).attr('id') ;
 		
-		if (module == 'User') {
-			$("#topbar_loginaudit").removeClass('active');
-			$("#topbar_homepage_components").removeClass('active');
+		if (~current_tab_id.indexOf('plugin_') == -1) {
+			$("#"+current_tab_id).removeClass('active');
+		} else {
+			if (current_tab_id == 'topbar_'+section) {
+				$("#"+current_tab_id).addClass('active');
+			} else {
+				$("#"+current_tab_id).removeClass('active');
+			}
 		}
-	} else if (section == 'loginaudit') {
-		action_name = 'loginaudit';
-		if ($("#topbar_loginaudit").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_loginaudit").addClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
-		$("#topbar_homepage_components").removeClass('active');
-	} else if (section == 'homepage_components') {
-		action_name = 'homepage_components';
-		if ($("#topbar_homepage_components").hasClass('active')) {
-			return false;
-		}
-		$("#topbar_homepage_components").addClass('active');
-		$("#topbar_loginaudit").removeClass('active');
-		$("#topbar_detail").removeClass('active');
-		$("#topbar_history").removeClass('active');
-	}
+	}) ; 
+	
 	$.ajax({
 		type: "GET",
 		url: action_name,

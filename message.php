@@ -1,25 +1,10 @@
 <?php 
-// Copyright 2001 - 2007 SQLFusion LLC           info@sqlfusion.com
-/****
-* Message display page
-* Display the content of $message
-* - param string $message contains the message to display
-*
-* @package PASSiteTemplate
-* @author Philippe Lewicki  <phil@sqlfusion.com>
-* @copyright  SQLFusion LLC 2001-2007
-* @version 4.0
-*/
-
-
+// Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt  
 include_once("config.php") ;
-$pageTitle = "Message" ;
-include("includes/header.inc.php") ;
-
-if (!empty($_SESSION['message'])) {
-	echo htmlentities(stripslashes($_SESSION['message'])) ; 
-    $_SESSION['message'] = null;
-} else {
-	echo htmlentities(stripslashes($_REQUEST['message'])) ;
+print_r($_SESSION);
+if (isset($_REQUEST["clean_message"]) && (int)$_REQUEST["clean_message"] == 1) {
+	echo 'here';
+	$_SESSION["do_crm_messages"]->errase_message();
 }
+
 ?>

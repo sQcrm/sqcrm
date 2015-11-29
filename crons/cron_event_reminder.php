@@ -20,7 +20,7 @@ $emailer = new SQEmailer();
 $do_event_reminder = new EventsReminder();
 $do_event_reminder->get_reminder_emails_to_send();
 $do_calendar = new Calendar();
-$q = new sqlQuery($GLOBALS['conx']);
+
 $now = date("Y-m-d H:i:s");
 if ($do_event_reminder->getNumRows() > 0) {
 	while ($do_event_reminder->next()) {

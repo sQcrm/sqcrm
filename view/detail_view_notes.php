@@ -63,7 +63,7 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 <script>
 //Setting up the sql start and max as a global and used in the ajax call for loading more
 var start = <?php echo $do_notes->sql_start ; ?> ;
-var sql_max = <?php echo $do_notes->sql_max ; ?> ;
+var sql_max = <?php echo LIST_VIEW_PAGE_LENGTH ; ?> ;
 var sql_end = sql_max ;
 var cnt = 0 ;
 $(document).ready(function() {

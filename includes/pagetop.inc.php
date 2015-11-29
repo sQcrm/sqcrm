@@ -88,7 +88,7 @@
 <div id="server_side_message" style="height:40px;margin-top:2px;position:relative;"></div>
 <?php
 $_SESSION["do_crm_messages"]->get_messages(true);
-$_SESSION["do_crm_messages"]->errase_message();
+// the session values are cleaned via ajax body onload , check /js/common.js 
 ?>
 <!-- Javascript error message block -->
 <div id="js_errors" style="display:none;"></div>

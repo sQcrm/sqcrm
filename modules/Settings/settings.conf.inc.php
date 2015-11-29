@@ -66,6 +66,18 @@ $core_settings = array(
 			'default_file'=>'inventory_settings',
 			'files_list'=>array('inventory_settings')	
 		)	
+	),
+	_('Developer')=>array(
+		_('Plugins')=>array(
+			'module'=>'Settings',
+			'default_file'=>'plugins',
+			'files_list'=>array('plugins')
+		),
+		_('Sort Plugins')=>array(
+			'module'=>'Settings',
+			'default_file'=>'plugins_sort',
+			'files_list'=>array('plugins_sort')
+		)
 	)
 );
 

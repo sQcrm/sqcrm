@@ -12,6 +12,9 @@
 	$e_edit_entity->addParam("idmodule",$module_id);
 	$e_edit_entity->addParam("module",$module);
 	$e_edit_entity->addParam("sqrecord",$sqcrm_record_id);
+	if (isset($_REQUEST["return_page"]) && strlen($_REQUEST["return_page"]) > 2) {
+		$e_edit_entity->addParam("return_page",$_REQUEST["return_page"]);
+	}
 	$e_edit_entity->addParam("error_page",NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id));
 	echo '<form class="" id="'.$module.'__editRecord" name="'.$module.'__editRecord" action="/eventcontroler.php" method="post" enctype="multipart/form-data">';
 	echo $e_edit_entity->getFormEvent();

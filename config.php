@@ -8,8 +8,12 @@
 //if (!isset($GLOBALS['cfg_full_path'])) { $GLOBALS['cfg_full_path'] = ''; }
 //set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
 //$cfg_project_directory = $GLOBALS['cfg_full_path'];
-
-$cfg_project_directory = dirname(__FILE__).'/';
+if (isset($GLOBALS['cfg_full_path'])) {
+	set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
+	$cfg_project_directory = $GLOBALS['cfg_full_path'];
+} else {
+	$cfg_project_directory = dirname(__FILE__).'/';
+}
 $cfg_local_db = 'mysql';
 $GLOBALS['cfg_local_db'] = 'mysql';
 $cfg_eventcontroler = 'eventcontroler.php';
@@ -64,9 +68,9 @@ $connectionParams = array(
 $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
 $GLOBALS['conn'] = $conn ;
 	
-include("includes/globalvar.inc.php") ;
+include(dirname(__FILE__)."/includes/globalvar.inc.php") ;
 
-if (file_exists("includes/extraconfig_postdb.inc.php")) {
-	include_once("includes/extraconfig_postdb.inc.php") ;
+if (file_exists(dirname(__FILE__)."/includes/extraconfig_postdb.inc.php")) {
+	include_once(dirname(__FILE__)."/includes/extraconfig_postdb.inc.php") ;
 };
 ?>

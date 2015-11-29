@@ -12,6 +12,11 @@ class Notes extends DataObject {
 	public $sql_start = 0 ;
 	public $sql_max = 20 ;
 	public $module_group_rel_table = '';
+	
+	
+	public function __construct() {
+		$this->sql_max = LIST_VIEW_PAGE_LENGTH ;
+	}
     
 	/**
 	* event function to add notes
@@ -265,8 +270,12 @@ html;
 	function eventAjaxDeleteNotes(EventControler $evctl) {
 		if ((int)$evctl->idnotes > 0) {
 			if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',8,(int)$evctl->idnotes) === true) {
-				$this->getId((int)$evctl->idnotes);
-				$this->delete();
+				$qry = "
+				delete from `".$this->getTable()."`
+				where 
+				`idnotes` = ?
+				" ;
+				$this->query($qry,array((int)$evctl->idnotes));
 				$do_files_and_attachment = new CRMFilesAndAttachments();
 				$do_files_and_attachment->get_uploaded_files(8,(int)$evctl->idnotes);
 				if ($do_files_and_attachment->getNumRows() > 0) {
