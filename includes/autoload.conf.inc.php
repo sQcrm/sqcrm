@@ -7,13 +7,19 @@
 spl_autoload_register(function ($class) { 
 	$cfg_project_directory = str_replace('includes','',dirname(__FILE__)) ;
 	// Core radria objects
-	$it = new RecursiveDirectoryIterator($cfg_project_directory.'class/core/radria/');
+	include_once($cfg_project_directory.'class/core/radria/BaseObject.class.php');
+	include_once($cfg_project_directory.'class/core/radria/Display.class.php');
+	include_once($cfg_project_directory.'class/core/radria/EventControler.class.php');
+	include_once($cfg_project_directory.'class/core/radria/Event.class.php');
+	include_once($cfg_project_directory.'class/core/radria/DataObject.class.php');
+	
+	/*$it = new RecursiveDirectoryIterator($cfg_project_directory.'class/core/radria/');
 	foreach (new RecursiveIteratorIterator($it) as $file) {
 		if (preg_match("/\.class\.php$/i", $file) && !preg_match("/^\./", $file)) {
 			include_once($file);
 		}
-	}
-
+	}*/
+	
 	//Data History
 	$it = new RecursiveDirectoryIterator($cfg_project_directory.'class/datahistory/');
 	foreach (new RecursiveIteratorIterator($it) as $file) {
