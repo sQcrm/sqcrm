@@ -167,6 +167,7 @@ class Invoice extends DataObject {
 						if ($field_value["field_type"] == 15) {
 							$value = $field_value["value"];
 							$assigned_to_as_group = $field_value["assigned_to_as_group"];
+							$group_id = $field_value["group_id"] ;
 						} elseif ($field_value["field_type"] == 12) {
 							$value = $field_value["name"];
 							$avatar_array[] = $field_value ;

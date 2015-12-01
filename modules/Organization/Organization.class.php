@@ -158,6 +158,7 @@ class Organization extends DataObject {
 						if ($field_value["field_type"] == 15) {
 							$value = $field_value["value"];
 							$assigned_to_as_group = $field_value["assigned_to_as_group"];
+							$group_id = $field_value["group_id"] ;
 						}
 					} else { $value = $field_value ; }
 					if ($crm_fields["table_name"] == $table_entity && $crm_fields["idblock"] > 0) {

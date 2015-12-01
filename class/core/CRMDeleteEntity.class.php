@@ -69,8 +69,8 @@ class CRMDeleteEntity extends DataObject {
 						// process after delete plugin
 						$do_process_plugins->process_action_plugins($module_id,null,5,$id) ;
 					}
-					echo '1';
 				}
+				echo '1';
 			} else {
 				echo '0';
 			}

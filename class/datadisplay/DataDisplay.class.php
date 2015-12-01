@@ -248,21 +248,37 @@ class DataDisplay extends DataObject {
 		return	$this->ds_search_params ;
 	}
     
-    public function set_ds_additional_where($where) {
+    /**
+    * set additional where condition to support custom filter
+    * @param string $where
+    */
+	public function set_ds_additional_where($where) {
 		$this->ds_additional_where_cond = $where ;
-    }
+	}
     
-    public function get_ds_additional_where() {
+    /**
+    * get the additional where set with custom filter
+    * @return string
+    */
+	public function get_ds_additional_where() {
 		return $this->ds_additional_where_cond ;
-    }
+	}
     
-    public function set_ds_additional_query_param($param) {
+    /**
+    * set the additional query params to support the custom filter
+    * @param array $param
+    */
+	public function set_ds_additional_query_param($param) {
 		$this->ds_additional_query_params = $param ;
-    }
+	}
     
-    public function get_ds_additional_query_param() {
+    /**
+    * get the additional query params set in custom filter
+    * @retrun array
+    */
+	public function get_ds_additional_query_param() {
 		return $this->ds_additional_query_params ;
-    }
+	}
     
 	/**
 	* function to display the list data in datatable
