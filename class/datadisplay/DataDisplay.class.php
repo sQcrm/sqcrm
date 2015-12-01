@@ -27,30 +27,30 @@ class DataDisplay extends DataObject {
 
 	/* stores the order by information for the datatable display */
 	protected $ds_order_by = '';
-	
+
 	/* stores the security_where for the datatable display */
 	protected $ds_list_security = '';
 
 	/* stores the where condition for the datatable display */
 	protected $ds_where_cond = '';
-	
+
 	protected $ds_search_params = array();
-	
+
 	/* stores the additional where clause */
 	protected $ds_additional_where_cond = '';
-	
+
 	/* stores additional query param*/
 	protected $ds_additional_query_params = array();
-	
+
 	/* show edit link */
 	protected $ds_show_edit_link = true ;
-	
+
 	/* show deltail link */
 	protected $ds_show_detail_link = true ;
-	
+
 	/* show delete link */
 	protected $ds_show_delete_link = true ;
-	
+
 	/* show records selector ( checkbox )*/
 	protected $ds_record_selector = true ;
 
@@ -248,34 +248,34 @@ class DataDisplay extends DataObject {
 		return	$this->ds_search_params ;
 	}
     
-    /**
-    * set additional where condition to support custom filter
-    * @param string $where
-    */
+	/**
+	* set additional where condition to support custom filter
+	* @param string $where
+	*/
 	public function set_ds_additional_where($where) {
 		$this->ds_additional_where_cond = $where ;
 	}
     
-    /**
-    * get the additional where set with custom filter
-    * @return string
-    */
+	/**
+	* get the additional where set with custom filter
+	* @return string
+	*/
 	public function get_ds_additional_where() {
 		return $this->ds_additional_where_cond ;
 	}
     
-    /**
-    * set the additional query params to support the custom filter
-    * @param array $param
-    */
+	/**
+	* set the additional query params to support the custom filter
+	* @param array $param
+	*/
 	public function set_ds_additional_query_param($param) {
 		$this->ds_additional_query_params = $param ;
 	}
     
-    /**
-    * get the additional query params set in custom filter
-    * @retrun array
-    */
+	/**
+	* get the additional query params set in custom filter
+	* @retrun array
+	*/
 	public function get_ds_additional_query_param() {
 		return $this->ds_additional_query_params ;
 	}
