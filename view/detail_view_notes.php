@@ -30,7 +30,7 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 				echo $e_add_notes->getFormEvent();
 				?>
 				<?php 
-				FieldType20::display_field('entity_notes','','expand_text_area');
+				FieldType200::display_field('entity_notes','','input-xxlarge');
 				?>
 				<br /><br />
 				<?php
@@ -290,7 +290,7 @@ function edit_notes(idnotes) {
 			$e_edit_notes->setSecure(false);
 			?>
 			url: "<?php echo $e_edit_notes->getUrl(); ?>&idnotes="+idnotes,
-			data:"notes_edit_data="+$("#"+notes_text_area).val(),
+			data:"notes_edit_data="+encodeURIComponent($("#"+notes_text_area).val()),
 			success:  function(html) {
 				$('#'+notes_content_id).html(html);
 				$("#content_hidden_"+idnotes).html('');
