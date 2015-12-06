@@ -33,6 +33,7 @@ class Notes extends DataObject {
 					$add_note = true ;
 					$this->addNew();
 					$this->notes = CommonUtils::purify_input($evctl->entity_notes);
+					$this->notes = $evctl->entity_notes;
 					$this->sqcrm_record_id = (int)$evctl->sqrecord ;
 					$this->related_module_id = (int)$evctl->idmodule ;
 					$this->date_added = date("Y-m-d H:i:s");
@@ -138,11 +139,12 @@ class Notes extends DataObject {
 			$thumb = '<span class="add-on"><i class="icon-user"></i></span>';
 		}
 		$note_content = $obj->notes;
-		if (strlen($note_content) > 200 ) {
+		/*if (strlen($note_content) > 200 ) {
 			$note_content = substr($note_content, 0, 200);
 			$note_content .= '&nbsp;<a href="#" onclick="view_more_notes(\''.$obj->idnotes.'\'); return false;">more...</a>';
-		}
+		}*/
 		$note_content = CommonUtils::format_display_text($note_content);
+		$note_content = FieldType200::display_value($note_content);
 		$do_files_and_attachment = new CRMFilesAndAttachments();
 		$do_files_and_attachment->get_uploaded_files(8,$obj->idnotes);
 		if ($do_files_and_attachment->getNumRows() > 0) {
@@ -186,6 +188,7 @@ html;
 		if ((int)$evctl->idnotes > 0) {
 			$this->getId((int)$evctl->idnotes);
 			$notes_content = CommonUtils::format_display_text($this->notes);
+			$notes_content .= FieldType200::display_value($notes_content);
 		}
 		$html = <<<html
 			{$notes_content}
@@ -230,7 +233,7 @@ html;
 			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',8,(int)$evctl->idnotes) === true) { 
 				$this->getId((int)$evctl->idnotes);
 				$notes = $this->notes ;
-				$html = FieldType20::display_field('entity_notes_edit_'.$this->idnotes,$notes,'expand_text_area');
+				$html = FieldType200::display_field('entity_notes_edit_'.$this->idnotes,$notes,'input-xxlarge');
 				$html .= '<br /><input type="button" onclick="edit_notes(\''.$this->idnotes.'\')" class="btn btn-primary" value="'._('update').'"/>';
 				$html .= '&nbsp;<input type="button" onclick="close_edit_notes(\''.$this->idnotes.'\')" class="btn btn-inverse" value="'._('cancel').'"/>';
 				echo $html;
@@ -255,7 +258,7 @@ html;
 				$notes .= '&nbsp;<a href="#" onclick="view_more_notes(\''.$this->idnotes.'\'); return false;">more...</a>';
 			}
 			$notes = CommonUtils::format_display_text($notes);
-			echo $notes;
+			echo FieldType200::display_value($notes);
 		}
 	}   
   

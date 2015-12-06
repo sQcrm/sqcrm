@@ -12,3 +12,6 @@
 <script type="text/javascript" src="/js/plugins/expandingtextarea/expanding.js"></script>
 <script type="text/javascript" src="/js/jquery/plugins/scroll.jquery.js"></script>
 <script type="text/javascript" src="/js/jquery/plugins/jquery.maskMoney.js"></script>
+<script type="text/javascript" src="/js/jquery/plugins/emoji.js"></script>
+<script type="text/javascript" src="/js/jquery/plugins/jquery.textcomplete.js"></script>
+<script type="text/javascript" src="/js/jquery/plugins/autogrow.js"></script>
