@@ -102,6 +102,9 @@ if (isset($_GET["return_page"]) && $_GET["return_page"] != '') {
 ?>
 $.validator.addMethod("notEqual", function(value,element,param) {
 	return this.optional(element) || value != param;
-  },"Please select a value "
-);
+},"Please select a value ");
+
+$.validator.addMethod("alphaNumericUnderscore", function(value,element,param) {
+	return this.optional(element) || /^[a-zA-Z0-9_]+$/i.test(value);
+},"Only letter numbers and underscore is allowed for username "); 
 </script>
