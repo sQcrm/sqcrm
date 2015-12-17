@@ -90,6 +90,22 @@ class User extends DataObject {
 		$sql = "select * from ".$this->getTable()." where `deleted` = 0  order by firstname asc" ;
 		$this->query($sql);
 	}
+	
+	public function get_active_users() {
+		$sql = "select * from ".$this->getTable()." where `deleted` = 0  order by firstname asc" ;
+		$this->query($sql) ;
+		$return_array = array() ;
+		while ($this->next()) {
+			$return_array[] = array(
+				"iduser"=>$this->iduser,
+				"user_name"=>$this->user_name,
+				"firstname"=>$this->firstname,
+				"lastname"=>$this->lastname,
+				"email"=>$this->email
+			);
+		}
+		return $return_array ;
+	}
 
 	/**
 	* Event function to add User
@@ -172,19 +188,21 @@ class User extends DataObject {
 				$data_array[$field_name] = $value ;
 			}
 			$this->update(array($this->primary_key=>$iduser),$this->getTable(),$data_array);
-			foreach ($avatar_array as $avatar) {
-				if (is_array($avatar) && array_key_exists('name',$avatar)) {
-					$do_files_and_attachment = new CRMFilesAndAttachments();
-					$do_files_and_attachment->addNew();
-					$do_files_and_attachment->file_name = $avatar["name"];
-					$do_files_and_attachment->file_mime = $avatar["mime"];
-					$do_files_and_attachment->file_size = $avatar["file_size"];
-					$do_files_and_attachment->file_extension = $avatar["extension"];
-					$do_files_and_attachment->idmodule = 7;
-					$do_files_and_attachment->id_referrer = $iduser;
-					$do_files_and_attachment->iduser = 1;
-					$do_files_and_attachment->date_modified = date("Y-m-d H:i:s");
-					$do_files_and_attachment->add() ;
+			if (is_array($avatar_array) && count($avatar_array) >0) {
+				foreach ($avatar_array as $avatar) {
+					if (is_array($avatar) && array_key_exists('name',$avatar)) {
+						$do_files_and_attachment = new CRMFilesAndAttachments();
+						$do_files_and_attachment->addNew();
+						$do_files_and_attachment->file_name = $avatar["name"];
+						$do_files_and_attachment->file_mime = $avatar["mime"];
+						$do_files_and_attachment->file_size = $avatar["file_size"];
+						$do_files_and_attachment->file_extension = $avatar["extension"];
+						$do_files_and_attachment->idmodule = 7;
+						$do_files_and_attachment->id_referrer = $iduser;
+						$do_files_and_attachment->iduser = 1;
+						$do_files_and_attachment->date_modified = date("Y-m-d H:i:s");
+						$do_files_and_attachment->add() ;
+					}
 				}
 			}
 			// Record the history
