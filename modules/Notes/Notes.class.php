@@ -33,6 +33,7 @@ class Notes extends DataObject {
 					$add_note = true ;
 					$this->addNew();
 					$this->notes = CommonUtils::purify_input($evctl->entity_notes);
+					$this->notes = $evctl->entity_notes;
 					$this->sqcrm_record_id = (int)$evctl->sqrecord ;
 					$this->related_module_id = (int)$evctl->idmodule ;
 					$this->date_added = date("Y-m-d H:i:s");
@@ -51,13 +52,21 @@ class Notes extends DataObject {
 							);
 						}
 					}
+					
+					// send nudge email 
+					$this->send_note_nudge_email($idnotes,$evctl->entity_notes,(int)$evctl->idmodule,(int)$evctl->sqrecord);
+					$this->get_note_by_id($idnotes);
+					$this->next();
+					$do_user = new User() ;
+					$active_users = $do_user->get_active_users() ;
+					$this->display_note($this,$active_users);
 				} else {
-					$error = _('<strong>Please add some note before saving.</strong>');
+					echo '1' ;
 				}
 			} else {
-				$error = _('<strong>Notes can not be added, missing record id or module name.</strong>');
+				echo '2' ;
 			}
-			if ($add_note === true) {
+			/*if ($add_note === true) {
 				echo 1;
 			} else {
 				$error_html = '';
@@ -65,7 +74,7 @@ class Notes extends DataObject {
 				$error_html .= $error;
 				$error_html .= '</div>';
 				echo $error_html ;
-			}
+			}*/
 		}
 	}
   
@@ -84,8 +93,10 @@ class Notes extends DataObject {
 		}
 		$this->get_notes((int)$evctl->sqrecord,(int)$evctl->idmodule,$start,$max);
 		if ($this->getNumRows() > 0) {
+			$do_user = new User() ;
+			$active_users = $do_user->get_active_users() ;
 			while ($this->next()) {
-				$this->display_note($this);
+				$this->display_note($this,$active_users);
 			}
 		} else {
 			return 0 ;
@@ -121,15 +132,40 @@ class Notes extends DataObject {
 			$start = $this->sql_start ;
 			$max = $this->sql_max ;
 		}
-		$qry .= " limit ".(int)$start.",".(int)$max ;
+		//$qry .= " limit ".(int)$start.",".(int)$max ;
 		$this->query($qry,array($idreferrer,$idmodule));
+	}
+	
+	public function get_note_by_id($idnotes) {
+		$qry  = "
+		select notes.*,
+		user.firstname, 
+		user.lastname , 
+		file_uploads.file_extension,
+		user.user_avatar 
+		from notes
+		inner join user on user.iduser = notes.iduser
+		left join file_uploads on user.user_avatar = file_uploads.file_name
+		where 
+		notes.idnotes = ?
+		";
+		$this->query($qry,array($idnotes));
+	}
+  
+	function eventAjaxLoadNoteById(EventControler $evctl) {
+		if ((int)$evctl->idnotes > 0 ) {
+			$this->get_note_by_id((int)$evctl->idnotes) ;
+			$do_user = new User() ;
+			$active_users = $do_user->get_active_users() ;
+			$this->display_note($this,$active_users);
+		}
 	}
   
 	/**
 	* function to display each note
 	* @param object $obj
 	*/
-	function display_note($obj) {
+	function display_note($obj,$active_users) {
 		$note_documents = '';
 		$avatar_path = $GLOBALS['AVATAR_DISPLAY_PATH'] ;
 		if ($obj->user_avatar != '') {
@@ -138,11 +174,12 @@ class Notes extends DataObject {
 			$thumb = '<span class="add-on"><i class="icon-user"></i></span>';
 		}
 		$note_content = $obj->notes;
-		if (strlen($note_content) > 200 ) {
+		/*if (strlen($note_content) > 200 ) {
 			$note_content = substr($note_content, 0, 200);
 			$note_content .= '&nbsp;<a href="#" onclick="view_more_notes(\''.$obj->idnotes.'\'); return false;">more...</a>';
-		}
+		}*/
 		$note_content = CommonUtils::format_display_text($note_content);
+		$note_content = FieldType200::display_value($note_content);
 		$do_files_and_attachment = new CRMFilesAndAttachments();
 		$do_files_and_attachment->get_uploaded_files(8,$obj->idnotes);
 		if ($do_files_and_attachment->getNumRows() > 0) {
@@ -161,15 +198,15 @@ class Notes extends DataObject {
 		<div class="notes_content" id="note{$obj->idnotes}">{$thumb}
 			<strong>{$obj->firstname} {$obj->lastname}</strong>
 			<span class="notes_content_right" style="display:none;">
-				<a href="#" onclick="display_edit_notes('$obj->idnotes'); return false;">edit</a> | 
-				<a href="#" onclick="delete_notes('$obj->idnotes'); return false;">delete</a>
+				<a href="#" onclick="display_edit_notes('{$obj->idnotes}'); return false;">edit</a> | 
+				<a href="#" onclick="delete_notes('{$obj->idnotes}'); return false;">delete</a>
 			</span>
 			<p id="content_{$obj->idnotes}">
 				{$note_content}
 			</p>
 			{$note_documents}
 			<p id="content_hidden_{$obj->idnotes}" style="display:none;"></p>
-			<span class="notes_date_added">{$date_added}</span>
+			<a href="#note-content-{$obj->idnotes}" onclick="return false ;" id="note-content-{$obj->idnotes}"><span class="notes_date_added">{$date_added}</span></a>
       </div>
       <hr class="form_hr">
 html;
@@ -186,6 +223,7 @@ html;
 		if ((int)$evctl->idnotes > 0) {
 			$this->getId((int)$evctl->idnotes);
 			$notes_content = CommonUtils::format_display_text($this->notes);
+			$notes_content .= FieldType200::display_value($notes_content);
 		}
 		$html = <<<html
 			{$notes_content}
@@ -230,7 +268,7 @@ html;
 			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',8,(int)$evctl->idnotes) === true) { 
 				$this->getId((int)$evctl->idnotes);
 				$notes = $this->notes ;
-				$html = FieldType20::display_field('entity_notes_edit_'.$this->idnotes,$notes,'expand_text_area');
+				$html = FieldType200::display_field('entity_notes_edit_'.$this->idnotes,$notes,'expand_text_area');
 				$html .= '<br /><input type="button" onclick="edit_notes(\''.$this->idnotes.'\')" class="btn btn-primary" value="'._('update').'"/>';
 				$html .= '&nbsp;<input type="button" onclick="close_edit_notes(\''.$this->idnotes.'\')" class="btn btn-inverse" value="'._('cancel').'"/>';
 				echo $html;
@@ -250,12 +288,12 @@ html;
 			$this->cleanValues();
 			$this->notes = $notes;
 			$this->update((int)$evctl->idnotes);
-			if (strlen($notes) > 200) {
+			/*if (strlen($notes) > 200) {
 				$notes = substr($notes, 0, 200);
 				$notes .= '&nbsp;<a href="#" onclick="view_more_notes(\''.$this->idnotes.'\'); return false;">more...</a>';
-			}
+			}*/
 			$notes = CommonUtils::format_display_text($notes);
-			echo $notes;
+			echo FieldType200::display_value($notes);
 		}
 	}   
   
@@ -288,6 +326,65 @@ html;
 				}
 				echo 1;
 			} else { echo 0 ; }
+		}
+	}
+	
+	/**
+	* function to send nudge email on a note
+	* @param integer $idnotes
+	* @param string $note_content
+	* @param integer $related_module_id
+	* @param integer $sqcrm_record_id
+	*/
+	public function send_note_nudge_email($idnotes,$note_content,$related_module_id,$sqcrm_record_id) {
+		if ((int)$idnotes > 0) {
+			$mentioned_email_receiptents  = array() ;
+			preg_match_all("/(^|[^@\w])@(\w{1,15})\b/im", $note_content, $mentioned_users);
+			if (is_array($mentioned_users) && array_key_exists(2,$mentioned_users) && count($mentioned_users[2]) >0) {
+				$do_user = new User() ;
+				$active_users = $do_user->get_active_users() ;
+				$current_user = $_SESSION["do_user"]->iduser ;
+				$active_users_key_as_username = array() ;
+				foreach ($active_users as $key=>$users) {
+					if ($users["iduser"] == $current_user) continue ;
+					$active_users_key_as_username[$users["user_name"]] = array(
+						"firstname"=>$users["firstname"],
+						"lastname"=>$users["lastname"],
+						"email"=>$users["email"]
+					) ;
+				}
+				foreach ($mentioned_users[2] as $key=>$val) {
+					if (array_key_exists($val,$active_users_key_as_username)) {
+						$mentioned_email_receiptents[] = $active_users_key_as_username[$val] ;
+					}
+				}
+			}
+			if (is_array($mentioned_email_receiptents) && count($mentioned_email_receiptents) > 0) {
+				$email_template = new EmailTemplate("send_notes_user_mentioned_email") ;
+				$emailer = new SQEmailer();
+				$do_module = new Module() ;
+				$do_module->getId($related_module_id) ;
+				$entity_url = NavigationControl::getNavigationLink($do_module->name,'detail',$sqcrm_record_id,'#note'.$idnotes) ;
+				$view_url = '<a href="'.SITE_URL.$entity_url.'">'._('view on sQcrm').'</a>';
+				$note_content = FieldType200::display_value($note_content);
+				$note_content = str_replace('/themes/images/emoji-pngs',SITE_URL.'/themes/images/emoji-pngs',$note_content);
+				foreach ($mentioned_email_receiptents as $key=>$mentioned) {
+					$to_email = $mentioned["email"] ;
+					$email_data = array(
+						"notes_content" => $note_content ,
+						"firstname" => $mentioned["firstname"] ,
+						"lastname" => $mentioned["lastname"] ,
+						"view_url" => $view_url,
+						"module_name" => CommonUtils::get_module_name_as_text($related_module_id),
+						"user_name" =>$_SESSION["do_user"]->user_name
+					);
+					$emailer->IsSendmail();
+					$emailer->setEmailTemplate($email_template);
+					$emailer->mergeArray($email_data);
+					$emailer->AddAddress($to_email, $mentioned["firstname"].' '.$mentioned["lastname"]);
+					$emailer->send() ;
+				}
+			}
 		}
 	}
 }

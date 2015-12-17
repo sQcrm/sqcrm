@@ -6,4 +6,3 @@
 */  
 header("Location: ".NavigationControl::getNavigationLink("Settings","profile_list"));
 exit;
-?>
