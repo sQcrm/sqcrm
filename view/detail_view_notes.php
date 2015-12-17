@@ -12,6 +12,7 @@ $do_notes = new Notes();
 if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 ?>
 <div class="box_content">
+	<div id="no_show" style="display:none;"></div>
 	<div id="message"></div>
 		<div id="entiry_notes">
 			<?php
@@ -30,7 +31,7 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 				echo $e_add_notes->getFormEvent();
 				?>
 				<?php 
-				FieldType20::display_field('entity_notes','','expand_text_area');
+				FieldType200::display_field('entity_notes','','expand_text_area');
 				?>
 				<br /><br />
 				<?php
@@ -52,7 +53,7 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 			<!-- note content section loading with ajax -->
 			</div> 
 			<div id='load_more_notes' style="display:none;">
-				<button class="btn btn-primary btn-large" id="load_more_notes_btn"><?php echo _('more');?></button>
+				<!--<button class="btn btn-primary btn-large" id="load_more_notes_btn"><?php echo _('more');?></button>-->
 			</div>
 			<?php 
 			} ?>
@@ -77,24 +78,29 @@ $(document).ready(function() {
     // Jquery Ajax submit plugin to submit the note form with Ajax
     var data_flag = 0 ;
     var options = {
-		target: '#message', //Div tag where content info will be loaded in
+		target: '#no_show', //Div tag where content info will be loaded in
 		url:'/ajax_evctl.php', //The php file that handles the file that is uploaded
 		beforeSubmit: function() {
 			$('#notes_submit').html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); //Including a preloader, it loads into the div tag with id uploader
 		},
 		success:  function(data) {
 			//Here code can be included that needs to be performed if Ajax request was successful
-			if(data == 1) {
-				data_flag = 1 ;
-				var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-				var succ_msg = succ_element+'<strong>'+NOTES_ADDED_SUCCESSFULLY+'</strong></div>';
+			if (data.trim() == '1') {
+				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
+				var err_message = err_element+'<strong>Please add some note before saving.</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
+			} else if (data.trim() == '2') {
+				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
+				var err_message = err_element+'<strong>Notes can not be added, missing record id or module name.</strong></div>';
+				$("#message").html(succ_msg);
+				$("#message").show();
+			} else {
+				$("#notes_entry").prepend(data);
+				$("#notes_submit").html('<input type="submit" class="btn btn-primary" value="Save"/>');
 			}
-			reset_note_fields();
-			load_notes(data_flag);
-			$("#load_more_notes_btn").removeAttr('disabled','disabled');
-			$("#load_more_notes_btn").html('<?php echo _('more');?>');
+			// this is done for setting the return data to null for the div #no_show else it will create conflict on edit 
+			$('#no_show').html(''); 
 		}
     };
     
@@ -147,6 +153,13 @@ $(document).ready(function() {
 			}
         });
     });
+    
+    // scroll to the note 
+    var hash = location.hash.replace('#','');
+    if (hash != '') {
+		$(window).scrollTop(hash.offset().top).scrollLeft(hash.offset().left);
+		//$('#'+hash).css("background-color","#FDFFBD");
+	}
 }); 
 
 /*
@@ -263,7 +276,7 @@ function display_edit_notes(idnotes) {
 				$("#message").show();
 				$('#'+notes_content_id).html(current_note);
 			} else {
-				$('#'+notes_content_id).html(html);
+				$('#'+notes_content_id).html(ret_data);
 				$("#content_hidden_"+idnotes).html(current_note);
 			}
 		}
@@ -290,7 +303,7 @@ function edit_notes(idnotes) {
 			$e_edit_notes->setSecure(false);
 			?>
 			url: "<?php echo $e_edit_notes->getUrl(); ?>&idnotes="+idnotes,
-			data:"notes_edit_data="+$("#"+notes_text_area).val(),
+			data:"notes_edit_data="+encodeURIComponent($("#"+notes_text_area).val()),
 			success:  function(html) {
 				$('#'+notes_content_id).html(html);
 				$("#content_hidden_"+idnotes).html('');
@@ -342,8 +355,8 @@ function delete_notes(idnotes) {
 				var succ_msg = succ_element+'<strong>'+NOTES_DELETED_SUCCESSFULLY+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
-				$("#load_more_notes_btn").removeAttr('disabled','disabled');
-				$("#load_more_notes_btn").html('<?php echo _('more');?>');
+				//$("#load_more_notes_btn").removeAttr('disabled','disabled');
+				//$("#load_more_notes_btn").html('<?php echo _('more');?>');
 			}
 		}
     });

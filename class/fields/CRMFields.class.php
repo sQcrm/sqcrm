@@ -175,6 +175,8 @@ class CRMFields extends DataObject {
 					$js .= "\t\t".$rule.' :"'._('Please select ').$field_label_array[$fieldname].'",'."\n";
 				} elseif ($rule == 'unique') {
 					$js .= "\t\t".'remote :"'.$field_label_array[$fieldname]._(' is already in use').'",'."\n";
+				} elseif ($rule == 'alphaNumericUnderscore') {
+					$js .= "\t\t".$rule.' :"'._('Only letter numbers and underscore is allowed for ').$field_label_array[$fieldname].'",'."\n";
 				}
 			}
 			$js .= "\t".'},'."\n";
