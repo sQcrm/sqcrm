@@ -101,6 +101,7 @@ $(document).ready(function() {
 			}
 			// this is done for setting the return data to null for the div #no_show else it will create conflict on edit 
 			$('#no_show').html(''); 
+			$('#entity_notes').val('');
 		}
     };
     

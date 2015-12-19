@@ -54,7 +54,8 @@ class Notes extends DataObject {
 					}
 					
 					// send nudge email 
-					$this->send_note_nudge_email($idnotes,$evctl->entity_notes,(int)$evctl->idmodule,(int)$evctl->sqrecord);
+					$this->send_note_nudge_email($idnotes,$evctl->entity_notes,(int)$evctl->idmodule,(int)$evctl->sqrecord) ;
+					$this->add_mentions_feed($idnotes,$evctl->entity_notes,(int)$evctl->idmodule,(int)$evctl->sqrecord) ;
 					$this->get_note_by_id($idnotes);
 					$this->next();
 					$do_user = new User() ;
@@ -383,6 +384,55 @@ html;
 					$emailer->mergeArray($email_data);
 					$emailer->AddAddress($to_email, $mentioned["firstname"].' '.$mentioned["lastname"]);
 					$emailer->send() ;
+				}
+			}
+		}
+	}
+	
+	/**
+	* add feed for the mentioned notes
+	* @param integer $idnotes
+	* @param string $note_content
+	* @param integer $related_module_id
+	* @param integer $sqcrm_record_id
+	*/
+	public function add_mentions_feed($idnotes,$note_content,$related_module_id,$sqcrm_record_id) {
+		if ($idnotes > 0) {
+			$mentioned_feed_receiptents  = array() ;
+			preg_match_all("/(^|[^@\w])@(\w{1,15})\b/im", $note_content, $mentioned_users);
+			if (is_array($mentioned_users) && array_key_exists(2,$mentioned_users) && count($mentioned_users[2]) >0) {
+				$do_user = new User() ;
+				$active_users = $do_user->get_active_users() ;
+				$current_user = $_SESSION["do_user"]->iduser ;
+				$active_users_key_as_username = array() ;
+				foreach ($active_users as $key=>$users) {
+					if ($users["iduser"] == $current_user) continue ;
+					$active_users_key_as_username[$users["user_name"]] = array(
+						"iduser" => $users["iduser"],
+						"firstname"=>$users["firstname"],
+						"lastname"=>$users["lastname"],
+						"email"=>$users["email"]
+					) ;
+				}
+				
+				foreach ($mentioned_users[2] as $key=>$val) {
+					if (array_key_exists($val,$active_users_key_as_username)) {
+						$mentioned_feed_receiptents[] = $active_users_key_as_username[$val["iduser"]] ;
+					}
+				}
+				
+				if (is_array($mentioned_feed_receiptents) && count($mentioned_feed_receiptents) > 0) {
+					$do_feed_queue = new LiveFeedQueue();
+					$do_crm_entity = new CRMEntity() ;
+					$do_module = new Module() ;
+					$do_module->getId($related_module_id) ;
+					$identifier = $do_crm_entity->get_entity_identifier($sqcrm_record_id,$do_module->name) ;
+					$related_identifier_data = array(
+						"related_identifier"=>'',
+						"related_identifier_idrecord"=>$idnotes,
+						"related_identifier_idmodule"=>8
+					);
+					$do_feed_queue->add_feed_queue($sqcrm_record_id,$related_module_id,$identifier,'note_mention',$mentioned_feed_receiptents,$related_identifier_data);
 				}
 			}
 		}

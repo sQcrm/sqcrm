@@ -91,6 +91,10 @@ class User extends DataObject {
 		$this->query($sql);
 	}
 	
+	/**
+	* function get the active users
+	* @return array
+	*/
 	public function get_active_users() {
 		$sql = "select * from ".$this->getTable()." where `deleted` = 0  order by firstname asc" ;
 		$this->query($sql) ;
