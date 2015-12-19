@@ -32,40 +32,53 @@ class FieldType200 extends CRMFields {
 	* @return html for the form containing the field
 	*/
 	public static function display_field($name,$value = '',$css = '') {
-		echo '<textarea class="'.$css.'" name="'.$name.'" id="'.$name.'" rows="7" style="width:670px;">'.$value.'</textarea>';
+		$current_user = $_SESSION["do_user"]->iduser ;
+		$do_user = new User() ;
+		$active_users = $do_user->get_active_users() ;
+		$active_users_but_me = array() ;
+		foreach ($active_users as $key=>$users) {
+			if ($users["iduser"] == $current_user) continue ;
+			$active_users_but_me[] = $users["user_name"].'('.$users["firstname"].' '.$users["lastname"].')' ;
+		}
+		$mention_users_json = json_encode($active_users_but_me) ;
+		echo '<textarea class="'.$css.'" name="'.$name.'" id="'.$name.'" rows="7">'.$value.'</textarea>';
 		echo 
 		"\n".'<script>
 			$("#'.$name.'").autogrow({onInitialize: true});
-			$(\'#'.$name.'\').textcomplete([
-			{ // emoji strategy
-				match: /\B:([\-+\w]*)$/,
-				search: function (term, callback) {
-					callback($.map(emojies, function (emoji) {
-						return emoji.indexOf(term) === 0 ? emoji : null;
-					}));
-				},
-				template: function (value) {
-					return \'<img width="20" height="20" src="/themes/images/emoji-pngs/\' + value + \'.png"></img>\' + value;
-				},
-				replace: function (value) {
-					return \':\' + value + \': \';
-				},
-				index: 1
-			},
-			{ // html
-				mentions: [\'abhik\'],
-				match: /\B@(\w*)$/,
-				search: function (term, callback) {
-					callback($.map(this.mentions, function (mention) {
-						return mention.indexOf(term) === 0 ? mention : null;
-					}));
-				},
-				index: 1,
-				replace: function (mention) {
-					return \'@\' + mention + \' \';
-				}
-			}
-			]); 
+			$(document).ready(function() { 
+				var mentionUsers = \''.$mention_users_json.'\' ;
+				$(\'#'.$name.'\').textcomplete([
+					{ // emoji strategy
+						match: /\B:([\-+\w]*)$/,
+						search: function (term, callback) {
+							callback($.map(emojies, function (emoji) {
+								return emoji.indexOf(term) === 0 ? emoji : null;
+							}));
+						},
+						template: function (value) {
+							return \'<img width="20" height="20" src="/themes/images/emoji-pngs/\' + value + \'.png"></img>\' + value;
+						},
+						replace: function (value) {
+							return \':\' + value + \': \';
+						},
+						index: 1
+					},
+					{ // mentions strategy
+						mentions : $.parseJSON(mentionUsers),
+						match: /\B@(\w*)$/,
+						search: function (term, callback) {
+							callback($.map(this.mentions, function (mention) {
+								return mention.indexOf(term) === 0 ? mention : null;
+							}));
+						},
+						index: 1,
+						replace: function (mention) {
+							var mentionedUserName = mention.split(\'(\') ;
+							return \'@\' + mentionedUserName[0] + \' \';
+						}
+					}
+				]); 
+			});
 			
 		</script>'."\n";
 	}
@@ -80,11 +93,20 @@ class FieldType200 extends CRMFields {
 			'/:(.*?):+/',
 			function ($matches) {
 				if (file_exists(BASE_PATH.'/themes/images/emoji-pngs/'.$matches[1].'.png')) {
-					return '<img width="20" height="20" src="/themes/images/emoji-pngs/'.trim($matches[1]).'.png"></img>';
+					return '<img style="vertical-align: middle;" width="20" height="20" src="/themes/images/emoji-pngs/'.trim($matches[1]).'.png"></img>';
 				}
 			},
 			$return_val
 		);
+		
+		$return_val = preg_replace_callback(
+			'/(^|[^@\w])@(\w{1,15})\b/im',
+			function ($matches) {
+				return ' <a href="#" onclick="return false ;">'.'@'.$matches[2].'</a>' ;
+			},
+			$return_val
+		);
+		
 		return $return_val ;
 	}
 }

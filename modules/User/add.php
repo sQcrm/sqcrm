@@ -90,6 +90,9 @@ $do_block->get_block_by_module($module_id);
 ?>
 $.validator.addMethod("notEqual", function(value,element,param) {
 	return this.optional(element) || value != param;
-  },"Please select a value "
-);
+},"Please select a value ");
+
+$.validator.addMethod("alphaNumericUnderscore", function(value,element,param) {
+	return this.optional(element) || /^[a-zA-Z0-9_]+$/i.test(value);
+},"Only letter numbers and underscore is allowed for username "); 
 </script>

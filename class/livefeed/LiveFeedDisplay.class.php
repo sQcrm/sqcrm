@@ -99,6 +99,7 @@ class LiveFeedDisplay extends LiveFeedQueue {
 		$link_identifier = true ;
 		$related_identifer_text = '';
 		$link_related_identifier = true ;
+		$mentions = false ;
 		switch ($obj->action) {
 			case 'add' :
 				$content = _('Added').' '.$module_name ;
@@ -127,12 +128,21 @@ class LiveFeedDisplay extends LiveFeedQueue {
 				break;
 			case 'changed_assigned_to':
 				$content = _('Changed assigned to ').' '.$module_name;
-				break ;			
+				break ;	
+			case 'note_mention' :
+				$content = _('Mentions you in note on ').' '.$module_name;
+				$mentions = true ;
+				break ;	
 		}
 		
 		if ($link_identifier === true) {
-			$detail_url = NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$obj->idmodule]["name"],"detail",$obj->idrecord);
-			$identifier ='&nbsp;<a href="'.$GLOBALS['SITE_URL'].$detail_url.'">'.$obj->identifier.'</a>' ;
+			if (true === $mentions) {
+				$detail_url = NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$obj->idmodule]["name"],'detail',$obj->idrecord,'#note'.$obj->related_identifier_idrecord) ;
+				$identifier ='&nbsp;<a href="'.$GLOBALS['SITE_URL'].$detail_url.'">'.$obj->identifier.'</a>' ;
+			} else {
+				$detail_url = NavigationControl::getNavigationLink($_SESSION["do_module"]->modules_full_details[$obj->idmodule]["name"],"detail",$obj->idrecord);
+				$identifier ='&nbsp;<a href="'.$GLOBALS['SITE_URL'].$detail_url.'">'.$obj->identifier.'</a>' ;
+			}
 		} else {
 			$identifier = $obj->identifier ;
 		}
