@@ -41,7 +41,7 @@ $do_profile->get_all_profiles();
 									<td>
 										<label class="control-label" for=""><?php echo _('Available Profiles')?></label><br />
 										<select name="select_from" id="select_from" multiple size = "5">
-											<?
+											<?php
 											while ($do_profile->next()) {
 												echo '<option value="'.$do_profile->idprofile.'">'.$do_profile->profilename.'</option>';
 											}

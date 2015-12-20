@@ -380,7 +380,9 @@ class User extends DataObject {
 				$_SESSION["do_module"]->load_active_modules();
 			}
 			$active_modules = $_SESSION["do_module"]->get_active_modules_for_crm();
-			
+			// variables to hold the permissions when user is associated with multiple roles
+			$profile_standard_permission_rel_previous = array() ;
+			$profile_module_rel_previous = array() ;
 			foreach ($associated_profiles as $idprofile) {
 				// Getting all the module standard permissions vailable to the profile
 				$profile_standard_permission_rel = $do_profile->get_all_module_standard_permissions($idprofile);
@@ -388,25 +390,32 @@ class User extends DataObject {
 				$profile_module_rel = $do_profile->get_all_module_permissions($idprofile);
 				foreach ($active_modules as $module=>$idmodule) {
 					if (array_key_exists($profile_module_rel[$idmodule],$profile_module_rel)) {
-						/*if(array_key_exists($module_permissions[$idmodule]["module_permission"]) && $module_permissions[$idmodule]["module_permission"] == 0 ){
+						if (count($profile_module_rel_previous) > 0 && array_key_exists($profile_module_rel_previous[$idmodule],$profile_module_rel_previous)) {
+							if ($profile_module_rel_previous[$idmodule] > $module_permissions[$idmodule]["module_permission"]) {
+								$module_permissions[$idmodule]["module_permission"] = $profile_module_rel_previous[$idmodule];
+							} else {
+								$module_permissions[$idmodule]["module_permission"] = $profile_module_rel[$idmodule];
+							}
+						} else {
 							$module_permissions[$idmodule]["module_permission"] = $profile_module_rel[$idmodule];
-						}else{
-							$module_permissions[$idmodule]["module_permission"] = $profile_module_rel[$idmodule];
-						}*/
-						$module_permissions[$idmodule]["module_permission"] = $profile_module_rel[$idmodule];
+						}
+						$profile_module_rel_previous[$idmodule] = $profile_module_rel[$idmodule] ;
 					}
 					// Loading the module standard permissions
 					$do_module_standard_permission->get_module_standard_permissions($idmodule);
 					if ($do_module_standard_permission->getNumRows() > 0) {
 						while ($do_module_standard_permission->next()) {
 							if (array_key_exists($profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission],$profile_standard_permission_rel)) {
-								/*if(array_key_exists($module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission])){
-									if($module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission] == 0)
+								if (count($profile_standard_permission_rel_previous) > 0 && array_key_exists($profile_standard_permission_rel_previous[$idmodule][$do_module_standard_permission->idstandard_permission],$profile_standard_permission_rel_previous)) {
+									if ($profile_standard_permission_rel_previous[$idmodule][$do_module_standard_permission->idstandard_permission] > $profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission]) {
+										$module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission] = $profile_standard_permission_rel_previous[$idmodule][$do_module_standard_permission->idstandard_permission] ;
+									} else {
 										$module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission] = $profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission] ;
-								}else{
+									}
+								} else {
 									$module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission] = $profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission] ;
-								}*/
-								$module_standard_permissions_per_profile_array[$idmodule][$do_module_standard_permission->idstandard_permission] = $profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission] ;
+								}
+								$profile_standard_permission_rel_previous[$idmodule][$do_module_standard_permission->idstandard_permission] = $profile_standard_permission_rel[$idmodule][$do_module_standard_permission->idstandard_permission] ;
 							}
 						}
 					} else { 
@@ -417,7 +426,6 @@ class User extends DataObject {
 			foreach ($module_standard_permissions_per_profile_array as $idmodule=>$standard_permissions) {
 				$module_permissions[$idmodule]["standard_permissions"] = $standard_permissions ;
 			}
-			//print_r($module_standard_permissions_per_profile_array);exit;
 		}
 		$this->set_user_module_privileges($module_permissions);
 	}
