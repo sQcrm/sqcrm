@@ -52,7 +52,7 @@ while ($do_role_profile_rel->next()) {
 									<td>
 										<label class="control-label" for=""><?php echo _('Available Profiles')?></label><br />
 										<select name="select_from" id="select_from" multiple size = "5">
-											<?
+											<?php
 											while ($do_profile->next()) {
 												if (!array_key_exists($do_profile->idprofile,$roles_to_profile)) {
 													echo '<option value="'.$do_profile->idprofile.'">'.$do_profile->profilename.'</option>';
@@ -69,7 +69,7 @@ while ($do_role_profile_rel->next()) {
 									<td>
 										<label class="control-label" for=""><?php echo _('Assigned Profiles')?></label><br />
 										<select name="select_to[]" id="select_to" multiple size = "5">
-											<?
+											<?php
 											foreach ($roles_to_profile as $key=>$val) {
 												echo '<option value="'.$key.'" SELECTED>'.$val.'</option>';
 											}
