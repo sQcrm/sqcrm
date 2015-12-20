@@ -36,7 +36,7 @@ class FieldType20 extends CRMFields {
 		echo 
 		"\n".'<script>
 			$("#'.$name.'").expandingTextarea();
-		</script>'."\n";	
+		</script>'."\n";
 	}
 
 	/**

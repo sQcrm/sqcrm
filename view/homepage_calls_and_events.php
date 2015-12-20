@@ -18,7 +18,7 @@ $(document).ready(function() {
 	$.ajax({
 		type: "GET",
 		url: "callsandevents",
-		data : "ajaxreq="+true,
+		data : "ajaxreq="+true+"&rand="+generateRandonString(10),
 		success: function(result) { 
 			$('#calls_and_events').html(result) ;
 		},
@@ -38,7 +38,7 @@ function change_month_events(change_type,current_year,current_mon) {
 	$.ajax({
 		type: "GET",
 		url: "callsandevents",
-		data : "ajaxreq="+true+"&y="+current_year+"&m="+current_mon+"&c="+change_type,
+		data : "ajaxreq="+true+"&y="+current_year+"&m="+current_mon+"&c="+change_type+"&rand="+generateRandonString(10),
 		success: function(result) { 
 			$('#calls_and_events').html(result) ;
 		},
@@ -58,7 +58,7 @@ function load_events_for_day(year,month,day) {
 	$.ajax({
 		type: "GET",
 		url: "callsandevents",
-		data : "ajaxreq="+true+"&y="+year+"&m="+month+"&d="+day,
+		data : "ajaxreq="+true+"&y="+year+"&m="+month+"&d="+day+"&rand="+generateRandonString(10),
 		success: function(result){ 
 			$('#events_per_day_list').html(result) ;
 		},
