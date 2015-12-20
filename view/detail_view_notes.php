@@ -20,7 +20,7 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 			?>
 			<div id="add_note">
 				<?php
-				echo _('Add Note');
+				echo _('Add Note (use : for loading the emoji and @ for users)');
 				?> <br />
 				<?php
 				$e_add_notes = new Event("Notes->eventAddNotes");
