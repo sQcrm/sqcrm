@@ -7,7 +7,7 @@
 */  
 ?>
 <div class="tabtable">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs" id="detail_view_tab_section">
 		<?php
 		if ($current_file == 'detail') { 
 			$detail_css = "active"; 
