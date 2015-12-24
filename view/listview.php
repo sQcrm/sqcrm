@@ -328,78 +328,80 @@ $(document).ready(function() {
 					</div>
 					<div class="right_500">	
 						<?php
-						if ($_SESSION["do_crm_action_permission"]->action_permitted('view',17)) {
-							if (is_array($custom_view_data) && count($custom_view_data) > 0) {
-								$is_editable_selected_custom_view = false ;
-								$is_deleteable_selected_custom_view = false ;
-							?>
-							<select name="customview_filter" id="customview_filter">
-							<?php
-							foreach ($custom_view_data as $key=>$val) { 
-								$is_editable_custom_view = false ;
-								$is_deleteable_custom_view = false ;
-								$select = '';
-								$custom_view_detail_info = '';
-								$custom_view_detail_info .= $val["idcustom_view"];
-								if ($val["is_editable"] == 1 && $val["iduser"] == $_SESSION["do_user"]->iduser) {
-									$is_editable_custom_view = true ;
-									$custom_view_detail_info .= '::1';
-									$is_deleteable_custom_view = true ;
-									$custom_view_detail_info .= '::1';
-								}
-								if ((int)$custom_view_id > 0) {
-									if ($custom_view_id == $val["idcustom_view"]) {
+						if (true === $custom_view_allowed) { // defined on modules/{module_name}/list.php
+							if ($_SESSION["do_crm_action_permission"]->action_permitted('view',17)) {
+								if (is_array($custom_view_data) && count($custom_view_data) > 0) {
+									$is_editable_selected_custom_view = false ;
+									$is_deleteable_selected_custom_view = false ;
+								?>
+								<select name="customview_filter" id="customview_filter">
+								<?php
+								foreach ($custom_view_data as $key=>$val) { 
+									$is_editable_custom_view = false ;
+									$is_deleteable_custom_view = false ;
+									$select = '';
+									$custom_view_detail_info = '';
+									$custom_view_detail_info .= $val["idcustom_view"];
+									if ($val["is_editable"] == 1 && $val["iduser"] == $_SESSION["do_user"]->iduser) {
+										$is_editable_custom_view = true ;
+										$custom_view_detail_info .= '::1';
+										$is_deleteable_custom_view = true ;
+										$custom_view_detail_info .= '::1';
+									}
+									if ((int)$custom_view_id > 0) {
+										if ($custom_view_id == $val["idcustom_view"]) {
+											$select = "SELECTED";
+											if (true === $is_editable_custom_view) $is_editable_selected_custom_view = true ;
+											if (true === $is_deleteable_custom_view) $is_deleteable_selected_custom_view = true ;
+										}
+									} elseif ($val["is_default"] == 1) {
 										$select = "SELECTED";
 										if (true === $is_editable_custom_view) $is_editable_selected_custom_view = true ;
 										if (true === $is_deleteable_custom_view) $is_deleteable_selected_custom_view = true ;
 									}
-								} elseif ($val["is_default"] == 1) {
-									$select = "SELECTED";
-									if (true === $is_editable_custom_view) $is_editable_selected_custom_view = true ;
-									if (true === $is_deleteable_custom_view) $is_deleteable_selected_custom_view = true ;
+									?>
+									<option value="<?php echo $custom_view_detail_info;?>" <?php echo $select; ?> ><?php echo $val["name"];?></option>
+									<?php 
+									}
+									?>
+								</select>
+								<?php
 								}
-								?>
-								<option value="<?php echo $custom_view_detail_info;?>" <?php echo $select; ?> ><?php echo $val["name"];?></option>
+							}
+							?>
+							<div style="margin-top:3px;margin-left:3px;float:right;">
+								<?php
+								if ($_SESSION["do_crm_action_permission"]->action_permitted('add',17)) { ?>
+									<a href="<?php echo NavigationControl::getNavigationLink("CustomView","add","","?target_module_id=".$module_id); ?>" class="btn btn-primary btn-mini bs-prompt">
+									<i class="icon-white icon-plus"></i>
+									</a>
 								<?php 
 								}
 								?>
-							</select>
-							<?php
-							}
-						}
-						?>
-						<div style="margin-top:3px;margin-left:3px;float:right;">
-							<?php
-							if ($_SESSION["do_crm_action_permission"]->action_permitted('add',17)) { ?>
-								<a href="<?php echo NavigationControl::getNavigationLink("CustomView","add","","?target_module_id=".$module_id); ?>" class="btn btn-primary btn-mini bs-prompt">
-								<i class="icon-white icon-plus"></i>
-								</a>
-							<?php 
-							}
-							?>
-							<span id="custom_view_edit">
-								<?php
-								if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',17) && true === $is_editable_selected_custom_view) {
-								?>
-								<a href="<?php echo NavigationControl::getNavigationLink("CustomView","edit",$custom_view_id); ?>" class="btn btn-primary btn-mini bs-prompt" id="custom_view_edit">
-								<i class="icon-white icon-edit"></i>
-								</a>
-								<?php
-								}
-								?>
-							</span>
-							<span id="custom_view_delete">
-								<?php
-								if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',17) && true === $is_deleteable_selected_custom_view) {
-								?>
-								<a href="#" class="btn btn-primary btn-mini bs-prompt" id="custom_view_delete">
-								<i class="icon-white icon-trash"></i>
-								</a>
-								<?php
-								}
-								?>
-							</span>
-						</div>
+								<span id="custom_view_edit">
+									<?php
+									if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',17) && true === $is_editable_selected_custom_view) {
+									?>
+									<a href="<?php echo NavigationControl::getNavigationLink("CustomView","edit",$custom_view_id); ?>" class="btn btn-primary btn-mini bs-prompt" id="custom_view_edit">
+									<i class="icon-white icon-edit"></i>
+									</a>
+									<?php
+									}
+									?>
+								</span>
+								<span id="custom_view_delete">
+									<?php
+									if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',17) && true === $is_deleteable_selected_custom_view) {
+									?>
+									<a href="#" class="btn btn-primary btn-mini bs-prompt" id="custom_view_delete">
+									<i class="icon-white icon-trash"></i>
+									</a>
+									<?php
+									}
+									?>
+								</span>
+							</div>
+						<?php } ?>
 					</div>
 					<div class="clear_float"></div>
 				</div>
