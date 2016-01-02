@@ -32,14 +32,6 @@
 			$loginaudit_css =""; 
 			$loginaudit_nav = NavigationControl::getNavigationLink($module,"loginaudit",$sqcrm_record_id);
 		}
-		
-		if ($current_file == 'homepage_components') {
-			$homepage_components_css = "active"; 
-			$homepage_components_nav = "#" ;
-		} else { 
-			$homepage_components_css =""; 
-			$homepage_components_nav = NavigationControl::getNavigationLink($module,"homepage_components",$sqcrm_record_id);
-		}
 		?>
 		<li id = "topbar_detail" class="<?php echo $detail_css ; ?>">
 			<a href="#" onclick = "load_deail_view_data('<?php echo $module?>','<?php echo $sqcrm_record_id?>','detail')" data-toggle ="tab" >
@@ -54,11 +46,6 @@
 		<li id = "topbar_loginaudit" class="<?php echo $loginaudit_css ; ?>">
 			<a href="#" onclick = "load_deail_view_data('<?php echo $module?>','<?php echo $sqcrm_record_id?>','loginaudit')" data-toggle ="tab" >
 			<?php echo _('Login Audit');?>
-			</a>
-		</li>
-		<li id = "topbar_homepage_components" class="<?php echo $homepage_components_css ; ?>">
-			<a href="#" onclick = "load_deail_view_data('<?php echo $module?>','<?php echo $sqcrm_record_id?>','homepage_components')" data-toggle ="tab" >
-			<?php echo _('Home page components');?>
 			</a>
 		</li>
 	</ul>
