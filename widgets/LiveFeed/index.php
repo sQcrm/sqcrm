@@ -1,16 +1,18 @@
-<?php 
-// Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
+<?php
+if (isset($_REQUEST["widget_id"]) && (int)$_REQUEST["widget_id"] > 0) {
+	$widget_id = (int)$_REQUEST["widget_id"] ;
+}
+?>
+<li data-id="<?php echo $widget_id ; ?>" class="li_no_number">
+	<div class="datadisplay-outer"><i class="icon-move"></i>
+		<?php echo _('Live Activity Feed') ;?><a href="#"><i class="icon-remove-sign remove-widget" style="float:right;" id="<?php echo $widget_id ; ?>"></i></a>
+		<div id="livefeed_scroll"></div>
+	</div>
+</li>
 
-/**
-* Home page live feed
-* @author Abhik Chakraborty
-*/  
+<?php
 $do_feed_display = new LiveFeedDisplay();
 ?>
-<div class="datadisplay-outer">
-	<?php echo $component_name ;?>
-	<div id="livefeed_scroll"></div>
-</div>
 
 <script type="text/javascript">
 	var start = <?php echo $do_feed_display->sql_start;?> ;
@@ -21,8 +23,8 @@ $do_feed_display = new LiveFeedDisplay();
 	$(document).ready(function() {
 		$.ajax({
 			type: "GET",
-			url: "liveactivityfeed",
-			data : "ajaxreq="+true,
+			url: "/widgets.php",
+			data : "widget_name=LiveFeed&resource_name=livefeed&ajaxreq="+true+"&rand="+generateRandonString(10),
 			success: function(result) { 
 			if (result.trim() == '0') {
 				$('#livefeed_scroll').html('<p id="no_feed"><STRONG>no activity stream found</STRONG></p>') ;
@@ -38,11 +40,11 @@ $do_feed_display = new LiveFeedDisplay();
     
     
     $('#livefeed_scroll').scrollLoad({
-		url : 'liveactivityfeed', //your ajax file to be loaded when scroll breaks ScrollAfterHeight
+		url : '/widgets.php', //your ajax file to be loaded when scroll breaks ScrollAfterHeight
         getData : function() {
 			start = sql_end;
 			sql_end = start+max;
-			return {ajaxreq:"true",start:start,max:max};
+			return {widget_name:"LiveFeed",resource_name:"livefeed",ajaxreq:"true",start:start,max:max,rand:generateRandonString(10)};
 			//you can post some data along with ajax request
         },
         start : function() {
@@ -65,8 +67,8 @@ $do_feed_display = new LiveFeedDisplay();
 		function() {
 			$.ajax({
 				type: "GET",
-				url: "liveactivityfeed",
-				data : "ajaxreq="+true+"&livefeed="+true,
+				url: "/widgets.php",
+				data : "widget_name=LiveFeed&resource_name=livefeed&ajaxreq="+true+"&livefeed="+true+"&rand="+generateRandonString(10),
 				success: function(result) { 
 					if (result.trim() != '0') {
 						sql_end = sql_end+1;

@@ -100,6 +100,7 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Calendar/EventsReminder.class.php");
 
 	include_once($cfg_project_directory."modules/Home/HomePageGraphs.class.php");
+	include_once($cfg_project_directory."modules/Home/DashboardWidgetProcessor.class.php");
 
 	include_once($cfg_project_directory."modules/Vendor/Vendor.class.php");
 	include_once($cfg_project_directory."modules/Products/Products.class.php");

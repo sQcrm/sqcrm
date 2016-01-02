@@ -5,11 +5,10 @@
 * Home page lead by lead status
 * @author Abhik Chakraborty
 */  
+include_once(BASE_PATH.'/widgets/LeadsByLeadsStatus/LeadsByLeadsStatus.class.php') ;
+$leads_by_leads_status = new LeadsByLeadsStatus() ;
+$data_5 = $leads_by_leads_status->get_leads_by_status_graph();
 ?>
-<div class="datadisplay-outer">
-	<?php echo $component_name ;?>
-	<div id="leads_by_lead_status"></div>
-</div>
 <script src="/js/plugins/jqplot/plugins/jqplot.barRenderer.min.js"></script>
 <script src="/js/plugins/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 <script src="/js/plugins/jqplot/plugins/jqplot.pointLabels.min.js"></script>
@@ -67,8 +66,13 @@ $(document).ready(function() {
       });
       
 	window.onresize = function(event) {
+		plot3.destroy();
 		plot3.replot();
 	};
+	
+	/*$(window).resize(function() {
+          plot3.replot( { resetAxes: true } );
+    });*/
 	<?php
     } else {
 	?>

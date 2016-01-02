@@ -5,11 +5,10 @@
 * Home page prospect by sales stage graph
 * @author Abhik Chakraborty
 */  
+include_once(BASE_PATH.'/widgets/ProspectBySalesStage/ProspectBySalesStage.class.php') ;
+$prospect_by_sales_stage = new ProspectBySalesStage() ;
+$data_4 = $prospect_by_sales_stage->get_prospect_by_sales_stage_graph_data();
 ?>
-<div class="datadisplay-outer">
-	<?php echo $component_name ;?>
-	<div id="prospect_by_sales_stage"></div>
-</div>
 <script src="/js/plugins/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
 
 <script type="text/javascript">
@@ -41,8 +40,13 @@ $(document).ready(function() {
 		});
 		
 		window.onresize = function(event) {
+			plot1.destroy();
 			plot1.replot();
 		};
+		
+		/*$(window).resize(function() {
+			plot3.replot( { resetAxes: true } );
+		});*/
 	<?php 
 	} else { ?>
 		$("#prospect_by_sales_stage").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');

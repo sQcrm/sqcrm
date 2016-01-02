@@ -490,7 +490,9 @@ ol.vertical li.placeholder:before {
 	border-right: none; 
 }
 
-
+.li_no_number {
+	list-style:none;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables related
