@@ -135,7 +135,7 @@ $(document).ready(function() {
 			data: "id="+id,
 			success: function(html) {
 				if (html.trim() == '0') {
-					display_js_error('Widget is not added to be deleted','js_errors');
+					display_js_error(WIDGET_NOT_ADDED_FOR_DELETE,'js_errors');
 					return false ;
 				} else {
 					false ;
@@ -157,7 +157,7 @@ $(document).ready(function() {
 			url: "<?php echo $e_event->getUrl(); ?>",
 			success:  function(html) {
 				if (html.trim() == 0) {
-					display_js_error('No more widgets found to be added','js_errors');
+					display_js_error(NO_MORE_WIDGET_FOUND,'js_errors');
 					return false ;
 				} else {
 					$('#available_widgets').html(html);
@@ -187,7 +187,7 @@ $(document).ready(function() {
 			data: "widget_name="+$('#widget_selector').val()+"&position="+$('#widget_position_selector').val(),
 			success:  function(html) {
 				if (html.trim() == '0') {
-					display_js_error('Either the widget is already added or its not available','js_errors');
+					display_js_error(WIDGET_ADDED_OR_NOT_AVAILABLE,'js_errors');
 				} else {
 					$.ajax({
 						type : "GET",
