@@ -1,8 +1,8 @@
 <?php 
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
 /**
-* plugin request handler
-* All the plugins which includes HTML output are routed via this file 
+* widget request handler
+* All the widget which includes HTML output are routed via this file 
 * @see includes/modules.footer.inc.php load_detail_view_plugin()
 * @author Abhik Chakraborty
 */
