@@ -66,14 +66,14 @@ class DashboardWidgetProcessor extends CRMDashboardWidget {
 				if (array_key_exists(0,$sort_array) && count($sort_array[0]) > 0) {
 					$sort_order = 0 ;
 					foreach($sort_array[0] as $key=>$val) {
-						$this->re_sort_widgets($val["id"],$sort_order);
+						$this->re_sort_widgets($val["id"],$sort_order,1);
 						$sort_order++ ;
 					}
 				}
 				if (array_key_exists(1,$sort_array) && count($sort_array[1]) > 0) {
 					$sort_order = 0 ;
 					foreach($sort_array[1] as $key=>$val) {
-						$this->re_sort_widgets($val["id"],$sort_order);
+						$this->re_sort_widgets($val["id"],$sort_order,2);
 						$sort_order++ ;
 					}
 				}
@@ -87,16 +87,17 @@ class DashboardWidgetProcessor extends CRMDashboardWidget {
 	* @param integer $sort_order
 	* @return void
 	*/
-	public function re_sort_widgets($id,$sort_order) {
+	public function re_sort_widgets($id,$sort_order,$position) {
 		if ((int)$id > 0) {
 			$qry = "
 			update `".$this->getTable()."`
 			set 
-			`sort_order` = ?
+			`sort_order` = ?,
+			`position` = ?
 			where 
 			`iduser_dashboard_widgets` = ?
 			";
-			$this->query($qry,array($sort_order,$id)) ;
+			$this->query($qry,array($sort_order,$position,$id)) ;
 		}
 	}
 	
