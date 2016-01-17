@@ -267,4 +267,18 @@ class Queue extends DataObject {
 			echo _('Missing module id , date or record id to be added in queue !') ;
 		}
 	}
+	
+	/**
+	* function to delete the older queue via the cronjob
+	* @return void
+	* @see /crons/cron_delete_oldqueue.php
+	*/
+	public function delete_older_queue() {
+		$qry = "
+		delete from `queue`
+		where 
+		`queue_date` <= date_sub(curdate(),interval 2 day)
+		" ;
+		$this->query($qry);
+	}
 }
