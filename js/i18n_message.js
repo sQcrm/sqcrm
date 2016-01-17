@@ -97,3 +97,13 @@ var CV_SELECT_PREVIOUS_ORDER_BY = 'Please select previous field for advanced fil
 var CV_ADD_NAME = 'Please add a custom view name before saving';
 var CV_SELECT_FIELDS = 'Please select fields before saving';
 
+//widgets
+var NO_MORE_WIDGET_FOUND = 'No more widgets found to be added';
+var WIDGET_ADDED_OR_NOT_AVAILABLE = 'Either the widget is already added or its not available' ;
+var WIDGET_NOT_ADDED_FOR_DELETE = 'Widget is not added to be deleted' ;
+
+//queue
+var SELECT_QUEUE_DATE_BEFORE_SAVE = 'Please select a date before saving' ;
+var QUEUE_ADDED_SUCCESSFULLY = 'Added to queue successfully !' ;
+var QUEUE_UPDATED_SUCCESSFULLY = 'Queue updated successfully !' ;
+var QUEUE_DELETED_SUCCESSFULLY = 'Queue deleted successfully !' ;

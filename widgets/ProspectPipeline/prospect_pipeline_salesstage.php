@@ -5,11 +5,10 @@
 * Home page prospect pipeline by sales stage graph
 * @author Abhik Chakraborty
 */
+include_once(BASE_PATH.'/widgets/ProspectPipeline/ProspectPipeline.class.php') ;
+$prospect_pipeline = new ProspectPipeline() ;
+$data_3 = $prospect_pipeline->get_prospect_pipeline_by_sales_stage_graph();
 ?>
-<div class="datadisplay-outer">
-   <?php echo $component_name ;?>
-   <div id="prospect_pipeline_by_sales_stage"></div>
-</div>
 <script src="/js/plugins/jqplot/plugins/jqplot.barRenderer.min.js"></script>
 <script src="/js/plugins/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 <script src="/js/plugins/jqplot/plugins/jqplot.pointLabels.min.js"></script>
@@ -82,8 +81,12 @@ $(document).ready(function() {
             },
         });
         window.onresize = function(event) {
+			plot2.destroy();
 			plot2.replot();
         }
+        /*$(window).resize(function() {
+			plot2.replot( { resetAxes: true } );
+		});*/
     <?php 
     } else { ?>
 		$("#prospect_pipeline_by_sales_stage").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');

@@ -1413,7 +1413,7 @@ CREATE TABLE `module` (
   PRIMARY KEY (`idmodule`),
   KEY `module_idmodule_idx` (`idmodule`),
   KEY `module_module_label_idx` (`module_label`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1422,7 +1422,7 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` VALUES (1,'Home',1,'Home',1,1),(2,'Calendar',1,'Calendar',2,1),(3,'Leads',1,'Leads',3,1),(4,'Contacts',1,'Contacts',4,1),(5,'Potentials',1,'Prospects',5,1),(6,'Organization',1,'Organization',6,1),(7,'User',1,'User',7,1),(8,'Notes',1,'Notes',8,0),(9,'Import',1,'Import',9,0),(10,'Report',1,'Report',10,1),(11,'Vendor',1,'Vendor',11,1),(12,'Products',1,'Products',12,1),(13,'Quotes',1,'Quotes',13,1),(14,'SalesOrder',1,'Sales Order',14,1),(15,'Invoice',1,'Invoice',15,1),(16,'PurchaseOrder',1,'Purchase Order',16,1),(17,'CustomView',1,'Custom View',17,0);
+INSERT INTO `module` VALUES (1,'Home',1,'Home',1,1),(2,'Calendar',1,'Calendar',2,1),(3,'Leads',1,'Leads',3,1),(4,'Contacts',1,'Contacts',4,1),(5,'Potentials',1,'Prospects',5,1),(6,'Organization',1,'Organization',6,1),(7,'User',1,'User',7,1),(8,'Notes',1,'Notes',8,0),(9,'Import',1,'Import',9,0),(10,'Report',1,'Report',10,1),(11,'Vendor',1,'Vendor',11,1),(12,'Products',1,'Products',12,1),(13,'Quotes',1,'Quotes',13,1),(14,'SalesOrder',1,'Sales Order',14,1),(15,'Invoice',1,'Invoice',15,1),(16,'PurchaseOrder',1,'Purchase Order',16,1),(17,'CustomView',1,'Custom View',17,0),(18,'Queue',1,'Queue',18,1);
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1440,7 +1440,7 @@ CREATE TABLE `module_datashare_rel` (
   PRIMARY KEY (`idmodule_datashare_rel`),
   KEY `mdr_idmodule_datashare_rel_idx` (`idmodule_datashare_rel`),
   KEY `mdr_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1449,7 +1449,7 @@ CREATE TABLE `module_datashare_rel` (
 
 LOCK TABLES `module_datashare_rel` WRITE;
 /*!40000 ALTER TABLE `module_datashare_rel` DISABLE KEYS */;
-INSERT INTO `module_datashare_rel` VALUES (1,2,4),(2,3,4),(3,4,4),(4,5,4),(5,6,4),(6,8,1),(7,9,4),(8,10,1),(9,11,1),(10,12,4),(11,13,4),(12,14,4),(13,15,4),(14,16,4),(15,17,4);
+INSERT INTO `module_datashare_rel` VALUES (1,2,4),(2,3,4),(3,4,4),(4,5,4),(5,6,4),(6,8,1),(7,9,4),(8,10,1),(9,11,1),(10,12,4),(11,13,4),(12,14,4),(13,15,4),(14,16,4),(15,17,4),(16,18,4);
 /*!40000 ALTER TABLE `module_datashare_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1468,7 +1468,7 @@ CREATE TABLE `module_standard_permission` (
   KEY `mstdperm_idmodule_standard_permission_idx` (`idmodule_standard_permission`),
   KEY `mstdperm_idmodule_idx` (`idmodule`),
   KEY `mstdperm_idstandard_permission_idx` (`idstandard_permission`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1477,7 +1477,7 @@ CREATE TABLE `module_standard_permission` (
 
 LOCK TABLES `module_standard_permission` WRITE;
 /*!40000 ALTER TABLE `module_standard_permission` DISABLE KEYS */;
-INSERT INTO `module_standard_permission` VALUES (1,2,1),(2,2,2),(3,2,3),(4,3,1),(5,3,2),(6,3,3),(7,4,1),(8,4,2),(9,4,3),(10,5,1),(11,5,2),(12,5,3),(13,6,1),(14,6,2),(15,6,3),(16,8,1),(17,8,2),(18,8,3),(19,9,1),(20,9,2),(21,9,3),(22,10,1),(23,10,2),(24,10,3),(25,11,1),(26,11,2),(27,11,3),(28,12,1),(29,12,2),(30,12,3),(31,13,1),(32,13,2),(33,13,3),(34,14,1),(35,14,2),(36,14,3),(37,15,1),(38,15,2),(39,15,3),(40,16,1),(41,16,2),(42,16,3),(43,17,1),(44,17,2),(45,17,3);
+INSERT INTO `module_standard_permission` VALUES (1,2,1),(2,2,2),(3,2,3),(4,3,1),(5,3,2),(6,3,3),(7,4,1),(8,4,2),(9,4,3),(10,5,1),(11,5,2),(12,5,3),(13,6,1),(14,6,2),(15,6,3),(16,8,1),(17,8,2),(18,8,3),(19,9,1),(20,9,2),(21,9,3),(22,10,1),(23,10,2),(24,10,3),(25,11,1),(26,11,2),(27,11,3),(28,12,1),(29,12,2),(30,12,3),(31,13,1),(32,13,2),(33,13,3),(34,14,1),(35,14,2),(36,14,3),(37,15,1),(38,15,2),(39,15,3),(40,16,1),(41,16,2),(42,16,3),(43,17,1),(44,17,2),(45,17,3),(46,18,1),(47,18,2),(48,18,3);
 /*!40000 ALTER TABLE `module_standard_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2080,7 +2080,7 @@ CREATE TABLE `profile_module_rel` (
   KEY `profile_module_rel_idprofile_module_rel_idx` (`idprofile_module_rel`),
   KEY `profile_module_rel_idprofile_idx` (`idprofile`),
   KEY `profile_module_rel_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2089,7 +2089,7 @@ CREATE TABLE `profile_module_rel` (
 
 LOCK TABLES `profile_module_rel` WRITE;
 /*!40000 ALTER TABLE `profile_module_rel` DISABLE KEYS */;
-INSERT INTO `profile_module_rel` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,2,1,1),(8,2,2,1),(9,2,3,1),(10,2,4,1),(11,2,5,1),(12,2,6,1),(13,1,8,1),(14,2,8,1),(15,1,9,1),(16,2,9,1),(17,1,10,1),(18,2,10,1),(19,1,11,1),(20,2,11,1),(21,3,11,1),(22,1,12,1),(23,2,12,1),(24,3,12,1),(25,3,1,1),(26,3,2,1),(27,3,3,1),(28,3,4,1),(29,3,5,1),(30,3,6,1),(31,3,8,1),(32,3,9,1),(33,3,10,1),(34,3,11,1),(35,3,12,1),(36,1,13,1),(37,2,13,1),(38,3,13,1),(39,1,14,1),(40,2,14,1),(41,3,14,1),(42,1,15,1),(43,2,15,1),(44,3,15,1),(45,1,16,1),(46,2,16,1),(47,3,16,1),(48,1,17,1),(49,2,17,1),(50,3,17,1);
+INSERT INTO `profile_module_rel` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,2,1,1),(8,2,2,1),(9,2,3,1),(10,2,4,1),(11,2,5,1),(12,2,6,1),(13,1,8,1),(14,2,8,1),(15,1,9,1),(16,2,9,1),(17,1,10,1),(18,2,10,1),(19,1,11,1),(20,2,11,1),(21,3,11,1),(22,1,12,1),(23,2,12,1),(24,3,12,1),(25,3,1,1),(26,3,2,1),(27,3,3,1),(28,3,4,1),(29,3,5,1),(30,3,6,1),(31,3,8,1),(32,3,9,1),(33,3,10,1),(34,3,11,1),(35,3,12,1),(36,1,13,1),(37,2,13,1),(38,3,13,1),(39,1,14,1),(40,2,14,1),(41,3,14,1),(42,1,15,1),(43,2,15,1),(44,3,15,1),(45,1,16,1),(46,2,16,1),(47,3,16,1),(48,1,17,1),(49,2,17,1),(50,3,17,1),(51,1,18,1),(52,2,18,1),(53,3,18,1);
 /*!40000 ALTER TABLE `profile_module_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2110,7 +2110,7 @@ CREATE TABLE `profile_standard_permission_rel` (
   KEY `prostdperrel_idprofile_standard_permission_rel_idx` (`idprofile_standard_permission_rel`),
   KEY `prostdperrel_idprofile_idx` (`idprofile`),
   KEY `prostdperrel_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2119,7 +2119,7 @@ CREATE TABLE `profile_standard_permission_rel` (
 
 LOCK TABLES `profile_standard_permission_rel` WRITE;
 /*!40000 ALTER TABLE `profile_standard_permission_rel` DISABLE KEYS */;
-INSERT INTO `profile_standard_permission_rel` VALUES (1,1,1,1,0),(2,1,1,2,0),(3,1,1,3,0),(4,1,2,1,1),(5,1,2,2,1),(6,1,2,3,1),(7,1,3,1,1),(8,1,3,2,1),(9,1,3,3,1),(10,1,4,1,1),(11,1,4,2,1),(12,1,4,3,1),(13,1,5,1,1),(14,1,5,2,1),(15,1,5,3,1),(16,1,6,1,1),(17,1,6,2,1),(18,1,6,3,1),(19,2,1,1,0),(20,2,1,2,0),(21,2,1,3,0),(22,2,2,1,1),(23,2,2,2,1),(24,2,2,3,1),(25,2,3,1,1),(26,2,3,2,1),(27,2,3,3,1),(28,2,4,1,1),(29,2,4,2,1),(30,2,4,3,1),(31,2,5,1,1),(32,2,5,2,1),(33,2,5,3,1),(34,2,6,1,1),(35,2,6,2,1),(36,2,6,3,1),(37,1,8,1,1),(38,1,8,2,1),(39,1,8,3,1),(40,2,8,1,1),(41,2,8,2,1),(42,2,8,3,1),(43,1,9,1,1),(44,1,9,2,1),(45,1,9,3,1),(46,2,9,1,1),(47,2,9,2,1),(48,2,9,3,1),(49,1,10,1,1),(50,1,10,2,1),(51,1,10,3,1),(52,2,10,1,1),(53,2,10,2,1),(54,2,10,3,1),(55,3,10,1,1),(56,3,10,2,1),(57,3,10,3,1),(58,1,11,1,1),(59,1,11,2,1),(60,1,11,3,1),(61,2,11,1,1),(62,2,11,2,1),(63,2,11,3,1),(64,3,11,1,1),(65,3,11,2,1),(66,3,11,3,1),(67,1,12,1,1),(68,1,12,2,1),(69,1,12,3,1),(70,2,12,1,1),(71,2,12,2,1),(72,2,12,3,1),(73,3,12,1,1),(74,3,12,2,1),(75,3,12,3,1),(76,3,1,1,0),(77,3,1,2,0),(78,3,1,3,0),(79,3,2,1,1),(80,3,2,2,1),(81,3,2,3,0),(82,3,3,1,1),(83,3,3,2,1),(84,3,3,3,0),(85,3,4,1,1),(86,3,4,2,1),(87,3,4,3,0),(88,3,5,1,1),(89,3,5,2,1),(90,3,5,3,0),(91,3,6,1,1),(92,3,6,2,1),(93,3,6,3,0),(94,3,8,1,1),(95,3,8,2,1),(96,3,8,3,0),(97,3,9,1,1),(98,3,9,2,1),(99,3,9,3,0),(100,3,10,1,1),(101,3,10,2,1),(102,3,10,3,0),(103,3,11,1,1),(104,3,11,2,1),(105,3,11,3,0),(106,3,12,1,1),(107,3,12,2,1),(108,3,12,3,0),(109,1,13,1,1),(110,1,13,2,1),(111,1,13,3,1),(112,2,13,1,1),(113,2,13,2,1),(114,2,13,3,1),(115,3,13,1,1),(116,3,13,2,1),(117,3,13,3,1),(118,1,14,1,1),(119,1,14,2,1),(120,1,14,3,1),(121,2,14,1,1),(122,2,14,2,1),(123,2,14,3,1),(124,3,14,1,1),(125,3,14,2,1),(126,3,14,3,1),(127,1,15,1,1),(128,1,15,2,1),(129,1,15,3,1),(130,2,15,1,1),(131,2,15,2,1),(132,2,15,3,1),(133,3,15,1,1),(134,3,15,2,1),(135,3,15,3,1),(136,1,16,1,1),(137,1,16,2,1),(138,1,16,3,1),(139,2,16,1,1),(140,2,16,2,1),(141,2,16,3,1),(142,3,16,1,1),(143,3,16,2,1),(144,3,16,3,1),(145,1,17,1,1),(146,1,17,2,1),(147,1,17,3,1),(148,2,17,1,1),(149,2,17,2,1),(150,2,17,3,1),(151,3,17,1,1),(152,3,17,2,1),(153,3,17,3,1);
+INSERT INTO `profile_standard_permission_rel` VALUES (1,1,1,1,0),(2,1,1,2,0),(3,1,1,3,0),(4,1,2,1,1),(5,1,2,2,1),(6,1,2,3,1),(7,1,3,1,1),(8,1,3,2,1),(9,1,3,3,1),(10,1,4,1,1),(11,1,4,2,1),(12,1,4,3,1),(13,1,5,1,1),(14,1,5,2,1),(15,1,5,3,1),(16,1,6,1,1),(17,1,6,2,1),(18,1,6,3,1),(19,2,1,1,0),(20,2,1,2,0),(21,2,1,3,0),(22,2,2,1,1),(23,2,2,2,1),(24,2,2,3,1),(25,2,3,1,1),(26,2,3,2,1),(27,2,3,3,1),(28,2,4,1,1),(29,2,4,2,1),(30,2,4,3,1),(31,2,5,1,1),(32,2,5,2,1),(33,2,5,3,1),(34,2,6,1,1),(35,2,6,2,1),(36,2,6,3,1),(37,1,8,1,1),(38,1,8,2,1),(39,1,8,3,1),(40,2,8,1,1),(41,2,8,2,1),(42,2,8,3,1),(43,1,9,1,1),(44,1,9,2,1),(45,1,9,3,1),(46,2,9,1,1),(47,2,9,2,1),(48,2,9,3,1),(49,1,10,1,1),(50,1,10,2,1),(51,1,10,3,1),(52,2,10,1,1),(53,2,10,2,1),(54,2,10,3,1),(55,3,10,1,1),(56,3,10,2,1),(57,3,10,3,1),(58,1,11,1,1),(59,1,11,2,1),(60,1,11,3,1),(61,2,11,1,1),(62,2,11,2,1),(63,2,11,3,1),(64,3,11,1,1),(65,3,11,2,1),(66,3,11,3,1),(67,1,12,1,1),(68,1,12,2,1),(69,1,12,3,1),(70,2,12,1,1),(71,2,12,2,1),(72,2,12,3,1),(73,3,12,1,1),(74,3,12,2,1),(75,3,12,3,1),(76,3,1,1,0),(77,3,1,2,0),(78,3,1,3,0),(79,3,2,1,1),(80,3,2,2,1),(81,3,2,3,0),(82,3,3,1,1),(83,3,3,2,1),(84,3,3,3,0),(85,3,4,1,1),(86,3,4,2,1),(87,3,4,3,0),(88,3,5,1,1),(89,3,5,2,1),(90,3,5,3,0),(91,3,6,1,1),(92,3,6,2,1),(93,3,6,3,0),(94,3,8,1,1),(95,3,8,2,1),(96,3,8,3,0),(97,3,9,1,1),(98,3,9,2,1),(99,3,9,3,0),(100,3,10,1,1),(101,3,10,2,1),(102,3,10,3,0),(103,3,11,1,1),(104,3,11,2,1),(105,3,11,3,0),(106,3,12,1,1),(107,3,12,2,1),(108,3,12,3,0),(109,1,13,1,1),(110,1,13,2,1),(111,1,13,3,1),(112,2,13,1,1),(113,2,13,2,1),(114,2,13,3,1),(115,3,13,1,1),(116,3,13,2,1),(117,3,13,3,1),(118,1,14,1,1),(119,1,14,2,1),(120,1,14,3,1),(121,2,14,1,1),(122,2,14,2,1),(123,2,14,3,1),(124,3,14,1,1),(125,3,14,2,1),(126,3,14,3,1),(127,1,15,1,1),(128,1,15,2,1),(129,1,15,3,1),(130,2,15,1,1),(131,2,15,2,1),(132,2,15,3,1),(133,3,15,1,1),(134,3,15,2,1),(135,3,15,3,1),(136,1,16,1,1),(137,1,16,2,1),(138,1,16,3,1),(139,2,16,1,1),(140,2,16,2,1),(141,2,16,3,1),(142,3,16,1,1),(143,3,16,2,1),(144,3,16,3,1),(145,1,17,1,1),(146,1,17,2,1),(147,1,17,3,1),(148,2,17,1,1),(149,2,17,2,1),(150,2,17,3,1),(151,3,17,1,1),(152,3,17,2,1),(153,3,17,3,1),(154,1,18,1,1),(155,1,18,2,1),(156,1,18,3,1),(157,2,18,1,1),(158,2,18,2,1),(159,2,18,3,1),(160,3,18,1,1),(161,3,18,2,1),(162,3,18,3,1);
 /*!40000 ALTER TABLE `profile_standard_permission_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2257,6 +2257,59 @@ CREATE TABLE `purchase_order_to_grp_rel` (
 LOCK TABLES `purchase_order_to_grp_rel` WRITE;
 /*!40000 ALTER TABLE `purchase_order_to_grp_rel` DISABLE KEYS */;
 /*!40000 ALTER TABLE `purchase_order_to_grp_rel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `queue`
+--
+
+DROP TABLE IF EXISTS `queue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `queue` (
+  `idqueue` int(11) NOT NULL AUTO_INCREMENT,
+  `sqcrm_record_id` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `related_module_id` int(11) DEFAULT NULL,
+  `queue_date` date DEFAULT NULL,
+  PRIMARY KEY (`idqueue`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `related_module_id_idx` (`related_module_id`),
+  KEY `queue_date_idx` (`queue_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `queue`
+--
+
+LOCK TABLES `queue` WRITE;
+/*!40000 ALTER TABLE `queue` DISABLE KEYS */;
+/*!40000 ALTER TABLE `queue` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `queue_module_rel`
+--
+
+DROP TABLE IF EXISTS `queue_module_rel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `queue_module_rel` (
+  `idqueue_module_rel` int(11) NOT NULL AUTO_INCREMENT,
+  `idmodule` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idqueue_module_rel`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `queue_module_rel`
+--
+
+LOCK TABLES `queue_module_rel` WRITE;
+/*!40000 ALTER TABLE `queue_module_rel` DISABLE KEYS */;
+INSERT INTO `queue_module_rel` VALUES (1,3),(2,4),(3,5),(4,6),(5,11),(6,12),(7,13),(8,14),(9,15),(10,16);
+/*!40000 ALTER TABLE `queue_module_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2969,6 +3022,35 @@ INSERT INTO `user` VALUES (1,'admin','ad5bc89a3ee1d800edb1ff443043c5d5',1,'abhik
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_dashboard_widgets`
+--
+
+DROP TABLE IF EXISTS `user_dashboard_widgets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_dashboard_widgets` (
+  `iduser_dashboard_widgets` int(11) NOT NULL AUTO_INCREMENT,
+  `widget_name` varchar(200) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL,
+  `position` int(11) DEFAULT NULL,
+  PRIMARY KEY (`iduser_dashboard_widgets`),
+  KEY `widget_name_idx` (`widget_name`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `sort_order_idx` (`sort_order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_dashboard_widgets`
+--
+
+LOCK TABLES `user_dashboard_widgets` WRITE;
+/*!40000 ALTER TABLE `user_dashboard_widgets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_dashboard_widgets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_homepage_component`
 --
 
@@ -3119,4 +3201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-20 16:54:37
+-- Dump completed on 2016-01-17 23:21:10

@@ -490,7 +490,9 @@ ol.vertical li.placeholder:before {
 	border-right: none; 
 }
 
-
+.li_no_number {
+	list-style:none;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables related
@@ -906,8 +908,6 @@ th:active {
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
   z-index: 99999;
-}
-
 }
 
 

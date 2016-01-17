@@ -100,6 +100,7 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Calendar/EventsReminder.class.php");
 
 	include_once($cfg_project_directory."modules/Home/HomePageGraphs.class.php");
+	include_once($cfg_project_directory."modules/Home/DashboardWidgetProcessor.class.php");
 
 	include_once($cfg_project_directory."modules/Vendor/Vendor.class.php");
 	include_once($cfg_project_directory."modules/Products/Products.class.php");
@@ -127,6 +128,8 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Import/PotentialsImport.class.php");
 	include_once($cfg_project_directory."modules/Import/VendorImport.class.php");
 	include_once($cfg_project_directory."modules/Import/ProductsImport.class.php");
+	
+	include_once($cfg_project_directory."modules/Queue/Queue.class.php");
 
 	// Email module
 	include_once($cfg_project_directory.THIRD_PARTY_LIB_PATH."/PHPMailer/class.phpmailer.php");

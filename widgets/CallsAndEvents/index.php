@@ -1,24 +1,23 @@
-<?php 
-// Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
-
-/**
-* Home page calls and events
-* @author Abhik Chakraborty
-*/  
+<?php
+if (isset($_REQUEST["widget_id"]) && (int)$_REQUEST["widget_id"] > 0) {
+	$widget_id = (int)$_REQUEST["widget_id"] ;
+}
 ?>
-<link rel="stylesheet" href="/themes/custom-css/eventcal/eventCalendar.css">
-<link rel="stylesheet" href="/themes/custom-css/eventcal/eventCalendar_theme_responsive.css">
-<div class="datadisplay-outer">
-	<?php echo $component_name ;?>
-	<div id="calls_and_events"></div>
-</div>
+<li data-id="<?php echo $widget_id ; ?>" class="li_no_number">
+	<div class="datadisplay-outer"><i class="icon-move"></i>
+		<?php echo _('Calls And Events') ;?><a href="#"><i class="icon-remove-sign remove-widget" style="float:right;" id="<?php echo $widget_id ; ?>"></i></a>
+		<div id="calls_and_events"></div>
+	</div>
+</li>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 	// load the calendar with the events on pageload
 	$.ajax({
 		type: "GET",
-		url: "callsandevents",
-		data : "ajaxreq="+true+"&rand="+generateRandonString(10),
+		url: "/widgets.php",
+		data : "widget_name=CallsAndEvents&resource_name=calls_and_events&ajaxreq="+true+"&rand="+generateRandonString(10),
 		success: function(result) { 
 			$('#calls_and_events').html(result) ;
 		},
@@ -37,8 +36,8 @@ $(document).ready(function() {
 function change_month_events(change_type,current_year,current_mon) {
 	$.ajax({
 		type: "GET",
-		url: "callsandevents",
-		data : "ajaxreq="+true+"&y="+current_year+"&m="+current_mon+"&c="+change_type+"&rand="+generateRandonString(10),
+		url: "/widgets.php",
+		data : "widget_name=CallsAndEvents&resource_name=calls_and_events&ajaxreq="+true+"&y="+current_year+"&m="+current_mon+"&c="+change_type+"&rand="+generateRandonString(10),
 		success: function(result) { 
 			$('#calls_and_events').html(result) ;
 		},
@@ -57,8 +56,8 @@ function change_month_events(change_type,current_year,current_mon) {
 function load_events_for_day(year,month,day) {
 	$.ajax({
 		type: "GET",
-		url: "callsandevents",
-		data : "ajaxreq="+true+"&y="+year+"&m="+month+"&d="+day+"&rand="+generateRandonString(10),
+		url: "/widgets.php",
+		data : "widget_name=CallsAndEvents&resource_name=calls_and_events&ajaxreq="+true+"&y="+year+"&m="+month+"&d="+day+"&rand="+generateRandonString(10),
 		success: function(result){ 
 			$('#events_per_day_list').html(result) ;
 		},
