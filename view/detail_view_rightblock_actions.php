@@ -206,4 +206,32 @@
 		</li>
 	</ul>
     <?php } ?>
+    <?php
+	$do_queue = new Queue() ;
+	if (true === $do_queue->queue_permitted_for_module($module_id)) {
+		echo '<div id="queue_section" style="margin-left:16px;">' ;
+		echo '</div>' ;
+	}
+    ?>
 </div>
+<?php
+if ($_SESSION["do_crm_action_permission"]->action_permitted('view',18) === true) { ?>
+<script>
+// if queue view is allowed then load the queue section 
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "/modules/Queue/list",
+		data : "ajaxreq="+true+"&module=Queue&rand="+generateRandonString(10)+"&related="+true+"&related_module_id=<?php echo $module_id;?>&related_record_id=<?php echo $sqcrm_record_id;?>",
+		success: function(result) { 
+			$('#queue_section').html(result) ;
+		},
+		beforeSend: function() {
+			$('#queue_section').html('<img class="ajax_loader" src="/themes/images/ajax-loader1.gif" border="0" />');
+		}
+    });
+});
+</script>
+<?php
+}
+?>

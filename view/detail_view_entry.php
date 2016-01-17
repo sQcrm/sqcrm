@@ -35,32 +35,36 @@ if (is_array($update_history) && count($update_history) > 0) { ?>
 	</div>
 <?php
 }
+if (!isset($_GET["onlyData"])) {
 ?>
-<div class="left_500">
-	<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
-	<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
-	<?php
-    if ($converted_lead == true && $module_id == 3) {
-		echo '&nbsp;';
-    } else {
-		if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
-			echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+	<div class="left_500">
+		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
+		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+		<?php
+		if ($converted_lead == true && $module_id == 3) {
+			echo '&nbsp;';
+		} else {
+			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
+				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+			}
 		}
-    }
-	?>
-</div>
-<div class="right_100">
-	<?php
-	if ($module_id != 7 && $module_id !=13 && $module_id !=14 && $module_id !=15 && $module_id !=16) {
-		$e_export = new Event("ExportDetailData->eventExportDetailDataPDF");
-		$e_export->addParam("m", $module);
-		$e_export->addParam("mid", $module_id);
-		$e_export->addParam("record_id", $sqcrm_record_id);
-	?>
-	<a href="/<?php echo $e_export->getUrl() ; ?>"><img src="/themes/images/pdf.png"></a>
-	<?php 
-	} ?>
-</div>
+		?>
+	</div>
+	<div class="right_100">
+		<?php
+		if ($module_id != 7 && $module_id !=13 && $module_id !=14 && $module_id !=15 && $module_id !=16) {
+			$e_export = new Event("ExportDetailData->eventExportDetailDataPDF");
+			$e_export->addParam("m", $module);
+			$e_export->addParam("mid", $module_id);
+			$e_export->addParam("record_id", $sqcrm_record_id);
+		?>
+		<a href="/<?php echo $e_export->getUrl() ; ?>"><img src="/themes/images/pdf.png"></a>
+		<?php 
+		} ?>
+	</div>
+<?php 
+}
+?>
 <div class="clear_float"></div>
 <br />
 <?php
@@ -103,31 +107,33 @@ while ($do_block->next()) { ?>
 	</div><br />
 <?php 
 } ?>
-<?php 
+<?php
 if ($module_id == 13 || $module_id == 14 || $module_id == 15 || $module_id == 16) {
 	require("detail_view_line_items.php");
 }
+if (!isset($_GET["onlyData"])) {
 ?>
-<div class="left_600">
-	<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
-	<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
-	<?php
-	if ($converted_lead == true && $module_id == 3) {
-		echo '&nbsp;';
-	} else {
-		if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
-			echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+	<div class="left_600">
+		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
+		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+		<?php
+		if ($converted_lead == true && $module_id == 3) {
+			echo '&nbsp;';
+		} else {
+			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
+				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+			}
+			echo '&nbsp;';
 		}
-		echo '&nbsp;';
+		?>
+	</div>
+	<div class="clear_float"></div>
+	<hr class="form_hr">
+	<?php
+	if ($module_id == 3 && $converted_lead === true) {
+		// do nothing
+	} else {
+		require("detail_view_notes.php");
 	}
-	?>
-</div>
-<div class="clear_float"></div>
-<hr class="form_hr">
-<?php
-if ($module_id == 3 && $converted_lead === true) {
-	// do nothing
-} else {
-	require("detail_view_notes.php");
 }
 ?>

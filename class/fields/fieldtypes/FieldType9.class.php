@@ -51,7 +51,7 @@ class FieldType9 extends CRMFields {
 		"\n".'
 		<script>
 			$(function() {
-				$(\'#dd_'.$name.'\').datepicker();
+				$(\'#dd_'.$name.'\').datepicker({autoclose: true});
 			});
 		</script>
 		';
