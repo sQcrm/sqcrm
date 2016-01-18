@@ -14,6 +14,7 @@
 </div>
 
 <div class="modal hide datadisplay-outer" id="entity">
+	<div class="modal-header entity-detail-modal-header"></div>
 	<div class="modal-body datadisplay-outer" id="entity-detail-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
@@ -67,6 +68,7 @@ $(document).ready(function() {
 			data : "sqrecord="+arr[1]+"&ajaxreq="+true+"&onlyData="+true,
 			success: function(result) { 
 				$('#entity-detail-modal').html(result) ;
+				$('.entity-detail-modal-header').html('<a href="/modules/'+arr[0]+'/detail?sqrecord='+arr[1]+'" target="_blank">'+GO_TO_DETAIL+'</a>') ;
 				return false ;
 			},
 			beforeSend: function() {
