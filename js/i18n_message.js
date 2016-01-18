@@ -107,3 +107,4 @@ var SELECT_QUEUE_DATE_BEFORE_SAVE = 'Please select a date before saving' ;
 var QUEUE_ADDED_SUCCESSFULLY = 'Added to queue successfully !' ;
 var QUEUE_UPDATED_SUCCESSFULLY = 'Queue updated successfully !' ;
 var QUEUE_DELETED_SUCCESSFULLY = 'Queue deleted successfully !' ;
+var GO_TO_DETAIL = 'go to detail page' ;
