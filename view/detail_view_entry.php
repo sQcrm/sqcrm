@@ -130,7 +130,7 @@ if (!isset($_GET["onlyData"])) {
 	<div class="clear_float"></div>
 	<hr class="form_hr">
 	<?php
-	if ($module_id == 3 && $converted_lead === true) {
+	if (($module_id == 3 && $converted_lead === true) || $module_id == 7) {
 		// do nothing
 	} else {
 		require("detail_view_notes.php");
