@@ -169,15 +169,15 @@ class CustomView extends DataObject {
 		} elseif ((int)$evctl->sqrecord > 0) {
 			$this->getId($evctl->sqrecord) ;
 			if ($this->getNumRows() > 0) {
-				if ($module_obj->iduser != $_SESSION["do_user"]->iduser) {
+				if ($this->iduser != $_SESSION["do_user"]->iduser) {
 					$error_message = _('You do not have permission to edit the record !');
 					$do_edit = false  ;
 				} 
-				if ($module_obj->is_editable == 0) {
+				if ($this->is_editable == 0) {
 					$error_message = _('You do not have permission to edit the record !');
 					$do_edit = false  ;
 				}
-				if ($module_obj->deleted == 1) {
+				if ($this->deleted == 1) {
 					$error_message = _('You do not have permission to edit the record !');
 					$do_edit = false  ;
 				}

@@ -89,7 +89,7 @@ class CustomViewFields extends DataObject {
 			where 
 			`idcustom_view` = ?
 			";
-			$this->query($qry,array($idcustom_view,$cv_fields)) ;
+			$this->query($qry,array($cv_fields,$idcustom_view));
 		}
 	}
 
