@@ -24,14 +24,14 @@ if (count($reports) > 0) {
 		<?php
 		foreach ($reports as $k=>$v) { ?>
 		<tr>  
-			<td><?php echo ++$cnt;?></td>  
-			<td>
+			<td width="5%"><?php echo ++$cnt;?></td>  
+			<td width="30%">
 				<a href="<?php echo NavigationControl::getNavigationLink($module,"run_report",$v["idreport"])?>">
 				<?php echo $v["name"];?>
 				</a>
 			</td>  
-			<td><?php echo nl2br($v["description"]);?></td>
-			<td>
+			<td width="50%"><?php echo nl2br($v["description"]);?></td>
+			<td width="15%">
 				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit",$v["idreport"])?>" class="btn btn-primary btn-mini">
 				<i class="icon-white icon-edit"></i>
 				</a>
