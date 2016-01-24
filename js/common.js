@@ -208,3 +208,20 @@ function generateRandonString(length) {
 	for (var i = length; i > 0; --i) result += strings[Math.round(Math.random() * (strings.length - 1))];
 	return result;
 }
+
+/**
+* function to load the user avatar change modal
+*/
+function changeUserAvatar() {
+	var href = '/popups/change_user_avatar?idmodule=7&m=User';
+	if (href.indexOf('#') == 0) { 
+		$(href).modal('open');
+	} else {
+		$.get(href, function(data) {
+			//ugly heck to prevent the content getting append when opening the same modal multiple time
+			$("#change_user_avatar").html(''); 
+			$("#change_user_avatar").attr("id","ugly_heck");
+			$('<div class="modal hide fade in" id="change_user_avatar">' + data + '</div>').modal();
+		}).success(function() { $('input:text:visible:first').focus(); });
+	}
+}

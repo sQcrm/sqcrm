@@ -65,19 +65,26 @@
 				?>
 				<ul class="nav pull-right">
 					<?php
+					$user_profile = '';				
 					if (isset($_SESSION["do_user"]) && $_SESSION["do_user"]->iduser != '') {
 						if ($_SESSION["do_user"]->user_avatar != '') {
-							echo '<li><div class="circular_35" style="background-image: url(\''.FieldType12::get_file_name_with_path($_SESSION["do_user"]->user_avatar,'s').'\')"></div></li>';
+							$user_profile .= '<div id="user-profile"><div class="circular_35" style="background-image: url(\''.FieldType12::get_file_name_with_path($_SESSION["do_user"]->user_avatar,'s').'\')"></div></div>';
 						} else {
-							echo '<li>'. _('Welcome,').' '.$_SESSION["do_user"]->firstname.'</li>' ;
+							$user_profile .=  '<div id="user-profile"><div style="margin-top:7px;">'._('Welcome,').' '.$_SESSION["do_user"]->firstname.'</div></div>' ;
 						}
+						echo '<li class="dropdown">';
+						echo $user_profile ;
+						echo '<ul class="dropdown-menu">';
 						if ($_SESSION["do_user"]->is_admin == 1) {
 							$setting_li = '';
 							if ($admin_modules === true) $setting_li = 'active' ;
 							echo '<li class="'.$setting_li.'"><a href="/modules/Settings/profile_list">'._('Settings').'</a></li>';
 						}
+						echo '<li class=""><a href="#" onclick="changeUserAvatar();return false ;">'._('change avatar').'</a></li>';
 						$e_logout = new Event("do_user->eventLogout");
 						echo '<li><a href="/'.$e_logout->getUrl().'">logout</a></li>';
+						echo '</ul>';
+						echo '</li>' ;
 					}
 					?>
 				</ul>

@@ -686,4 +686,50 @@ class User extends DataObject {
 		$dis = new Display(NavigationControl::getNavigationLink("User","login"));
 		$evctl->setDisplayNext($dis) ; 
 	}	
+	
+	/**
+	* event function to change the user profile update
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventUploadUserAvatar(EventControler $evctl) { 
+		if ($_FILES["user_avatar"]["name"] == '') {
+			echo '0' ;
+		} else {
+			if ($_FILES['user_avatar']['tmp_name'] != '') {
+				$file_size = $_FILES['user_avatar']['size'] ;
+				$hidden_file_name = 'upd_user_avatar' ;
+				$current_file_name_in_db = $evctl->$hidden_file_name  ;
+				if ($current_file_name_in_db != '') {
+					FieldType12::remove_thumb($current_file_name_in_db) ;
+				}
+				$value = FieldType12::upload_avatar($_FILES['user_avatar']['tmp_name'],$_FILES['user_avatar']['name']) ;
+				if (is_array($value) && array_key_exists('name',$value)) {
+					$qry = "
+					update `".$this->getTable()."`
+					set `user_avatar` = ?
+					where `iduser` = ?
+					" ;
+					$this->getDbConnection()->executeQuery($qry,array($value['name'],$_SESSION["do_user"]->iduser)) ;
+					$do_files_and_attachment = new CRMFilesAndAttachments();
+					$do_files_and_attachment->addNew();
+					$do_files_and_attachment->file_name = $value["name"];
+					$do_files_and_attachment->file_mime = $value["mime"];
+					$do_files_and_attachment->file_size = $file_size ;
+					$do_files_and_attachment->file_extension = $value["extension"];
+					$do_files_and_attachment->idmodule = 7;
+					$do_files_and_attachment->id_referrer = $_SESSION["do_user"]->iduser;
+					$do_files_and_attachment->iduser = $_SESSION["do_user"]->iduser;
+					$do_files_and_attachment->date_modified = date("Y-m-d H:i:s");
+					$do_files_and_attachment->add() ;
+					$_SESSION["do_user"]->user_avatar = $value["name"] ;
+					echo FieldType12::get_file_name_with_path($value["name"],'s') ;
+				} else {
+					echo '0' ;
+				}
+			} else {
+				echo '0' ;
+			}
+		}
+	}
 }

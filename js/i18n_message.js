@@ -108,3 +108,7 @@ var QUEUE_ADDED_SUCCESSFULLY = 'Added to queue successfully !' ;
 var QUEUE_UPDATED_SUCCESSFULLY = 'Queue updated successfully !' ;
 var QUEUE_DELETED_SUCCESSFULLY = 'Queue deleted successfully !' ;
 var GO_TO_DETAIL = 'go to detail page' ;
+
+//ajax image upload
+var UPLOAD_SUCCESS = 'Uploaded successfully' ;
+var UPLOAD_ERROR = 'Error uploading image, please check the image before uploading' ;
