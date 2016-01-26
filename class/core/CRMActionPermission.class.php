@@ -90,14 +90,13 @@ class CRMActionPermission extends DataObject {
 			$do_module = new Module();
 			$do_module->getId($idmodule);
 			$module_name = $do_module->name ;
-			//include_once('modules/'.$module_name.'/'$module_name.'.class.php');
 			$entity_object = new $module_name();
 			$entity_object->getId($sqrecord); 
 			if ($entity_object->getNumRows() == 0) { 
 				$retval = false ;
 			} elseif ($entity_object->deleted == 1) { 
 				$retval = false ;
-			} elseif ($_SESSION["do_user"]->is_admin == 1) { 
+			} elseif ($_SESSION["do_user"]->is_admin == 1 && $module_data_share_permissions[$idmodule] != 5) { 
 				$retval = true ;
 			} elseif ($entity_object->iduser == $_SESSION["do_user"]->iduser) {
 				$retval = true ;
@@ -105,13 +104,18 @@ class CRMActionPermission extends DataObject {
 				if ($module_data_share_permissions[$idmodule] == 1 && $action == 'view') return true;
 				if ($module_data_share_permissions[$idmodule] == 2 && ( $action == 'view' || $action == 'add' || $action == 'edit')) return true;
 				if ($module_data_share_permissions[$idmodule] == 3 && ( $action == 'view' || $action == 'add' || $action == 'edit' || $action== 'delete')) return true;
+				if ($module_data_share_permissions[$idmodule] == 5) {
+					if ($entity_object->iduser == $_SESSION["do_user"]->iduser) {
+						return true ;
+					} else {
+						return false ;
+					}
+				}
 				$subordinate_users = $_SESSION["do_user"]->get_subordinate_users();
 				if (is_array($subordinate_users) && count($subordinate_users) >0 && in_array($entity_object->iduser,$subordinate_users)) { 
 					$retval = true ;
 				} else {
-					//$retval = false ;
 					$user_to_groups = $_SESSION["do_user"]->get_user_associated_to_groups();
-					//print_r($user_to_groups);
 					if (is_array($user_to_groups) && count($user_to_groups)> 0) {
 						if ($entity_object->module_group_rel_table != '') {
 							if (in_array($entity_object->idgroup,$user_to_groups)) { 
@@ -142,10 +146,15 @@ class CRMActionPermission extends DataObject {
 		$module_data_share_permissions = $_SESSION["do_user"]->get_module_data_share_permissions();
 		$where = '';
 		//if($idmodule == 7 ) return " where 1=1 ";
-		if ($subordinate_users_data === true) if($_SESSION["do_user"]->is_admin == 1) return "";
+		if ($subordinate_users_data === true) {
+			if($module_data_share_permissions[$idmodule] == 5) return " AND `".$entity_table_name."`.`iduser` = ".$iduser ;
+			if($_SESSION["do_user"]->is_admin == 1) return "";
+		} 
 		if ($module_data_share_permissions[$idmodule] == 1 || $module_data_share_permissions[$idmodule]==2 || $module_data_share_permissions[$idmodule] == 3) {
 			// if the datashare permission is public then display all
 			$where = '';
+		} elseif($module_data_share_permissions[$idmodule] == 5) {
+			$where = " AND `".$entity_table_name."`.`iduser` = ".$iduser ;
 		} else {
 			if (isset($_SESSION["do_user"]->iduser) && $_SESSION["do_user"]->iduser > 0) {
 				$subordinate_users = $_SESSION["do_user"]->get_subordinate_users();

@@ -81,7 +81,7 @@ while ($do_block->next()) { ?>
 						}
 						$fieldobject::display_field($do_crmfields->field_name,$target_module);
 					} elseif ($do_crmfields->field_type == 15) {
-						$fieldobject::display_field();
+						$fieldobject::display_field('','',$module_id);
 					} elseif ($do_crmfields->field_type == 150) {
 						if ($add_from_related === true) {
 							$fieldobject::display_field($do_crmfields->field_name,$related_to_id,$related_to_module_id);

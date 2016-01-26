@@ -48,7 +48,7 @@ echo $msg ;
 <?php
 }
 ?>
-<div class="modal hide datadisplay-outer" id="add_queue_entity">
+<div class="modal fade hide datadisplay-outer" id="add_queue_entity">
 	<div class="modal-body datadisplay-outer" id="queue-add-modal">
 	<?php
 	echo _('Queue date :: ') ;
@@ -60,14 +60,14 @@ echo $msg ;
 		<input type="submit" class="btn btn-primary add_queue_entity_submit" id="" value="<?php echo _('add')?>"/>
 	</div>
 </div>
-<div class="modal hide datadisplay-outer" id="edit_queue_entity">
+<div class="modal fade hide datadisplay-outer" id="edit_queue_entity">
 	<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
 		<input type="submit" class="btn btn-primary update_queue_entity_submit" id="" value="<?php echo _('change')?>"/>
 	</div>
 </div>
-<div class="modal hide" id="delete_queue_entity">
+<div class="modal fade hide" id="delete_queue_entity">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
