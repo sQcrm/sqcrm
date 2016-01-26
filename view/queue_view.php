@@ -13,7 +13,7 @@
 	</div>
 </div>
 
-<div class="modal hide datadisplay-outer" id="entity">
+<div class="modal fade hide datadisplay-outer" id="entity">
 	<div class="modal-header entity-detail-modal-header"></div>
 	<div class="modal-body datadisplay-outer" id="entity-detail-modal"></div>
 	<div class="modal-footer">
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<div class="modal hide datadisplay-outer" id="edit_queue">
+<div class="modal fade hide datadisplay-outer" id="edit_queue">
 	<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 
-<div class="modal hide" id="delete_queue">
+<div class="modal fade hide" id="delete_queue">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

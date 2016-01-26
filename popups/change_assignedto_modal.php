@@ -12,6 +12,12 @@ $allow_transfer = false;
 $module_id = $_SESSION["do_module"]->get_idmodule_by_name($module,$_SESSION["do_module"]);        
 $ids = $_GET["chk"];
 
+// make sure group option is not shown when the module datashare permission is "Only Me" @v-0.9
+$hide_group = false ;
+$module_data_share_permissions = $_SESSION["do_user"]->get_module_data_share_permissions();
+if ($module_data_share_permissions[$module_id] == 5) {
+	$hide_group = true ;
+}
 if (is_array($ids) && count($ids)>0) {
 	// check if record against the module to validate if the user has permission to do a edit
 	foreach ($ids as $record_id) {
@@ -36,6 +42,9 @@ if ($allow_transfer === true) {
 	if ($do_group->getNumRows() > 0) {
 		$group_transfer = true ;
 	}
+	
+	if (true === $hide_group) $group_transfer = false ;
+	
 	$do_fields = new CRMFields();
 	$do_fields->query("select `idfields` from `fields` where `field_name` = 'assigned_to' AND `idmodule` = ?",array($module_id));
 	$fieldid = 0 ;
