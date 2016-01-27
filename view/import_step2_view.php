@@ -223,7 +223,7 @@ $(document).ready(function() {
 	});
 });
 </script>
-<div class="modal hide" id="module_mandatory_fields">
+<div class="modal hide fade" id="module_mandatory_fields">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<h3>
