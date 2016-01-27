@@ -50,11 +50,11 @@ class FieldType102 extends CRMFields {
 			$(\'#select_'.$name.'\').click(function(){ 
 				var href = \'/popups/listdata_popup_modal?m=User&action=list&fielddisp=user&fieldname='.$name.'\';
 				if (href.indexOf(\'#\') == 0) {
-								$(href).modal(\'open\');
+					$(href).modal(\'open\');
 				} else {
-								$.get(href, function(data) {
-												$(\'<div class="modal hide in" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
-								}).success(function() { $(\'input:text:visible:first\').focus(); });
+					$.get(href, function(data) {
+						$(\'<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
+					}).success(function() { $(\'input:text:visible:first\').focus(); });
 				}
 			}); 
 			$(\'#remove_'.$name.'\').click( function(){

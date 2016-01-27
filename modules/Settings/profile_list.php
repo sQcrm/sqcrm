@@ -68,7 +68,7 @@ $do_profile->get_all_profiles();
 		</div><!--/span-->
 	</div><!--/row-->
 </div>
-<div class="modal hide" id="delete_confirm">
+<div class="modal hide fade" id="delete_confirm">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

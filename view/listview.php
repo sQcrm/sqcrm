@@ -147,7 +147,7 @@ $(document).ready(function() {
 					$("#listview_change_assignedto").html(''); 
 					$("#listview_change_assignedto").hide();
 					$("#listview_change_assignedto").attr("id","ugly_heck");
-					$('<div class="modal hide" id="listview_change_assignedto">' + data + '</div>').modal();
+					$('<div class="modal hide fade" id="listview_change_assignedto">' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); });
 			}
 		}
@@ -415,7 +415,7 @@ $(document).ready(function() {
 		</div><!--/row-->
 	</div>
 </div>
-<div class="modal hide" id="delete_confirm">
+<div class="modal hide fade" id="delete_confirm">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

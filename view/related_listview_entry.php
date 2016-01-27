@@ -85,7 +85,7 @@ if ($related_data_information !== false && is_array($related_data_information) &
     echo '</div>';
 }
 ?>
-<div class="modal hide" id="delete_confirm">
+<div class="modal hide fade" id="delete_confirm">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

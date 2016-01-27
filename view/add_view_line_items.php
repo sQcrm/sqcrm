@@ -77,7 +77,7 @@ $product_service_tax = $do_tax->product_service_tax();
 						<a href="#" id="1" class="line_item_tax"><?php echo _('Tax'); ?></a>
 						<input type="hidden" name="line_has_tax_1" id="line_has_tax_1" value='0'>
 						<input type="hidden" name="line_tax_selected[]" class=".line_tax_selected" id="line_tax_selected_1">
-						<div id="line_tax_1" class="modal hide"></div>
+						<div id="line_tax_1" class="modal hide fade"></div>
 					</div>			
 				</td>
 				<td>
@@ -214,9 +214,9 @@ $product_service_tax = $do_tax->product_service_tax();
 		</tbody>
 	</table>
 </div>
-<script src="/js/lineitem.js"></script>
+<script src="/js/lineitem.js?v=0.9"></script>
 <!-- popup modal no tax for item with options to set defaut tax -->
-<div class="modal hide" id="item_no_tax">
+<div class="modal hide fade" id="item_no_tax">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-info"><?php echo _('No tax available for - ');?><span id="tax_line_name"></span></span>
@@ -257,7 +257,7 @@ $product_service_tax = $do_tax->product_service_tax();
 </div>
 
 <!-- popup modal for grand tax -->
-<div class="modal hide" id="grand_tax">
+<div class="modal hide fade" id="grand_tax">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-info"><?php echo _('Set final tax - ');?><span id="grand_tax_name"></span></span>
@@ -292,7 +292,7 @@ $product_service_tax = $do_tax->product_service_tax();
 </div>
 
 <!-- popup modal for shipping and handling tax on grand total -->
-<div class="modal hide" id="shipping_handling_tax">
+<div class="modal hide fade" id="shipping_handling_tax">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-info"><?php echo _('Set shipping and handling tax - ');?><span id="grand_tax_name"></span></span>
@@ -328,7 +328,7 @@ $product_service_tax = $do_tax->product_service_tax();
 </div>
 
 <!-- popup modal for line item discount -->
-<div class="modal hide" id="item_discount">
+<div class="modal hide fade" id="item_discount">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-info"><?php echo _('Set Discount for ');?><span id="on_price"></span></span>
@@ -373,7 +373,7 @@ $product_service_tax = $do_tax->product_service_tax();
 </div>
 
 <!-- popup modal for grand discount -->
-<div class="modal hide" id="grand_discount">
+<div class="modal hide fade" id="grand_discount">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-info"><?php echo _('Set the grand discount on ');?><span id="grand_on_price"></span></span>
@@ -417,7 +417,7 @@ $product_service_tax = $do_tax->product_service_tax();
 	</div>
 </div>
 
-<div class="modal hide" id="delete_lineitem_warning">
+<div class="modal hide fade" id="delete_lineitem_warning">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge warning"><?php echo _('DELETE CONFIRM');?></span>

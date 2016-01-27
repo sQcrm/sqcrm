@@ -121,7 +121,7 @@ $do_module->get_all_active_module();
 	</div><!--/row-->
 </div>
 
-<div class="modal hide" id="rename_profile">
+<div class="modal hide fade" id="rename_profile">
 <?php 
 // Here goes updating the name and description of the profile
 $e_update = new Event("Profile->eventRenameProfile");
