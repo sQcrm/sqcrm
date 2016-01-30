@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.46-0ubuntu0.14.04.2
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -530,7 +530,7 @@ CREATE TABLE `datashare_standard_permission` (
   `description` varchar(200) NOT NULL,
   PRIMARY KEY (`iddatashare_standard_permission`),
   KEY `dsp_iddatashare_standard_permission_idx` (`iddatashare_standard_permission`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -539,7 +539,7 @@ CREATE TABLE `datashare_standard_permission` (
 
 LOCK TABLES `datashare_standard_permission` WRITE;
 /*!40000 ALTER TABLE `datashare_standard_permission` DISABLE KEYS */;
-INSERT INTO `datashare_standard_permission` VALUES (1,'Public : Read Only','Users can Read other users'),(2,'Public : Read/Edit','Users can Read/Edit other users'),(3,'Public : Read/Edit/Delete','Users can Read/Edit/Delete other users'),(4,'Private','Users can not Read other users');
+INSERT INTO `datashare_standard_permission` VALUES (1,'Public : Read Only','Users can Read other users'),(2,'Public : Read/Edit','Users can Read/Edit other users'),(3,'Public : Read/Edit/Delete','Users can Read/Edit/Delete other users'),(4,'Private','Users can not Read other users'),(5,'Only Me','No hierarchy rule is applied and only the record owner can view/edit/delete');
 /*!40000 ALTER TABLE `datashare_standard_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1449,7 +1449,7 @@ CREATE TABLE `module_datashare_rel` (
 
 LOCK TABLES `module_datashare_rel` WRITE;
 /*!40000 ALTER TABLE `module_datashare_rel` DISABLE KEYS */;
-INSERT INTO `module_datashare_rel` VALUES (1,2,4),(2,3,4),(3,4,4),(4,5,4),(5,6,4),(6,8,1),(7,9,4),(8,10,1),(9,11,1),(10,12,4),(11,13,4),(12,14,4),(13,15,4),(14,16,4),(15,17,4),(16,18,4);
+INSERT INTO `module_datashare_rel` VALUES (1,2,4),(2,3,4),(3,4,4),(4,5,4),(5,6,4),(6,8,1),(7,9,4),(8,10,1),(9,11,1),(10,12,4),(11,13,4),(12,14,4),(13,15,4),(14,16,4),(15,17,4),(16,18,5);
 /*!40000 ALTER TABLE `module_datashare_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3201,4 +3201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-17 23:21:10
+-- Dump completed on 2016-01-30 15:06:16
