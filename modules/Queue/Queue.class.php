@@ -11,14 +11,19 @@ class Queue extends DataObject {
 	
 	public $module_group_rel_table = '';
 	
-	
-	public function getId($id) {
+	/**
+	* function getId(), gets the details of the entity by the primary key
+	* Its Overwrite of the data object getId()
+	* added a column `deleted` in the select for core usage
+	* @param integer $sqcrm_record_id
+	*/
+	public function getId($sqcrm_record_id) {
 		$qry = "
 		select *, 0 as `deleted`
 		from ".$this->getTable()."
 		where `idqueue` = ?
 		" ;
-		$this->query($qry,array($id)) ;
+		$this->query($qry,array($sqcrm_record_id)) ;
 		return $this->next() ;
 	}
 	
