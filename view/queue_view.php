@@ -147,8 +147,8 @@ $(document).ready(function() {
 								var msg = '<strong id="msg">No queue data found !</strong>';
 								$('div#queue_data div#content_'+current_table_id).append(msg) ;
 							}
-							$("#edit_queue").modal('hide');
 						}
+						$("#edit_queue").modal('hide');
 					} else {
 						display_js_error(result.trim(),'js_errors');
 					}
@@ -179,9 +179,10 @@ $(document).ready(function() {
 						$('div#queue_data table#'+current_table_id+' tr#'+id).remove() ;
 						if ($('div#queue_data table#'+current_table_id+' tr').length == 0) {
 							$('div#queue_data table#'+current_table_id).remove() ;
-							var msg = '<strong id="msg">No queue data found !</strong>';
+							var msg = '<strong id="msg">'+NO_QUEUE_DATA+'</strong>';
 							$('div#queue_data div#content_'+current_table_id).append(msg) ;
 						}
+						$("#delete_queue").modal('hide');
 						display_js_success(QUEUE_DELETED_SUCCESSFULLY,'js_errors') ;
 					} else {
 						display_js_error(result.trim(),'js_errors') ;
