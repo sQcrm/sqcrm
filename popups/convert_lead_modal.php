@@ -119,7 +119,7 @@ echo $e_add->getFormEvent();
 	<div class="box_content">
 		<label class="control-label" for="assigned_to"><?php echo _('Assigned To');?></label>
 		<div class="controls">
-			<?php echo FieldType15::display_field();?>
+			<?php echo FieldType15::display_field('','',5);?>
 		</div><br />
     </div>
     <!-- /Assigned to section Ends-->
