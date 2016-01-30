@@ -15,6 +15,7 @@ var CANCEL = 'Cancel';
 var SAVE_LW = 'save';
 var EDIT_LW = 'edit';
 var CANCEL_LW = 'cancel' ;
+var CLOSE = 'Close' ;
 
 var DATA_DELETED_SUCCESSFULLY = 'Data deleted succesfully.';
 var SELECT_ONE_RECORD_BEFORE_DELETE = 'Please select atleast one record before deleting.';
@@ -108,3 +109,7 @@ var QUEUE_ADDED_SUCCESSFULLY = 'Added to queue successfully !' ;
 var QUEUE_UPDATED_SUCCESSFULLY = 'Queue updated successfully !' ;
 var QUEUE_DELETED_SUCCESSFULLY = 'Queue deleted successfully !' ;
 var GO_TO_DETAIL = 'go to detail page' ;
+var NO_QUEUE_DATA = 'No queue data found !' ;
+//ajax image upload
+var UPLOAD_SUCCESS = 'Uploaded successfully' ;
+var UPLOAD_ERROR = 'Error uploading image, please check the image before uploading' ;

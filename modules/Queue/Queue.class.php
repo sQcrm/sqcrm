@@ -12,6 +12,22 @@ class Queue extends DataObject {
 	public $module_group_rel_table = '';
 	
 	/**
+	* function getId(), gets the details of the entity by the primary key
+	* Its Overwrite of the data object getId()
+	* added a column `deleted` in the select for core usage
+	* @param integer $sqcrm_record_id
+	*/
+	public function getId($sqcrm_record_id) {
+		$qry = "
+		select *, 0 as `deleted`
+		from ".$this->getTable()."
+		where `idqueue` = ?
+		" ;
+		$this->query($qry,array($sqcrm_record_id)) ;
+		return $this->next() ;
+	}
+	
+	/**
 	* function to load the queues 
 	* @param integer $iduser
 	* @return array
@@ -26,6 +42,7 @@ class Queue extends DataObject {
 			$user_timezone = $do_user->user_timezone ;
 		}
 		$today = TimeZoneUtil::get_user_timezone_date($user_timezone) ;
+		$security_where = $_SESSION["do_crm_action_permission"]->get_user_where_condition('q',18,false,$iduser);
 		$qry="
 		select 
 		q.*,
@@ -33,11 +50,13 @@ class Queue extends DataObject {
 		m.module_label
 		from queue q
 		inner join module m on m.idmodule = q.related_module_id
-		where q.iduser = ?
+		where 
+		1=1
+		".$security_where."
 		and q.queue_date >= ?
 		order by q.queue_date,q.related_module_id
 		";
-		$this->query($qry,array($iduser,$today)) ;
+		$this->query($qry,array($today)) ;
 		$return_array = array() ;
 		if ($this->getNumRows() > 0) {
 			$todayDateObj = new DateTime($today);

@@ -60,7 +60,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal hide" id="report_delete_confirm">
+<div class="modal hide fade" id="report_delete_confirm">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

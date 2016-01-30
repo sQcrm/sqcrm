@@ -64,7 +64,7 @@ $do_group->get_all_groups();
 		</div><!--/span-->
 	</div><!--/row-->
 </div>
-<div class="modal hide" id="delete_confirm_group">
+<div class="modal hide fade" id="delete_confirm_group">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>

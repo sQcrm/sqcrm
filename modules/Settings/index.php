@@ -3,6 +3,8 @@
 
 /**
 * Profile listing page
-*/  
-header("Location: ".NavigationControl::getNavigationLink("Settings","profile_list"));
-exit;
+*/ 
+?>
+<script type="text/javascript">
+	window.location= '<?php echo NavigationControl::getNavigationLink("Settings","profile_list");?>' ;
+</script>

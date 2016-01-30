@@ -14,7 +14,7 @@ $admin_modules = false ;
 $is_admin = false ;
 $m = $_REQUEST["m"];
 $action = $_REQUEST["action"];
-  
+
 
 if (isset($_REQUEST["modalname"]) && $_REQUEST["modalname"] != '') {
 	$modal_file = $_REQUEST["modalname"];
@@ -62,7 +62,7 @@ $modules_info = $_SESSION["do_module"]->get_modules_with_full_info();
   
 if ($module_id !== false && $admin_modules === false) {
 	if ($module_id == 7) {
-		if ($is_admin === true) {
+		if ($is_admin === true || $modal_file == 'change_user_avatar') {
 			$allow_disp = true ;
         }
 	} else {

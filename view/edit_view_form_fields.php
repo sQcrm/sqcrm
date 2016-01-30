@@ -53,7 +53,7 @@ while ($do_block->next()) { ?>
 							} elseif ($do_crmfields->field_type == 104) {
 								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name);
 							} elseif ($do_crmfields->field_type == 15) {
-								$fieldobject::display_field($assigned_to);
+								$fieldobject::display_field($assigned_to,'',$module_id);
 								//$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
 							} elseif ($do_crmfields->field_type == 12) {
 								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');

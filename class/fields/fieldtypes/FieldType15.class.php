@@ -31,7 +31,13 @@ class FieldType15 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($value = '',$css = '') {
+	public static function display_field($value = '',$css = '',$idmodule) {
+		// make sure group option is disabled for sharing rule "Only Me" @v-0.9
+		$module_data_share_permissions = $_SESSION["do_user"]->get_module_data_share_permissions();
+		$hide_group = false ;
+		if ($module_data_share_permissions[$idmodule] == 5) {
+			$hide_group = true ;
+		}
 		$html = '';  
 		$assigned_to_type = '';
 		$do_user = new User();
@@ -65,7 +71,9 @@ class FieldType15 extends CRMFields {
 		}
 		$html .= '<div class="btn-group" data-toggle="buttons-radio">';
 		$html .= '<label class="btn"><input type = "radio" name="assigned_to_selector" value="user" '.$assigned_to_selector_userschecked.'>'._('User').'</label>';
-		$html .= '<label class="btn"><input type = "radio" name="assigned_to_selector" value="group" '.$assigned_to_selector_groupchecked.'>'._('Group').'</label>';
+		if (false === $hide_group ) {
+			$html .= '<label class="btn"><input type = "radio" name="assigned_to_selector" value="group" '.$assigned_to_selector_groupchecked.'>'._('Group').'</label>';
+		}
 		$html .= '</div>';
 		$html .= '<div id="user_selector_block" '.$assigned_to_show_userlist.'>';
 		$html .= '<select name="user_selector" id="user_selector">';

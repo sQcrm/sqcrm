@@ -13,7 +13,7 @@
 	</div>
 </div>
 
-<div class="modal hide datadisplay-outer" id="entity">
+<div class="modal fade hide datadisplay-outer" id="entity">
 	<div class="modal-header entity-detail-modal-header"></div>
 	<div class="modal-body datadisplay-outer" id="entity-detail-modal"></div>
 	<div class="modal-footer">
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<div class="modal hide datadisplay-outer" id="edit_queue">
+<div class="modal fade hide datadisplay-outer" id="edit_queue">
 	<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 
-<div class="modal hide" id="delete_queue">
+<div class="modal fade hide" id="delete_queue">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
@@ -147,8 +147,8 @@ $(document).ready(function() {
 								var msg = '<strong id="msg">No queue data found !</strong>';
 								$('div#queue_data div#content_'+current_table_id).append(msg) ;
 							}
-							$("#edit_queue").modal('hide');
 						}
+						$("#edit_queue").modal('hide');
 					} else {
 						display_js_error(result.trim(),'js_errors');
 					}
@@ -179,9 +179,10 @@ $(document).ready(function() {
 						$('div#queue_data table#'+current_table_id+' tr#'+id).remove() ;
 						if ($('div#queue_data table#'+current_table_id+' tr').length == 0) {
 							$('div#queue_data table#'+current_table_id).remove() ;
-							var msg = '<strong id="msg">No queue data found !</strong>';
+							var msg = '<strong id="msg">'+NO_QUEUE_DATA+'</strong>';
 							$('div#queue_data div#content_'+current_table_id).append(msg) ;
 						}
+						$("#delete_queue").modal('hide');
 						display_js_success(QUEUE_DELETED_SUCCESSFULLY,'js_errors') ;
 					} else {
 						display_js_error(result.trim(),'js_errors') ;

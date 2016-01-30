@@ -48,7 +48,7 @@ echo $msg ;
 <?php
 }
 ?>
-<div class="modal hide datadisplay-outer" id="add_queue_entity">
+<div class="modal fade hide datadisplay-outer" id="add_queue_entity">
 	<div class="modal-body datadisplay-outer" id="queue-add-modal">
 	<?php
 	echo _('Queue date :: ') ;
@@ -56,18 +56,18 @@ echo $msg ;
 	?>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
+		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close'); ?></a>
 		<input type="submit" class="btn btn-primary add_queue_entity_submit" id="" value="<?php echo _('add')?>"/>
 	</div>
 </div>
-<div class="modal hide datadisplay-outer" id="edit_queue_entity">
+<div class="modal fade hide datadisplay-outer" id="edit_queue_entity">
 	<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
+		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close'); ?></a>
 		<input type="submit" class="btn btn-primary update_queue_entity_submit" id="" value="<?php echo _('change')?>"/>
 	</div>
 </div>
-<div class="modal hide" id="delete_queue_entity">
+<div class="modal fade hide" id="delete_queue_entity">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
@@ -76,7 +76,7 @@ echo $msg ;
 		<?php echo _('Are you sure you want to remove the queue.');?>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
+		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close'); ?></a>
 		<input type="submit" class="btn btn-primary delete_queue_entity_submit" id="" value="<?php echo _('remove')?>"/>
 	</div>
 </div>
@@ -105,6 +105,7 @@ $(document).ready(function() {
 				data: "date="+queue_date+"&related_module_id=<?php echo $related_module_id;?>&related_record_id=<?php echo $related_record_id;?>",
 				success: function(result) { 
 					if (result.trim() == '1') {
+						$("#add_queue_entity").modal('hide');
 						display_js_success(QUEUE_ADDED_SUCCESSFULLY,'js_errors') ;
 					} else {
 						display_js_error(result.trim(),'js_errors') ;
@@ -120,14 +121,10 @@ $(document).ready(function() {
 							$('#queue_section').html('<img class="ajax_loader" src="/themes/images/ajax-loader1.gif" border="0" />');
 						}
 					});
-				},
-				beforeSend: function() {
-					$('#queue_section').html('<img class="ajax_loader" src="/themes/images/ajax-loader1.gif" border="0" />');
 				}
 			});
-			$("#add_queue_entity").modal('hide');
-			return false ;
 		}
+		return false ;
 	});
 	
 	// display the edit queue modal for the entity

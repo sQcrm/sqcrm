@@ -252,12 +252,12 @@ $(document).ready(function() {
 		success:  function(data) {
 			if (data.trim() == '0') {
 				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-				var succ_msg = succ_element+'<strong>Error uploading image, please check the image before uploading.</strong></div>';
+				var succ_msg = succ_element+'<strong>'+UPLOAD_ERROR+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
 			} else {
 				var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-				var succ_msg = succ_element+'<strong>Logo uploaded successfully</strong></div>';
+				var succ_msg = succ_element+'<strong>'+UPLOAD_SUCCESS+'</strong></div>';
 				var new_image = '<img src="'+FILE_UPLOAD_DISPLAY_PATH+'/'+data+'" width="200" height="70">';
 				$("#logo_dis").html(new_image);
 				$("#message").html(succ_msg);
