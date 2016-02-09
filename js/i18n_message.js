@@ -61,6 +61,7 @@ var NOTES_ADDED_SUCCESSFULLY = 'Notes added succesfully.';
 var NOTES_REQUIRE = 'Please add some note before saving.';
 var NOTES_UPDATED_SUCCESSFULLY = 'Notes updated succesfully.';
 var NOTES_DELETED_SUCCESSFULLY = 'Note deleted succesfully.';
+var NOTES_CANT_BE_ADDED = 'Notes can not be added, missing record id or module name.';
 
 var EVENT_END_DATE_GREATER_THAN_START_DATE = 'Event end date time must be greater than start date';
 
