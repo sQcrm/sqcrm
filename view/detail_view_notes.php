@@ -14,51 +14,65 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 <div class="box_content">
 	<div id="no_show" style="display:none;"></div>
 	<div id="message"></div>
-		<div id="entiry_notes">
+	<div id="entiry_notes">
+		<?php
+		if ($_SESSION["do_crm_action_permission"]->action_permitted('add',8) === true) {
+		?>
+		<div id="add_note">
 			<?php
-			if ($_SESSION["do_crm_action_permission"]->action_permitted('add',8) === true) {
-			?>
-			<div id="add_note">
-				<?php
-				echo _('Add Note (use : for loading the emoji and @ for users)');
-				?> <br />
-				<?php
-				$e_add_notes = new Event("Notes->eventAddNotes");
-				$e_add_notes->addParam("idmodule",$module_id);
-				$e_add_notes->addParam("module",$module);
-				$e_add_notes->addParam("sqrecord",$sqcrm_record_id);
-				echo '<form class="form-horizontal" id="Notes__eventAddNotes" name="Notes__eventAddNotes"  method="post" enctype="multipart/form-data">';
-				echo $e_add_notes->getFormEvent();
-				?>
-				<?php 
-				FieldType200::display_field('entity_notes','','expand_text_area');
-				?>
-				<br /><br />
-				<?php
-				FieldType21::display_field('note_files');
-				?>
-				<br /><br />
-				<div id="notes_submit">
-					<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
-				</div>
-				</form>
-			</div>
-			<hr class="form_hr">
-			<?php 
-			} ?>
+			echo _('Add Note (use : for loading the emoji and @ for users)');
+			?> <br />
 			<?php
-			if ($_SESSION["do_crm_action_permission"]->action_permitted('view',8) === true) {
+			$e_add_notes = new Event("Notes->eventAddNotes");
+			$e_add_notes->addParam("idmodule",$module_id);
+			$e_add_notes->addParam("module",$module);
+			$e_add_notes->addParam("sqrecord",$sqcrm_record_id);
+			echo '<form class="form-horizontal" id="Notes__eventAddNotes" name="Notes__eventAddNotes"  method="post" enctype="multipart/form-data">';
+			echo $e_add_notes->getFormEvent();
 			?>
-			<div id="notes_entry">
-			<!-- note content section loading with ajax -->
-			</div> 
-			<div id='load_more_notes' style="display:none;">
-				<!--<button class="btn btn-primary btn-large" id="load_more_notes_btn"><?php echo _('more');?></button>-->
-			</div>
 			<?php 
-			} ?>
+			FieldType200::display_field('entity_notes','','expand_text_area');
+			?>
+			<br /><br />
+			<?php
+			FieldType21::display_field('note_files');
+			?>
+			<br /><br />
+			<div id="notes_submit">
+				<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
+			</div>
+			</form>
+		</div>
+		<hr class="form_hr">
+		<?php 
+		} ?>
+		<?php
+		if ($_SESSION["do_crm_action_permission"]->action_permitted('view',8) === true) {
+		?>
+		<div id="notes_entry">
+		<!-- note content section loading with ajax -->
+		</div> 
+		<div id='load_more_notes' style="display:none;">
+			<!--<button class="btn btn-primary btn-large" id="load_more_notes_btn"><?php echo _('more');?></button>-->
+		</div>
+		<?php 
+		} ?>
+		<!-- delete notes confirm modal -->
+		<div class="modal fade hide" id="delete_entity_notes">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
+			</div>
+			<div class="modal-body">
+				<?php echo _('Are you sure you want to delete the note.');?>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close'); ?></a>
+				<input type="submit" class="btn btn-primary delete_entity_note_submit" id="" value="<?php echo _('delete')?>"/>
+			</div>
 		</div>
 	</div>
+</div>
 <?php 
 } ?>
 <script>
@@ -87,14 +101,16 @@ $(document).ready(function() {
 			//Here code can be included that needs to be performed if Ajax request was successful
 			if (data.trim() == '1') {
 				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
-				var err_message = err_element+'<strong>Please add some note before saving.</strong></div>';
-				$("#message").html(succ_msg);
+				var err_message = err_element+'<strong>'+NOTES_REQUIRE+'</strong></div>';
+				$("#message").html(err_message);
 				$("#message").show();
+				$("#notes_submit").html('<input type="submit" class="btn btn-primary" value="Save"/>');
 			} else if (data.trim() == '2') {
 				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
-				var err_message = err_element+'<strong>Notes can not be added, missing record id or module name.</strong></div>';
-				$("#message").html(succ_msg);
+				var err_message = err_element+'<strong>'+NOTES_CANT_BE_ADDED+'</strong></div>';
+				$("#message").html(err_message);
 				$("#message").show();
+				$("#notes_submit").html('<input type="submit" class="btn btn-primary" value="Save"/>');
 			} else {
 				$("#notes_entry").prepend(data);
 				$("#notes_submit").html('<input type="submit" class="btn btn-primary" value="Save"/>');
@@ -333,33 +349,35 @@ function close_edit_notes(idnotes)	{
 function delete_notes(idnotes) {
 	var notes_content_id = 'content_'+idnotes;
 	var current_note = $("#"+notes_content_id).html();
-	$('#'+notes_content_id).html('<img src="/themes/images/ajax-loader1.gif" border="0" />');
-	$.ajax({
-		type: "GET",
-		<?php
-        $e_del_notes = new Event("Notes->eventAjaxDeleteNotes");
-        $e_del_notes->setEventControler("/ajax_evctl.php");
-        $e_del_notes->setSecure(false);
-		?>
-		url: "<?php echo $e_del_notes->getUrl(); ?>&idnotes="+idnotes,
-		success:  function(html) {
-			var ret_data = html.trim();
-			if(ret_data == '0') {
-				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-				var succ_msg = succ_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
-				$("#message").html(succ_msg);
-				$("#message").show();
-				$('#'+notes_content_id).html(current_note);
-			} else {
-				load_notes(1);
-				var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
-				var succ_msg = succ_element+'<strong>'+NOTES_DELETED_SUCCESSFULLY+'</strong></div>';
-				$("#message").html(succ_msg);
-				$("#message").show();
-				//$("#load_more_notes_btn").removeAttr('disabled','disabled');
-				//$("#load_more_notes_btn").html('<?php echo _('more');?>');
+	$("#delete_entity_notes").modal('show');
+	$("#entiry_notes").on('click','.delete_entity_note_submit', function(e) {
+		$('#'+notes_content_id).html('<img src="/themes/images/ajax-loader1.gif" border="0" />');
+		$.ajax({
+			type: "GET",
+			<?php
+			$e_del_notes = new Event("Notes->eventAjaxDeleteNotes");
+			$e_del_notes->setEventControler("/ajax_evctl.php");
+			$e_del_notes->setSecure(false);
+			?>
+			url: "<?php echo $e_del_notes->getUrl(); ?>&idnotes="+idnotes,
+			success:  function(html) {
+				var ret_data = html.trim();
+				if(ret_data == '0') {
+					var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+					var succ_msg = succ_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
+					$("#message").html(succ_msg);
+					$("#message").show();
+					$('#'+notes_content_id).html(current_note);
+				} else {
+					load_notes(1);
+					var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+					var succ_msg = succ_element+'<strong>'+NOTES_DELETED_SUCCESSFULLY+'</strong></div>';
+					$("#message").html(succ_msg);
+					$("#message").show();
+				}
+				$("#delete_entity_notes").modal('hide');
 			}
-		}
-    });
+		});
+	});
 }
 </script>
