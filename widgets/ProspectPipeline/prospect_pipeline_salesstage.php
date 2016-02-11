@@ -87,9 +87,6 @@ $(document).ready(function() {
 			plot2.destroy();
 			plot2.replot();
         }
-        /*$(window).resize(function() {
-			plot2.replot( { resetAxes: true } );
-		});*/
     <?php 
     } else { ?>
 		$("#prospect_pipeline_by_sales_stage").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');
