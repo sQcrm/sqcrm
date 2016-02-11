@@ -8,6 +8,9 @@
 include_once(BASE_PATH.'/widgets/ProspectPipeline/ProspectPipeline.class.php') ;
 $prospect_pipeline = new ProspectPipeline() ;
 $data_3 = $prospect_pipeline->get_prospect_pipeline_by_sales_stage_graph();
+$crm_global_settings = new CRMGlobalSettings();
+$currency = $crm_global_settings->get_setting_data_by_name('currency_setting');
+$currency_data = json_decode($currency,true);
 ?>
 <script src="/js/plugins/jqplot/plugins/jqplot.barRenderer.min.js"></script>
 <script src="/js/plugins/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
@@ -84,9 +87,6 @@ $(document).ready(function() {
 			plot2.destroy();
 			plot2.replot();
         }
-        /*$(window).resize(function() {
-			plot2.replot( { resetAxes: true } );
-		});*/
     <?php 
     } else { ?>
 		$("#prospect_pipeline_by_sales_stage").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');
