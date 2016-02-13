@@ -24,19 +24,13 @@ $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_da
 				<label class="control-label" for="currency"><?php echo _('Select a currency');?></label>
 				<div class="controls">
 					<select name="currency" id="currency" class="currency_settings">
-						<option value = "AUD-$" <?php if($currency_iso_with_symbol== 'AUD-$') echo "SELECTED"; ?>><?php echo _('Australian dollar');?> (AUD-$)</option>
-						<option value = "BRL-R$" <?php if($currency_iso_with_symbol== 'BRL-R$') echo "SELECTED"; ?>><?php echo _('Brazilian real');?> (BRL-R$)</option>
-						<option value = "GBP-&amp;pound;" <?php if($currency_iso_with_symbol== 'GBP-&pound;') echo "SELECTED"; ?>><?php echo _('British pound');?> (GBP-&pound;)</option>
-						<option value = "CAD-$" <?php if($currency_iso_with_symbol== 'CAD-$') echo "SELECTED"; ?>><?php echo _('Canadian dollar');?> (CAD-$)</option>
-						<option value = "Euro-&amp;euro;" <?php if($currency_iso_with_symbol== 'Euro-&euro;') echo "SELECTED"; ?>><?php echo _('Euro')?> -&euro;</option>
-						<option value = "HKD-$" <?php if($currency_iso_with_symbol== 'HKD-$') echo "SELECTED"; ?>><?php echo _('Hong Kong dollar');?> (HKD-$)</option>
-						<option value = "INR-&amp;#8377;" <?php if($currency_iso_with_symbol== 'INR-&#8377;') echo "SELECTED"; ?>><?php echo _('Indian rupee');?> (INR-&#8377;)</option>
-						<option value = "JPY-&amp;yen;" <?php if($currency_iso_with_symbol== 'JPY-&yen;') echo "SELECTED"; ?>><?php echo _('Japanese yen');?> (JPY-&yen;)</option>
-						<option value = "MUR-Rs" <?php if($currency_iso_with_symbol== 'MUR-Rs') echo "SELECTED"; ?>><?php echo _('Mauritian Rupees');?> (MUR-Rs)</option>
-						<option value = "NZD-$" <?php if($currency_iso_with_symbol== 'NZD-$') echo "SELECTED"; ?>><?php echo _('New Zealand dollar');?> (NZD-$)</option>
-						<option value = "ZAR-R" <?php if($currency_iso_with_symbol== 'ZAR-R') echo "SELECTED"; ?>><?php echo _('South African rand');?> (ZAR-R)</option>
-						<option value = "CHF-Fr" <?php if($currency_iso_with_symbol== 'CHF-Fr') echo "SELECTED"; ?>><?php echo _('Swiss franc');?> (CHF-Fr)</option>
-						<option value = "USD-$" <?php if($currency_iso_with_symbol== 'USD-$') echo "SELECTED"; ?>><?php echo _('United States dollar');?> (USD-$)</option>
+					<?php
+					foreach($currency_array as $key=>$val) { ?>
+						
+						<option value = "<?php echo $key.'-'.(string)$val['hex'];?>" <?php echo ($currency_iso_with_symbol == $key.'-'.html_entity_decode($val['hex'], ENT_COMPAT, 'UTF-8') ?"SELECTED":'');?>><?php echo $val['name'].' ('.$key.'-'.(string)$val['hex'].')'?></option>
+					<?php
+					}
+					?>
 					</select>  
 				</div>
 				<br />
