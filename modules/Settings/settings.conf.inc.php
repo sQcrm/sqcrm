@@ -1,8 +1,9 @@
 <?php
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
 /** 
-	* Application Configuration
-	* @author Abhik Chakraborty
+* Application Configuration
+* holds the Settings menu array
+* @author Abhik Chakraborty
 */
 
 $core_settings = array(
@@ -80,5 +81,4 @@ $core_settings = array(
 		)
 	)
 );
-
 ?>

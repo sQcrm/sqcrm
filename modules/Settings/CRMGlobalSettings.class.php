@@ -41,7 +41,8 @@ class CRMGlobalSettings extends DataObject {
 					"decimal_point"=>$decimal_point,
 					"decimal_symbol"=>$decimal_symbol,
 					"thousand_seperator"=>$thousand_seperator
-				)
+				),
+				JSON_UNESCAPED_UNICODE
 			);
 			$qry = "
 			update ".$this->getTable()." 
