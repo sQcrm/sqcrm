@@ -145,7 +145,6 @@ class FullContact extends CRMPluginProcessor {
 	protected function call_full_contact_api($api_end_point,$data) {
 		$this->init_api($api_end_point,$data) ;
 		$url = $this->get_api_url().$this->get_api_end_point().'?apiKey='.$this->get_api_key().$this->get_api_params() ;
-		echo $url ; exit ;
 		$json = file_get_contents($url) ;
 		return  $json ;
 	}
