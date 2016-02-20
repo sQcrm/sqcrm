@@ -8,43 +8,57 @@
 * @author Abhik Chakraborty
 */
 
-
 class FullContact extends CRMPluginProcessor {
 	public $table = "";
 	public $primary_key = "";
+
+	private $api_key = 'your api key';
+	private $api_url = 'https://api.fullcontact.com/v2/' ;
+	private $api_end_point = '';
+	private $api_params = '' ;
     
-    private $api_key = 'your api key';
-    private $api_url = 'https://api.fullcontact.com/v2/' ;
-    private $api_end_point = '';
-    private $api_params = '' ;
+	/**
+	* array holding the social website type returned from full contact as key and icon name from font-awesome css
+	*/
+	public $available_social_icons = array(
+		'facebook'=>'facebook','twitter'=>'twitter','pinterest'=>'pinterest','flickr'=>'flickr',
+		'google'=>'google','github'=>'github','youtube'=>'youtube','xing'=>'xing','linkedin'=>'linkedin',
+		'instagram'=>'instagram','angellist'=>'angellist','foursquare'=>'foursquare','vimeo'=>'vimeo',
+		'amazon'=>'amazon','apple'=>'apple','bitbucket'=>'bitbucket','tumblr'=>'tumblr','windows'=>'windows',
+		'reddit'=>'reddit','linux'=>'linux','slideshare'=>'slideshare','google-plus'=>'google-plus',
+		'linkedincompany'=>'linkedin'
+	);
     
-    /**
-    * array holding the social website type returned from full contact as key and icon name from font-awesome css
-    */
-    public $available_social_icons = array(
-	'facebook'=>'facebook','twitter'=>'twitter','pinterest'=>'pinterest','flickr'=>'flickr',
-	'google'=>'google','github'=>'github','youtube'=>'youtube','xing'=>'xing','linkedin'=>'linkedin',
-	'instagram'=>'instagram','angellist'=>'angellist','foursquare'=>'foursquare','vimeo'=>'vimeo',
-	'amazon'=>'amazon','apple'=>'apple','bitbucket'=>'bitbucket','tumblr'=>'tumblr','windows'=>'windows',
-	'reddit'=>'reddit','linux'=>'linux','slideshare'=>'slideshare','google-plus'=>'google-plus',
-	'linkedincompany'=>'linkedin'
-    );
-    
-    /**
-    * constructor function for the sQcrm plugin
-    */
+	/**
+	* constructor function for the sQcrm plugin
+	*/
 	public function __construct() {
 		$this->set_plugin_title(_('Full Contact Plugin')); // required
 		$this->set_plugin_name('FullContact') ; // required same as your class name 
 		$this->set_plugin_type(array(7)); // required 
 		$this->set_plugin_modules(array(4,6)); // required
 		$this->set_plugin_position(1); // required
-		//$this->set_plugin_tab_name('Full Contact'); // required
-		//$this->set_resource_name('test.php'); // optional else it will look for index.php in your plugin folder
 		$this->set_plugin_description(
 			_('This plugin is to get the full information of the Contact or organization by domain name using the FullContact API. 
-			You need to have your own api key and add to config file. You can have your own api key from https://www.fullcontact.com/developer/')
+			You need to have your own api key and you can get it from 
+			from <a href="https://www.fullcontact.com/developer/">https://www.fullcontact.com/developer/</a><br /><br />
+			You can either place the api key on 
+			<br /><br /><i>/plugins/FullContact/FullContact.class.php <br />private $api_key = \'your api key\'</i>
+			<br /><br />or better create a <i>config.json</i> on <b>/plugins/FullContact/</b> and the place the api key in the file as <br />
+			<i>{"apiKey":"your api key"}</i> 
+			<br /><br />This is recomended so that any upgrade of the plugin could be done easily and your
+			config remains unchanged.
+			'
+			)
 		); // optional
+	}
+	
+	/**
+	* function to set the api key 
+	* @param string $key
+	*/
+	public function set_api_key($key) {
+		$this->api_key = $key ;
 	}
 	
 	/**
@@ -52,6 +66,13 @@ class FullContact extends CRMPluginProcessor {
 	* @return string 
 	*/
 	public function get_api_key() {
+		if (file_exists(BASE_PATH.'/plugins/FullContact/config.json')) {
+			$config = file_get_contents(BASE_PATH.'/plugins/FullContact/config.json') ;
+			if (strlen($config) > 3) {
+				$config_decoded = json_decode($config) ;
+				$this->set_api_key($config_decoded->apiKey) ;
+			}
+		}
 		return $this->api_key ;
 	}
 	
@@ -124,6 +145,7 @@ class FullContact extends CRMPluginProcessor {
 	protected function call_full_contact_api($api_end_point,$data) {
 		$this->init_api($api_end_point,$data) ;
 		$url = $this->get_api_url().$this->get_api_end_point().'?apiKey='.$this->get_api_key().$this->get_api_params() ;
+		echo $url ; exit ;
 		$json = file_get_contents($url) ;
 		return  $json ;
 	}
