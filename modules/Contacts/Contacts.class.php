@@ -435,7 +435,7 @@ class Contacts extends DataObject {
 	* @param integer $idcontacts
 	* @return array
 	*/
-	public function get_contact_emails($idcontacts){
+	public function get_contact_emails($idcontacts,$check_opt_out = true){
 		if ((int)$idcontacts > 0) {
 			// get the email fields for the contacts
 			$qry = "select field_name from fields where idmodule = 4 and field_type = 7";
@@ -452,10 +452,12 @@ class Contacts extends DataObject {
 				$select .="
 				from contacts c
 				where
-				c.deleted = 0
-				and c.email_opt_out <> 1
-				and c.idcontacts = ?
-				";
+				c.deleted = 0 ";
+				if (true === $check_opt_out) {
+					$select .=" and c.email_opt_out <> 1";
+				}
+				$select .= "and c.idcontacts = ?";
+				
 				$stmt = $this->getDbConnection()->executeQuery($select,array($idcontacts));
 				if ($stmt->rowCount() > 0) {
 					while ($data = $stmt->fetch()) {
