@@ -46,7 +46,7 @@ class FullContact extends CRMPluginProcessor {
 			<br /><br /><i>/plugins/FullContact/FullContact.class.php <br />private $api_key = \'your api key\'</i>
 			<br /><br />or better create a <i>config.json</i> on <b>/plugins/FullContact/</b> and the place the api key in the file as <br />
 			<i>{"apiKey":"your api key"}</i> 
-			<br /><br />This is recomended so that any upgrade of the plugin could be done easily and your
+			<br /><br />This is recommended so that any upgrade of the plugin could be done easily and your
 			config remains unchanged.
 			'
 			)
