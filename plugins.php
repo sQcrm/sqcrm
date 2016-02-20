@@ -12,6 +12,13 @@ $idmodule = (int)$_GET["idmodule"] ;
 $plugin_name = $_GET["plugin_name"] ;
 $resource_name = $_GET["resource_name"] ;
 
+if (!is_object($_SESSION["do_module"])) {
+	$do_module = new Module();
+	$do_module->sessionPersistent("do_module", "logout.php", TTL);
+	$_SESSION["do_module"]->load_active_modules();
+}
+$modules_info = $_SESSION["do_module"]->get_modules_with_full_info();
+
 if (!is_object($_SESSION["do_user"])) {
 	$show_login_on_session_expire = true ;
 	$session_expire_message = _('Your session has been expired, please login again.');
