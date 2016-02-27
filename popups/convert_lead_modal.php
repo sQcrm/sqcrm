@@ -1,7 +1,7 @@
 <?php
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt
 /**
-* Change password modal
+* Convert Lead modal
 * @author Abhik Chakraborty
 */
 include_once("config.php");
@@ -38,7 +38,7 @@ echo $e_add->getFormEvent();
 				<label class="control-label" for="industry">* <?php echo _('Industry');?></label>
 				<div class="controls">
 				<?php
-					FieldType5::display_field("industry",56,$leads_obj->industry);
+					FieldType5::display_field("industry",34,$leads_obj->industry);
 				?>
 				</div>
 			</div>
@@ -111,6 +111,18 @@ echo $e_add->getFormEvent();
                 <div class="controls">
 					<input type = "text" name="probability" id="probability" value="">
                 </div><br />   
+			</div>
+			<div id="close_lost_reason" style="display:none;margin-left:30px;margin-top:5px;">
+				<label class="control-label" for="lost_reason"><?php echo _('Lost Reason');?></label>
+				<div class="controls">
+					<?php echo FieldType5::display_field('lost_reason',341);?>
+				</div><br />
+			</div>
+			<div id="close_lost_competitor" style="display:none;margin-left:30px;margin-top:5px;">
+				<label class="control-label" for="competitor_name"><?php echo _('Competitor Name');?></label>
+				<div class="controls">
+					<?php echo FieldType5::display_field('competitor_name',342);?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -198,6 +210,25 @@ $(document).ready(function() {
 		$("#cnt_fields").hide();
 		$("#cnt_select").show();
 	});
+	
+	$('#sales_stage').change(function() {
+		var salesStage = $(this).find("option:selected").val();
+		if (salesStage == 'Close Lost') {
+			$('#close_lost_reason').show() ;
+		} else {
+			$('#close_lost_reason').hide() ;
+			$('#close_lost_competitor').hide() ;
+		}
+	});
+	
+	$('#lost_reason').change(function() {
+		var salesStage = $(this).find("option:selected").val();
+		if (salesStage == 'Lost To Competitor') {
+			$('#close_lost_competitor').show() ;
+		} else {
+			$('#close_lost_competitor').hide() ;
+		}
+	});
   
 	$('#LeadConversion__eventConvertLeads').submit( function() {
 		var org_convertion = '';
@@ -242,6 +273,12 @@ $(document).ready(function() {
 				display_js_error(LEAD_CONVERT_POT_SALES_STAGE_REQUIRE,'js_errors');
 				$("#sales_stage").focus();
 				return false;
+			} else if ($("#sales_stage").val() == 'Close Lost') { 
+				if ($("#lost_reason").val() == 'Pick One' || $("#lost_reason").val() == '') {
+					display_js_error('Please select a lost reason','js_errors');
+					$("#lost_reason").focus();
+					return false;
+				}
 			}
 			
 			if ($("#amount").val() == '') {
@@ -253,6 +290,12 @@ $(document).ready(function() {
 			if ($("#probability").val() == '') {
 				display_js_error(LEAD_CONVERT_POT_PROBABILITY_REQUIRE,'js_errors');
 				$("#probability").focus();
+				return false;
+			}
+			
+			if ($("#lost_reason").val() == 'Lost To Competitor' && ($("#competitor_name").val() == 'Pick One' || $("#competitor_name").val() == '')) {
+				display_js_error('Please select a Competitor Name','js_errors');
+				$("#competitor_name").focus();
 				return false;
 			}
 		}

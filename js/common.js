@@ -192,6 +192,20 @@ function custom_validator(mid) {
 			display_js_error(EVENT_END_DATE_GREATER_THAN_START_DATE,'js_errors');
 			return false ;
 		}
+	} else if(mid == 5) {
+		var salesStage = $('#sales_stage').val() ;
+		if (salesStage == 'Close Lost') {
+			var lostReason = $('#lost_reason').val() ;
+			if (lostReason == 'Pick One' || lostReason.trim() == '') {
+				display_js_error('Please select a lost reason','js_errors');
+				return false ;
+			} else if (lostReason == 'Lost To Competitor' && ( $('#competitor_name').val() == 'Pick One' || $('#competitor_name').val() == '')) {
+				display_js_error('Please select a Competitor Name','js_errors');
+				return false ;
+			} else {
+				return true ;
+			}
+		}
 	} else {
 		return true;
 	}
