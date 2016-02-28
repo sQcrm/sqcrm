@@ -197,10 +197,10 @@ function custom_validator(mid) {
 		if (salesStage == 'Close Lost') {
 			var lostReason = $('#lost_reason').val() ;
 			if (lostReason == 'Pick One' || lostReason.trim() == '') {
-				display_js_error('Please select a lost reason','js_errors');
+				display_js_error(SELECT_POT_CLOSE_LOST_REASON,'js_errors');
 				return false ;
 			} else if (lostReason == 'Lost To Competitor' && ( $('#competitor_name').val() == 'Pick One' || $('#competitor_name').val() == '')) {
-				display_js_error('Please select a Competitor Name','js_errors');
+				display_js_error(SELECT_POS_CLOSE_LOST_COMPETITOR,'js_errors');
 				return false ;
 			} else {
 				return true ;

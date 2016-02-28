@@ -275,7 +275,7 @@ $(document).ready(function() {
 				return false;
 			} else if ($("#sales_stage").val() == 'Close Lost') { 
 				if ($("#lost_reason").val() == 'Pick One' || $("#lost_reason").val() == '') {
-					display_js_error('Please select a lost reason','js_errors');
+					display_js_error(SELECT_POT_CLOSE_LOST_REASON,'js_errors');
 					$("#lost_reason").focus();
 					return false;
 				}
@@ -294,7 +294,7 @@ $(document).ready(function() {
 			}
 			
 			if ($("#lost_reason").val() == 'Lost To Competitor' && ($("#competitor_name").val() == 'Pick One' || $("#competitor_name").val() == '')) {
-				display_js_error('Please select a Competitor Name','js_errors');
+				display_js_error(SELECT_POS_CLOSE_LOST_COMPETITOR,'js_errors');
 				$("#competitor_name").focus();
 				return false;
 			}
