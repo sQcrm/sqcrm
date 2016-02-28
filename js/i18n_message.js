@@ -28,6 +28,8 @@ var LEAD_CONVERT_POT_EXPECTED_CLOSE_DATE_REQUIRE = 'Please select Expected Closi
 var LEAD_CONVERT_POT_SALES_STAGE_REQUIRE = 'Please select Sales Stage.';
 var LEAD_CONVERT_POT_AMOUNT_REQUIRE = 'Please add Amount.';
 var LEAD_CONVERT_POT_PROBABILITY_REQUIRE = 'Please add probability.';
+var SELECT_POT_CLOSE_LOST_REASON = 'Please select a lost reason' ;
+var SELECT_POS_CLOSE_LOST_COMPETITOR = 'Please select a Competitor Name';
 
 var LEAD_CONVERT_ORG_ORGNAME_REQUIRE = 'Please add Organization.';
 var LEAD_CONVERT_ORG_INDUSTRY_REQUIRE =  'Please select Industry.';
