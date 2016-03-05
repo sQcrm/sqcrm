@@ -79,6 +79,9 @@ var REPORT_SELECT_FILTER_TYPE = 'Please select the filter type';
 var REPORT_SELECT_FILTER_VALUE = 'Please select the filter value';
 var REPORT_SELECT_PREVIOUS_ORDER_BY = 'Please select previous field for advanced filter';
 var REPORT_ADD_REPORT_NAME = 'Please add a report name before saving';
+var REPORT_SELECT_DATE_FILTER = 'Please select a date filter before submit' ;
+var REPORT_SELECT_START_END_DATE = 'Please select a start and end date before submit' ;
+
 
 //tax settings
 var TAX_NAME_NO_EMPTY = 'Please add tax name.';

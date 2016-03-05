@@ -44,32 +44,7 @@ class ReportFilter extends DataObject {
 	* @return array
 	*/
 	public function get_date_filter_options() {
-		return array(
-			1=>_('Custom'),
-			2=>_('Previous FY'),
-			3=>_('Current FY'),
-			4=>_('Next FY'),
-			5=>_('Previous FQ'),
-			6=>_('Current FQ'),
-			7=>_('Next FQ'),
-			8=>_('Yesterday'),
-			9=>_('Today'),
-			10=>_('Tomorrow'),
-			11=>_('Last Week'),
-			12=>_('This Week'),
-			13=>_('Next Week'),
-			14=>_('Last Month'),
-			15=>_('This Month'),
-			16=>_('Next Month'),
-			17=>_('Last 7 days'),
-			18=>_('Last 30 days'),
-			19=>_('Last 60 days'),
-			20=>_('Last 90 days'),
-			21=>_('Next 7 days'),
-			22=>_('Next 30 days'),
-			23=>_('Next 60 days'),
-			24=>_('Next 90 days')
-		);
+		return CommonUtils::get_date_filter_options() ;
 	}
 	
 	/**
@@ -77,17 +52,7 @@ class ReportFilter extends DataObject {
 	* @return array
 	*/
 	public function get_advanced_filter_options() {
-		return array(
-			0=>_('none'),
-			1=>_('equal'),
-			2=>_('not equal'),
-			3=>_('contains'),
-			4=>_('does not contains'),
-			5=>_('less than'),
-			6=>_('greater than'),
-			7=>_('less than or equal'),
-			8=>_('greater than or equal')
-		);
+		return CommonUtils::get_advanced_filter_options() ;
 	}
 	
 	/**
