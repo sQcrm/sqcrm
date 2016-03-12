@@ -4,8 +4,6 @@
 * Custom report
 * @author Abhik Chakraborty
 */
-include_once('modules/Report/CustomReport.class.php') ;
-
 $do_custom_report = new CustomReport() ;
 $reports = $do_custom_report->get_custom_reports() ;
 if (isset($_GET['ajaxreq']) && $_GET['ajaxreq'] == true) {

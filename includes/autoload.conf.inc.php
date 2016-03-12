@@ -120,6 +120,7 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Report/ReportFields.class.php");
 	include_once($cfg_project_directory."modules/Report/ReportFilter.class.php");
 	include_once($cfg_project_directory."modules/Report/ReportFolder.class.php");
+	include_once($cfg_project_directory."modules/Report/CustomReport.class.php");
 
 	include_once($cfg_project_directory."modules/Import/Import.class.php");
 	include_once($cfg_project_directory."modules/Import/ContactsImport.class.php");

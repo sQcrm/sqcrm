@@ -205,6 +205,8 @@ function custom_validator(mid) {
 			} else {
 				return true ;
 			}
+		} else {
+			return true ;
 		}
 	} else {
 		return true;
