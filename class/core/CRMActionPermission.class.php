@@ -156,14 +156,14 @@ class CRMActionPermission extends DataObject {
 		} elseif($module_data_share_permissions[$idmodule] == 5) {
 			$where = " AND `".$entity_table_name."`.`iduser` = ".$iduser ;
 		} else {
-			if (isset($_SESSION["do_user"]->iduser) && $_SESSION["do_user"]->iduser > 0) {
+			if ($_SESSION["do_user"]->iduser > 0) { 
 				$subordinate_users = $_SESSION["do_user"]->get_subordinate_users();
 				$user_to_groups = $_SESSION["do_user"]->get_user_associated_to_groups();
-			} else {
+			} else { 
 				$do_user = new User();
 				$do_group_user_rel = new GroupUserRelation();
 				$subordinate_users = $do_user->get_subordinate_users_by_iduser($iduser);
-				$user_to_groups = $do_group_user_rel->get_groups_by_user($iduser);
+				$user_to_groups = $do_group_user_rel->get_groups_by_user($iduser,$subordinate_users);
 			}
 			$group_qry = false ;
 			if (is_array($user_to_groups) && count($user_to_groups)> 0) {
@@ -175,18 +175,18 @@ class CRMActionPermission extends DataObject {
 					$group_qry = true ;
 				}
 			}
-
 			if (is_array($subordinate_users) && count($subordinate_users) > 0 && $subordinate_users_data === true) {	
 				$unique_subordinate_users = array_unique($subordinate_users);
 				$comma_seperated_subordinate_users = implode(",",$unique_subordinate_users);
 				if ($group_qry === true) {
 					$where = " 
-					AND (
-								( ".$entity_table_name.".iduser = ".$iduser." 
-									OR ".$entity_table_name.".iduser IN (".$comma_seperated_subordinate_users.") 
-								)
-								OR (".$entity_object->module_group_rel_table.".idgroup in (".implode(",",$user_to_groups).") )
-							)" ;
+					AND 
+					(
+						( ".$entity_table_name.".iduser = ".$iduser." 
+							OR ".$entity_table_name.".iduser IN (".$comma_seperated_subordinate_users.") 
+						)
+						OR (".$entity_object->module_group_rel_table.".idgroup in (".implode(",",$user_to_groups).") )
+					)" ;
 				} else {
 					$where = " AND ( ".$entity_table_name.".iduser = ".$iduser." OR ".$entity_table_name.".iduser IN (".$comma_seperated_subordinate_users.") )" ;
 				}

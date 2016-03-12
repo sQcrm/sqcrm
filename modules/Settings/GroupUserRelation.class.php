@@ -74,11 +74,31 @@ class GroupUserRelation extends DataObject {
 	/**
 	* function to get the goups to which user is associated
 	* @param integer $iduser
+	* @param array $subordinate_users
+	* @param boolean $find_subordinate
 	* @return $ret_array
 	*/
-	public function get_groups_by_user($iduser) {
+	public function get_groups_by_user($iduser,$subordinate_users = array(),$find_subordinate = false) {
 		$ret_array = array();
-		$this->query("select idgroup from ".$this->table." where iduser = ?",array($iduser));
+		$users = array() ;
+		if (count($subordinate_users) > 0) {
+			$users = array_merge($subordinate_users,array($iduser)) ;
+			$users = array_unique($users) ;
+		} else {
+			if (true === $find_subordinate) {
+				$do_user = new User() ;
+				$subordinate_users = $do_user->get_subordinate_users_by_iduser($iduser);
+				if (count($subordinate_users) > 0) {
+					$users = array_merge($subordinate_users,array($iduser)) ;
+				} else {
+					$users[] = $iduser ;
+				}
+			} else {
+				$users[] = $iduser ;
+			}
+			$users = array_unique($users) ;
+		}
+		$this->query("select idgroup from ".$this->table." where iduser in (".implode(",",$users).")");
 		if ($this->getNumRows() > 0) {
 			$this->next();
 			$ret_array[] = $this->idgroup ;
