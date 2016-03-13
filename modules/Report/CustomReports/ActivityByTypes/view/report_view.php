@@ -158,13 +158,13 @@ $(document).ready(function() {
 	
 	$("#filter_run_time").submit(function() {
 		if ($("#report_date_field_runtime").val() == '0') {
-			display_js_error('Please select a date filter before submit','js_errors');
+			display_js_error(REPORT_SELECT_DATE_FILTER,'js_errors');
 			return false;
 		}
 		
 		if ($("#report_date_filter_type_runtime").val() == '1') {
 			if ($("#report_date_start_runtime").val() == '' || $("#report_date_end_runtime").val() == '') {
-				display_js_error('Please select a start and end date before submit','js_errors');
+				display_js_error(REPORT_SELECT_START_END_DATE,'js_errors');
 				return false;
 			}
 		}
