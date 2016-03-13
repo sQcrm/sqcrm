@@ -242,4 +242,32 @@ class CustomReport extends DataObject {
 		}
 		return $date_where;
 	}
+	
+	/**
+	* function to generate the breadcrumb for the custom report
+	* @param string $path
+	* @return string
+	*/
+	public function get_breadcrumbs($path) {
+		if ($path == '') return '';
+		$custom_report_path = BASE_PATH.'/modules/Report/CustomReports/'.$path ;
+		if (file_exists($custom_report_path.'/config.json')) {
+			$report_config = file_get_contents($custom_report_path.'/config.json') ;
+			$report_config_decoded = json_decode($report_config) ;
+			$html = '
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="datadisplay-outer">
+						<a href="/modules/Report/custom_report">'._('Custom Reports').'</a> | '.$report_config_decoded->title.'
+					</div>
+				</div>
+			</div>
+			<div class="clear_float"></div>
+			' ;
+			return $html ;
+		} else {
+			return '';
+		}
+		
+	}
 }

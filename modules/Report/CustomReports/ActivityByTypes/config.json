@@ -1,0 +1,6 @@
+{
+  "title":"Activity By Activity Type",
+  "description":"Report to generate the activity by activity types.",
+  "default_resource":"run_report",
+  "enabled":true
+}

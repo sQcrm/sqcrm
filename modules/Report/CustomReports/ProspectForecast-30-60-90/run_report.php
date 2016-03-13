@@ -29,6 +29,9 @@ $fields_info = $do_crm_fields->get_specific_fields_information($detailed_data_fi
 
 $prospect_forecast->get_detailed_forecast_data('',$selected_user);
 
+// breadcrumbs
+$breadcrumb = $prospect_forecast->get_breadcrumbs($_GET['path']) ;
+
 if (false === $custom_date_filter_values) $date_range_display = 'style="display:none;margin-left:3px;"';
 include_once('view/report_view.php');
 ?>
