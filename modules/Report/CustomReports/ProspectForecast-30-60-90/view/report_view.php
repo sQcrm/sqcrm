@@ -14,6 +14,9 @@
 <link href="/js/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <div class="container-fluid">
+	<?php
+		echo $breadcrumb ;
+	?>
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="datadisplay-outer">
@@ -48,7 +51,7 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="datadisplay-outer">
-				<p><?php echo _('Prospect Forecast 30-60-90 Days'); ?></p>
+				<p><strong><?php echo _('Prospect Forecast 30-60-90 Days'); ?></strong></p>
 				<div id="c1">
 				</div>
 			</div>
@@ -58,6 +61,9 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="datadisplay-outer">
+				<div class="left_300"  id="">
+					<p><strong><?php echo _('Detailed report'); ?></strong></p>
+				</div>
 				<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="sqcrmlist">
 					<thead>
 						<tr>

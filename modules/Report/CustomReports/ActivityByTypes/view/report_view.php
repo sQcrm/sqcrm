@@ -5,10 +5,6 @@
 * @author Abhik Chakraborty
 */
 ?>
-<link rel="stylesheet" type="text/css" href="/js/plugins/jqplot/jquery.jqplot.min.css" />
-<script src="/js/plugins/jqplot/jquery.jqplot.min.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.funnelRenderer.min.js"></script>
-<script type="text/javascript" src="/js/jquery/plugins/accounting.js"></script>
 <link href="/js/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <div class="container-fluid">
@@ -72,18 +68,43 @@
 	</div>
 	<div class="clear_float"></div>
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span12">
 			<div class="datadisplay-outer">
-				<p><strong><?php echo _('Prospect Funnel By Stage and Amount');?> <?php echo ($funnel_data_by_amount["grand_total"] > 0 ? _(' - Totalling ').FieldType30::display_value($funnel_data_by_amount["grand_total"]):'');?></strong></p>
-				<div id="c1">
+				<div class="left_300"  id="">
+					<p><strong><?php echo _('Summary report');?></strong></p>
 				</div>
-			</div>
-		</div>
-		
-		<div class="span6">
-			<div class="datadisplay-outer" >
-				<p><strong><?php echo _('Prospect Funnel By Stage and Number');?> <?php echo ($funnel_data_by_no["grand_total"] > 0 ? _(' - Totalling ').$funnel_data_by_no["grand_total"]:'');?></strong></p>
-				<div id="c2"></div>
+				<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="sqcrmlist">
+					<thead>
+						<tr>
+							<th width="10%"><?php echo _('Assigned To');?></th>
+							<?php
+							foreach ($activity_types as $key=>$val) {
+								echo '<th width="10%">'.$val.'</th>' ;
+							}
+							?>
+							<th width="10%"><?php echo _('Total');?></th>
+						</tr>
+					</thead>
+					<?php
+					if (count($activities_by_type) > 0) {
+						foreach ($activities_by_type as $key=>$val) {
+							$total = 0 ;
+							echo '<tr>' ;
+							echo '<td class="">'.$key.'</td>';
+							foreach ($activity_types as $type) {
+								if (array_key_exists($type,$val)) {
+									$total += $val[$type] ;
+									echo '<td class="">'.$val[$type].'</td>';
+								} else {
+									echo '<td class="">0</td>';
+								}
+							}
+							echo '<td class="">'.$total.'</td>';
+							echo '</tr>' ;
+						}
+					}
+					?>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -105,12 +126,12 @@
 						</tr>
 					</thead>
 					<?php
-					if ($prospect_funnel->getNumRows() > 0) {
-						while ($prospect_funnel->next()) {
+					if ($activity->getNumRows() > 0) {
+						while ($activity->next()) {
 							echo '<tr>' ;
 							foreach ($fields_info as $fields=>$info) {
 								$fieldobject = 'FieldType'.$info["field_type"];
-								$val = $do_crm_fields->display_field_value($prospect_funnel->$fields,$info["field_type"],$fieldobject,$do_crm_fields,5) ;
+								$val = $do_crm_fields->display_field_value($activity->$fields,$info["field_type"],$fieldobject,$do_crm_fields,2) ;
 								echo '<td class="">'.$val.'</td>';
 							}
 							echo '</tr>' ;
@@ -149,110 +170,8 @@ $(document).ready(function() {
 		}
 	});
 	
-	var currency_symbol = '<?php echo $currency_data["currency_sysmbol"] ;?>';
-	var decimal_point = '<?php echo $currency_data["decimal_point"] ;?>';
-	var decimal_symbol = '<?php echo $currency_data["decimal_symbol"] ;?>';
-	var thousand_seperator = '<?php echo $currency_data["thousand_seperator"] ;?>';
-	var currency_symbol_position = '<?php echo $currency_data["currency_symbol_position"] ;?>';
 	
-	function formatFunnelAmount(amountArray) {
-		var returnArray = [] ;
-		amountArray.forEach(function(val, index, array) {
-			var formatted_amt = accounting.formatMoney(val, "", decimal_point, thousand_seperator, decimal_symbol); 
-			if (currency_symbol_position == 'left') {
-				formatted_amt = currency_symbol+' '+formatted_amt;
-			} else if (currency_symbol_position == 'right') {
-				formatted_amt = formatted_amt+' '+currency_symbol;
-			}
-			returnArray[index] = formatted_amt ;
-		}) ;
-		return returnArray ;
-	}
-	<?php
-	if (count($funnel_data_by_amount["data"]) > 0) {
-	?>
-	$.jqplot.config.enablePlugins = true;
-	var s1 = [
-		<?php
-		$cnt = 0 ;
-		$record_count = count($funnel_data_by_amount["data"]) ;
-		foreach($funnel_data_by_amount["data"] as $key=>$val) { ?>
-			[<?php echo '"'.$val["sales_stage"].'"'?>,<?php echo $val["amount"];?>]<?php if ($cnt != $record_count-1) echo ","; ?>
-			<?php
-			$cnt++ ; 
-		}
-		?>
-	];
-	
-	var funnelAmount = [
-		<?php
-			$cnt = 0 ;
-			$record_count = count($funnel_data_by_amount["data"]) ;
-			foreach($funnel_data_by_amount["data"] as $key=>$val) { 
-				echo $val["amount"];
-				if ($cnt != $record_count-1) echo ",";
-				$cnt++;
-			}
-		?>
-	] ;
-	
-	var plot1 = $.jqplot('c1', [s1], {
-		legend:{
-			"show":true,"location":"w"
-		},
-		seriesDefaults: {
-			renderer:$.jqplot.FunnelRenderer,
-			rendererOptions:{
-				sectionMargin: 4,
-				widthRatio: 0.3,
-				showDataLabels: true,
-				dataLabels:formatFunnelAmount(funnelAmount)
-			}
-		}
-	});
-	<?php
-	} else { ?>
-		$("#c1").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');
-	<?php 
-	}
-	?>
-	
-	<?php
-	if (count($funnel_data_by_no["data"]) > 0) {?>
-	$.jqplot.config.enablePlugins = true;
-	var s2 = [
-		<?php
-		$cnt = 0 ;
-		$record_count = count($funnel_data_by_no["data"]) ;
-		foreach($funnel_data_by_no["data"] as $key=>$val) { ?>
-			[<?php echo '"'.$val["sales_stage"].'"'?>,<?php echo $val["total_vol"];?>]<?php if ($cnt != $record_count-1) echo ","; ?>
-			<?php
-			$cnt++ ; 
-		}
-		?>
-	];
-	var plot2 = $.jqplot('c2', [s2], {
-		legend:{
-			"show":true,"location":"w"
-		},
-		seriesDefaults: {
-			renderer:$.jqplot.FunnelRenderer,
-			rendererOptions:{
-				sectionMargin: 4,
-				widthRatio: 0.3,
-				showDataLabels: true,
-				dataLabels:'value'
-			}
-		}
-	});
-	<?php
-	} else { ?>
-		$("#c2").append('<p>'+NO_DATA_FOR_GRAPH+'</p>');
-	<?php 
-	}
-	?>
-	
-	oTable = $('#sqcrmlist').dataTable({
+	oTable = $('table.datadisplay').dataTable({
 		"paging":   false,
         "info":     false,
         "bFilter" : false,
