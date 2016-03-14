@@ -115,7 +115,7 @@
 				<div class="left_300"  id="">
 					<p><strong><?php echo _('Detailed report'); ?></strong></p>
 				</div>
-				<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="sqcrmlist">
+				<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="sqcrmlist1">
 					<thead>
 						<tr>
 						<?php
@@ -171,7 +171,18 @@ $(document).ready(function() {
 	});
 	
 	
-	oTable = $('table.datadisplay').dataTable({
+	oTable = $('#sqcrmlist').dataTable({
+		"paging":   false,
+        "info":     false,
+        "bFilter" : false,
+        "aaSorting": [],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+			"sSwfPath": "/js/plugins/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+		}
+	});    
+	
+	oTable1 = $('#sqcrmlist1').dataTable({
 		"paging":   false,
         "info":     false,
         "bFilter" : false,
