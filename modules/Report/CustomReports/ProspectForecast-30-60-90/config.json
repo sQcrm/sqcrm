@@ -1,0 +1,6 @@
+{
+  "title":"Prospect Forecast next 30-60-90 days",
+  "description":"Report to generate the prospect forecast for next 30,60 and 90 days.",
+  "default_resource":"run_report",
+  "enabled":true
+}

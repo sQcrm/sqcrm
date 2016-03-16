@@ -10,8 +10,10 @@
 		<div class="container-fluid">
 			<a class="brand" href="#"><img src="/themes/images/logo_medium.jpg"></a>
 			<?php
+				$sales_drop_down = array() ;
 				$inventory_drop_down = array();
 				$revenue_drop_down = array();
+				$analytics_drop_down = array();
 				// check the user privileges and display the menu accordingly
 				if (isset($_SESSION["do_user"]) && is_object($_SESSION["do_user"]) && $_SESSION["do_user"]->iduser > 0 && $_SESSION["do_user"]->iduser !='') {
 					$module_privileges = $_SESSION["do_user"]->get_user_module_privileges();
@@ -21,11 +23,17 @@
 						foreach ($module_privileges as $key=>$val) {
 							if ($modules_with_full_info[$key]["menu_item"] == 0) continue;
 								if ($val["module_permission"] == 1) {
-									if ($key == 11 || $key== 12 || $key == 16) {
+									if ($key == 3 || $key== 4 || $key == 5 || $key == 6) {
+										$sales_drop_down[] = $key ;
+										continue ;
+									} elseif ($key == 11 || $key== 12 || $key == 16) {
 										$inventory_drop_down[] = $key ; 
 										continue ;
 									} elseif ($key == 13 || $key == 14 || $key == 15 ) {
 										$revenue_drop_down[] = $key ;
+										continue ;
+									} elseif ($key == 10) {
+										$analytics_drop_down[] = $key ;
 										continue ;
 									}
 									$style_li = '';
@@ -34,29 +42,77 @@
 								}
 							}
 						}
-						if (count($inventory_drop_down) > 0) {
+						// Sales dropdown 
+						if (count($sales_drop_down) > 0) {
 							echo '</ul>';
 							echo '<ul class="nav">';
-							echo '<li class="dropdown">';
-							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Inventory').'<b class="caret"></b></a>';
+							$dropdown_selected = '';
+							$dropdown_selected = (in_array($module_id,$sales_drop_down) ? 'active' : '') ;
+							echo '<li class="dropdown '.$dropdown_selected.'">';
+							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Sales').'<b class="caret"></b></a>';
 							echo '<ul class="dropdown-menu">';
-							foreach ($inventory_drop_down as $k) {
-								echo '<li><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
+							foreach ($sales_drop_down as $k) {
+								$style_li = '';
+								if ($module_id == $k) $style_li = 'active' ;
+								echo '<li class="'.$style_li.'"><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
 							}
 							echo '</ul>';
 							echo '</li>';
 							echo '</ul>';
 						}
-						
+						// Inventory dropdown menu
+						if (count($inventory_drop_down) > 0) {
+							echo '</ul>';
+							echo '<ul class="nav">';
+							$dropdown_selected = '';
+							$dropdown_selected = (in_array($module_id,$inventory_drop_down) ? 'active' : '') ;
+							echo '<li class="dropdown '.$dropdown_selected.'">';
+							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Inventory').'<b class="caret"></b></a>';
+							echo '<ul class="dropdown-menu">';
+							foreach ($inventory_drop_down as $k) {
+								$style_li = '';
+								if ($module_id == $k) $style_li = 'active' ;
+								echo '<li class="'.$style_li.'"><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
+							}
+							echo '</ul>';
+							echo '</li>';
+							echo '</ul>';
+						}
+						// Revenue dropdown menu
 						if (count($revenue_drop_down) > 0) {
 							echo '</ul>';
 							echo '<ul class="nav">';
-							echo '<li class="dropdown">';
+							$dropdown_selected = '';
+							$dropdown_selected = (in_array($module_id,$revenue_drop_down) ? 'active' : '') ;
+							echo '<li class="dropdown '.$dropdown_selected.'">';
 							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Revenue').'<b class="caret"></b></a>';
 							echo '<ul class="dropdown-menu">';
 							foreach ($revenue_drop_down as $k) {
-								echo '<li><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
+								$style_li = '';
+								if ($module_id == $k) $style_li = 'active' ;
+								echo '<li class="'.$style_li.'"><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
 							}
+							echo '</ul>';
+							echo '</li>';
+							echo '</ul>';
+						}
+						// Analytics dropdown menu
+						if (count($analytics_drop_down) > 0) {
+							echo '</ul>';
+							echo '<ul class="nav">';
+							$dropdown_selected = '';
+							$dropdown_selected = (in_array($module_id,$revenue_drop_down) ? 'active' : '') ;
+							echo '<li class="dropdown '.$dropdown_selected.'">';
+							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Analytics').'<b class="caret"></b></a>';
+							echo '<ul class="dropdown-menu">';
+							foreach ($analytics_drop_down as $k) {
+								$style_li = '';
+								if ($module_id == $k && $current_file != 'custom_report') $style_li = 'active' ;
+								echo '<li class="'.$style_li.'"><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"index").'">'.$modules_with_full_info[$k]["label"].'</a></li>';
+							}
+							$style_li = '';
+							if ($current_file == 'custom_report') $style_li = 'active' ;
+							echo '<li class="'.$style_li.'"><a href="'.NavigationControl::getNavigationLink($modules_with_full_info[$k]["name"],"custom_report").'">'._('Custom Reports').'</a></li>';
 							echo '</ul>';
 							echo '</li>';
 							echo '</ul>';

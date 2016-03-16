@@ -359,7 +359,7 @@ class User extends DataObject {
 		
 		// Set the groups to which the user is associated
 		$do_group_user_rel = new GroupUserRelation();
-		$this->set_user_associated_to_groups($do_group_user_rel->get_groups_by_user($_SESSION["do_user"]->iduser)) ;
+		$this->set_user_associated_to_groups($do_group_user_rel->get_groups_by_user($_SESSION["do_user"]->iduser,array(),true)) ;
 
 		// Now lets find the profile and actual permissions set in the profile 
 		$do_profile = new Profile();
@@ -553,12 +553,14 @@ class User extends DataObject {
 	*/
 	public function get_subordinate_users_by_iduser($iduser = '') {
 		$subordinate_users = array();
-		if ($iduser == '') $iduser = $_SESSION["do_user"]->iduser ;
-		if ($_SESSION["do_user"]->iduser > 0) {
+		if ($iduser == '') {
+			$iduser = $_SESSION["do_user"]->iduser ;
 			$role_id = $_SESSION["do_user"]->idrole ;
 		} else {
-			$this->getId($iduser);
-			$role_id = $this->role_id ;
+			$qry = "select * from user where iduser = ?" ;
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($iduser));
+			$row = $stmt->fetch() ;
+			$role_id = $row["idrole"] ;
 		}
 		$do_role = new Roles();
 		$do_role->getId($role_id);

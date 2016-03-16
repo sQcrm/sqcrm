@@ -342,7 +342,9 @@ class LeadConversion extends Leads {
 				"expected_closing_date"=>FieldType9::convert_before_save($evctl->expected_closing_date),
 				"sales_stage"=>$evctl->sales_stage,"probability"=>$evctl->probability,
 				"amount"=>FieldType30::convert_before_save($evctl->amount),"iduser"=>$assigned_to_data["value"],
-				"added_on"=>date("Y-m-d H:i:s")
+				"added_on"=>date("Y-m-d H:i:s"),
+				"lost_reason"=>$evctl->lost_reason,
+				"competitor_name"=>$evctl->competitor_name
 			)
 		);
 		$idpotentials = $this->getInsertId();

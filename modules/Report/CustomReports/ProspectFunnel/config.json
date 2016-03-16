@@ -1,0 +1,6 @@
+{
+  "title":"Prospect Funnel Stage Report",
+  "description":"Report to generate the prospect funnel stage by amount and by number.",
+  "default_resource":"run_report",
+  "enabled":true
+}

@@ -28,6 +28,8 @@ var LEAD_CONVERT_POT_EXPECTED_CLOSE_DATE_REQUIRE = 'Please select Expected Closi
 var LEAD_CONVERT_POT_SALES_STAGE_REQUIRE = 'Please select Sales Stage.';
 var LEAD_CONVERT_POT_AMOUNT_REQUIRE = 'Please add Amount.';
 var LEAD_CONVERT_POT_PROBABILITY_REQUIRE = 'Please add probability.';
+var SELECT_POT_CLOSE_LOST_REASON = 'Please select a lost reason' ;
+var SELECT_POS_CLOSE_LOST_COMPETITOR = 'Please select a Competitor Name';
 
 var LEAD_CONVERT_ORG_ORGNAME_REQUIRE = 'Please add Organization.';
 var LEAD_CONVERT_ORG_INDUSTRY_REQUIRE =  'Please select Industry.';
@@ -77,6 +79,9 @@ var REPORT_SELECT_FILTER_TYPE = 'Please select the filter type';
 var REPORT_SELECT_FILTER_VALUE = 'Please select the filter value';
 var REPORT_SELECT_PREVIOUS_ORDER_BY = 'Please select previous field for advanced filter';
 var REPORT_ADD_REPORT_NAME = 'Please add a report name before saving';
+var REPORT_SELECT_DATE_FILTER = 'Please select a date filter before submit' ;
+var REPORT_SELECT_START_END_DATE = 'Please select a start and end date before submit' ;
+
 
 //tax settings
 var TAX_NAME_NO_EMPTY = 'Please add tax name.';
