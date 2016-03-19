@@ -80,7 +80,7 @@
 							echo '<tr>' ;
 							foreach ($fields_info as $fields=>$info) {
 								$fieldobject = 'FieldType'.$info["field_type"];
-								$val = $do_crm_fields->display_field_value($prospect_forecast->$fields,$info["field_type"],$fieldobject,$do_crm_fields,5) ;
+								$val = $do_crm_fields->display_field_value($prospect_forecast->$fields,$info["field_type"],$fieldobject,$prospect_forecast,5,false) ;
 								echo '<td class="">'.$val.'</td>';
 							}
 							echo '</tr>' ;
