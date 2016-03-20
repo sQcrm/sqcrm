@@ -22,7 +22,7 @@ class CRMFilesAndAttachments extends DataObject {
 	public function delete_record($id) {
 		if ((int)$id > 0) {
 			$qry="delete from ".$this->getTable()." where ".$this->getPrimaryKey()."= ? limit 1";
-			$this->query($qry,array($id));
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($id));
 		}
 	}
   

@@ -369,7 +369,8 @@ function delete_notes(idnotes) {
 					$("#message").show();
 					$('#'+notes_content_id).html(current_note);
 				} else {
-					load_notes(1);
+					$('#note'+idnotes).remove();
+					$('#note_separator_'+idnotes).remove();
 					var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 					var succ_msg = succ_element+'<strong>'+NOTES_DELETED_SUCCESSFULLY+'</strong></div>';
 					$("#message").html(succ_msg);
