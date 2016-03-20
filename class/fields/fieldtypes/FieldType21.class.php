@@ -47,15 +47,17 @@ class FieldType21 extends CRMFields {
 			$("#add_mul_files_{$name}").click( function() {
 				num_of_uploader++;
 				var input_file = '<input type="file" name="{$name}[]" id="{$name}" class="{$class}">';
-				var remove_input_file = '<a style="margin-left:100px;margin-top:5px;" href="#" onclick="remove_file_input_{$name}(\''+num_of_uploader+'\',\'{$name}\')">{$remove_input}</a>';
+				var remove_input_file = '<a style="margin-left:100px;margin-top:5px;" href="#" onclick="remove_file_input_{$name}(\''+num_of_uploader+'\',\'{$name}\');return false;">{$remove_input}</a>';
 				var new_file_uploader = '<span id="mul_file_{$name}_'+num_of_uploader+'" class="more_file_inputs">'+input_file+remove_input_file+'<br /></span>';
 				$("#more_mul_files_{$name}").append(new_file_uploader);
+				return false ;
 			});
 			
 			function remove_file_input_{$name}(input_file_number,fld_name) {
 				var span_id = 'mul_file_'+fld_name+'_'+input_file_number ;
 				$("#"+span_id).html('');
 				$("#"+span_id).hide();
+				return false ;
 			}
 		</script>
 html;

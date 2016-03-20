@@ -209,7 +209,7 @@ class Notes extends DataObject {
 			<p id="content_hidden_{$obj->idnotes}" style="display:none;"></p>
 			<a href="#note-content-{$obj->idnotes}" onclick="return false ;" id="note-content-{$obj->idnotes}"><span class="notes_date_added">{$date_added}</span></a>
       </div>
-      <hr class="form_hr">
+      <hr class="form_hr" id="note_separator_{$obj->idnotes}">
 html;
 		$do_files_and_attachment->free();
 		echo $html;
@@ -325,8 +325,8 @@ html;
 						FieldType21::remove_file($file_name,$file_extension);
 					}
 				}
-				echo 1;
-			} else { echo 0 ; }
+				echo '1';
+			} else { echo '0' ; }
 		}
 	}
 	
