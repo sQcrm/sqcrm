@@ -50,28 +50,9 @@ if(!preg_match("/\/$/",$cfg_web_path)){
 session_set_cookie_params(0, $cfg_web_path);
 session_start() ;
 
-//DB setup using Doctrine
-use Doctrine\Common\ClassLoader;
-require dirname(__FILE__).'/Doctrine/Doctrine/Common/ClassLoader.php';
-$classLoader = new ClassLoader('Doctrine', dirname(__FILE__).'/Doctrine');
-$classLoader->register();
-$config = new \Doctrine\DBAL\Configuration();
+// include the DB connection file
+include_once('dbconn.php');
 
-$connectionParams = array(
-    'dbname' => 'sqcrm',
-    'user' => 'sqcrmuser',
-    'password' => '5ql6rm',
-    'host' => 'localhost',
-    'driver' => 'pdo_mysql',
-    'charset' => 'utf8',
-    'driverOptions' => array(
-		1002=>'SET NAMES utf8'
-    )
-);
-
-$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
-$GLOBALS['conn'] = $conn ;
-	
 include(dirname(__FILE__)."/includes/globalvar.inc.php") ;
 
 if (file_exists(dirname(__FILE__)."/includes/extraconfig_postdb.inc.php")) {
