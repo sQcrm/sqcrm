@@ -1,6 +1,15 @@
 <?php 
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt  
 
+//  Log errors in the pas_errro.log file:
+define("RADRIA_LOG_ERROR", false);
+//  Display errors in generated web pages:
+define("RADRIA_DISPLAY_ERROR", false);
+//  Log general message/debug log in the pas_run.log:
+define("RADRIA_LOG_RUNLOG", false);
+//  Display message/debug log in generated web pages:
+define("RADRIA_DISPLAY_RUNLOG", false);
+
 /**
 * loading the auto-load config stuff 
 */
