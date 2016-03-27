@@ -45,6 +45,8 @@ $GLOBALS['NOSQL_DB'] = false ;
 define('SITE_URL','http://sqcrm.localhost');
 $GLOBALS['SITE_URL'] = 'http://sqcrm.localhost' ;
 
+define('PORTAL_URL','http://sqcrm.localhost/cpanel');
+
 // days to keep live feed
 define('DAYS_TO_KEEP_FEED',30);
 $GLOBALS['DAYS_TO_KEEP_FEED'] = 30 ;

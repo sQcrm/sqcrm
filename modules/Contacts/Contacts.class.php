@@ -641,4 +641,134 @@ class Contacts extends DataObject {
 		$this->setSqlQuery($qry);
 	}
 	
+	/**
+	* function to activate the cpanel login for customer
+	* @param integer $idcontacts
+	* @param string $email
+	* @param integer $idorganization
+	* @return string
+	*/
+	public function activate_cpanel_login($idcontacts,$email,$idorganization) {
+		$pass = CommonUtils::generate_random_string(10) ;
+		$qry = "
+		select * from `cpanel_user`
+		where 
+		`email` = ?
+		and `idcontacts` = ?
+		and `idorganization` = ?
+		" ;
+		$stmt = $this->getDbConnection()->executeQuery($qry,array($email,$idcontacts,$idorganization));
+		if ($stmt->rowCount() > 0) {
+			$data = $stmt->fetch() ;
+			$id = $data['idcpanel_user'] ;
+			
+			$upd = "
+			update `cpanel_user`
+			set 
+			`email` = ?,
+			`password` = ?
+			where `idcpanel_user` = ?
+			" ;
+			$this->getDbConnection()->executeQuery($upd,array($email,md5($pass),$id));
+		} else {
+			$ins = "
+			insert into `cpanel_user`
+			(`email`,`password`,`idcontacts`,`idorganization`)
+			values
+			(?,?,?,?)
+			" ;
+			$this->getDbConnection()->executeQuery($ins,array($email,md5($pass),$idcontacts,$idorganization));
+		}
+		return $pass ;
+	}
+	
+	/**
+	* event function to activate the cpanel login
+	* @param object $evctl
+	* @return void
+	*/
+	function eventActivateCpanelLogin(EventControler $evctl) { 
+		if ((int)$evctl->record_id > 0) {
+			$this->getId((int)$evctl->record_id) ;
+			$err = '';
+			if ((int)$this->idorganization == 0) {
+				$err = _('Contact must be associated with an organization for portal login activation') ;
+			}
+			if (strlen(trim($this->email)) == 0) {
+				$err = _('Missing the primary email id for portal login activation') ;
+			}
+		} else {
+			$err = _('Missing idcontacts for portal activation') ;
+		}
+		
+		if (strlen($err) == 0) {
+			$pass = $this->activate_cpanel_login((int)$evctl->record_id,$this->email,(int)$this->idorganization) ;
+			$contact_data = array(
+				"firstname"=>$this->firstname,
+				"lastname"=>$this->lastname,
+				"email"=>$this->email,
+				"password"=>$pass
+			);
+			$this->send_cpanel_login_details($contact_data) ;
+			$_SESSION["do_crm_messages"]->set_message('success',_('Portal user is created and email sent with the details ! '));
+			$next_page = NavigationControl::getNavigationLink('Contacts',"detail");
+			$dis = new Display($next_page);
+			$dis->addParam("sqrecord",$evctl->record_id);
+			$evctl->setDisplayNext($dis) ; 
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',$err);
+			$next_page = NavigationControl::getNavigationLink('Contacts',"detail");
+			$dis = new Display($next_page); 
+			$dis->addParam("sqrecord",$evctl->record_id);
+			$evctl->setDisplayNext($dis) ; 
+		}
+	}
+	
+	/**
+	* function to see if the cpanel login is activated for given customer and associated organization
+	* @param integer $idcontacts
+	* @param integer $idorganization
+	* @return boolean
+	*/
+	public function cpanel_login_activated($idcontacts,$idorganization) {
+		$qry = "
+		select * from `cpanel_user`
+		where 
+		`idcontacts` = ?
+		and `idorganization` = ?
+		" ;
+		$stmt = $this->getDbConnection()->executeQuery($qry,array($idcontacts,$idorganization));
+		if ($stmt->rowCount() > 0) {
+			return true ;
+		} else {
+			return false ;
+		}
+	}
+	
+	/**
+	* function to send the cpanel login details to the customer
+	* @param array $contact_data
+	* @return void
+	*/
+	public function send_cpanel_login_details($contact_data) {
+		if (is_array($contact_data)) {
+			$email_template = new EmailTemplate("send_portal_login_details");
+			$emailer = new SQEmailer();
+			$to_email = $contact_data["email"] ;
+			$to_name = $contact_data["firstname"].' '.$contact_data["lastname"] ;
+			$email_data = array(
+				"firstname"=>$contact_data["firstname"],
+				"email"=>$contact_data["email"],
+				"password"=>$contact_data["password"],
+				"portal_url"=>PORTAL_URL.'/modules/User/login',
+				"CRM_NAME"=>CRM_NAME
+			);
+			$emailer->IsSendmail();
+			$emailer->setEmailTemplate($email_template);
+			$emailer->mergeArray($email_data);
+			$emailer->AddAddress($to_email, $to_name);
+			$emailer->send();
+		}
+	}
+	
 }
