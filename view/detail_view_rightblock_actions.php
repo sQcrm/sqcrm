@@ -47,6 +47,31 @@
 			<?php echo _('create event');?>
 			</a>
 		</li>
+		<?php
+		if ($portal_user['portal_user'] == 1) {
+			$e_activate_cpanel_login = new Event("Contacts->eventActivateCpanelLogin");
+			$e_activate_cpanel_login->addParam("record_id", $sqcrm_record_id);
+			if ($portal_user['activated'] == 1) { 
+			?>
+			<li>
+				<a href="/<?php echo $e_activate_cpanel_login->getUrl() ; ?>">
+				<img src="/themes/images/customer.png" style="vertical-align:center;">
+				<?php echo _('regenerate portal login and send email'); ?>
+				</a>
+			</li>
+			<?php
+			} else {
+			?>
+			<li>
+				<a href="/<?php echo $e_activate_cpanel_login->getUrl() ; ?>">
+				<img src="/themes/images/customer.png" style="vertical-align:center;">
+				<?php echo _('activate portal login and send email'); ?>
+				</a>
+			</li>
+			<?php
+			}
+		}
+		?>
 	</ul>
 	<?php 
     } elseif ($module_id == 6 ) { ?>

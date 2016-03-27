@@ -37,7 +37,7 @@ class FieldType3 extends CRMFields {
 		if ($value == 1) {       
 			$checked = 'CHECKED';
 		}
-		echo '<input type="checkbox" class="'.$css.'" name="'.$name.'" id="'.$name.'"  '.$checked.'>';
+		echo '<input type="checkbox" class="input-large" style="margin-top:8px;" name="'.$name.'" id="'.$name.'"  '.$checked.'>';
 	}
 
 	/**

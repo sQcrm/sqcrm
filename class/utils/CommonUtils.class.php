@@ -283,4 +283,13 @@ class CommonUtils extends DataObject {
 			8=>_('greater than or equal')
 		);
 	}
+	
+	/**
+	* function to generate a random string of specified length
+	* @param integer $length
+	* @NOTE : The string generated in this function is not very secure
+	*/
+	public static function generate_random_string($length = 8) {
+		return substr(str_shuffle(MD5(microtime())), 0, $length);
+	}
 }
