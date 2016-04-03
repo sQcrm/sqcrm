@@ -9,11 +9,8 @@
 class CustomerPortalPermission extends CRMPluginProcessor {
 	public $table = "";
 	public $primary_key = "";
-	protected $hierarchy_data = array() ;
 	public $role_id = '';
-	public $role_hierarchy = array() ;
 	public $used_roles = array() ;
-	public $data_array = array() ;
 	
 	/**
 	* constructor function for the sQcrm plugin
