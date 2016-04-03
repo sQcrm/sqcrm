@@ -12,6 +12,7 @@ if (file_exists(BASE_PATH.'/js/'.$module.'.js')) {
 ?>
 <script src="/js/common.js"></script>
 <script src="/js/i18n_message.js"></script>
+<script src="/plugins/js/i18n_message.js"></script>
 <script>
 /**
 * load the detail view right block plugins

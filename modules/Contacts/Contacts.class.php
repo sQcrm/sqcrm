@@ -653,11 +653,10 @@ class Contacts extends DataObject {
 		$qry = "
 		select * from `cpanel_user`
 		where 
-		`email` = ?
-		and `idcontacts` = ?
+		`idcontacts` = ?
 		and `idorganization` = ?
 		" ;
-		$stmt = $this->getDbConnection()->executeQuery($qry,array($email,$idcontacts,$idorganization));
+		$stmt = $this->getDbConnection()->executeQuery($qry,array($idcontacts,$idorganization));
 		if ($stmt->rowCount() > 0) {
 			$data = $stmt->fetch() ;
 			$id = $data['idcpanel_user'] ;
