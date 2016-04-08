@@ -10,5 +10,5 @@ if (file_exists(BASE_PATH.'/js/'.$module.'.js')) {
 <?php
 }
 ?>
-<script src="/js/common.js"></script>
-<script src="/js/i18n_message.js"></script>
+<script src="/cpanel/js/common.js"></script>
+<script src="/cpanel/js/i18n_message.js"></script>

@@ -14,7 +14,7 @@
 				<?php
 				$e_login = new Event("\cpanel_user\User->eventLogin");
 				if ($login_next_url == '') {
-					$goto_after_login = NavigationControl::getNavigationLink("Home","index") ;
+					$goto_after_login ="/cpanel/modules/Home/index";
 				} else {
 				// need to check if cross-side script is added 
 					$goto_after_login = $_SERVER['REQUEST_URI'];
