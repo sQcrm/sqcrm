@@ -9,103 +9,50 @@
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="brand" href="#"><img src="/themes/images/logo_medium.jpg"></a>
-			<ul class="nav">
-				<li class="active">
-					<a href="/modules/Home/index">Home</a>
-				</li>
-				<li class="">
-					<a href="/modules/Calendar/index">Calendar</a>
-				</li>
-				<li class="">
-					<a href="/modules/Queue/index">Queue</a>
-				</li>
-			</ul>
-			<ul class="nav">
-				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li class="">
-							<a href="/modules/Leads/index">Leads</a>
-						</li>
-						<li class="">
-							<a href="/modules/Contacts/index">Contacts</a>
-						</li>
-						<li class="">
-							<a href="/modules/Potentials/index">Prospects</a>
-						</li>
-						<li class="">
-							<a href="/modules/Organization/index">Organization</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav">
-				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventory<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li class="">
-							<a href="/modules/Vendor/index">Vendor</a>
-						</li>
-						<li class="">
-							<a href="/modules/Products/index">Products</a>
-						</li>
-						<li class="">
-							<a href="/modules/PurchaseOrder/index">Purchase Order</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav">
-				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Revenue<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li class="">
-							<a href="/modules/Quotes/index">Quotes</a>
-						</li>
-						<li class="">
-							<a href="/modules/SalesOrder/index">Sales Order</a>
-						</li>
-						<li class="">
-							<a href="/modules/Invoice/index">Invoice</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav">
-				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Analytics<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li class="">
-							<a href="/modules/Report/index">Report</a>
-						</li>
-						<li class="">
-							<a href="/modules/Report/custom_report">Custom Reports</a>
-						</li>
-					</ul>
-				</li>
-			</ul>				
+			<?php
+			if (isset($_SESSION["do_cpaneluser"]) && is_object($_SESSION["do_cpaneluser"]) && $_SESSION["do_cpaneluser"]->idcpanel_user > 0 && $_SESSION["do_cpaneluser"]->idcpanel_user !='') {
+				$available_user_modules = $_SESSION["do_cpanel_action_permission"]->get_cpanel_user_modules() ;
+				$cpanel_modules = $_SESSION["do_cpanel_action_permission"]->get_cpanel_modules() ;
+				$module_full_details = $_SESSION["do_cpanel_action_permission"]->full_module_details ;
+				if (count($available_user_modules) > 0) {
+					echo '<ul class="nav">' ;
+					foreach ($available_user_modules as $idmodules) {
+						if ($idmodules == 7) continue ;
+						echo '<li class="">' ;
+						echo '<a href="/cpanel/modules/'.$module_full_details[$idmodules]["name"].'/index">'.$module_full_details[$idmodules]["module_label"].'</a>';
+					}
+					echo '</ul>';
+				}
+			}
+			?>
 			<ul class="nav pull-right">
-				<li class="dropdown">
-					<div id="user-profile">
-						<div style="margin-top:7px;">Welcome, Abhik</div>
-					</div>
-					<ul class="dropdown-menu">
-						<li class="">
-							<a href="/modules/Settings/profile_list">Settings</a>
-						</li>
-						<li class="">
-							<a href="#" onclick="changeUserAvatar();return false ;">change avatar</a>
-						</li>
-						<li>
-							<a href="/eventcontroler.php?mydb_events[100]=do_user-%3EeventLogout">logout</a>
-						</li>
-					</ul>
-				</li>				
+				<?php
+					$user_profile = '';				
+					if (isset($_SESSION["do_cpaneluser"]) && $_SESSION["do_cpaneluser"]->idcpanel_user != '') {
+						if ($_SESSION["do_cpaneluser"]->contact_avatar != '') {
+							$user_profile .= '<div id="user-profile"><div class="circular_35" style="background-image: url(\''.FieldType12::get_file_name_with_path($_SESSION["do_cpaneluser"]->contact_avatar,'s').'\')"></div></div>';
+						} else {
+							$user_profile .=  '<div id="user-profile"><div style="margin-top:7px;">'._('Welcome,').' '.$_SESSION["do_cpaneluser"]->firstname.'</div></div>' ;
+						}
+						echo '<li class="dropdown">';
+						echo $user_profile ;
+						echo '<ul class="dropdown-menu">';
+						echo '<li class=""><a href="/cpanel/modules/User/profile_settings">'._('Profile Settings').'</a></li>';
+						$e_logout = new Event("do_cpaneluser->eventLogout");
+						echo '<li><a href="/cpanel/'.$e_logout->getUrl().'">logout</a></li>';
+						echo '</ul>';
+						echo '</li>' ;
+					}
+					?>
 			</ul>
 		</div>
 	</div>
 </div>
 <br />
 <div id="server_side_message" style="height:40px;margin-top:2px;position:relative;"></div>
+<?php
+$_SESSION["do_cpanel_messages"]->get_messages(true);
+// the session values are cleaned via ajax body onload , check /js/common.js 
+?>
 <!-- Javascript error message block -->
 <div id="js_errors" style="display:none;"></div>

@@ -159,7 +159,14 @@ spl_autoload_register(function ($class) {
 	//inventory
 	include_once($cfg_project_directory."class/inventory/Lineitems.class.php");
 	
-	//load the cpanel module objects
+	//load the cpanel objects
+	$it = new RecursiveDirectoryIterator($cpanel_path.'core/');
+	foreach (new RecursiveIteratorIterator($it) as $file) {
+		if (preg_match("/\.class\.php$/i", $file) && !preg_match("/^\./", $file)) {
+			include_once($file);
+		}
+	}
+	
 	//User 
 	include_once($cpanel_path."modules/User/User.class.php");
 	

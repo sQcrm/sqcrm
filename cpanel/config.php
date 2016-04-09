@@ -20,7 +20,7 @@ if(!preg_match("/\/$/",$cfg_cpanel_path)){
 }
 
 // set the session 
-session_set_cookie_params(0, $cfg_web_path);
+session_set_cookie_params(0, "/cpanel/");
 session_start() ;
 
 //include the db config
