@@ -68,7 +68,8 @@ class FieldType30 extends CRMFields{
 	*/
 	public static function display_value($value) {
 		if ($value===null || $value == '') $value = 0.00; //-- handle empty and null values
-		$currency = $_SESSION["do_global_settings"]->get_setting_data_by_name('currency_setting');
+		$do_global_settings = new CRMGlobalSettings();
+		$currency = $do_global_settings->get_setting_data_by_name('currency_setting');
 		$currency_data = json_decode($currency,true);
 		$formated_val = number_format(
 			$value,
