@@ -213,6 +213,113 @@ LOCK TABLES `contacts_custom_fld` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cpanel_modules`
+--
+
+DROP TABLE IF EXISTS `cpanel_modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cpanel_modules` (
+  `idcpanel_modules` int(11) NOT NULL AUTO_INCREMENT,
+  `idmodule` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idcpanel_modules`),
+  KEY `idmodule_idx` (`idmodule`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cpanel_modules`
+--
+
+LOCK TABLES `cpanel_modules` WRITE;
+/*!40000 ALTER TABLE `cpanel_modules` DISABLE KEYS */;
+INSERT INTO `cpanel_modules` VALUES (1,13),(2,15);
+/*!40000 ALTER TABLE `cpanel_modules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cpanel_modules_org`
+--
+
+DROP TABLE IF EXISTS `cpanel_modules_org`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cpanel_modules_org` (
+  `idcpanel_modules_org` int(11) NOT NULL AUTO_INCREMENT,
+  `idorganization` int(11) DEFAULT NULL,
+  `idmodule` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idcpanel_modules_org`),
+  KEY `idorganization_idx` (`idorganization`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cpanel_modules_org`
+--
+
+LOCK TABLES `cpanel_modules_org` WRITE;
+/*!40000 ALTER TABLE `cpanel_modules_org` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cpanel_modules_org` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cpanel_user`
+--
+
+DROP TABLE IF EXISTS `cpanel_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cpanel_user` (
+  `idcpanel_user` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(200) DEFAULT NULL,
+  `idcontacts` int(11) DEFAULT '0',
+  `idorganization` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idcpanel_user`),
+  KEY `cpanel_email_idx` (`email`),
+  KEY `cpanel_idcontacts_idx` (`idcontacts`),
+  KEY `cpanel_idorganization_idx` (`idorganization`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cpanel_user`
+--
+
+LOCK TABLES `cpanel_user` WRITE;
+/*!40000 ALTER TABLE `cpanel_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cpanel_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cpanel_user_roles`
+--
+
+DROP TABLE IF EXISTS `cpanel_user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cpanel_user_roles` (
+  `idcpanel_user_roles` int(11) NOT NULL AUTO_INCREMENT,
+  `idorganization` int(11) DEFAULT NULL,
+  `idcpanel_user` int(11) DEFAULT NULL,
+  `roleid` varchar(100) DEFAULT NULL,
+  `parentrole` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idcpanel_user_roles`),
+  KEY `idorganization_idx` (`idorganization`),
+  KEY `idcpanel_user_idx` (`idcpanel_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cpanel_user_roles`
+--
+
+LOCK TABLES `cpanel_user_roles` WRITE;
+/*!40000 ALTER TABLE `cpanel_user_roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cpanel_user_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `crm_global_settings`
 --
 
@@ -567,7 +674,7 @@ CREATE TABLE `emailtemplate` (
   KEY `emailt_idemailtemplate_idx` (`idemailtemplate`),
   KEY `emailt_iduser_idx` (`iduser`),
   KEY `emailt_name_idx` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,7 +683,7 @@ CREATE TABLE `emailtemplate` (
 
 LOCK TABLES `emailtemplate` WRITE;
 /*!40000 ALTER TABLE `emailtemplate` DISABLE KEYS */;
-INSERT INTO `emailtemplate` VALUES (1,'[event_type] reminder :: [subject]','','[firstname],<br />\nYou have a [event_type] at [start_time] on [start_date] <br />\nPlease <a href=\"[event_url]\">click here</a> to see more details.<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[event_url]<br /><br />\n[CRM_NAME]\n','event_reminder','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(2,'Quote [quote_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached quote [quote_num] from [company_name]\n<br><br>\n[company_address]\n','send_quote_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(3,'Sales order [sales_order_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached sales order [sales_order_num] from [company_name]\n<br><br>\n[company_address]\n','send_sales_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(4,'Invoice [invoice_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached invoice [invoice_number] from [company_name]\n<br><br>\n[company_address]\n','send_invoice_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(5,'Purchase order [po_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached purchase order [po_number] from [company_name]\n<br><br>\n[company_address]\n','send_purchase_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(6,'You have been mentioned on [module_name] note','','[firstname],<br />\nYou have been mentioned in the following note by [user_name] on a [module_name] <br /><br />\n[notes_content] <br /><br />\n[view_url]\n','send_notes_user_mentioned_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0);
+INSERT INTO `emailtemplate` VALUES (1,'[event_type] reminder :: [subject]','','[firstname],<br />\nYou have a [event_type] at [start_time] on [start_date] <br />\nPlease <a href=\"[event_url]\">click here</a> to see more details.<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[event_url]<br /><br />\n[CRM_NAME]\n','event_reminder','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(2,'Quote [quote_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached quote [quote_num] from [company_name]\n<br><br>\n[company_address]\n','send_quote_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(3,'Sales order [sales_order_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached sales order [sales_order_num] from [company_name]\n<br><br>\n[company_address]\n','send_sales_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(4,'Invoice [invoice_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached invoice [invoice_number] from [company_name]\n<br><br>\n[company_address]\n','send_invoice_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(5,'Purchase order [po_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached purchase order [po_number] from [company_name]\n<br><br>\n[company_address]\n','send_purchase_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(6,'You have been mentioned on [module_name] note','','[firstname],<br />\nYou have been mentioned in the following note by [user_name] on a [module_name] <br /><br />\n[notes_content] <br /><br />\n[view_url]\n','send_notes_user_mentioned_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(7,'sQcrm customer portal login details','','[firstname],<br />\nYour login has been activated for sQcrm customer portal <br />\nThe login details are - <br />\nEmail : [email] <br />\nPassword : [password] <br />\nPlease <a href=\"[portal_url]\">click here</a> to login in customer portal<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[portal_url]<br />\nPlease change your password after you login to customer portal\n<br /><br />\n[CRM_NAME]','send_portal_login_details','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0);
 /*!40000 ALTER TABLE `emailtemplate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1497,6 +1604,7 @@ CREATE TABLE `notes` (
   `related_module_id` int(19) DEFAULT NULL,
   `starred` int(1) DEFAULT '0',
   `deleted` int(1) DEFAULT '0',
+  `idcpanel_user` int(11) DEFAULT '0',
   PRIMARY KEY (`idnotes`),
   KEY `notes_idnotes_idx` (`idnotes`),
   KEY `notes_sqcrm_record_id_idx` (`sqcrm_record_id`),
@@ -3173,4 +3281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-15 21:44:42
+-- Dump completed on 2016-04-16 14:43:01
