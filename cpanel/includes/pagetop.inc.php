@@ -17,8 +17,10 @@
 				if (count($available_user_modules) > 0) {
 					echo '<ul class="nav">' ;
 					foreach ($available_user_modules as $idmodules) {
-						if ($idmodules == 7) continue ;
-						echo '<li class="">' ;
+						if ($idmodules == 7 || $idmodules == 1) continue ;
+						$style_li = '';
+						if ($idmodules == $module_id) $style_li = 'active' ;
+						echo '<li class="'.$style_li.'">' ;
 						echo '<a href="/cpanel/modules/'.$module_full_details[$idmodules]["name"].'/index">'.$module_full_details[$idmodules]["module_label"].'</a>';
 					}
 					echo '</ul>';

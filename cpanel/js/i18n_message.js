@@ -33,3 +33,10 @@ var UPLOAD_SUCCESS = 'Uploaded successfully' ;
 var UPLOAD_ERROR = 'Error uploading image, please check the image before uploading' ;
 var PASSWORD_CHANGE_ERROR = 'There is an error updating the password, please try again' ;
 var PASSWORD_UPDATED_SUCCESSFULLY = 'Password updated succesfully' ;
+
+//notes
+var NOTES_ADDED_SUCCESSFULLY = 'Notes added succesfully.';
+var NOTES_REQUIRE = 'Please add some note before saving.';
+var NOTES_UPDATED_SUCCESSFULLY = 'Notes updated succesfully.';
+var NOTES_DELETED_SUCCESSFULLY = 'Note deleted succesfully.';
+var NOTES_CANT_BE_ADDED = 'Notes can not be added, missing record id or module name.';

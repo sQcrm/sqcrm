@@ -107,11 +107,11 @@ class CRMActionPermission extends \DataObject {
 		$idcontact = $_SESSION["do_cpaneluser"]->idcontacts ;
 		$idorganization = $_SESSION["do_cpaneluser"]->idorganization ;
 		if ((int)$sqrecord > 0) {
-			$module_name = $this->cpanel_modules[$idmodule]["name"] ;
+			$module_name = '\\'.$this->full_module_details[$idmodule]["name"] ;
 			$entity_object = new $module_name() ;
 			$entity_object->getId($sqrecord) ;
 			if ($entity_object->getNumRows() > 0) {
-				if (property_exists('idcontacts',$entity_object)) {
+				if (property_exists($entity_object,'values') && array_key_exists('idcontacts',$entity_object->values)) { 
 					if ($entity_object->idcontacts == $idcontact) {
 						$retval = true ;
 					} else {
@@ -120,7 +120,7 @@ class CRMActionPermission extends \DataObject {
 							$retval = true ;
 						}
 					}
-				} elseif (property_exists('idorganization',$entity_object) && $entity_object->idorganization == $idorganization) {
+				} elseif (property_exists($entity_object,'values') && array_key_exists('idorganization',$entity_object->values) && $entity_object->idorganization == $idorganization) {
 					$retval = true ;
 				}
 			}
@@ -146,7 +146,7 @@ class CRMActionPermission extends \DataObject {
 		if (true ===$subordinate_users_data) {
 			$subordinate_contacts = $_SESSION["do_cpaneluser"]->get_subordinate_contacts() ;
 		}
-		if ($lookup_field_name == 'idcontact') {
+		if ($lookup_field_name == 'idcontacts') {
 			if (count($subordinate_contacts) > 0) {
 				$subordinate_contacts_comma_separated = implode(',',$subordinate_contacts) ;
 				$where .= " AND 

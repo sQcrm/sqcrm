@@ -4,5 +4,5 @@
 * Login page
 * @author Abhik Chakraborty
 */
-require_once('view/homepage_view.php');
+require_once('list.php');
 ?>

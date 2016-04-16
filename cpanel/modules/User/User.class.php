@@ -48,6 +48,10 @@ class User extends \DataObject {
 				$this->set_subordinates($this->idcpanel_user,$this->idorganization);
 				$_SESSION["do_cpanel_action_permission"]->load_cpanel_user_modules($this->idorganization);
 				$this->sessionPersistent("do_cpaneluser","logout.php",TTL_LONG);
+				if (!is_object($_SESSION["do_global_settings"])) {
+					$do_global_settings = new \CRMGlobalSettings();
+					$do_global_settings->sessionPersistent("do_global_settings", "logout.php", TTL);
+				}
 				$dis = new \Display($evctl->goto); //@see view/login_view
 				if ((int)$evctl->sqrecord > 0) {
 					$dis->addParam("sqrecord",(int)$evctl->sqrecord);

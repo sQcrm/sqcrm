@@ -170,6 +170,12 @@ spl_autoload_register(function ($class) {
 	//User 
 	include_once($cpanel_path."modules/User/User.class.php");
 	
+	//Quotes
+	include_once($cpanel_path."modules/Quotes/Quotes.class.php");
+	
+	//Invoice
+	include_once($cpanel_path."modules/Invoice/Invoice.class.php");
+	
 });
 
 ?>
