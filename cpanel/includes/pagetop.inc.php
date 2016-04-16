@@ -17,7 +17,7 @@
 				if (count($available_user_modules) > 0) {
 					echo '<ul class="nav">' ;
 					foreach ($available_user_modules as $idmodules) {
-						if ($idmodules == 7) continue ;
+						if ($idmodules == 7 || $idmodules == 1) continue ;
 						$style_li = '';
 						if ($idmodules == $module_id) $style_li = 'active' ;
 						echo '<li class="'.$style_li.'">' ;
