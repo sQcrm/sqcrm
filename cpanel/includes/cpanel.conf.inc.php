@@ -15,9 +15,14 @@ define('TTL_SHORT', 7200);
 define('TTL', 86400);
 define('TTL_LONG', 864000);
 
-define('BASE_PATH',str_replace('/includes','',dirname(__FILE__)));
+define('CPANEL_PATH',str_replace('/includes','',dirname(__FILE__)));
+$GLOBALS['CPANEL_PATH'] = CPANEL_PATH;
+
+$cpanel_path = (preg_match("/\/$/", CPANEL_PATH) ? CPANEL_PATH : CPANEL_PATH.'/');
+
+define('BASE_PATH',$cpanel_path.'../');
 $GLOBALS['BASE_PATH'] = BASE_PATH ;
-//echo BASE_PATH;
+
 
 define('AVATAR_PATH',BASE_PATH.'/cache/thumb');
 $GLOBALS['AVATAR_PATH'] = AVATAR_PATH ;
@@ -45,8 +50,6 @@ $GLOBALS['NOSQL_DB'] = false ;
 define('SITE_URL','http://sqcrm.localhost');
 $GLOBALS['SITE_URL'] = 'http://sqcrm.localhost' ;
 
-define('PORTAL_URL','http://sqcrm.localhost/cpanel');
-
 // days to keep live feed
 define('DAYS_TO_KEEP_FEED',30);
 $GLOBALS['DAYS_TO_KEEP_FEED'] = 30 ;
@@ -66,4 +69,15 @@ $GLOBALS['THIRD_PARTY_LIB_PATH'] = THIRD_PARTY_LIB_PATH ;
 //number of items per page default in list view - available options are 10,25,50,100
 define('LIST_VIEW_PAGE_LENGTH',50);
 $GLOBALS['LIST_VIEW_PAGE_LENGTH'] = LIST_VIEW_PAGE_LENGTH ;
+
+//  Log errors in the pas_errro.log file:
+define("RADRIA_LOG_ERROR", false);
+//  Display errors in generated web pages:
+define("RADRIA_DISPLAY_ERROR", false);
+//  Log general message/debug log in the pas_run.log:
+define("RADRIA_LOG_RUNLOG", false);
+//  Display message/debug log in generated web pages:
+define("RADRIA_DISPLAY_RUNLOG", false);
+
+define("CPANEL_EVENTCONTROLER_PATH","../../");
 ?>

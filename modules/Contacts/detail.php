@@ -17,6 +17,13 @@ $module_obj->getId($sqcrm_record_id);
 $do_crmentity = new CRMEntity();
 $update_history = $do_crmentity->get_last_updates($sqcrm_record_id,$module_id,$module_obj);
 
+//check if the user is a portal user or not
+$portal_user = array();
+$do_contact = new Contacts() ;
+$portal_user['activated'] = (true === $do_contact->cpanel_login_activated($sqcrm_record_id,$module_obj->idorganization) ? 1:0) ;
+$portal_user['portal_user'] = $module_obj->portal_user ;
+
+
 if (isset($_GET['ajaxreq']) && $_GET['ajaxreq'] == true) {
 	require_once('view/detail_view_entry.php');
 } else {

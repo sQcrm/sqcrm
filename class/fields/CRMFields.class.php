@@ -305,6 +305,8 @@ class CRMFields extends DataObject {
 			} else {
 				return $fieldobject::display_value($value,$entiry_object->organization_name,$format);
 			}
+		} elseif($field_type == 141) {
+			return $fieldobject::display_value($value,$entiry_object->org_name,$format);
 		} elseif ($field_type == 150) {
 			return $fieldobject::display_value($value,$entiry_object->potentials_related_to_idmodule,$entiry_object->potentials_related_to_value,$format);
 		} elseif ($field_type == 151) {

@@ -1,0 +1,9 @@
+DirectoryIndex index.php index.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase   /
+
+RewriteRule ^modules/(.*)/(.*)$ /cpanel/module.php?sfmodname=$1&sfaction=$2&%{QUERY_STRING}
+RewriteRule ^popups/(.*)$ /cpanel/popup_modal.php?modalname=$1&%{QUERY_STRING}
+
+</IfModule>
