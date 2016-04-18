@@ -7,6 +7,7 @@
 ?>
 <link href="/plugins/CustomerPortalPermission/asset/jqtree.css" rel="stylesheet">
 <script type="text/javascript" src="/plugins/CustomerPortalPermission/asset/tree.jquery.js"></script>
+<script type="text/javascript" src="/plugins/CustomerPortalPermission/asset/i18n_message.js"></script>
 <div id="cpanel_user_settings">
 <?php
 if (count($users) == 0) {
