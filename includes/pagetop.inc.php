@@ -101,7 +101,7 @@
 							echo '</ul>';
 							echo '<ul class="nav">';
 							$dropdown_selected = '';
-							$dropdown_selected = (in_array($module_id,$revenue_drop_down) ? 'active' : '') ;
+							$dropdown_selected = (in_array($module_id,$analytics_drop_down) ? 'active' : '') ;
 							echo '<li class="dropdown '.$dropdown_selected.'">';
 							echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._('Analytics').'<b class="caret"></b></a>';
 							echo '<ul class="dropdown-menu">';
