@@ -87,12 +87,8 @@ class ExportDetailData extends DataObject {
 				$html .= '</tbody></table>';
 				$html .= '<br>';
 			}
-			/*$pdf->writeHTML($html, true, false, false, false, '');
-			$pdf->Output($module.'_'.$record_id.'.pdf', 'I');
-			exit();*/
-			//echo $html;exit;
 			$pdf->WriteHTML($html);
-			$pdf->Output($module.'_'.$record_id.'.pdf', 'I');
+			$pdf->Output($module.'_'.$record_id.'.pdf', 'D');
 			exit();
 		}
 	}

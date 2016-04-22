@@ -425,7 +425,7 @@ class ExportInventoryData extends DataObject {
 			return $file_name;
 		} else {
 			$pdf->WriteHTML($html,2);
-			$pdf->Output($file_name, 'I');
+			$pdf->Output($file_name, 'D');
 			exit();
 		}
 	}
