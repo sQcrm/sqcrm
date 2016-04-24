@@ -215,22 +215,22 @@ function custom_validator(mid) {
 		
 		$('.line_item_quantity').each(function() {
 			//console.log() ;
-            if (parseInt($(this).val()) < 1) {
+			if (parseInt($(this).val()) < 1) {
 				invalidItemQty++ ;
-            }
-        });
+			}
+		});
 		
 		$('.line_item_price').each(function() {
-            if (!$.trim($(this).val()).length || $(this).val() <= 0) {
+			if (!$.trim($(this).val()).length || $(this).val() <= 0) {
 				invalidItemPrice++;
-            }
-        });
+			}
+		});
 		
 		$("input:text[name^='line_item_name']").each(function() {
-            if (!$.trim($(this).val()).length) {
+			if (!$.trim($(this).val()).length) {
 				invalidItemName++;
-            }
-        });
+			}
+		});
 		
 		if (invalidItemQty > 0) {
 			display_js_error(LINE_ITEM_QTY_INVALID,'js_errors');
