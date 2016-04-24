@@ -208,6 +208,42 @@ function custom_validator(mid) {
 		} else {
 			return true ;
 		}
+	} else if (mid == 13 || mid == 14 || mid == 15 || mid == 16) {
+		var invalidItemQty = 0;
+		var invalidItemPrice = 0;
+		var invalidItemName = 0;
+		
+		$('.line_item_quantity').each(function() {
+			//console.log() ;
+            if (parseInt($(this).val()) < 1) {
+				invalidItemQty++ ;
+            }
+        });
+		
+		$('.line_item_price').each(function() {
+            if (!$.trim($(this).val()).length || $(this).val() <= 0) {
+				invalidItemPrice++;
+            }
+        });
+		
+		$("input:text[name^='line_item_name']").each(function() {
+            if (!$.trim($(this).val()).length) {
+				invalidItemName++;
+            }
+        });
+		
+		if (invalidItemQty > 0) {
+			display_js_error(LINE_ITEM_QTY_INVALID,'js_errors');
+            return false; 
+		} else if (invalidItemPrice > 0) {
+			display_js_error(LINE_ITEM_PRICE_INVALID,'js_errors');
+            return false; 
+		} else if (invalidItemName > 0) {
+			display_js_error(LINE_ITEM_NAME_INVALID,'js_errors');
+            return false; 
+		} else {
+			return true ;
+		}
 	} else {
 		return true;
 	}

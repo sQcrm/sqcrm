@@ -82,7 +82,7 @@ $product_service_tax = $do_tax->product_service_tax();
 							}
 							?>
 							<br /><br />
-							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="input-xlarge-100" <?php echo $readonly;?>>
+							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="input-xlarge-100 line_item_name" <?php echo $readonly;?>>
 							<input type="hidden" value="<?php echo $lineitem["item_value"]; ?>" name="line_item_value[]" id="line_item_value_<?php echo $lineitem["idlineitems"]; ?>">
 							<input type="hidden" value="<?php echo $lineitem["item_type"]; ?>" name="line_item_type[]" id="line_item_type_<?php echo $lineitem["idlineitems"]; ?>">
 							
@@ -410,7 +410,7 @@ $product_service_tax = $do_tax->product_service_tax();
 	</table>
 </div>
 
-<script src="/js/lineitem.js?v=0.9"></script>
+<script src="/js/lineitem.js?v=1.2"></script>
 <!-- popup modal no tax for item with options to set defaut tax -->
 <div class="modal hide fade" id="item_no_tax">
 	<div class="modal-header">

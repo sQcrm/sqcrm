@@ -53,7 +53,7 @@ $(document).ready(function() {
 		line_item +=			'<option value="manual">Manual</option>';
 		line_item +=		'</select>';
 		line_item +=		'<br /><br />';
-		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="input-xlarge-100" readonly>';
+		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="input-xlarge-100 line_item_name" readonly>';
 		line_item +=		'<input type="hidden" name="line_item_value[]" id="line_item_value_'+row_count+'">';
 		line_item +=		'<input type="hidden" name="line_item_type[]" id="line_item_type_'+row_count+'">';
 		line_item +=		'&nbsp;&nbsp;';
@@ -123,6 +123,10 @@ $(document).ready(function() {
 	$(document.body).on('change keyup mouseup blur focus','.line_item_quantity',function() {
 		var current_id = this.id;
 		var qty = parseInt($(this).val(),10);
+		if (qty < 1) {
+			display_js_error(LINE_ITEM_QTY_INVALID,'js_errors');
+			return false ;
+		}
 		var line_item_price = $("#line_item_price_"+current_id).val();
 		if (qty > 0) {
 			var total_price = parseFloat(line_item_price*qty).toFixed(2);
@@ -149,6 +153,10 @@ $(document).ready(function() {
 		var current_id =  id.split("_").pop();
 		var line_item_price = parseFloat($(this).val()).toFixed(2);
 		var qty = parseInt($('#'+current_id+'.line_item_quantity').val(),10);
+		if (line_item_price <= 0) {
+			display_js_error(LINE_ITEM_PRICE_INVALID,'js_errors');
+			return false ;
+		}
 		if (qty > 0) {
 			var total_price = parseFloat(line_item_price*qty).toFixed(2);
 			$("#line_item_total_"+current_id).attr('value',total_price);

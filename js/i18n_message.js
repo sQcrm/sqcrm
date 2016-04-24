@@ -92,6 +92,9 @@ var SELECT_LINE_ITEM = 'Please select an item first.';
 var ADD_LINE_ITEM_QTY = 'Please add a quantity first.';
 var ADD_LINE_ITEM_PRICE = 'Please add a price first.';
 var ADD_LINE_DISCOUNT_VALUE = 'Please add discount value';
+var LINE_ITEM_QTY_INVALID = 'Line item quantity should be greate or equal to 1';
+var LINE_ITEM_PRICE_INVALID = 'Line item price should be greate than 0';
+var LINE_ITEM_NAME_INVALID = 'Line item name missing';
 
 //copy organization address
 var COPY_ORGANIZATION_ADDRESS_CONFIRM = 'Do you want to copy address infomation ?';
