@@ -214,7 +214,7 @@ $product_service_tax = $do_tax->product_service_tax();
 		</tbody>
 	</table>
 </div>
-<script src="/js/lineitem.js?v=0.9"></script>
+<script src="/js/lineitem.js?v=1.2"></script>
 <!-- popup modal no tax for item with options to set defaut tax -->
 <div class="modal hide fade" id="item_no_tax">
 	<div class="modal-header">
