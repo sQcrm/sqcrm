@@ -1,0 +1,6 @@
+{
+  "title":"Prospect Lost To Competitor Report",
+  "description":"Report to generate the prospect lost to competitor by type and user.",
+  "default_resource":"run_report",
+  "enabled":true
+}
