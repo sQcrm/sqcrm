@@ -1,7 +1,7 @@
 <?php 
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt 
 /**
-* class ProspectFunnel
+* class ProspectLostToCompetitor
 * @author Abhik Chakraborty
 */
 class ProspectLostToCompetitor Extends CustomReport {
