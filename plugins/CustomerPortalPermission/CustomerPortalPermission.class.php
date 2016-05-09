@@ -261,9 +261,9 @@ class CustomerPortalPermission extends CRMPluginProcessor {
 	public function get_cpanel_users_not_in_hierarchy($idorganization) {
 		$qry = "
 		select c.firstname,c.lastname,cu.* from cpanel_user cu
-		left join cpanel_user_roles cpr on cpr.idcpanel_user = cu.idcpanel_user and cu.idorganization = ?
+		left join cpanel_user_roles cpr on cpr.idcpanel_user = cu.idcpanel_user
 		join contacts c on c.idcontacts = cu.idcontacts
-		where cpr.idcpanel_user is null		
+		where cu.idorganization = ? and cpr.idcpanel_user is null
 		";
 		$stmt = $this->getDbConnection()->executeQuery($qry,array($idorganization));
 		$return_array = array() ;
