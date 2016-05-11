@@ -173,18 +173,18 @@ $(document).ready(function() {
 	?>
 	$.jqplot.config.enablePlugins = true;
 		var s1 = [
-			<?php
-			$cnt = 0 ;
-			foreach ($prospect_lost_data_by_amount["data"] as $key=>$val) {
-				echo $val;
-				if ($cnt != count($prospect_lost_data_by_amount["data"])-1) { echo ","; }
+		<?php
+		$cnt = 0 ;
+		foreach ($prospect_lost_data_by_amount["data"] as $key=>$val) {
+			echo $val;
+			if ($cnt != count($prospect_lost_data_by_amount["data"])-1) { echo ","; }
 				$cnt++;
-			}
-			?>
+		}
+		?>
 		];
         // Can specify a custom tick Array.
         // Ticks should match up one for each y value (category) in the series.
-        var ticks = [
+		var ticks = [
 			<?php
 			$cnt = 0 ;
 			foreach ($prospect_lost_data_by_amount["data"] as $key=>$val) {
@@ -193,32 +193,32 @@ $(document).ready(function() {
 				$cnt++;
 			}
 			?>
-        ];
+		];
         
-        var plot1 = $.jqplot('c1', [s1], {
+		var plot1 = $.jqplot('c1', [s1], {
 			// The "seriesDefaults" option is an options object that will
             // be applied to all series in the chart.
-            animate:!$.jqplot.use_excanvas,
-            seriesDefaults: {
+			animate:!$.jqplot.use_excanvas,
+			seriesDefaults: {
 				renderer:$.jqplot.BarRenderer,
-                rendererOptions:{ varyBarColor:true},
-                pointLabels: {show:true,location: 's',escapeHTML:false}
-            },
-            axes: {
+				rendererOptions:{ varyBarColor:true},
+				pointLabels: {show:true,location: 's',escapeHTML:false}
+			},
+			axes: {
 				// Use a category axis on the x axis and use our custom ticks.
-                xaxis: {
+				xaxis: {
 					renderer: $.jqplot.CategoryAxisRenderer,
-                    ticks: ticks
-                },
-                // Pad the y axis just a little so bars can get close to, but
-                // not touch, the grid boundaries.  1.2 is the default padding.
-                yaxis: {
-                    pad: 1.05,
-                    tickOptions: {formatter: tickFormatter,escapeHTML:false}
-                }
-            },
-        });
-        window.onresize = function(event) {
+					ticks: ticks
+				},
+				// Pad the y axis just a little so bars can get close to, but
+				// not touch, the grid boundaries.  1.2 is the default padding.
+				yaxis: {
+					pad: 1.05,
+					tickOptions: {formatter: tickFormatter,escapeHTML:false}
+				}
+			},
+		});
+		window.onresize = function(event) {
 			plot1.destroy();
 			plot1.replot();
         }
@@ -232,7 +232,7 @@ $(document).ready(function() {
 	<?php
 	if (count($prospect_lost_data_by_no["data"]) > 0) {?>
 	$.jqplot.config.enablePlugins = true;
-    var s2 = [
+	var s2 = [
 		<?php
 		$cnt = 0 ;
 		foreach ($prospect_lost_data_by_no["data"] as $key=>$val) {
@@ -246,12 +246,12 @@ $(document).ready(function() {
 	// Ticks should match up one for each y value (category) in the series.
 	var ticks = [
 		<?php
-        $cnt = 0 ;
-        foreach ($prospect_lost_data_by_no["data"] as $key=>$val) {
+		$cnt = 0 ;
+		foreach ($prospect_lost_data_by_no["data"] as $key=>$val) {
 			echo "'".$key."'";
 			if ($cnt != sizeof($prospect_lost_data_by_no["data"])-1) { echo ","; }
 			$cnt++;
-        }
+		}
       ?>
 	];
       
@@ -274,9 +274,9 @@ $(document).ready(function() {
 			// not touch, the grid boundaries.  1.2 is the default padding.
 			yaxis: {
 				pad: 1.05
-             }
-          },
-      });
+			}
+		},
+	});
       
 	window.onresize = function(event) {
 		plot2.destroy();
@@ -288,14 +288,13 @@ $(document).ready(function() {
 	<?php 
 	}
 	?>
-	
 	oTable = $('#sqcrmlist').dataTable({
 		"paging":   false,
-        "info":     false,
-        "bFilter" : false,
-        "aaSorting": [],
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
+		"info":     false,
+		"bFilter" : false,
+		"aaSorting": [],
+		dom: 'T<"clear">lfrtip',
+		tableTools: {
 			"sSwfPath": "/js/plugins/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
 		}
 	});      
