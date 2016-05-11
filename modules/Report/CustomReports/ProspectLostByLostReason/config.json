@@ -1,0 +1,6 @@
+{
+  "title":"Prospect Lost by Lost Reason",
+  "description":"Report to generate the prospect lost with reasons by amount and by number.",
+  "default_resource":"run_report",
+  "enabled":true
+}
