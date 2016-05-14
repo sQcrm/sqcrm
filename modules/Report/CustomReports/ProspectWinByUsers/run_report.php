@@ -44,7 +44,6 @@ if (array_key_exists('data',$prospect_win_by_amount) && count($prospect_win_by_a
 				}
 			}
 		}
-		
 		if (array_key_exists('groups',$users_and_groups) && count($users_and_groups['groups']) > 0) {
 			$do_group_users = new GroupUserRelation();
 			foreach ($users_and_groups['groups'] as $key=>$val) {
