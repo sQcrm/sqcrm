@@ -648,4 +648,67 @@ class Calendar extends DataObject {
 		$this->setSqlQuery($qry);
 	}
 	
+	/**
+	* event function to mass update the Calendar events and set their status 
+	* @param object $evctl
+	* @return void
+	*/
+	public function eventChangeEventStatus(EventControler $evctl) {
+		$record_ids = $evctl->ids;
+		$event_status = $evctl->event_status;
+		
+		if (count($record_ids) > 0) {
+			$do_data_history  = new DataHistory();
+			$do_feed_queue = new LiveFeedQueue();
+			$do_crm_entity = new CRMEntity();
+			$idfields = 0;
+			$qry = "
+			select idfields from fields
+			where field_name = 'event_status'
+			and table_name = 'events'
+			";
+			$stmt = $this->getDbConnection()->executeQuery($qry);
+			$data = $stmt->fetch();
+			$idfields = $data['idfields'];
+			
+			foreach ($record_ids as $id) {
+				$this->getId($id);
+				$record_identifier = $this->subject;
+				$old_status = $this->event_status ;
+				$assigned_to_as_group = false ;
+				$group_id = 0;
+				if ((int)$this->idgroup > 0) {
+					$assigned_to_as_group = true ;
+					$group_id = (int)$this->idgroup;
+				}
+				$qry = "update `".$this->getTable()."`
+				set `event_status` = ?
+				where `idevents` = ?
+				";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($event_status,$id));
+				if ($old_status != $event_status) {
+					$do_data_history->addNew();
+					$do_data_history->id_referrer = $id ;
+					$do_data_history->iduser = $_SESSION["do_user"]->iduser ;
+					$do_data_history->idmodule = 2 ;
+					$do_data_history->date_modified = date("Y-m-d H:i:s");
+					$do_data_history->action = 'value_changes';
+					$do_data_history->idfields = $idfields;
+					$do_data_history->old_value = $old_status;
+					$do_data_history->new_value = $event_status ;
+					$do_data_history->add();
+					// add to feed
+					$feed_other_assigne = array() ;
+					if ($assigned_to_as_group === true) {
+						$feed_other_assigne = array("related"=>"group","data" => array("key"=>"oldgroup","val"=>$group_id));
+					}
+					$do_feed_queue->add_feed_queue($id,2,$record_identifier,'edit',$feed_other_assigne);
+				}
+				
+			}
+			$_SESSION["do_crm_messages"]->set_message('success',_('Events updated successfully !'));
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('success',_('Missing record id(s) !'));
+		}
+	}
 }

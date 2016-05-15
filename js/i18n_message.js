@@ -20,6 +20,7 @@ var CLOSE = 'Close' ;
 var DATA_DELETED_SUCCESSFULLY = 'Data deleted succesfully.';
 var SELECT_ONE_RECORD_BEFORE_DELETE = 'Please select atleast one record before deleting.';
 var SELECT_ONE_RECORD_BEFORE_CHANGE_USER = 'Please select atleast one record before changing assigned to.';
+var SELECT_ONE_RECORD_BEFORE_CHANGE_EVENT_STATUS = 'Please select atleast one record before changing event status.';
 // Lead conversion JS error messages
 var LEAD_CONVERT_POT_CONTACT_ORG_REQUIRE = 'Converting to Prospect requires a Contact or Organization.';
 var LEAD_CONVERT_POT_ONLY_ORG_CONTACT_SELECT = 'You have choosen to select both Organization and Contact to be attached to Prospect. You can attach only one of them.'
