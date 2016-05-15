@@ -660,7 +660,6 @@ class Calendar extends DataObject {
 		if (count($record_ids) > 0) {
 			$do_data_history  = new DataHistory();
 			$do_feed_queue = new LiveFeedQueue();
-			$do_crm_entity = new CRMEntity();
 			$idfields = 0;
 			$qry = "
 			select idfields from fields
