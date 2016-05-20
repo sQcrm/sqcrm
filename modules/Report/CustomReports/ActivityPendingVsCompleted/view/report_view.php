@@ -115,28 +115,28 @@ table.datadisplay_report {
 								echo '<td>';
 								echo '<table cellpadding="0" cellspacing="0" border="0" class="datadisplay_report"><thead>';
 								echo '<tr>';
-								echo '<td>'.$held.'</td>';
-								echo '<td>'.$planned.'</td>';
-								echo '<td>'._('Total').'</td>';
+								echo '<td style="text-align: center;">'.$held.'</td>';
+								echo '<td style="text-align: center;">'.$planned.'</td>';
+								echo '<td style="text-align: center;">'._('Total').'</td>';
 								echo '</tr>';
 								echo '<tr>';
 								$total = 0 ;
 								if (array_key_exists($type,$val) && array_key_exists($held,$val[$type])) {
-									echo '<td class="">'.$val[$type][$held].'</td>';
+									echo '<td class="" style="text-align: center;">'.$val[$type][$held].'</td>';
 									$total+= $val[$type][$held] ;
 								} else {
-									echo '<td class="">0</td>';
+									echo '<td class="" style="text-align: center;">0</td>';
 									$total+= 0 ;
 								}
 								
 								if (array_key_exists($type,$val) && array_key_exists($planned,$val[$type])) {
-									echo '<td class="">'.$val[$type][$planned].'</td>';
+									echo '<td class="" style="text-align: center;">'.$val[$type][$planned].'</td>';
 									$total+= $val[$type][$planned] ;
 								} else {
-									echo '<td class="">0</td>';
+									echo '<td class="" style="text-align: center;">0</td>';
 									$total+= 0 ;
 								}
-								echo '<td class="">'.$total.'</td>';
+								echo '<td class="" style="text-align: center;">'.$total.'</td>';
 								echo '</tr>' ;
 								echo '</td></table>';
 							}
