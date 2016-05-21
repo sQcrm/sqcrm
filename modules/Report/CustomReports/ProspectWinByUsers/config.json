@@ -1,0 +1,6 @@
+{
+  "title":"Prospect Win By Users",
+  "description":"Report to generate the prospect win by users with the amount",
+  "default_resource":"run_report",
+  "enabled":true
+}

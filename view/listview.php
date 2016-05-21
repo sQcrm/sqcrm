@@ -247,6 +247,31 @@ $(document).ready(function() {
 			});
 		});
 	}) ;
+	
+	//change calendar status
+	$("#change_event_status").click(function() {
+		var sData = oTable.$('input:checkbox').serialize();
+		if (sData == '') {
+			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var err_msg = err_element+'<strong>'+SELECT_ONE_RECORD_BEFORE_CHANGE_EVENT_STATUS+'</strong></div>';
+			$("#message").html(err_msg);
+			$("#message").show();
+			return false ;
+		} else {
+			var href = '/popups/change_event_status_modal?m=<?php echo $module;?>&referrar=list&'+sData;
+			if (href.indexOf('#') == 0) {
+				$(href).modal('open');
+			} else {
+				$.get(href, function(data) {
+					//ugly heck to prevent the content getting append when opening the same modal multiple time
+					$("#listview_change_event_status").html(''); 
+					$("#listview_change_event_status").hide();
+					$("#listview_change_event_status").attr("id","ugly_heck");
+					$('<div class="modal hide fade" id="listview_change_event_status">' + data + '</div>').modal();
+				}).success(function() { $('input:text:visible:first').focus(); });
+			}
+		}
+	});
 });
 </script>
 <div class="container-fluid">
@@ -325,6 +350,17 @@ $(document).ready(function() {
 						</a>
 						<?php 
 						} ?>
+						
+						<!-- Change Bulk Calendar Status -->
+						<?php
+						if ($module_id == 2) {
+						?>
+						<a href="#" class="btn btn-primary btn-mini bs-prompt" id="change_event_status">
+						<i class="icon-white icon-calendar"></i> <?php echo _('change event status');?>
+						</a>
+						<?php
+						}
+						?>
 					</div>
 					<div class="right_500">	
 						<?php

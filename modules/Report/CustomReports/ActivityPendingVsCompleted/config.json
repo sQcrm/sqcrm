@@ -1,0 +1,12 @@
+{
+  "title":"Activity Pending Vs Completed",
+  "description":"Report to generate the activities pending vs completed by users.",
+  "default_resource":"run_report",
+  "enabled":true,
+  "fieldValueMaps": {
+	"event_status": {
+		"Planned":"Planned",
+		"Held":"Held"
+	}
+  }
+}

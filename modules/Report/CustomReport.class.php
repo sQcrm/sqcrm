@@ -119,6 +119,70 @@ class CustomReport extends DataObject {
 	}
 	
 	/**
+	* function to get all the users including the lookup user and groups associated via hierarchy
+	* @param integer $iduser
+	* @param boolean $ignore_current_user
+	* @param string $key , returned array key default pk primary_key
+	*/
+	public function get_users_and_groups($iduser, $ignore_current_user = false,$key='pk') {
+		$users_array = array();
+		$groups_array = array();
+		if ($iduser == 0) {
+			$iduser = $_SESSION["do_user"]->iduser ;
+		}
+		$users = $this->get_userids($iduser,$ignore_current_user);
+		$do_group_user_rel = new GroupUserRelation();
+		$groups = $do_group_user_rel->get_groups_by_user($iduser,array(),true);
+		
+		if (is_array($users) && count($users) >0) {
+			$qry = "
+			select `iduser`,`user_name`,`firstname`,`lastname`
+			from user 
+			where `iduser` in (".implode(",",$users).")
+			";
+			$stmt = $this->getDbConnection()->executeQuery($qry);
+			if ($stmt->rowCount() > 0) {
+				while($data = $stmt->fetch()) {
+					if ($key == 'pk') {
+						$users_array[$data["iduser"]] = array(
+							"firstname"=>$data["firstname"],
+							"lastname"=>$data["lastname"],
+							"user_name"=>$data["user_name"]
+						);
+					} else {
+						$users_array[$data["user_name"]] = array(
+							"firstname"=>$data["firstname"],
+							"lastname"=>$data["lastname"],
+							"iduser"=>$data["iduser"]
+						);
+					}
+				}
+			}
+		}
+		
+		if(is_array($groups) && count($groups) > 0) {
+			$qry = "select `idgroup`,`group_name` from `group`
+			where `idgroup` in (".implode(",",$groups).")
+			";
+			$stmt = $this->getDbConnection()->executeQuery($qry);
+			if ($stmt->rowCount() > 0) {
+				while($data = $stmt->fetch()) {
+					if ($key == 'pk') {
+						$groups_array[$data["idgroup"]] = array("group_name"=>$data["group_name"]) ;
+					} else {
+						$groups_array[$data["group_name"]] = array("idgroup"=>$data["idgroup"]) ;
+					}
+				}
+			}
+		}
+		
+		return array(
+			"users"=>$users_array,
+			"groups"=>$groups_array
+		);
+	}
+	
+	/**
 	* function to get the where condition based on the filter type and field name 
 	* @param string $table_name
 	* @param string $field_name
