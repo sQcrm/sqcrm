@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.49, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.47-0ubuntu0.14.04.1
+-- Server version	5.5.49-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1250,6 +1250,34 @@ LOCK TABLES `invoice_custom_fld` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `invoice_payments`
+--
+
+DROP TABLE IF EXISTS `invoice_payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invoice_payments` (
+  `idinvoice_payments` int(11) NOT NULL AUTO_INCREMENT,
+  `idinvoice` int(11) DEFAULT NULL,
+  `idpaymentlog` int(11) DEFAULT NULL,
+  `additional_note` text,
+  `iduser` int(11) DEFAULT '0',
+  PRIMARY KEY (`idinvoice_payments`),
+  KEY `idinvoice_idx` (`idinvoice`),
+  KEY `idpaymentlog_idx` (`idpaymentlog`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invoice_payments`
+--
+
+LOCK TABLES `invoice_payments` WRITE;
+/*!40000 ALTER TABLE `invoice_payments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invoice_payments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `invoice_to_grp_rel`
 --
 
@@ -1750,6 +1778,59 @@ CREATE TABLE `organization_custom_fld` (
 LOCK TABLES `organization_custom_fld` WRITE;
 /*!40000 ALTER TABLE `organization_custom_fld` DISABLE KEYS */;
 /*!40000 ALTER TABLE `organization_custom_fld` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_mode`
+--
+
+DROP TABLE IF EXISTS `payment_mode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment_mode` (
+  `idpayment_mode` int(11) NOT NULL AUTO_INCREMENT,
+  `mode_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idpayment_mode`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_mode`
+--
+
+LOCK TABLES `payment_mode` WRITE;
+/*!40000 ALTER TABLE `payment_mode` DISABLE KEYS */;
+INSERT INTO `payment_mode` VALUES (1,'Bank Transfer'),(2,'Cheque'),(3,'Credit Card'),(4,'Debit Card'),(5,'Internet Banking'),(6,'Wire Transfer');
+/*!40000 ALTER TABLE `payment_mode` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `paymentlog`
+--
+
+DROP TABLE IF EXISTS `paymentlog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paymentlog` (
+  `idpaymentlog` int(11) NOT NULL AUTO_INCREMENT,
+  `date_added` datetime DEFAULT NULL,
+  `amount` double(10,3) DEFAULT NULL,
+  `ref_num` varchar(200) DEFAULT NULL,
+  `idpayment_mode` int(11) DEFAULT NULL,
+  `transaction_type` varchar(30) DEFAULT 'charge',
+  PRIMARY KEY (`idpaymentlog`),
+  KEY `date_added_idx` (`date_added`),
+  KEY `transaction_type_idx` (`transaction_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `paymentlog`
+--
+
+LOCK TABLES `paymentlog` WRITE;
+/*!40000 ALTER TABLE `paymentlog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `paymentlog` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3281,4 +3362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-16 14:43:01
+-- Dump completed on 2016-05-21 14:32:35
