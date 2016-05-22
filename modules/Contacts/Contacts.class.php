@@ -456,7 +456,7 @@ class Contacts extends DataObject {
 				if (true === $check_opt_out) {
 					$select .=" and c.email_opt_out <> 1";
 				}
-				$select .= "and c.idcontacts = ?";
+				$select .= " and c.idcontacts = ?";
 				
 				$stmt = $this->getDbConnection()->executeQuery($select,array($idcontacts));
 				if ($stmt->rowCount() > 0) {
