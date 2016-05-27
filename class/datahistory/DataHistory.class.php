@@ -77,7 +77,7 @@ class DataHistory extends DataObject {
 					$field_type = $do_crm_fields->field_type;
 					$record_history = false ;
 					/*check if the field value has changed, i.e. old value on $obj->$field_name is not equal to $evctl->$field_name then add 
-						to history,
+					to history,
 					*/
 					if ($field_type == 15) {
 						$assigned_to_changed = false ;
@@ -125,9 +125,11 @@ class DataHistory extends DataObject {
 						}
 					} elseif($field_type == 150) {
 						if ($obj->potentials_related_to_idmodule != $evctl->related_to_opt) {
-							$old_value = $obj->potentials_related_to_value ;
-							$new_value = FieldType150::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
-							$record_history = true ;
+							if ($obj->$field_name != $evctl->$field_name) {
+								$old_value = $obj->potentials_related_to_value ;
+								$new_value = FieldType150::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
+								$record_history = true ;
+							}
 						} elseif ($obj->$field_name != $evctl->$field_name) {
 							$old_value = $obj->potentials_related_to_value ;
 							$new_value = FieldType150::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
@@ -135,9 +137,11 @@ class DataHistory extends DataObject {
 						}
 					} elseif ($field_type == 151) {
 						if ($obj->events_related_to_idmodule != $evctl->related_to_opt) {
-							$old_value = $obj->events_related_to_value ;
-							$new_value = FieldType151::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
-							$record_history = true ;
+							if ($obj->$field_name != $evctl->$field_name) {
+								$old_value = $obj->events_related_to_value ;
+								$new_value = FieldType151::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
+								$record_history = true ;
+							}
 						} elseif ($obj->$field_name != $evctl->$field_name) {
 							$old_value = $obj->events_related_to_value ;
 							$new_value = FieldType151::display_value($evctl->$field_name,$evctl->related_to_opt,'',false);
@@ -155,10 +159,21 @@ class DataHistory extends DataObject {
 							$new_value = $evctl->$field_name;
 							$record_history = true ;
 						}
+					} elseif ($field_type == 3) {
+						$old_value = $obj->$field_name;
+						$new_value = $evctl->$field_name;
+						$new_value = ($new_value == 'on' ? 1:0);
+						$old_value = FieldType3::display_value($old_value);
+						$new_value = FieldType3::display_value($new_value);
+						if ($new_value != $old_value) {
+							$record_history = true;
+						}
 					} elseif ($obj->$field_name != $evctl->$field_name) {
 						$record_history = true ;
-						if ($field_type == 130 || $field_type == 131 || $field_type == 133 || $field_type == 141 
-						|| $field_type == 142 || $field_type == 160 || $field_type == 170 || $field_type == 180){
+						if ($field_type == 130 || $field_type == 131 || $field_type == 132 || $field_type == 133 || 
+							$field_type == 141 || $field_type == 142 || $field_type == 143 || $field_type == 160 || 
+							$field_type == 166 || $field_type == 170 || $field_type == 180
+						){
 							$old_value = $this->get_field_values_entity($obj->$field_name,$field_type);
 							$new_value = $this->get_field_values_entity($evctl->$field_name,$field_type);
 						} else {
