@@ -11,5 +11,10 @@
 		<?php
 		require("detail_view_rightblock_actions.php");
 		?>
+		<?php
+		if ($module_id == 15) {
+			require("invoice_payment_view.php");
+		}
+		?> 
 	</div>
 </div>

@@ -10,7 +10,7 @@ $do_crmfields = new \CRMFields();
 $do_block = new \Block();
 $do_block->get_block_by_module($module_id);
 
-$module_obj = new Invoice();
+$module_obj = new  cpanel_invoice\Invoice() ;
 $module_obj->getId($sqcrm_record_id);
 
 $do_lineitems = new \Lineitems();
@@ -37,6 +37,10 @@ if ($do_lineitems->getNumRows() > 0) {
 		);
 	}
 }
+
+// get Invoice payments
+$due_amount = $module_obj->get_due_amount($sqcrm_record_id,$module_obj->grand_total);
+$payments = $module_obj->get_invoice_payments($sqcrm_record_id);
 
 //updates detail, just add and last updated
 $do_crmentity = new \CRMEntity();
