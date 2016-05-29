@@ -39,8 +39,9 @@ if ($do_lineitems->getNumRows() > 0) {
 }
 
 // get Invoice payments
-$due_amount = $module_obj->get_due_amount($sqcrm_record_id,$module_obj->grand_total);
-$payments = $module_obj->get_invoice_payments($sqcrm_record_id);
+$do_invoice_payments = new \InvoicePayments();
+$due_amount = $do_invoice_payments->get_due_amount($sqcrm_record_id,$module_obj->grand_total);
+$payments = $do_invoice_payments->get_invoice_payments($sqcrm_record_id);
 
 //updates detail, just add and last updated
 $do_crmentity = new \CRMEntity();
