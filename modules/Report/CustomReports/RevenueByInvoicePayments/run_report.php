@@ -51,7 +51,7 @@ if ($date_filter_type == 15) {
 	$previous_range = CommonUtils::get_year_date_range('previous');
 	$interval = '30 days';
 }
-
+/*
 $current_start_date = $current_range['start'];
 $current_end_date = $current_range['end'];
 $previous_start_date = $previous_range['start'];
@@ -80,7 +80,7 @@ foreach($previous_range_all_days as $date) {
 		$previous_range_data[$date] = $report_data['previous'][$date];
 	}
 }
-
+*/
 $do_crm_fields = new CRMFields();
 $fields_info = array(
 	"idinvoice"=>array(
