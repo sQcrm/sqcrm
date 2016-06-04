@@ -106,7 +106,8 @@ class InvoicePaymentPlugin extends CRMPluginProcessor {
 			$html .= '<td>'.nl2br($additional_note).'</td>';
 			$html .= '</tr>';
 			
-			$due_amount = FieldType30::display_value($this->get_due_amount($idinvoice));
+			$invoice_payments = new InvoicePayments();
+			$due_amount = FieldType30::display_value($invoice_payments->get_due_amount($idinvoice));
 			
 			echo json_encode(array('html'=>$html,'due_amount'=>$due_amount));
 		}
