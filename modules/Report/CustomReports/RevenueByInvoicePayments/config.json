@@ -1,0 +1,6 @@
+{
+  "title":"Revenue by Invoice Payments",
+  "description":"Report to generate revenue generated from invoice payments",
+  "default_resource":"run_report",
+  "enabled":true
+}
