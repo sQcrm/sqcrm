@@ -5,16 +5,6 @@
 * @author Abhik Chakraborty
 */
 ?>
-<link rel="stylesheet" type="text/css" href="/js/plugins/jqplot/jquery.jqplot.min.css" />
-<script src="/js/plugins/jqplot/jquery.jqplot.min.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.dateAxisRenderer.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.logAxisRenderer.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.canvasAxisTickRenderer.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.highlighter.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.cursor.js"></script>
-<script src="/js/plugins/jqplot/plugins/jqplot.pointLabels.js"></script>
-<script type="text/javascript" src="/js/jquery/plugins/accounting.js"></script>
 <link href="/js/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <div class="container-fluid">
