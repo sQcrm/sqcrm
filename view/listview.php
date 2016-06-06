@@ -288,7 +288,7 @@ $(document).ready(function() {
 		<?php 
 		} ?>
 				<!-- Tool section on list view - delete,change user etc /-->
-				<div class="datadisplay-outer">
+				<div class="datadisplay-outer listdata_action">
 					<div id="message"></div>
 					<div class="left_600">
 						<!-- add new button -->
@@ -360,6 +360,12 @@ $(document).ready(function() {
 						</a>
 						<?php
 						}
+						?>
+						<!-- Show the list view action plugin buttons-->
+						<?php
+						// process the detail view right block active modules
+						$do_process_list_plugins = new CRMPluginProcessor();
+						$do_process_list_plugins->process_listview_action_plugin($module_id,$active_plugins);
 						?>
 					</div>
 					<div class="right_500">	
