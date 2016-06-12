@@ -166,4 +166,35 @@ class CRMPluginProcessor extends CRMPluginBase {
 				break ;
 		}
 	}
+	
+	/**
+	* process the list view action plugin 
+	* @param integer $idmodule
+	* @param mix $active_plugins
+	* @return void
+	*/
+	public function process_listview_action_plugin($idmodule,$active_plugins = null) {
+		if ($active_plugins == null) {
+			parent::load_active_plugins();
+			$active_plugins = parent::get_active_plugins();
+		}
+		if (is_array($active_plugins) && count($active_plugins) > 0) {
+			usort($active_plugins, function($a, $b) {
+				return $a['display_priority'] - $b['display_priority'];
+			});
+			foreach ($active_plugins as $key=>$plugin) {
+				$plugin_object = new $plugin["name"]() ;
+				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(8,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==1) {
+					echo '<a href="#" class="btn btn-primary btn-mini bs-prompt" id="'.$plugin["name"].'">';
+					echo '</a>';
+					echo '
+					<script>
+						$(document).ready(function() {
+							load_list_view_action_plugin(\''.$plugin["name"].'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.');
+						});
+					</script>' ;
+				}
+			}
+		}
+	}
 }

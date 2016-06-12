@@ -111,6 +111,7 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Quotes/Quotes.class.php");
 	include_once($cfg_project_directory."modules/SalesOrder/SalesOrder.class.php");
 	include_once($cfg_project_directory."modules/Invoice/Invoice.class.php");
+	include_once($cfg_project_directory."modules/Invoice/InvoicePayments.class.php");
 	include_once($cfg_project_directory."modules/PurchaseOrder/PurchaseOrder.class.php");
 
 	include_once($cfg_project_directory."modules/CustomView/CustomView.class.php");
