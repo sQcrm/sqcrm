@@ -45,7 +45,11 @@ if ($show_login_on_session_expire === true) {
 } else {
 	$allow_disp = $_SESSION["do_crm_action_permission"]->action_permitted_user('view',$module_id) ;
 	if (true === $allow_disp) {
-		require('plugins/'.$plugin_name.'/'.$resource_name);
+		if (isset($_REQUEST['popup']) &&  $_REQUEST['popup'] == 1) {
+			require('plugins/'.$plugin_name.'/popup/'.$_REQUEST['popup_resource'].'.php');
+		} else {
+			require('plugins/'.$plugin_name.'/'.$resource_name);
+		}
 	} else {
 		echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
 		echo '<strong>';

@@ -77,4 +77,31 @@ function process_detail_view_tab_plugin(plugin_name,resource_name,idmodule,sqcrm
 		}
 	});
 }
+
+/**
+* process the list view action plugins and load the action button via ajax
+* @param string plugin_name
+* @param string resource_name
+* @param integer idmodule
+*/
+function load_list_view_action_plugin(plugin_name,resource_name,idmodule) {
+	var file_name = '';
+	if (resource_name == '') {
+		file_name = 'index.php' ;
+	} else {
+		file_name = resource_name ;
+	}
+	$.ajax({
+		type: "GET",
+		url: '/plugins.php',
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule,
+		beforeSubmit: function() {
+			//Including a preloader, it loads into the div tag with id uploader
+			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
+		},
+		success: function(result) { 
+			$('#'+plugin_name).html(result);
+		}
+	});
+}
 </script>
