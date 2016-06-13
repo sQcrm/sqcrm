@@ -37,7 +37,7 @@ if (is_array($update_history) && count($update_history) > 0) { ?>
 }
 if (!isset($_GET["onlyData"])) {
 ?>
-	<div class="left_500">
+	<div class="span5">
 		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
 		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 		<?php
@@ -113,7 +113,7 @@ if ($module_id == 13 || $module_id == 14 || $module_id == 15 || $module_id == 16
 }
 if (!isset($_GET["onlyData"])) {
 ?>
-	<div class="left_600">
+	<div class="span5">
 		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
 		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 		<?php

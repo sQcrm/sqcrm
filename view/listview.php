@@ -290,7 +290,7 @@ $(document).ready(function() {
 				<!-- Tool section on list view - delete,change user etc /-->
 				<div class="datadisplay-outer listdata_action">
 					<div id="message"></div>
-					<div class="left_600">
+					<div class="span7">
 						<!-- add new button -->
 						<?php 
 						if ($_SESSION["do_crm_action_permission"]->action_permitted('add',$module_id) === true) {
@@ -368,7 +368,7 @@ $(document).ready(function() {
 						$do_process_list_plugins->process_listview_action_plugin($module_id,$active_plugins);
 						?>
 					</div>
-					<div class="right_500">	
+					<div class="span4">	
 						<?php
 						if (true === $custom_view_allowed) { // defined on modules/{module_name}/list.php
 							if ($_SESSION["do_crm_action_permission"]->action_permitted('view',17)) {
@@ -411,7 +411,7 @@ $(document).ready(function() {
 								}
 							}
 							?>
-							<div style="margin-top:3px;margin-left:3px;float:right;">
+							<div style="margin-top:3px;margin-left:0px;float:right;">
 								<?php
 								if ($_SESSION["do_crm_action_permission"]->action_permitted('add',17)) { ?>
 									<a href="<?php echo NavigationControl::getNavigationLink("CustomView","add","","?target_module_id=".$module_id); ?>" class="btn btn-primary btn-mini bs-prompt">
