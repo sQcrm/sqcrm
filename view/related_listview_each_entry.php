@@ -31,6 +31,7 @@ $(document).ready(function() {
 	});
       
 	oTable = $('#<?php echo $val["id"];?>').dataTable({
+		responsive: true,
 		"oLanguage":{
 			"sProcessing": "<img src=\"/themes/images/ajax-loader1.gif\" border=\"0\" />",
 			"sLengthMenu": "<?php echo _('Show _MENU_ records per page');?>",
@@ -48,7 +49,7 @@ $(document).ready(function() {
 		},
 		"pageLength": <?php echo LIST_VIEW_PAGE_LENGTH ;?>,
 		"aoColumns":get_dont_sort('<?php echo $val["id"];?>'),
-		"bProcessing": true,
+		"bProcessing": false,
 		"bServerSide": true,
 		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span'6'p>>'",
 		"sPaginationType": "full_numbers",
@@ -63,7 +64,8 @@ $(document).ready(function() {
 <div class="clear_float"></div>
 <h6><?php echo $val["heading"];?></h6>
 <br />
-<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="<?php echo $val["id"] ;?>">
+<div class="datadisplay-outer">
+<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="<?php echo $val["id"] ;?>">
 	<thead>
 		<tr>
 			<?php
@@ -79,5 +81,6 @@ $(document).ready(function() {
         </tr>
 	</thead>
 </table>
+</div>
 <hr class="form_hr">
 <div class="clear_float"></div>
