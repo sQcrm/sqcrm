@@ -64,6 +64,7 @@ $(document).ready(function() {
 
     oTable = $('#sqcrmlist').dataTable({
 		responsive: true,
+		stateSave: true,
 		"oLanguage":{
 			"sProcessing": "<img src=\"/themes/images/ajax-loader1.gif\" border=\"0\" />",
 				"sLengthMenu": "<?php echo _('Show _MENU_ records per page');?>",
