@@ -62,7 +62,7 @@ div.dataTables_paginate {
 }
 </style>
 <!-- Style modification ends here /-->
-
+<link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
 <script>
 function return_popup_selected(id) {
 	var return_data = $('#'+id).val() ;
@@ -238,6 +238,7 @@ $(document).ready(function() {
 	// no sort columns setting ends here
  
 	oTable = $('#<?php echo $table_div_id ;?>').dataTable({
+		responsive: true,
 		"oLanguage":{
 			"sProcessing": "<img src=\"/themes/images/ajax-loader1.gif\" border=\"0\" />",
 			"sLengthMenu": "<?php echo _('Show _MENU_ records per page');?>",
@@ -282,7 +283,7 @@ $(document).ready(function() {
 </div>
 <div class="modal-body">
 	<div class="datadisplay-outer">
-		<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="<?php echo $table_div_id ;?>">
+		<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="<?php echo $table_div_id ;?>">
 			<thead>
 				<tr>
 					<?php
