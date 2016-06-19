@@ -32,7 +32,7 @@ if (isset($_GET["return_page"]) && $_GET["return_page"] != '') {
 					echo '<form class="form-horizontal" id="'.$module.'__editRecord" name="'.$module.'__editRecord" action="/eventcontroler.php" method="post" enctype="multipart/form-data">';
 					echo $e_add_entity->getFormEvent();
 					?>
-					<div class="left_600">
+					<div class="left_large">
 						<a href="<?php echo NavigationControl::getNavigationLink($module,"users");?>" class="btn btn-inverse">
 						<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 						<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
@@ -40,51 +40,52 @@ if (isset($_GET["return_page"]) && $_GET["return_page"] != '') {
 					<div class="clear_float"></div>
 					<hr class="form_hr">
 					<?php
-					while ($do_block->next()) { ?>
-					<div class="box_content_header"><?php echo $do_block->block_label;?></div>
-						<table width="100%">
-						<?php 
-						$do_crmfields->get_form_fields_information($do_block->idblock,$module_id) ;
-						$num_fields = $do_crmfields->getNumRows() ;
-						$tot_count = 0 ;
-						while ($do_crmfields->next()) {
-							if ($do_crmfields->field_type == 11) continue ;
-							$fieldobject = 'FieldType'.$do_crmfields->field_type;
-							$tot_count++;
-							if ($tot_count == 1 || $tot_count%2 != 0) { ?>
-							<tr>
+						while ($do_block->next()) { ?>
+							<div class="box_content_header"><?php echo $do_block->block_label;?></div>
 							<?php 
-							} ?>
-								<td width="40%">
-									<div class="control-group">  
-										<label class="control-label" for="<?php echo $do_crmfields->field_name; ?>"><?php echo $do_crmfields->field_label;?></label>  
-										<div class="controls">  
-											<?php
-											$fld_name =  $do_crmfields->field_name;
-											if ($do_crmfields->field_type == 5 || $do_crmfields->field_type == 6) {
-												$fieldobject::display_field($do_crmfields->field_name,$do_crmfields->idfields,$module_obj->$fld_name);
-											} elseif ($do_crmfields->field_type == 104) {
-												$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name);
-											} elseif ($do_crmfields->field_type == 12) {
-												$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
-											} else {
-												$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'input-xlarge-100');
-											}
-											?>
+							$do_crmfields->get_form_fields_information($do_block->idblock,$module_id) ;
+							$num_fields = $do_crmfields->getNumRows() ;
+							$tot_count = 0 ;
+							while ($do_crmfields->next()) {
+								$fieldobject = 'FieldType'.$do_crmfields->field_type;
+								$tot_count++;
+								if ($tot_count == 1 || $tot_count%2 != 0 ) { ?>
+								<div class="row-fluid">
+								<?php
+								}
+								?>
+									<div class="span6">
+										<div class="control-group">  
+											<label class="control-label" for="<?php echo $do_crmfields->field_name; ?>"><?php echo $do_crmfields->field_label;?></label>  
+											<div class="controls">  
+												<?php
+												$fld_name =  $do_crmfields->field_name;
+												if ($do_crmfields->field_type == 5 || $do_crmfields->field_type == 6) {
+													$fieldobject::display_field($do_crmfields->field_name,$do_crmfields->idfields,$module_obj->$fld_name);
+												} elseif ($do_crmfields->field_type == 104) {
+													$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name);
+												} elseif ($do_crmfields->field_type == 12) {
+													$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
+												} else {
+													$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'input-xlarge-100');
+												}
+												?>
+											</div>
 										</div>
 									</div>
-								</td>
-							<?php
-							if ($tot_count != 1 && $tot_count%2 == 0) {  ?> 
-							</tr>
-							<?php 
-							} 
-						} ?>
-						</table>
-					<?php 
-					} ?>
+								<?php
+								if ($tot_count != 1 && $tot_count%2 == 0 ) {  ?> 
+								</div>
+								<?php 
+								} 
+							}
+							?>
+						</div>
+						<?php 
+						} 
+						?>
 					<hr class="form_hr">
-					<div class="left_600">
+					<div class="left_large">
 						<a href="<?php echo NavigationControl::getNavigationLink($module,"users");?>" class="btn btn-inverse">
 						<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 						<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
