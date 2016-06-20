@@ -12,12 +12,12 @@
 <script src="/js/plugins/jqplot/plugins/jqplot.pointLabels.min.js"></script>
 <script type="text/javascript" src="/js/jquery/plugins/accounting.js"></script>
 <link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
-<link href="/js/plugins/DataTables/Buttons-1.2.1/css/buttons.dataTables.min.css" rel="stylesheet">
+<link href="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/css/buttons.dataTables.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/plugins/DataTables/datatables.min.js"></script>
-<script type="text/javascript" src="/js/plugins/DataTables/Buttons-1.2.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="/js/plugins/DataTables/Buttons-1.2.1/js/buttons.flash.min.js"></script>
-<script type="text/javascript" src="/js/plugins/DataTables/Buttons-1.2.1/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="/js/plugins/DataTables/Buttons-1.2.1/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.print.min.js"></script>
 <div class="container-fluid">
 	<?php
 		echo $breadcrumb ;
