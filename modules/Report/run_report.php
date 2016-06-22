@@ -78,21 +78,31 @@ if ((int)$sqcrm_record_id > 0) {
 	if (false === $custom_date_filter_values) $date_range_display = 'style="display:none;margin-left:3px;"';
 }
 ?>
-<link href="/js/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet">
-<script type="text/javascript" src="/js/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
+<link href="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/css/buttons.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/plugins/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.print.min.js"></script>
+<style>
+	div.dt-buttons{
+	margin-bottom:5px;
+}
+</style>
 <script type="text/javascript" charset="utf-8">
-  $(document).ready(function() {
-     oTable = $('#sqcrmlist').dataTable({
-				"paging":   false,
-        "info":     false,
-        "bFilter" : false,
-        "aaSorting": [],
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-            "sSwfPath": "/js/plugins/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
-        }
-			});        
-   });
+$(document).ready(function() {
+	oTable = $('#sqcrmlist').dataTable({
+		"paging":   false,
+		"info":     false,
+		"bFilter" : false,
+		"aaSorting": [],
+		dom: 'Bfrtip',
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		]
+	});        
+});
 </script>
 <div class="container-fluid">
 	<div class="row-fluid">

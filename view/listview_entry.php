@@ -38,6 +38,7 @@ if (!isset($list_special)) {
 }
 
 ?>
+<link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
 	//Select all records
@@ -62,6 +63,8 @@ $(document).ready(function() {
 	// no sort columns setting ends here
 
     oTable = $('#sqcrmlist').dataTable({
+		responsive: true,
+		stateSave: true,
 		"oLanguage":{
 			"sProcessing": "<img src=\"/themes/images/ajax-loader1.gif\" border=\"0\" />",
 				"sLengthMenu": "<?php echo _('Show _MENU_ records per page');?>",
@@ -92,7 +95,7 @@ $(document).ready(function() {
 </script>
 
 <div class="datadisplay-outer">
-<table cellpadding="0" cellspacing="0" border="0" class="datadisplay" id="sqcrmlist">
+<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="sqcrmlist">
 	<thead>
 		<tr>
 		<?php

@@ -12,6 +12,7 @@ function get_field_info_related_view($related_module,$mid) {
 	return $do_crm_list_view->get_listview_field_info($related_module,$mid,"related");
 }
 ?>
+<link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
 <script>
 function get_dont_sort(table_div_id) {
 	var dontSort = [];

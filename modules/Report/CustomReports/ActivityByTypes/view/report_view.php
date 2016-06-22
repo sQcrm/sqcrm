@@ -5,8 +5,13 @@
 * @author Abhik Chakraborty
 */
 ?>
-<link href="/js/plugins/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet">
-<script type="text/javascript" src="/js/plugins/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<link href="/js/plugins/DataTables/datatables.min.css" rel="stylesheet">
+<link href="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/css/buttons.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/plugins/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/js/plugins/DataTables/Buttons-<?php echo DATATABLE_BUTTONS_VERSION;?>/js/buttons.print.min.js"></script>
 <div class="container-fluid">
 	<?php
 		echo $breadcrumb ;
@@ -176,10 +181,10 @@ $(document).ready(function() {
         "info":     false,
         "bFilter" : false,
         "aaSorting": [],
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-			"sSwfPath": "/js/plugins/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
-		}
+        dom: 'Bfrtip',
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		]
 	});    
 	
 	oTable1 = $('#sqcrmlist1').dataTable({
@@ -187,10 +192,10 @@ $(document).ready(function() {
         "info":     false,
         "bFilter" : false,
         "aaSorting": [],
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-			"sSwfPath": "/js/plugins/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
-		}
+        dom: 'Bfrtip',
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		]
 	});      
 });
 </script>
