@@ -60,7 +60,6 @@ class FieldType150 extends CRMFields{
 		} else {
 			$mid = 6 ;
 		}
-		$html .'<div style="float:left;">';
 		$html .='<select class="input-large" name="related_to_opt" id="related_to_opt">';
 		$html .='<option value="6" '.$organization_selected.'>'._('Organization').'</option>';
 		$html .='<option value="4" '.$contact_selected.'>'._('Contacts').'</option>';
@@ -73,22 +72,20 @@ class FieldType150 extends CRMFields{
 		$html .='<div id="related_to_contacts" '.$contact_style.'>';
 		$html .= FieldType130::display_field('contacts_field:::'.$name,$contact_val);
 		$html .='</div>';
-
-		$html .='</div>';
 		$html .= 
 		"\n".
 		'<script>
-			$(\'#related_to_opt\').change( function(){
-				var mid = $(\'#related_to_opt\').val() ;
-				if(mid == 4){
-					$("#related_to_contacts").show();
-					$("#related_to_organization").hide();
-				}
-				if(mid == 6){
-					$("#related_to_organization").show();
-					$("#related_to_contacts").hide();
-				}
-			});
+		$(\'#related_to_opt\').change( function() {
+			var mid = $(\'#related_to_opt\').val() ;
+			if(mid == 4) {
+				$("#related_to_contacts").show();
+				$("#related_to_organization").hide();
+			}
+			if(mid == 6) {
+				$("#related_to_organization").show();
+				$("#related_to_contacts").hide();
+			}
+		});
 		</script>'."\n";        
 		echo $html;
 	}
