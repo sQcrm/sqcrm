@@ -199,21 +199,33 @@ class CRMPluginBase extends DataObject {
 	/**
 	* function to load the active plugins
 	* the active plugins are loaded on persistent object to be accessed across the application
+	* @param boolean $settings
 	* @return void
 	*/
-	public function load_active_plugins() {
+	public function load_active_plugins($settings= false) {
 		$qry = "
 		select * from `".$this->getTable()."`" ;
 		$stmt = $this->getDbConnection()->prepare($qry);
 		$stmt->execute();
 		if ($stmt->rowCount() > 0) {
 			$plugins = array();
+			$do_plugin_permission = new CRMPluginPermission();
 			while ($row = $stmt->fetch()) {
-				$plugins[$row["idplugins"]] = array(
-					"name"=>$row["name"],
-					"action_priority"=>$row["action_priority"],
-					"display_priority"=>$row["display_priority"]
-				) ;
+				if (false === $settings) {
+					if (true === $do_plugin_permission->is_plugin_allowed($row["name"])) {
+						$plugins[$row["idplugins"]] = array(
+							"name"=>$row["name"],
+							"action_priority"=>$row["action_priority"],
+							"display_priority"=>$row["display_priority"]
+						);
+					}
+				} else {
+					$plugins[$row["idplugins"]] = array(
+						"name"=>$row["name"],
+						"action_priority"=>$row["action_priority"],
+						"display_priority"=>$row["display_priority"]
+					);
+				}
 			}
 			$this->active_plugins = $plugins ;
 		}

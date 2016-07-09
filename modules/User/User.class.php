@@ -105,7 +105,8 @@ class User extends DataObject {
 				"user_name"=>$this->user_name,
 				"firstname"=>$this->firstname,
 				"lastname"=>$this->lastname,
-				"email"=>$this->email
+				"email"=>$this->email,
+				"is_admin"=>$this->is_admin
 			);
 		}
 		return $return_array ;

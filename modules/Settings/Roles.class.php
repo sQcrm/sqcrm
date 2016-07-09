@@ -312,4 +312,22 @@ class Roles extends DataObject {
 			$evctl->setDisplayNext($dis) ;
 		}
 	}
+	
+	/**
+	* function to get all the roles 
+	* @param array
+	*/
+	function get_all_roles() {
+		$this->query("select * from ".$this->getTable()." order by idrole");
+		$roles = array();
+		if ($this->getNumRows() > 0) {
+			while ($this->next()) {
+				$roles[] = array(
+					"rolename"=>$this->rolename,
+					"idrole"=>$this->idrole,
+				);
+			}
+		}
+		return $roles;
+	}
 }
