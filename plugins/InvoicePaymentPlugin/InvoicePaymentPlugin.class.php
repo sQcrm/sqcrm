@@ -19,7 +19,7 @@ class InvoicePaymentPlugin extends CRMPluginProcessor {
 		$this->set_plugin_name('InvoicePaymentPlugin') ; // required same as your class name 
 		$this->set_plugin_type(array(7)); // required 
 		$this->set_plugin_modules(array(15)); // required
-		$this->set_plugin_position(2); // required
+		$this->set_detail_view_plugin_position(array(2)); // required
 		$this->set_plugin_description(
 			_('Plugin to log the invoice payments, along with display the payments which are already made for the invoice.')
 		); // optional
