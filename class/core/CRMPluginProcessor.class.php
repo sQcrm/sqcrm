@@ -29,7 +29,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 			});
 			foreach ($active_plugins as $key=>$plugin) {
 				$plugin_object = new $plugin["name"]() ;
-				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==1) {
+				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) &&  in_array(1,$plugin_object->get_detail_view_plugin_position())) {
 					echo '<div class="box_content" id="'.$plugin["name"].'">' ;
 					echo '</div>';
 					echo '
@@ -61,7 +61,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 			});
 			foreach ($active_plugins as $key=>$plugin) {
 				$plugin_object = new $plugin["name"]() ;
-				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==2) {
+				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(7,$plugin_object->get_plugin_type()) && in_array(2,$plugin_object->get_detail_view_plugin_position())) {
 					echo '<li id="plugin_'.$plugin_object->get_plugin_name().'" class="">' ;
 					echo '<a href="#" onclick = "process_detail_view_tab_plugin(\''.$plugin["name"].'\',\''.$plugin_object->get_resource_name().'\','.$idmodule.','.$sqcrm_record_id.')" data-toggle ="tab" >';
 					echo $plugin_object->get_plugin_tab_name();
@@ -184,7 +184,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 			});
 			foreach ($active_plugins as $key=>$plugin) {
 				$plugin_object = new $plugin["name"]() ;
-				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(8,$plugin_object->get_plugin_type()) && $plugin_object->get_plugin_position() ==1) {
+				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(8,$plugin_object->get_plugin_type()) && in_array(1,$plugin_object->get_list_view_plugin_position())) {
 					echo '<a href="#" class="btn btn-primary btn-mini bs-prompt" id="'.$plugin["name"].'">';
 					echo '</a>';
 					echo '

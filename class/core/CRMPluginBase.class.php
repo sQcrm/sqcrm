@@ -24,6 +24,12 @@ class CRMPluginBase extends DataObject {
 	// holds the plugin position
 	protected $plugin_position = 0 ;
 	
+	// holds the detail view plugin position
+	protected $detail_view_plugin_position = array();
+	
+	// holds the list view plugin position
+	protected $list_view_plugin_position = array();
+	
 	// holds the active plugins
 	protected $active_plugins = array() ;
 	
@@ -106,6 +112,7 @@ class CRMPluginBase extends DataObject {
 	/**
 	* set the plugin postion
 	* @param integer $position
+	* @deprecated
 	*/
 	public function set_plugin_position($position) {
 		$this->plugin_position = $position ;
@@ -114,9 +121,42 @@ class CRMPluginBase extends DataObject {
 	/**
 	* get the plugin position
 	* @return integer
+	* @deprecated
 	*/
 	public function get_plugin_position() {
 		return $this->plugin_position ;
+	}
+	
+	/**
+	* set the detail view plugin position
+	* @param array $position
+	*/
+	public function set_detail_view_plugin_position($position) {
+		$this->detail_view_plugin_position = $position;
+	}
+	
+	/**
+	* gets the detail view plugin position
+	* @return array
+	*/
+	public function get_detail_view_plugin_position() {
+		return $this->detail_view_plugin_position;
+	}
+	
+	/**
+	* set the list view plugin position
+	* @param array $position
+	*/
+	public function set_list_view_plugin_position($position) {
+		$this->list_view_plugin_position = $position;
+	}
+	
+	/**
+	* gets the list view plugin position
+	* @return array
+	*/
+	public function get_list_view_plugin_position() {
+		return $this->list_view_plugin_position;
 	}
 	
 	/**

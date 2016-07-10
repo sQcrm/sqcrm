@@ -30,7 +30,7 @@ function load_detail_view_plugin(plugin_name,resource_name,idmodule,sqcrm_record
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id+"&plugin_position=1",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
 			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
@@ -67,7 +67,7 @@ function process_detail_view_tab_plugin(plugin_name,resource_name,idmodule,sqcrm
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id+"&plugin_position=2",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
 			$('#detail_view_section').html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
@@ -94,7 +94,7 @@ function load_list_view_action_plugin(plugin_name,resource_name,idmodule) {
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&plugin_position=1",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
 			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
