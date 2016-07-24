@@ -31,8 +31,14 @@ class PluginSettings extends CRMPluginBase {
 		$string = '';
 		if (in_array(1,$type) || in_array(2,$type) || in_array(3,$type) || in_array(4,$type) || in_array(5,$type) || in_array(6,$type)) {
 			$string .= _('Action type plugin');
-		} elseif (in_array(7,$type)) {
+		} 
+		if (in_array(7,$type)) {
+			if (strlen($string) > 2 ) $string .= ' ,';
 			$string .= _('Detail view plugin');
+		} 
+		if (in_array(8,$type)) {
+			if (strlen($string) > 2 ) $string .= ' ,';
+			$string .= _('List view plugin');
 		}
 		return $string ;
 	}
