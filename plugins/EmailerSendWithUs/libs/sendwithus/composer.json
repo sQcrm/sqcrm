@@ -1,0 +1,11 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/sendwithus/sendwithus_php"
+        }
+    ],
+    "require": {
+        "sendwithus/api": "dev-master"
+    }
+}

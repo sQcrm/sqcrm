@@ -1,0 +1,48 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "981dbb239787e30a3307047015612060",
+    "content-hash": "b0476e97cb729101c3868218fb7758cf",
+    "packages": [
+        {
+            "name": "sendwithus/api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sendwithus/sendwithus_php.git",
+                "reference": "1e944c4c80ddb306b1c35dae68858f3535860193"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sendwithus/sendwithus_php/zipball/1e944c4c80ddb306b1c35dae68858f3535860193",
+                "reference": "1e944c4c80ddb306b1c35dae68858f3535860193",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "description": "sendwithus.com PHP Client",
+            "support": {
+                "source": "https://github.com/sendwithus/sendwithus_php/tree/master",
+                "issues": "https://github.com/sendwithus/sendwithus_php/issues"
+            },
+            "time": "2016-06-14 22:40:46"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "sendwithus/api": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
