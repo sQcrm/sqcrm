@@ -10,7 +10,7 @@
 use sendwithus\API;
 class EmailerSendWithUs extends CRMPluginProcessor {
 	
-	private $api_key = 'test_aee42e80f0cf6b2c9ce42cf09ab2f1d13059d724';
+	private $api_key = '';
     
 	/**
 	* constructor function for the sQcrm plugin
