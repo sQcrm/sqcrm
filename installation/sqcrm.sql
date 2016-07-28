@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.49, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.50, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.49-0ubuntu0.14.04.1
+-- Server version	5.5.50-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1861,6 +1861,59 @@ LOCK TABLES `plugins` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `plugins_permissions`
+--
+
+DROP TABLE IF EXISTS `plugins_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `plugins_permissions` (
+  `idplugins_permissions` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `type` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`idplugins_permissions`),
+  KEY `name_idx` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plugins_permissions`
+--
+
+LOCK TABLES `plugins_permissions` WRITE;
+/*!40000 ALTER TABLE `plugins_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plugins_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plugins_permissions_attributes`
+--
+
+DROP TABLE IF EXISTS `plugins_permissions_attributes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `plugins_permissions_attributes` (
+  `idplugins_permissions_attributes` int(11) NOT NULL AUTO_INCREMENT,
+  `idplugins_permissions` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT '0',
+  `idrole` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idplugins_permissions_attributes`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `idrole_idx` (`idrole`),
+  KEY `idplugins_permissions_idx` (`idplugins_permissions`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plugins_permissions_attributes`
+--
+
+LOCK TABLES `plugins_permissions_attributes` WRITE;
+/*!40000 ALTER TABLE `plugins_permissions_attributes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plugins_permissions_attributes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pot_to_grp_rel`
 --
 
@@ -3362,4 +3415,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-21 14:32:35
+-- Dump completed on 2016-07-28 22:41:36
