@@ -97,15 +97,16 @@ class User extends DataObject {
 	*/
 	public function get_active_users() {
 		$sql = "select * from ".$this->getTable()." where `deleted` = 0  order by firstname asc" ;
-		$this->query($sql) ;
+		$stmt = $this->getDbConnection()->executeQuery($sql);
 		$return_array = array() ;
-		while ($this->next()) {
+		while ($data = $stmt->fetch()) {
 			$return_array[] = array(
-				"iduser"=>$this->iduser,
-				"user_name"=>$this->user_name,
-				"firstname"=>$this->firstname,
-				"lastname"=>$this->lastname,
-				"email"=>$this->email
+				"iduser"=>$data['iduser'],
+				"user_name"=>$data['user_name'],
+				"firstname"=>$data['firstname'],
+				"lastname"=>$data['lastname'],
+				"email"=>$data['email'],
+				"is_admin"=>$data['is_admin']
 			);
 		}
 		return $return_array ;

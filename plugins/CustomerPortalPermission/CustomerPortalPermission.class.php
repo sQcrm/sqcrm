@@ -20,7 +20,7 @@ class CustomerPortalPermission extends CRMPluginProcessor {
 		$this->set_plugin_name('CustomerPortalPermission') ; // required same as your class name 
 		$this->set_plugin_type(array(7)); // required 
 		$this->set_plugin_modules(array(6)); // required
-		$this->set_plugin_position(2); // required
+		$this->set_detail_view_plugin_position(array(2)); // required
 		$this->set_plugin_description(
 			_('This plugin will help to manage the different permission levels for the customer portal logins.'
 			)

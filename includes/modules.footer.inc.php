@@ -27,13 +27,14 @@ function load_detail_view_plugin(plugin_name,resource_name,idmodule,sqcrm_record
 	} else {
 		file_name = resource_name ;
 	}
+	$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />');
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id+"&plugin_type=7&plugin_position=1",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
-			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
+			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />');
 		},
 		success: function(result) { 
 			$('#'+plugin_name).html(result);
@@ -67,7 +68,7 @@ function process_detail_view_tab_plugin(plugin_name,resource_name,idmodule,sqcrm
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&sqrecord="+sqcrm_record_id+"&plugin_type=7&plugin_position=2",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
 			$('#detail_view_section').html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
@@ -91,10 +92,11 @@ function load_list_view_action_plugin(plugin_name,resource_name,idmodule) {
 	} else {
 		file_name = resource_name ;
 	}
+	$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 
 	$.ajax({
 		type: "GET",
 		url: '/plugins.php',
-		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule,
+		data : "plugin_name="+plugin_name+"&resource_name="+file_name+"&idmodule="+idmodule+"&plugin_type=8&plugin_position=1",
 		beforeSubmit: function() {
 			//Including a preloader, it loads into the div tag with id uploader
 			$('#'+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); 

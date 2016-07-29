@@ -37,7 +37,7 @@ class FullContact extends CRMPluginProcessor {
 		$this->set_plugin_name('FullContact') ; // required same as your class name 
 		$this->set_plugin_type(array(7)); // required 
 		$this->set_plugin_modules(array(4,6)); // required
-		$this->set_plugin_position(1); // required
+		$this->set_detail_view_plugin_position(array(1)); // required
 		$this->set_plugin_description(
 			_('This plugin is to get the full information of the Contact or organization by domain name using the FullContact API. 
 			You need to have your own api key and you can get it from 

@@ -1,0 +1,31 @@
+[
+    {
+        "name": "sendwithus/api",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sendwithus/sendwithus_php.git",
+            "reference": "1e944c4c80ddb306b1c35dae68858f3535860193"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sendwithus/sendwithus_php/zipball/1e944c4c80ddb306b1c35dae68858f3535860193",
+            "reference": "1e944c4c80ddb306b1c35dae68858f3535860193",
+            "shasum": ""
+        },
+        "time": "2016-06-14 22:40:46",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "lib"
+            ]
+        },
+        "description": "sendwithus.com PHP Client",
+        "support": {
+            "source": "https://github.com/sendwithus/sendwithus_php/tree/master",
+            "issues": "https://github.com/sendwithus/sendwithus_php/issues"
+        }
+    }
+]

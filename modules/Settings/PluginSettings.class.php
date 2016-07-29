@@ -31,8 +31,14 @@ class PluginSettings extends CRMPluginBase {
 		$string = '';
 		if (in_array(1,$type) || in_array(2,$type) || in_array(3,$type) || in_array(4,$type) || in_array(5,$type) || in_array(6,$type)) {
 			$string .= _('Action type plugin');
-		} elseif (in_array(7,$type)) {
+		} 
+		if (in_array(7,$type)) {
+			if (strlen($string) > 2 ) $string .= ' ,';
 			$string .= _('Detail view plugin');
+		} 
+		if (in_array(8,$type)) {
+			if (strlen($string) > 2 ) $string .= ' ,';
+			$string .= _('List view plugin');
 		}
 		return $string ;
 	}
@@ -42,7 +48,7 @@ class PluginSettings extends CRMPluginBase {
 	* @return array 
 	*/
 	public function get_activated_plugins() {
-		$this->load_active_plugins();
+		$this->load_active_plugins(true);
 		return $this->get_active_plugins(); 
 	}
 	
@@ -65,7 +71,7 @@ class PluginSettings extends CRMPluginBase {
 			}
 		} else {
 			$_SESSION["do_crm_messages"]->set_message('error',_('You do not have permission to delete record !'));
-			$next_page = NavigationControl::getNavigationLink("Settings","plugis");
+			$next_page = NavigationControl::getNavigationLink("Settings","plugins");
 			$dis = new Display($next_page);
 			$evctl->setDisplayNext($dis) ;
 		}
@@ -81,12 +87,16 @@ class PluginSettings extends CRMPluginBase {
 			$this->getId($evctl->id) ;
 			if ($this->getNumRows() > 0) {
 				$plugin_name = $this->name ;
+				// delete from plugins table
 				$qry = "
 				delete from `".$this->getTable()."`
 				where `idplugins` = ?
 				";
 				$this->query($qry,array($evctl->id));
+				// call any other methods which should be called upon deactivation
 				$this->call_on_deactivate_plugin_method($plugin_name) ;
+				// clean the permissions
+				$this->clean_plugin_permissions($plugin_name);
 				echo $plugin_name ;
 			}
 		}
@@ -284,6 +294,152 @@ class PluginSettings extends CRMPluginBase {
 				" ;
 				$this->query($qry,array($key+1,$val["id"])) ;
 			}
+		}
+	}
+	
+	/**
+	* event function to load the plugin permissions 
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventGetPluginPermissionsData(EventControler $evctl) {	
+		$do_roles = new Roles();
+		$do_plugin_permission = new CRMPluginPermission();
+		$available_roles = $do_roles->get_all_roles();
+		$active_users = $_SESSION['do_user']->get_active_users();
+		$plugin_name = $evctl->plugin_name;
+		
+		$permission = $do_plugin_permission->get_plugins_permission($plugin_name);
+		$user_permission = array(); 
+		$roles_permission = array();
+		$roles_data = array();
+		$users_data = array();
+		$permission_type = 0;
+		$return_array = array();
+		
+		if (false !== $permission) {
+			$permission_type = $permission['type'];
+			if ($permission_type == 2) {
+				$roles_permission = $permission['by_roles_data'];
+			} elseif ($permission_type == 3) {
+				$user_permission = $permission['by_users_data'];
+			}
+		}
+		
+		foreach($available_roles as $key=>$val) {
+			if ($val['idrole'] == 'N1') continue;
+			$selected = false ;
+			$data = array();
+			if (in_array($val['idrole'],$roles_permission)) {
+				$selected = true ;
+			}
+			$data = array(
+				'idrole'=>$val['idrole'],
+				'rolename'=>$val['rolename'],
+				'selected'=>$selected
+			);
+			$roles_data[] = $data;
+		}
+		
+		foreach($active_users as $key=>$val) {
+			if ($val['is_admin'] == 1) continue;
+			$selected = false ;
+			$data = array();
+			if (in_array($val['iduser'],$user_permission)) {
+				$selected = true ;
+			}
+			$data = array(
+				'iduser'=>$val['iduser'],
+				'user_name'=>$val['user_name'],
+				'firstname'=>$val['firstname'],
+				'lastname'=>$val['lastname'],
+				'selected'=>$selected
+			);
+			$users_data[] = $data;
+		}
+		
+		$return_array = array(
+			'all_users'=>($permission_type == 1 ? true:false),
+			'by_roles'=>($permission_type == 2 ? true:false),
+			'by_roles_data'=>$roles_data,
+			'by_users'=>($permission_type == 3 ? true:false),
+			'by_users_data'=>$users_data
+		);
+		echo json_encode($return_array);
+	}
+	
+	/**
+	* event to set the plugin permissions
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventUpdatePluginPermission(EventControler $evctl) {
+		$do_plugin_permission = new CRMPluginPermission();
+		$plugin_name = $evctl->plugin_name;
+		$all_users = $evctl->all_users;
+		$by_roles = $evctl->by_roles;
+		$by_users = $evctl->by_users;
+		$permission_type = 0;
+		$attribute = array();
+		
+		if ($by_roles == 'on') {
+			$attribute = $evctl->roles_data;
+			$permission_type = 2;
+		} elseif ($by_users == 'on') {
+			$attribute = $evctl->users_data;
+			$permission_type = 3;
+		} else {
+			$permission_type = 1;
+		}
+		
+		$err = '';
+		if ($all_users != 'on' || $by_roles != 'on' || $by_users != 'on') {
+			$err = _('Please check one permission option before saving');
+		} elseif (($by_roles == 'on' || $by_users == 'on') && count($attribute) > 0) {
+			$err = _('Please select some permission attributes before saving');
+		}
+		if ($err != '') {
+			$permission = $do_plugin_permission->get_plugins_permission($plugin_name);
+			if (false === $permission) {
+				$do_plugin_permission = new CRMPluginPermission();
+				$do_plugin_permission->addNew();
+				$do_plugin_permission->name = $plugin_name;
+				$do_plugin_permission->type = $permission_type;
+				$do_plugin_permission->add();
+				$idplugins_permissions = $do_plugin_permission->getInsertId();
+				
+				if ($permission_type == 2 || $permission_type == 3) {
+					$do_plugin_permission->add_permission_attributes($idplugins_permissions,$permission_type,$attribute);
+				}
+			} else {
+				$id = $permission['id'];
+				// update the plugins_permissions
+				$qry = "update `plugins_permissions` set type = ? where `idplugins_permissions` = ?";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($permission_type,$id));
+				
+				// update the plugins_permissions_attributes
+				$qry = "delete from `plugins_permissions_attributes` where `idplugins_permissions` = ?";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($id));
+				if ($permission_type == 2 || $permission_type == 3) {
+					$do_plugin_permission->add_permission_attributes($id,$permission_type,$attribute);
+				}
+				
+			}
+			echo '1';
+		} else {
+			echo $err;
+		}
+	}
+	
+	public function clean_plugin_permissions($plugin_name) {
+		$do_plugin_permission = new CRMPluginPermission();
+		$permission = $do_plugin_permission->get_plugins_permission($plugin_name);
+		if (false !== $permission) {
+			$id = $permission['id'];
+			$qry = "delete from `plugins_permissions` where `idplugins_permissions` = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($id));
+			$qry = "delete from `plugins_permissions_attributes` where `idplugins_permissions` = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($id));
 		}
 	}
 }
