@@ -13,8 +13,8 @@ $config = new \Doctrine\DBAL\Configuration();
 
 $connectionParams = array(
     'dbname' => 'sqcrm',
-    'user' => 'root',
-    'password' => 'abhik',
+    'user' => 'sqcrmuser',
+    'password' => '5ql6rm',
     'host' => 'localhost',
     'driver' => 'pdo_mysql',
     'charset' => 'utf8',
