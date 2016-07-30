@@ -52,7 +52,7 @@ class LoginAudit extends DataObject {
 	public function do_login_audit($action="Login", $iduser = "") {
 		if ($iduser == "") { $iduser = $_SESSION["do_user"]->iduser ; }
 		$this->addNew();
-		$this->action_date = date("Y-m-d h:i:s");
+		$this->action_date = date("Y-m-d H:i:s");
 		$this->ip_address = CommonUtils::get_user_ip_address();
 		$this->action = $action;
 		$this->iduser = $iduser;
