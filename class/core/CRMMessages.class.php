@@ -109,7 +109,7 @@ class CRMMessages extends DataObject {
 		switch ($type) {
 			case 'error':
 				if (strlen($content) > 0) {
-					$html = '<div class="alert alert-error '.$top_message_css.'" id="'.$div_id.'">';
+					$html = '<div class="alert alert-danger '.$top_message_css.'" id="'.$div_id.'">';
 					if ($close === true) $html .= '<a href="#" class="close" data-dismiss="alert">&times;</a>';
 					$html .= '<strong>'.$content.'</strong>';
 					$html .= '</div>';
@@ -118,7 +118,7 @@ class CRMMessages extends DataObject {
 
 			case 'warning':
 				if (strlen($content) > 0) {
-					$html = '<div class="alert '.$top_message_css.'" id="'.$div_id.'">';
+					$html = '<div class="alert alert-warning '.$top_message_css.'" id="'.$div_id.'">';
 					if ($close === true) $html .= '<a href="#" class="close" data-dismiss="alert">&times;</a>';
 					$html .= '<strong>'.$content.'</strong>';
 					$html .= '</div>';

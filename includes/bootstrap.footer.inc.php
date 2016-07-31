@@ -5,8 +5,8 @@
 * @author Abhik Chakraborty
 */
 ?>
-<script src="/themes/bootstrap/js/bootstrap.js"></script>
-<script src="/themes/bootstrap/js/bootstrap-modal.js?v=0.9"></script>
-<script src="/themes/bootstrap/js/bootstrap-alert.js?v=0.9"></script>
-<script src="/themes/bootstrap/js/bootstrap-datepicker.js"></script>
-<script src="/themes/bootstrap/js/bootstrap-timepicker.js"></script>
+<script src="/themes/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/themes/bootstrap/js/modal.js?v=0.9"></script>
+<script src="/themes/bootstrap/js/alert.js?v=0.9"></script>
+<script src="/themes/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/themes/plugins/timepicker/bootstrap-timepicker.js"></script>

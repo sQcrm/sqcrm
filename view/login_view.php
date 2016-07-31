@@ -6,63 +6,49 @@
 * @author Abhik Chakraborty
 */  
 ?>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span3"></div>
-		<div class="span6" style="margin-left:3px;">
-			<div class="box_content">
-				<?php
-				$e_login = new Event("User->eventLogin");
-				if ($login_next_url == '') {
-					$goto_after_login = NavigationControl::getNavigationLink("Home","index") ;
-				} else {
-				// need to check if cross-side script is added 
-					$goto_after_login = $_SERVER['REQUEST_URI'];
-					// lets do some purify
-					$goto_after_login = strip_tags($goto_after_login);
-				}
-				$e_login->addParam("goto",$goto_after_login);
-				if ((int)$sqcrm_record_id > 0) {
-					$e_login->addParam("sqrecord",$sqcrm_record_id);
-				}
-				echo '<form class="form-horizontal" id="User__eventLogin" name="User__eventLogin" action="/eventcontroler.php" method="post">';
-				echo $e_login->getFormEvent();
-				?>
-				<table>
-					<tr>
-						<td width="40%" align="center">
-							<!-- You can add your logo here -->
-							<img src="/themes/images/logo.jpg">
-							<!--<h2>sQcrm Beta</h2>
-							<h4>CRM for your business.</h4>-->
-						</td>
-						<td width="40%">
-							<table style="">
-								<tr>
-									<td>
-										<span class="add-on"><i class="icon-user"></i></span>
-										<input name="user_name" id="user_name" class="username" placeholder="<?php echo _('Username');?>" type="text">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="add-on"><i class="icon-lock"></i></span>
-										<input name="user_password" id="user_password" class="password" placeholder="<?php echo _('Password');?>" type="password">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" align="right">
-										<input type="submit" name="login_submit" class="btn btn-primary" value="<?php echo _('Login');?>">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				</form>
-			</div>
-		</div>
-		<div class="span3"></div>
-		</div><!--/span-->
-	</div><!--/row-->
+<div class="container">    
+	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+		<div class="panel panel-info" >
+			<div class="panel-heading">
+				<div class="panel-title"><?php echo _('Sign In');?></div>
+			</div>     
+			<div style="padding-top:30px" class="panel-body" >
+				<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+					<?php
+					$e_login = new Event("User->eventLogin");
+					if ($login_next_url == '') {
+						$goto_after_login = NavigationControl::getNavigationLink("Home","index") ;
+					} else {
+					// need to check if cross-side script is added 
+						$goto_after_login = $_SERVER['REQUEST_URI'];
+						// lets do some purify
+						$goto_after_login = strip_tags($goto_after_login);
+					}
+					$e_login->addParam("goto",$goto_after_login);
+					if ((int)$sqcrm_record_id > 0) {
+						$e_login->addParam("sqrecord",$sqcrm_record_id);
+					}
+					echo '<form role="form" class="form-horizontal" id="User__eventLogin" name="User__eventLogin" action="/eventcontroler.php" method="post">';
+					echo $e_login->getFormEvent();
+					?>
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input name="user_name" id="user_name" type="text" class="form-control" value="" placeholder="<?php echo _('Username');?>">                                        
+					</div>
+					
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<input name="user_password" id="user_password" type="password" class="form-control" placeholder="<?php echo _('Password');?>">
+					</div>
+
+					<div style="margin-top:10px" class="form-group">
+						<!-- Button -->
+						<div class="col-sm-12 controls">
+							<input type="submit" name="login_submit" class="btn btn-success" value="<?php echo _('Login');?>">
+						</div>
+					</div>
+				</form>     
+			</div>                     
+		</div>  
+	</div>
 </div>
