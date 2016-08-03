@@ -9,16 +9,16 @@
 <link rel="stylesheet" type="text/css" href="/js/plugins/jqplot/jquery.jqplot.min.css" />
 <script src="/js/plugins/jqplot/jquery.jqplot.min.js"></script>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
 				<div class="datadisplay-outer">
 					<div class="left_300" id="select_widget">
-						<a href="#" class="btn btn-primary btn-small bs-prompt" id="add_widget">
-							<i class="icon-white icon-plus"></i> <?php echo _('add a widget to dashboard');?>
+						<a href="#" class="btn btn-primary" id="add_widget">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo _('add a widget to dashboard');?>
 						</a>
 					</div>
-					<div class="left_600" id="available_widgets" style="display:none;">	
+					<div class="" id="available_widgets" style="display:none;">	
 					</div>
 					<div class="clear_float"></div>
 				</div>
@@ -27,9 +27,9 @@
 	</div>
 	<?php
 	if (count($widgets) == 0) { ?>
-	<div class="row-fluid" id="no_widget_message_block">
-		<div class="span12">
-			<div class="row-fluid">
+	<div class="row" id="no_widget_message_block">
+		<div class="col-md-12">
+			<div class="row">
 				<div class="datadisplay-outer">
 					<div class="alert alert-info">
 					<?php
@@ -53,10 +53,10 @@
 	<?php
 	}
 	?>
-	<div class="row-fluid">
-		<div class="span6">
-			<div class="row-fluid">
-				<ol class="serialization-home-page" style="margin-left:0px;" id="widget_left">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+				<ol class="serialization-home-page" style="margin-left:-30px;" id="widget_left">
 				<?php
 				if (array_key_exists('left',$widgets) && count($widgets['left']) > 0) {
 					foreach($widgets['left'] as $key=>$val) {
@@ -71,9 +71,10 @@
 				</ol>
 			</div><!--/row-->
 		</div><!--/span-->
-		<div class="span6">
-			<div class="row-fluid">
-				<ol class="serialization-home-page" style="margin-left:0px;" id="widget_right">
+
+		<div class="col-md-6">
+			<div class="row">
+				<ol class="serialization-home-page" style="margin-left:-30px;margin-right:5px;" id="widget_right">
 				<?php
 				if (array_key_exists('right',$widgets) && count($widgets['right']) > 0) {
 					foreach($widgets['right'] as $key=>$val) {

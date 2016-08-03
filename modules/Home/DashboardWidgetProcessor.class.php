@@ -125,22 +125,28 @@ class DashboardWidgetProcessor extends CRMDashboardWidget {
 		if ($available_widgets_count == $user_widgets_count) {
 			echo '0' ;
 		} else {
-			$html = '<select name="widget_selector" id="widget_selector">' ;
+			$html = '<div class="row">';
+			$html .= '<div class="col-xs-5">';
+			$html .= '<select name="widget_selector" id="widget_selector" class="form-control input-sm">' ;
 			foreach ($available_widgets as $key=>$val) {
 				if (in_array($key,$user_widgets)) continue ;
 				$html .= '<option value="'.$key.'">'.$val['widget_title'].'</option>' ;
 			}
 			$html .= '</select>' ;
-			$html .= '&nbsp;&nbsp;&nbsp;' ;
-			$html .= '<select name="widget_position_selector" id = "widget_position_selector">' ;
+			$html .= '</div>';
+			$html .= '<div class="col-xs-5">';
+			
+			$html .= '<select name="widget_position_selector" id = "widget_position_selector" class="form-control input-sm">' ;
 			$html .= '<option value = "1">'._('on left block of dashboard').'</option>';
 			$html .= '<option value = "2">'._('on right block of dashboard').'</option>';
 			$html .= '</select>' ;
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '<br /><input class="btn btn-primary btn-sm" value="'._('save').'" type="button" id="save_widget" style="margin-top:0px;">' ;
 			$html .= '&nbsp;&nbsp;&nbsp;' ;
-			$html .= '<br /><input class="btn btn-primary btn-small bs-prompt" value="'._('save').'" type="button" id="save_widget" style="margin-top:0px;">' ;
-			$html .= '&nbsp;&nbsp;&nbsp;' ;
-			$html .= '<a href="#" class="btn btn-inverse btn-small bs-prompt" id="cancel_save_widget">';
-			$html .= '<i class="icon-white icon-remove-sign"></i>'._('cancel').'</a>' ;
+			$html .= '<a href="#" class="btn btn-default btn-sm active" id="cancel_save_widget">';
+			$html .= '<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> '._('cancel').'</a>' ;
+			
 			echo $html ;
 		}
 	}	
