@@ -52,7 +52,6 @@ $(document).ready(function() {
 		"aoColumns":get_dont_sort('<?php echo $val["id"];?>'),
 		"bProcessing": false,
 		"bServerSide": true,
-		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span'6'p>>'",
 		"sPaginationType": "full_numbers",
 		"sAjaxSource": "/listdata_related.php?m=<?php echo $key;?>&sqcrmid=<?php echo $sqcrm_record_id;?>&module=<?php echo $module;?>&related_method=<?php echo $val["method"];?>",
 		"fnServerParams": function ( aoData ) {
@@ -66,7 +65,7 @@ $(document).ready(function() {
 <h6><?php echo $val["heading"];?></h6>
 <br />
 <div class="datadisplay-outer">
-<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="<?php echo $val["id"] ;?>">
+<table cellspacing="0" width="100%" class="datadisplay nowrap dt-responsive" id="<?php echo $val["id"] ;?>">
 	<thead>
 		<tr>
 			<?php

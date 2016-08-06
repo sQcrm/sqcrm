@@ -26,7 +26,7 @@ include_once("config.php");
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-default" id="close-avatar-popup" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+		<a href="#" class="btn btn-default active" id="close-avatar-popup" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
 		<input type="submit" class="btn btn-primary" value="<?php echo _('Save Changes')?>"/>
 	</div>
 	</form>

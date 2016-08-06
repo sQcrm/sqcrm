@@ -16,8 +16,8 @@
 	<?php
 		echo $breadcrumb ;
 	?>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<form id="filter_run_time">
 				<input type="hidden" name="runtime" value="1">
@@ -25,7 +25,7 @@
 				<input type="hidden" name="resource" value="<?php echo $_GET['resource']?>">
 				<div class="left_250" style="margin-left:3px;">
 				<?php echo _('Date Filter Type');?><br />
-					<select name="report_date_filter_type_runtime" id="report_date_filter_type_runtime">
+					<select name="report_date_filter_type_runtime" id="report_date_filter_type_runtime" class="form-control input-sm">
 					<?php
 					foreach ($date_filter_options as $key=>$val) {
 						if (!in_array($key,$allowed_date_filter)) continue;
@@ -45,8 +45,8 @@
 		</div>
 	</div>
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<div class="left_300"  id="">
 					<p><strong><?php echo $title.' :: '.$series_label['current']; ?></strong></p>
@@ -80,8 +80,8 @@
 	</div>
 	
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<div class="left_300"  id="">
 					<p><strong><?php echo $title.' :: '.$series_label['previous']; ?></strong></p>

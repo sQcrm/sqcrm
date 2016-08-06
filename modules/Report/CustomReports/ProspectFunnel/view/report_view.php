@@ -20,8 +20,8 @@
 	<?php
 		echo $breadcrumb ;
 	?>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<form id="filter_run_time">
 				<input type="hidden" name="runtime" value="1">
@@ -29,7 +29,7 @@
 				<input type="hidden" name="resource" value="<?php echo $_GET['resource']?>">
 				<div class="left_250" style="margin-left:3px;">
 				<?php echo _('Date Filter Type');?><br />
-					<select name="report_date_filter_type_runtime" id="report_date_filter_type_runtime">
+					<select name="report_date_filter_type_runtime" id="report_date_filter_type_runtime" class="form-control input-sm">
 					<?php
 					foreach ($date_filter_options as $key=>$val) {
 						$selected = ($date_filter_type == $key ? 'SELECTED':'');
@@ -54,7 +54,7 @@
 				</div>
 				<div class="left_300" id="report_user_filter">
 					<?php echo _('User');?><br />
-					<select name="report_user_filter_runtime" id="report_user_filter_runtime">
+					<select name="report_user_filter_runtime" id="report_user_filter_runtime" class="form-control input-sm">
 						<option value="0"><?php echo _('All');?></option>
 						<?php
 						if (is_array($user_list) && count($user_list) >0) {
@@ -76,8 +76,8 @@
 		</div>
 	</div>
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span6">
+	<div class="row">
+		<div class="col-md-6">
 			<div class="datadisplay-outer">
 				<p><strong><?php echo _('Prospect Funnel By Stage and Amount');?> <?php echo ($funnel_data_by_amount["grand_total"] > 0 ? _(' - Totalling ').FieldType30::display_value($funnel_data_by_amount["grand_total"]):'');?></strong></p>
 				<div id="c1">
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 		
-		<div class="span6">
+		<div class="col-md-6">
 			<div class="datadisplay-outer" >
 				<p><strong><?php echo _('Prospect Funnel By Stage and Number');?> <?php echo ($funnel_data_by_no["grand_total"] > 0 ? _(' - Totalling ').$funnel_data_by_no["grand_total"]:'');?></strong></p>
 				<div id="c2"></div>
@@ -93,8 +93,8 @@
 		</div>
 	</div>
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<div class="left_300"  id="">
 					<p><strong><?php echo _('Detailed report'); ?></strong></p>

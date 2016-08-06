@@ -66,22 +66,22 @@ if ($allow_transfer === true) {
 	echo '<form class="form-horizontal" id="CRMEntity__eventChangeAssignedToEntity" name="CRMEntity__eventChangeAssignedToEntity" action="/eventcontroler.php" method="post">';
 	echo $e_change->getFormEvent();
 ?>
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<h3><?php echo _('Change Assigned to');?></h3>
-	</div>
-	<div class="modal-body">
-		<?php echo _('Please select an user or group to change the assigned to');?><br />
-		<?php
-		if ($group_transfer === true) {
-		?>
-			<div class="btn-group" data-toggle="buttons-radio">
-				<label class="btn"><input type = "radio" name="assigned_to_selector" value="user" CHECKED><?php echo _('User');?></label>
-				<label class="btn"><input type = "radio" name="assigned_to_selector" value="group"><?php echo _('Group');?></label>
-			</div>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Change Assigned to');?></span></h3>
+		</div>
+		<div class="modal-body">
+			<?php echo _('Please select an user or group to change the assigned to');?><br /><br />
+			<?php
+			if ($group_transfer === true) {
+			?>
+			<label class="checkbox-inline"><input type = "radio" name="assigned_to_selector" value="user" CHECKED><?php echo _('User');?></label>
+			<label class="checkbox-inline"><input type = "radio" name="assigned_to_selector" value="group"><?php echo _('Group');?></label>
+			<br /><br />
 			<div id="user_selector_block">
-				<select name="user_selector" id="user_selector">
+				<select name="user_selector" id="user_selector" class="form-control input-sm">
 					<?php
 					while ($do_user->next()) {
 						$user_dis = $do_user->firstname.' '.$do_user->lastname.' ('.$do_user->user_name.' )';
@@ -93,7 +93,7 @@ if ($allow_transfer === true) {
 				</select>
 			</div>
 			<div id="group_selector_block" style="display:none;">
-				<select name="group_selector" id="group_selector">
+				<select name="group_selector" id="group_selector" class="form-control input-sm">
 					<?php
 					while ($do_group->next()) {
 					?>
@@ -103,40 +103,45 @@ if ($allow_transfer === true) {
 					?>
 				</select>
 			</div>
-		<?php } else { ?>
+			<?php } else { ?>
+			<br /><br />
 			<div id="user_selector_block">
-				<select name="user_selector" id="user_selector">
-					<?php
-					while ($do_user->next()) {
-						$user_dis = $do_user->firstname.' '.$do_user->lastname.' ('.$do_user->user_name.' )';
-					?>
-					<option value="<?php echo $do_user->iduser;?>"><?php echo $user_dis;?></option>
-					<?php
-					}
-					?>
+				<select name="user_selector" id="user_selector" class="form-control input-sm">
+				<?php
+				while ($do_user->next()) {
+					$user_dis = $do_user->firstname.' '.$do_user->lastname.' ('.$do_user->user_name.' )';
+				?>
+				<option value="<?php echo $do_user->iduser;?>"><?php echo $user_dis;?></option>
+				<?php
+				}
+				?>
 				</select>
 			</div>
-		<?php 
-		} ?>
+			<?php 
+			} ?>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>
+			<input type="submit" class="btn btn-primary" value="<?php echo _('Update')?>"/>
+		</div>
+		</form>
 	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>
-		<input type="submit" class="btn btn-primary" value="<?php echo _('Update')?>"/>
-	</div>
-    </form>
+</div>
 <?php
 } else {
 ?>
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-warning"><?php echo _('WARNING');?></span>
-    </div>
-	<div class="modal-body alert-error">
-		<?php echo $msg?>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-	</div>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-warning"><?php echo _('WARNING');?></span></h3>
+		</div>
+		<div class="modal-body">
+			<h3><span class="label label-danger"><?php echo $msg?></span></h3>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>
+		</div>
 
 <?php 
 } ?>
