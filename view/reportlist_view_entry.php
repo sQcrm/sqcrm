@@ -32,11 +32,11 @@ if (count($reports) > 0) {
 			</td>  
 			<td width="50%"><?php echo nl2br($v["description"]);?></td>
 			<td width="15%">
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit",$v["idreport"])?>" class="btn btn-primary btn-mini">
-				<i class="icon-white icon-edit"></i>
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit",$v["idreport"])?>" class="btn btn-primary btn-xs">
+				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 				</a>
-				<a href="#" onclick = "del_report('<?php echo $v["idreport"];?>','<?php echo $val["idreport_folder"];?>','<?php echo $folder_name;?>')" class="btn btn-primary btn-mini bs-prompt" id="">
-				<i class="icon-white icon-trash"></i>
+				<a href="#" onclick = "del_report('<?php echo $v["idreport"];?>','<?php echo $val["idreport_folder"];?>','<?php echo $folder_name;?>')" class="btn btn-primary btn-xs" id="">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				</a>
 			</td>  
 		<?php

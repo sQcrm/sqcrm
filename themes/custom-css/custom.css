@@ -542,7 +542,7 @@ ol.vertical li.placeholder:before {
  */
 
 
-div.dataTables_length label {
+/*div.dataTables_length label {
 	width :100%;
 	margin-left:25px;
 	text-align: left;
@@ -579,7 +579,7 @@ div.dataTables_paginate{
 	top: 50%;
 	left: 0%;
 }
-
+*/
 /*.dataTables_processing {
   position:relative;
   left:45%;
@@ -591,7 +591,7 @@ table{
 	clear : both;
 }
 
-
+/*
 .sorting_asc {
 	background: url('../bootstrap/img/sort_asc.png') no-repeat center right;
 }
@@ -653,7 +653,7 @@ th:active {
 
 .paging_full_numbers a.paginate_active {
 	background-color: #99B3FF;
-}
+}*/
 /*History section*/
 .history_content {
 	padding: 5px;

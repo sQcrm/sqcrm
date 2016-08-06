@@ -23,7 +23,7 @@ if (isset($_GET['ajaxreq']) && $_GET['ajaxreq'] == true) {
 	if (true === $load_report) {
 		include_once('modules/Report/CustomReports/'.$_GET['path'].'/'.$_GET['resource'].'.php') ;
 	} else {
-		echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+		echo '<div class="alert alert-danger" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
 		echo '<strong>';
 		echo _('Report Does Not Exist ! ');
 		echo '</strong>';
