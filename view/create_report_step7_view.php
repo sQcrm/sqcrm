@@ -32,20 +32,20 @@ echo '<form class="form-horizontal" id="Report__eventSaveReport" name="Report__e
 echo $e_set_report_data->getFormEvent();
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 7');?></h3>
-				<p><?php echo _('Add report informations')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 7');?></strong></p>
+				<p class="lead"><?php echo _('Add report informations')?></p> 
 			</div>
 			<div class="box_content">
 				<label class="control-label" for="name">* <?php echo _('Report Name');?></label>
 				<div class="controls">
-					<input type = "text" name="name" id="name" value="<?php echo $report_name ; ?>">
+					<input type = "text" name="name" id="name" value="<?php echo $report_name ; ?>" class="form-control input-sm">
 				</div><br />
 				<label class="control-label" for="idreport_folder"><?php echo _('Report Folder');?></label>
 				<div class="controls">
-					<select name="idreport_folder" id="idreport_folder">
+					<select name="idreport_folder" id="idreport_folder" class="form-control input-sm">
 					<?php
 					foreach ($report_folders as $key=>$val) {
 						$selected = '';
@@ -57,17 +57,16 @@ echo $e_set_report_data->getFormEvent();
 				</div><br />
 				<label class="control-label" for="description"><?php echo _('Report Description');?></label>
 				<div class="controls">
-					<textarea name="description" id="description"><?php echo $description; ?></textarea>
+					<textarea name="description" id="description" class="form-control input-sm"><?php echo $description; ?></textarea>
 				</div><br />
-			</div>
-			<div class="form-actions">  
+				<hr class="form_hr">
 				<?php
 				if (isset($edit) && $edit == 1) { ?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=6&sqrecord=".$sqcrm_record_id);?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=6&sqrecord=".$sqcrm_record_id);?>" class="btn btn-default active">
 				<?php } else { ?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=6");?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=6");?>" class="btn btn-default active">
 				<?php } ?>
-				<i class="icon-white icon-remove-sign"></i> <?php echo _('Back');?></a>  
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Back');?></a>  
 				<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
 			</div>
 			</form>

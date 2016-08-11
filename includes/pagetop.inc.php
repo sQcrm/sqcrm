@@ -56,7 +56,7 @@
 					echo '<li class="dropdown">';
 					$dropdown_selected = '';
 					$dropdown_selected = (in_array($module_id,$sales_drop_down) ? 'active' : '') ;
-					echo '<a data-toggle="dropdown" class="dropdown-toggle" href="#">'._('Sales').' <b class="caret"></b></a>';
+					echo '<a data-toggle="dropdown" class="dropdown-toggle '.$dropdown_selected.'" href="#">'._('Sales').' <b class="caret"></b></a>';
 					echo '<ul role="menu" class="dropdown-menu">';
 					foreach ($sales_drop_down as $k) {
 						$style_li = '';
@@ -71,7 +71,7 @@
 					echo '<li class="dropdown">';
 					$dropdown_selected = '';
 					$dropdown_selected = (in_array($module_id,$inventory_drop_down) ? 'active' : '') ;
-					echo '<a data-toggle="dropdown" class="dropdown-toggle" href="#">'._('Inventory').' <b class="caret"></b></a>';
+					echo '<a data-toggle="dropdown" class="dropdown-toggle '.$dropdown_selected.'" href="#">'._('Inventory').' <b class="caret"></b></a>';
 					echo '<ul role="menu" class="dropdown-menu">';
 					foreach ($inventory_drop_down as $k) {
 						$style_li = '';
@@ -86,7 +86,7 @@
 					echo '<li class="dropdown">';
 					$dropdown_selected = '';
 					$dropdown_selected = (in_array($module_id,$revenue_drop_down) ? 'active' : '') ;
-					echo '<a data-toggle="dropdown" class="dropdown-toggle" href="#">'._('Revenue').' <b class="caret"></b></a>';
+					echo '<a data-toggle="dropdown" class="dropdown-toggle '.$dropdown_selected.'" href="#">'._('Revenue').' <b class="caret"></b></a>';
 					echo '<ul role="menu" class="dropdown-menu">';
 					foreach ($revenue_drop_down as $k) {
 						$style_li = '';
@@ -101,7 +101,7 @@
 					echo '<li class="dropdown">';
 					$dropdown_selected = '';
 					$dropdown_selected = (in_array($module_id,$analytics_drop_down) ? 'active' : '') ;
-					echo '<a data-toggle="dropdown" class="dropdown-toggle" href="#">'._('Analytics').' <b class="caret"></b></a>';
+					echo '<a data-toggle="dropdown" class="dropdown-toggle '.$dropdown_selected.'" href="#">'._('Analytics').' <b class="caret"></b></a>';
 					echo '<ul role="menu" class="dropdown-menu">';
 					foreach ($analytics_drop_down as $k) {
 						$style_li = '';

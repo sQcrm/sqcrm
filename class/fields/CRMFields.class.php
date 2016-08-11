@@ -190,14 +190,22 @@ class CRMFields extends DataObject {
 				}
 			},'."\n";
 		$js .= 
-		'highlight: function(label) {
-			$(label).closest(\'.control-group\').addClass(\'error\');
-			},
-			success: function(label) {
-			label
-				.text(\'OK!\').addClass(\'valid\')
-				.closest(\'.control-group\').addClass(\'success\');
-			}';
+		'
+		highlight: function(element) {
+			$(element).closest(\'.form-group\').removeClass(\'has-success\').addClass(\'has-error\');
+		},
+		unhighlight: function(element) {
+			$(element).closest(\'.form-group\').removeClass(\'has-error\').addClass(\'has-success\');
+		},
+		errorClass: \'help-block\',
+		errorPlacement: function (error, element) {
+			if (element.parent(\'.input-group\').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
+		}
+		';
 		$js .= "\n".'});'."\n";
 		return $js ;
 	}

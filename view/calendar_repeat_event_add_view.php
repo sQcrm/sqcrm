@@ -6,10 +6,10 @@
 */
 ?>
 <div class="box_content">
-	<label class="checkbox">
+	<div class="form-group">
 		<input type="checkbox" id="event_repeat" name="event_repeat">
 		<b><?php echo _('Repeat'); ?></b>
-    </label>
+    </div>
     <div id="recurrent_options_section" style="display:none;">
     <br />
 		<?php
@@ -17,7 +17,7 @@
 		$recurrent_options = $do_recurrent_events->get_recurrent_options();
 		echo _('Frequencey');
 		echo '<br />';
-		echo '<select name="recurrent_options" id="recurrent_options">';
+		echo '<select name="recurrent_options" id="recurrent_options" class="form-control input-sm">';
 		foreach ($recurrent_options as $key=>$val) {
 			echo '<option value="'.$key.'">'.$val.'</option>'."\n";
 		}
@@ -27,7 +27,7 @@
 			<?php
 			echo _('Repeat every');
 			echo '<br />';
-			echo '<select id="repeat_freq_opts" name= "repeat_freq_opts">';
+			echo '<select id="repeat_freq_opts" name= "repeat_freq_opts" class="form-control input-sm">';
 			for ($i=1;$i<=30;$i++) {
 				echo '<option value ="'.$i.'">'.$i.'</option>'."\n";
 			}
@@ -58,7 +58,7 @@
 			echo '<input type="radio" class= "repeat_monthly_opts" name="repeat_monthly_opts" id="repeat_monthly_opts" value="2">'.'&nbsp;'._('or');
 			echo '&nbsp;';
 			echo '<div id="repeat_monthly_opts_week_section" style="display:none;">';
-			echo '<select name="repeat_monthly_opts_week_freq" id="repeat_monthly_opts_week_freq">';
+			echo '<select name="repeat_monthly_opts_week_freq" id="repeat_monthly_opts_week_freq" class="form-control input-sm">';
 			echo '<option value="first">'._('first').'</option>';
 			echo '<option value="second">'._('second').'</option>';
 			echo '<option value="third">'._('third').'</option>';
@@ -66,7 +66,7 @@
 			echo '<option value="last">'._('last').'</option>';
 			echo '</select>';
 			echo '&nbsp;';
-			echo '<select name="repeat_monthly_opts_week_weekdays" id="repeat_monthly_opts_week">';
+			echo '<select name="repeat_monthly_opts_week_weekdays" id="repeat_monthly_opts_week" class="form-control input-sm">';
 			echo '<option value="sunday">'._('sun').'</option>';
 			echo '<option value="monday">'._('mon').'</option>';
 			echo '<option value="tuesday">'._('tue').'</option>';
@@ -92,7 +92,8 @@
 			echo '</div>';
 			echo '<input type="radio" class = "repeat_end_opts" name="repeat_end_opts" id="repeat_end_opts" value="2" >'.'&nbsp;'._('on').'&nbsp;';
 			echo '<div id="repeat_end_date_section" style="display:none;">';
-			FieldType9::display_field('repeat_end_date','','input-medium');
+			FieldType9::display_field('repeat_end_date','','form-control');
+			echo '<br />';
 			echo '</div>';
 			?>
 		</div>

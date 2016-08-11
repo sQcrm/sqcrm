@@ -6,8 +6,8 @@
 */
 ?>
 <div class="left_large">
-	<a href="<?php echo $cancel_return;?>" class="btn btn-inverse">
-	<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+	<a href="<?php echo $cancel_return;?>" class="btn btn-default active">
+	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>  
 	<input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
 </div>
 <div class="clear_float"></div>
@@ -15,7 +15,7 @@
 <?php
 while ($do_block->next()) { ?>
 <div class="box_content_header">
-	<?php echo $do_block->block_label;?><hr class="form_hr">
+	<strong><?php echo $do_block->block_label;?></strong><hr class="form_hr">
     <?php
 	if ($do_block->idblock == 8) {
 		echo '<div class="right_large">';
@@ -38,42 +38,44 @@ while ($do_block->next()) { ?>
 		$fieldobject = 'FieldType'.$do_crmfields->field_type;
 		$tot_count++;
 		if ($tot_count == 1 || $tot_count%2 != 0) { ?>
-		<div class="row-fluid">
+		<div class="row">
 		<?php 
 		} ?>
-			<div class="span6">
-				<div class="control-group">  
-					<label class="control-label" for="<?php echo $do_crmfields->field_name; ?>"><?php echo $do_crmfields->field_label;?></label>  
-					<div class="controls">  
-						<?php
-						$fld_name =  $do_crmfields->field_name;
-						if ($do_crmfields->field_type == 5 || $do_crmfields->field_type ==6) {
-							$fieldobject::display_field($do_crmfields->field_name,$do_crmfields->idfields,$module_obj->$fld_name);
-						} elseif ($do_crmfields->field_type == 104) {
-							$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name);
-						} elseif ($do_crmfields->field_type == 15) {
-							$fieldobject::display_field($assigned_to,'',$module_id);
-							//$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
-						} elseif ($do_crmfields->field_type == 12) {
-							$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
-						} elseif ($do_crmfields->field_type == 150) {
-							$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,$module_obj->potentials_related_to_idmodule);
-						} elseif ($do_crmfields->field_type == 151) {
-							$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,$module_obj->events_related_to_idmodule);
-						} elseif ($do_crmfields->field_type == 141) {
-							if (!isset($target_module)) {
-								$target_module = $module ; 
+			<div class="col-md-6">
+					<div class="col-md-12">
+						<div class="form-group">  
+							<label class="control-label" for="<?php echo $do_crmfields->field_name; ?>"><?php echo $do_crmfields->field_label;?></label>  
+							<div class="controls">  
+							<?php
+							$fld_name =  $do_crmfields->field_name;
+							if ($do_crmfields->field_type == 5 || $do_crmfields->field_type ==6) {
+								$fieldobject::display_field($do_crmfields->field_name,$do_crmfields->idfields,$module_obj->$fld_name);
+							} elseif ($do_crmfields->field_type == 104) {
+								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name);
+							} elseif ($do_crmfields->field_type == 15) {
+								$fieldobject::display_field($assigned_to,'',$module_id);
+								//$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
+							} elseif ($do_crmfields->field_type == 12) {
+								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'m');
+							} elseif ($do_crmfields->field_type == 150) {
+								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,$module_obj->potentials_related_to_idmodule);
+							} elseif ($do_crmfields->field_type == 151) {
+								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,$module_obj->events_related_to_idmodule);
+							} elseif ($do_crmfields->field_type == 141) {
+								if (!isset($target_module)) {
+									$target_module = $module ; 
+								}
+								$fieldobject::display_field($do_crmfields->field_name,$target_module,$module_obj->$fld_name);
+							} elseif ($do_crmfields->field_type == 143) {
+								if (!isset($target_module)) {
+									$target_module = $module ; 
+								}
+								$fieldobject::display_field($do_crmfields->field_name,$target_module,$module_obj->$fld_name);
+							} else {
+								$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'form-control input-sm');
 							}
-							$fieldobject::display_field($do_crmfields->field_name,$target_module,$module_obj->$fld_name);
-						} elseif ($do_crmfields->field_type == 143) {
-							if (!isset($target_module)) {
-								$target_module = $module ; 
-							}
-							$fieldobject::display_field($do_crmfields->field_name,$target_module,$module_obj->$fld_name);
-						} else {
-							$fieldobject::display_field($do_crmfields->field_name,$module_obj->$fld_name,'input-xlarge-100');
-						}
-						?>
+							?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -82,7 +84,8 @@ while ($do_block->next()) { ?>
 		</div>
 		<?php 
 		}
-	} 
+	}
+	if ($tot_count%2 != 0) echo '</div>';
 	?>
 </div>
 <?php 
@@ -94,8 +97,8 @@ if ($module_id == 13 || $module_id == 14 || $module_id == 15 || $module_id == 16
 ?>
 <hr class="form_hr">
 <div class="left_large">
-	<a href="<?php echo $cancel_return;?>" class="btn btn-inverse">
-    <i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+	<a href="<?php echo $cancel_return;?>" class="btn btn-default active">
+	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>  
     <input type="submit" class="btn btn-primary" value="<?php echo _('Save');?>"/>
 </div>
 <div class="clear_float"></div>

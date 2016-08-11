@@ -37,11 +37,11 @@ echo '<form class="form-horizontal" id="Report__eventSetReportData" name="Report
 echo $e_set_report_data->getFormEvent();
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 4');?></h3>
-				<p><?php echo _('Select fields for the report')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 4');?></strong></p>
+				<p class="lead"><?php echo _('Select fields for the report')?></p> 
 			</div>
 			<div class="box_content">
 				<div class="alert alert-info">
@@ -54,7 +54,7 @@ echo $e_set_report_data->getFormEvent();
 							<tr>
 								<td>
 									<label class="control-label" for=""><?php echo _('Available Fields')?></label><br />
-									<select name="select_module_fields" id="select_module_fields" multiple size = "20" style = "width:300px;">
+									<select name="select_module_fields" id="select_module_fields" multiple size = "20" class="form-control input-sm">
 										<?php
 										echo '<optgroup label="'.$_SESSION["do_module"]->modules_full_details[$_SESSION["primary_module"]]["label"].'"></optgroup>';
 										foreach ($primary_report_fields as $idblock=>$blockdata) { 
@@ -112,43 +112,43 @@ echo $e_set_report_data->getFormEvent();
 									</select>
 								</td>
 								<td width="50px;" align="center"><br />
-									<a href="#" class="btn btn-success btn-mini-1" id="module_fields_add_select"><i class="icon-white icon-arrow-right"></i></a>
+									<a href="#" class="btn btn-success" id="module_fields_add_select"><i class="glyphicon glyphicon-arrow-right"></i></a>
 								</td>
 								<td>
 									<label class="control-label" for=""><?php echo _('Report Fields')?></label><br />
 									<?php
 									if (count($selected_report_fields) > 0) {
-										echo '<select name="report_fields[]" id="report_fields" multiple size = "19">';
+										echo '<select name="report_fields[]" id="report_fields" multiple size = "19" class="form-control input-sm">';
 										foreach ($selected_report_fields as $key=>$val) {
 											echo '<option value="'.$val["idfields"].'" SELECTED>'.$val["field_label"].'</option>';
 										}
 										echo '</select>';
 									} else {
-										echo '<select name="report_fields[]" id="report_fields" multiple size = "19"></option>';
+										echo '<select name="report_fields[]" id="report_fields" multiple size = "19" class="form-control input-sm"></select>';
 									}
 									?>
 								</td>
 								<td width="50px;" align="center"><br />
-									<a href="#" class="btn btn-success btn-mini-1" id="report_fields_up"><i class="icon-white icon-arrow-up"></i></a>
+									<a href="#" class="btn btn-success" id="report_fields_up"><i class="glyphicon glyphicon-arrow-up"></i></a>
 									<br /><br />
-									<a href="#" class="btn btn-success btn-mini-1" id="report_fields_down"><i class="icon-white icon-arrow-down"></i></a>
+									<a href="#" class="btn btn-success" id="report_fields_down"><i class="glyphicon glyphicon-arrow-down"></i></a>
 									<br /><br />
-									<a href="#" class="btn btn-inverse btn-mini-1" id="report_fields_delete"><i class="icon-white icon-remove-sign"></i></a>
+									<a href="#" class="btn btn-default active" id="report_fields_delete"><i class="glyphicon glyphicon-remove-sign"></i></a>
 								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="form-actions">  
+				<br />
+				<hr class="form_hr">
 				<?php
 				if (isset($edit) && $edit == 1) {
 				?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=3&sqrecord=".$sqcrm_record_id);?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=3&sqrecord=".$sqcrm_record_id);?>" class="btn btn-default active">
 				<?php } else { ?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=3");?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=3");?>" class="btn btn-default active">
 				<?php } ?>
-				<i class="icon-white icon-remove-sign"></i> <?php echo _('Back');?></a>  
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Back');?></a>  
 				<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
 			</div>
 			</form>

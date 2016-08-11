@@ -9,4 +9,4 @@
 <script src="/themes/bootstrap/js/modal.js?v=0.9"></script>
 <script src="/themes/bootstrap/js/alert.js?v=0.9"></script>
 <script src="/themes/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="/themes/plugins/timepicker/bootstrap-timepicker.js"></script>
+<script src="/themes/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
