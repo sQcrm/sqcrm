@@ -40,7 +40,7 @@ $days_in_week = $recurrent_events->get_days_in_week();
 if($show_add_page === true) {
 	require_once('view/calendar_add_view.php');
 } else {
-	echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+	echo '<div class="alert alert-danger" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
 	echo '<h4>';
 	echo _('Access Denied ! ');
 	echo '</h4>';

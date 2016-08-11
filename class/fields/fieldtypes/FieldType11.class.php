@@ -32,7 +32,7 @@ class FieldType11 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$value = '',$css = '') {
+	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
 		echo '<input type="password" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="">';
 	}
 
@@ -44,7 +44,7 @@ class FieldType11 extends CRMFields {
 	public static function display_value($value,$module='',$sqcrm_record_id ='',$fld_name='',$change_pass= false) {
 		if ($change_pass === true) {
 			$html = '
-			<a href="#" class="btn btn-primary btn-mini bs-prompt" id= "change_'.$fld_name.'"<i class="icon-white icon-edit">'._('change').'</i></a>';
+			<a href="#" class="btn btn-primary" id= "change_'.$fld_name.'"<i class="glyphicon glyphicon-edit">'._('change').'</i></a>';
 			$html .= 
 			"\n".
 			'<script>
@@ -54,7 +54,7 @@ class FieldType11 extends CRMFields {
 							$(href).modal(\'open\');
 						} else {
 							$.get(href, function(data) {
-								$(\'<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
+								$(\'<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector">\' + data + \'</div>\').modal();
 								}).success(function() { $(\'input:text:visible:first\').focus(); });
 						}
 					}); 

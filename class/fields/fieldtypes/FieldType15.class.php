@@ -69,14 +69,14 @@ class FieldType15 extends CRMFields {
 				$assigned_to_show_grouplist = 'style="display:block;"';
 			}
 		}
-		$html .= '<div class="btn-group" data-toggle="buttons-radio">';
-		$html .= '<label class="btn"><input type = "radio" name="assigned_to_selector" value="user" '.$assigned_to_selector_userschecked.'>'._('User').'</label>';
+		//$html .= '<div class="btn-group" data-toggle="buttons-radio">';
+		$html .= '<label class="checkbox-inline"><input type = "radio" name="assigned_to_selector" value="user" '.$assigned_to_selector_userschecked.'>'._('User').'</label>';
 		if (false === $hide_group ) {
-			$html .= '<label class="btn"><input type = "radio" name="assigned_to_selector" value="group" '.$assigned_to_selector_groupchecked.'>'._('Group').'</label>';
+			$html .= '<label class="checkbox-inline"><input type = "radio" name="assigned_to_selector" value="group" '.$assigned_to_selector_groupchecked.'>'._('Group').'</label>';
 		}
-		$html .= '</div>';
+		//$html .= '</div>';
 		$html .= '<div id="user_selector_block" '.$assigned_to_show_userlist.'>';
-		$html .= '<select name="user_selector" id="user_selector">';
+		$html .= '<select name="user_selector" id="user_selector" class="form-control input-sm">';
 		while ($do_user->next()) {
 			$selected = '';
 			if ($assigned_to == $do_user->iduser) $selected = "SELECTED" ; 
@@ -86,7 +86,7 @@ class FieldType15 extends CRMFields {
 		$html .='</div>';
 
 		$html .= '<div id="group_selector_block" '.$assigned_to_show_grouplist.'>';
-		$html .= '<select name="group_selector" id="group_selector">';
+		$html .= '<select name="group_selector" id="group_selector" class="form-control input-sm">';
 		while ($do_group->next()) {
 			$selected = '';
 			if ($assigned_to == $do_group->idgroup) $selected = "SELECTED" ; 

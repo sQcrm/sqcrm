@@ -14,6 +14,7 @@ $product_service_tax = $do_tax->product_service_tax();
 	<?php echo _('Terms and condition'); ?>
 	<hr class="form_hr">
 	<textarea name="terms_cond" id="terms_cond" class="expand_text_area"><?php echo $module_obj->terms_condition;?></textarea>
+	<br /><br />
 	<?php
 	if ($module_obj->terms_condition == '') {?>
 	<br /><br />
@@ -38,7 +39,7 @@ $product_service_tax = $do_tax->product_service_tax();
 		<div class="left_300"><?php echo _('Item Information'); ?></div>
 		<div class="right_300">
 			<a href="#" class="btn btn-primary add_new_line_item">
-			<i class="icon-white icon-plus"></i><?php echo _('Add more');?></a>
+			<i class="glyphicon glyphicon-plus"></i><?php echo _('Add more');?></a>
 		</div>
 		<table class="table table-bordered" id="table_line_items">
 			<thead>
@@ -59,8 +60,8 @@ $product_service_tax = $do_tax->product_service_tax();
 					<tr id="<?php echo $lineitem["idlineitems"]; ?>">
 						<td>
 							<input type="hidden" name="idlineitems[]" value="<?php echo $lineitem["idlineitems"]; ?>">
-							<a href="#" class="btn btn-primary btn-mini bs-prompt delete_line_item" id="<?php echo $lineitem["idlineitems"]; ?>">
-							<i class="icon-white icon-trash"></i>
+							<a href="#" class="btn btn-primary btn-xs delete_line_item" id="<?php echo $lineitem["idlineitems"]; ?>">
+							<i class="glyphicon glyphicon-trash"></i>
 							</a>
 						</td>
 						<td>
@@ -82,69 +83,71 @@ $product_service_tax = $do_tax->product_service_tax();
 							}
 							?>
 							<br /><br />
-							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="input-xlarge-100 line_item_name" <?php echo $readonly;?>>
+							<input name="line_item_name[]" id="line_item_name_<?php echo $lineitem["idlineitems"]; ?>" value="<?php echo $lineitem["item_name"]; ?>" autocomplete="off" type="text" class="form-control input-sm line_item_name" <?php echo $readonly;?>>
 							<input type="hidden" value="<?php echo $lineitem["item_value"]; ?>" name="line_item_value[]" id="line_item_value_<?php echo $lineitem["idlineitems"]; ?>">
 							<input type="hidden" value="<?php echo $lineitem["item_type"]; ?>" name="line_item_type[]" id="line_item_type_<?php echo $lineitem["idlineitems"]; ?>">
 							
 							<span style="<?php echo $item_selector_block_style;?>" id="line_item_selector_block_<?php echo $lineitem["idlineitems"];?>">
-							<a href="#" id="<?php echo $lineitem["idlineitems"]; ?>"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>
+							<a href="#" id="<?php echo $lineitem["idlineitems"]; ?>"  class="line_item_selector btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></a>
 							</span>
 							<br /><br />
-							<textarea name="line_item_description[]" id="line_item_description_<?php echo $lineitem["idlineitems"]; ?>" class="input-xlarge-100"><?php echo $lineitem["item_description"];?></textarea>
+							<textarea name="line_item_description[]" id="line_item_description_<?php echo $lineitem["idlineitems"]; ?>" class="form-control input-sm"><?php echo $lineitem["item_description"];?></textarea>
 						</td>
 						<td>
-							<input class="input-mini line_item_quantity" value="<?php echo $lineitem["item_quantity"]; ?>" name="line_item_quantity[]" id="<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
+							<input class="form-control input-sm line_item_quantity" value="<?php echo $lineitem["item_quantity"]; ?>" name="line_item_quantity[]" id="<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
 						</td>
 						<td>
 							<div style="height:40px;">
-								<input class="input-small line_item_price" value="<?php echo $lineitem["item_price"]; ?>" name="line_item_price[]" id="line_item_price_<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" <?php echo $readonly;?>>
+								<input class="form-control input-sm line_item_price" value="<?php echo $lineitem["item_price"]; ?>" name="line_item_price[]" id="line_item_price_<?php echo $lineitem["idlineitems"]; ?>" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" <?php echo $readonly;?>>
 							</div>
 							<div style="height:40px;">
 								<a href="#" id="<?php echo $lineitem["idlineitems"]; ?>" class="line_item_discount_edit"><?php echo _('Discount'); ?></a>
 								<input type="hidden" value="<?php echo $lineitem["discount_type"];?>" name="line_discount_type[]" id="line_discount_type_<?php echo $lineitem["idlineitems"]; ?>">
 								<input type="hidden" value="<?php echo $lineitem["discount_value"];?>" name="line_discount_value[]" id="line_discount_value_<?php echo $lineitem["idlineitems"]; ?>">
 								<!-- popup modal for line item discount -->
-								<div class="modal hide fade" id="item_discount_<?php echo $lineitem["idlineitems"]; ?>">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">x</button>
-										<span class="badge badge-info"><?php echo _('Set Discount for ');?><span id="on_price"><?php echo $lineitem["item_price"]; ?></span></span>
-									</div>
-									<div class="modal-body">
-										<div class="box_content">
-											<table class="table">
-												<tr>
-													<td colspan="2">
-														<input type="radio" <?php echo ($lineitem["discount_type"] =='no_discount' || $lineitem["discount_type"]=='' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_no_dis_edit" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<input type="radio" <?php echo ($lineitem["discount_type"] =='percentage' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_perc_dis_edit" value="2">
-														&nbsp;&nbsp;<?php echo _('% discount');?>
-													</td>
-													<td>
-														<span id="" class= "perc_discount_val_span_edit">
-															<input type="number" value="<?php echo ($lineitem["discount_type"] =='percentage' ? $lineitem["discount_value"] : '');?>" class="input-small perc_discount_val_edit" name="line_perc_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>" id="line_perc_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>"> %
-														</span>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<input type="radio" <?php echo ($lineitem["discount_type"] =='direct' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_direct_dis_edit" value="3">
-														&nbsp;&nbsp;<?php echo _('direct reduction');?>
-													</td>
-													<td>
-														<span id="<?php echo $lineitem["idlineitems"]; ?>" class="dir_discount_val_span_edit">
-															<input type="number" value="<?php echo ($lineitem["discount_type"] =='direct' ? $lineitem["discount_value"] : '');?>" class="input-small dir_discount_val_edit" name="line_dir_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>" id="line_dir_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>">
-														</span>
-													</td>
-												</tr>
-											</table>
+								<div class="modal fade" tabindex="-1" role="dialog" id="item_discount_<?php echo $lineitem["idlineitems"]; ?>">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<span class="badge badge-info"><?php echo _('Set Discount for ');?><span id="on_price"><?php echo $lineitem["item_price"]; ?></span></span>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-										<input type="button" id="<?php echo $lineitem["idlineitems"]; ?>" class="btn btn-primary set_line_discount_edit" value="<?php echo _('Set Discount')?>"/>
+										<div class="modal-body">
+											<div class="box_content">
+												<table class="table">
+													<tr>
+														<td colspan="2">
+															<input type="radio" <?php echo ($lineitem["discount_type"] =='no_discount' || $lineitem["discount_type"]=='' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_no_dis_edit" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<input type="radio" <?php echo ($lineitem["discount_type"] =='percentage' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_perc_dis_edit" value="2">
+															&nbsp;&nbsp;<?php echo _('% discount');?>
+														</td>
+														<td>
+															<span id="" class= "perc_discount_val_span_edit">
+																<input type="number" value="<?php echo ($lineitem["discount_type"] =='percentage' ? $lineitem["discount_value"] : '');?>" class="input-small perc_discount_val_edit" name="line_perc_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>" id="line_perc_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>"> %
+															</span>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<input type="radio" <?php echo ($lineitem["discount_type"] =='direct' ? 'checked': '');?> id="<?php echo $lineitem["idlineitems"]; ?>" name="line_discount_edit_<?php echo $lineitem["idlineitems"]; ?>" class="item_direct_dis_edit" value="3">
+															&nbsp;&nbsp;<?php echo _('direct reduction');?>
+														</td>
+														<td>
+															<span id="<?php echo $lineitem["idlineitems"]; ?>" class="dir_discount_val_span_edit">
+																<input type="number" value="<?php echo ($lineitem["discount_type"] =='direct' ? $lineitem["discount_value"] : '');?>" class="input-small dir_discount_val_edit" name="line_dir_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>" id="line_dir_discount_val_edit_<?php echo $lineitem["idlineitems"]; ?>">
+															</span>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+											<input type="button" id="<?php echo $lineitem["idlineitems"]; ?>" class="btn btn-primary set_line_discount_edit" value="<?php echo _('Set Discount')?>"/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -159,41 +162,54 @@ $product_service_tax = $do_tax->product_service_tax();
 								<?php
 									//if(false !== $lineitem["product_available_tax"]){
 								?>
-								<div id="line_tax_<?php echo $lineitem["idlineitems"]; ?>" class="modal hide fade">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">x</button>
-										<span class="badge badge-info"><?php echo _('Set Tax for -').$lineitem["item_name"];?>
-										<span id="tax_line_name"></span></span>
-									</div>
-									<div class="modal-body">
-										<div class="box_content">
-											<table>
-												<?php
-												$product_available_tax = $lineitem["product_available_tax"];
-												$product_tax_selected = $lineitem["tax_values"];
-												//var_dump($product_available_tax);
-												if (is_array($product_available_tax) && count($product_available_tax) > 0) {
-													if (strlen($product_tax_selected) > 5) {
-														$product_tax_selected  = rtrim($product_tax_selected,',');
-														$product_tax_selected_array = explode(',',$product_tax_selected);
-														$selected_array = array();
-														if (count($product_tax_selected_array) > 0) {
-															foreach ($product_tax_selected_array as $k=>$sel_value) {
-																$sel_value_array = explode('::',$sel_value);
-																$selected_array[$sel_value_array[0]] = $sel_value_array[1];
+								<div id="line_tax_<?php echo $lineitem["idlineitems"]; ?>" class="modal fade" tabindex="-1" role="dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<span class="badge badge-info"><?php echo _('Set Tax for -').$lineitem["item_name"];?>
+											<span id="tax_line_name"></span></span>
+										</div>
+										<div class="modal-body">
+											<div class="box_content">
+												<table>
+													<?php
+													$product_available_tax = $lineitem["product_available_tax"];
+													$product_tax_selected = $lineitem["tax_values"];
+													//var_dump($product_available_tax);
+													if (is_array($product_available_tax) && count($product_available_tax) > 0) {
+														if (strlen($product_tax_selected) > 5) {
+															$product_tax_selected  = rtrim($product_tax_selected,',');
+															$product_tax_selected_array = explode(',',$product_tax_selected);
+															$selected_array = array();
+															if (count($product_tax_selected_array) > 0) {
+																foreach ($product_tax_selected_array as $k=>$sel_value) {
+																	$sel_value_array = explode('::',$sel_value);
+																	$selected_array[$sel_value_array[0]] = $sel_value_array[1];
+																}
 															}
-														}
-														foreach ($product_available_tax as $key=>$val) {
-															if (array_key_exists($key,$selected_array)) {
-																echo '<tr>';
-																echo '<td style="width:90px;">';
-																$checked = '';
-																echo '<input type="checkbox" CHECKED name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$key.'">';
-																echo '<span style="font-size: 12px;margin-left:4px;">'.$key.' ( % )</span>';
-																echo '</td>';
-																echo '<td style="margin-left:5px;"><input type="text" value="'.$selected_array[$key].'" class="input-mini" id="cb_linetax_val_'.$key.'_'.$lineitem["idlineitems"].'"></td>';
-																echo '</tr>';
-															} else {
+															foreach ($product_available_tax as $key=>$val) {
+																if (array_key_exists($key,$selected_array)) {
+																	echo '<tr>';
+																	echo '<td style="width:90px;">';
+																	$checked = '';
+																	echo '<input type="checkbox" CHECKED name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$key.'">';
+																	echo '<span style="font-size: 12px;margin-left:4px;">'.$key.' ( % )</span>';
+																	echo '</td>';
+																	echo '<td style="margin-left:5px;"><input type="text" value="'.$selected_array[$key].'" class="input-mini" id="cb_linetax_val_'.$key.'_'.$lineitem["idlineitems"].'"></td>';
+																	echo '</tr>';
+																} else {
+																	echo '<tr>';
+																	echo '<td style="width:90px;">';
+																	$checked = '';
+																	echo '<input type="checkbox" name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$key.'">';
+																	echo '<span style="font-size: 12px;margin-left:4px;">'.$key.' ( % )</span>';
+																	echo '</td>';
+																	echo '<td style="margin-left:5px;"><input type="text" value="'.$val.'" class="input-mini" id="cb_linetax_val_'.$key.'_'.$lineitem["idlineitems"].'"></td>';
+																	echo '</tr>';
+																}
+															}
+														} else {
+															foreach ($product_available_tax as $key=>$val) {
 																echo '<tr>';
 																echo '<td style="width:90px;">';
 																$checked = '';
@@ -205,39 +221,39 @@ $product_service_tax = $do_tax->product_service_tax();
 															}
 														}
 													} else {
-														foreach ($product_available_tax as $key=>$val) {
-															echo '<tr>';
-															echo '<td style="width:90px;">';
-															$checked = '';
-															echo '<input type="checkbox" name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$key.'">';
-															echo '<span style="font-size: 12px;margin-left:4px;">'.$key.' ( % )</span>';
-															echo '</td>';
-															echo '<td style="margin-left:5px;"><input type="text" value="'.$val.'" class="input-mini" id="cb_linetax_val_'.$key.'_'.$lineitem["idlineitems"].'"></td>';
-															echo '</tr>';
-														}
-													}
-												} else {
-													if (strlen($product_tax_selected) > 5) { 
-														$product_tax_selected  = rtrim($product_tax_selected,',');
-														$product_tax_selected_array = explode(',',$product_tax_selected);
-														$selected_array = array();
-														if (count($product_tax_selected_array) > 0) {
-															foreach ($product_tax_selected_array as $k=>$sel_value) {
-																$sel_value_array = explode('::',$sel_value);
-																$selected_array[$sel_value_array[0]] = $sel_value_array[1];
+														if (strlen($product_tax_selected) > 5) { 
+															$product_tax_selected  = rtrim($product_tax_selected,',');
+															$product_tax_selected_array = explode(',',$product_tax_selected);
+															$selected_array = array();
+															if (count($product_tax_selected_array) > 0) {
+																foreach ($product_tax_selected_array as $k=>$sel_value) {
+																	$sel_value_array = explode('::',$sel_value);
+																	$selected_array[$sel_value_array[0]] = $sel_value_array[1];
+																}
 															}
-														}
-														foreach ($product_service_tax as $key=>$val) {
-															if (array_key_exists($val["tax_name"],$selected_array)) {
-																echo '<tr>';
-																echo '<td style="width:90px;">';
-																$checked = '';
-																echo '<input type="checkbox" CHECKED name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$val["tax_name"].'">';
-																echo '<span style="font-size: 12px;margin-left:4px;">'.$val["tax_name"].' ( % )</span>';
-																echo '</td>';
-																echo '<td style="margin-left:5px;"><input type="text" value="'.$selected_array[$val["tax_name"]].'" class="input-mini" id="cb_linetax_val_'.$val["tax_name"].'_'.$lineitem["idlineitems"].'"></td>';
-																echo '</tr>';
-															} else {
+															foreach ($product_service_tax as $key=>$val) {
+																if (array_key_exists($val["tax_name"],$selected_array)) {
+																	echo '<tr>';
+																	echo '<td style="width:90px;">';
+																	$checked = '';
+																	echo '<input type="checkbox" CHECKED name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$val["tax_name"].'">';
+																	echo '<span style="font-size: 12px;margin-left:4px;">'.$val["tax_name"].' ( % )</span>';
+																	echo '</td>';
+																	echo '<td style="margin-left:5px;"><input type="text" value="'.$selected_array[$val["tax_name"]].'" class="input-mini" id="cb_linetax_val_'.$val["tax_name"].'_'.$lineitem["idlineitems"].'"></td>';
+																	echo '</tr>';
+																} else {
+																	echo '<tr>';
+																	echo '<td style="width:90px;">';
+																	$checked = '';
+																	echo '<input type="checkbox" name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$val["tax_name"].'">';
+																	echo '<span style="font-size: 12px;margin-left:4px;">'.$val["tax_name"].' ( % )</span>';
+																	echo '</td>';
+																	echo '<td style="margin-left:5px;"><input type="text" value="'.$val["tax_value"].'" class="input-mini" id="cb_linetax_val_'.$val["tax_name"].'_'.$lineitem["idlineitems"].'"></td>';
+																	echo '</tr>';
+																}
+															}
+														} else { 
+															foreach ($product_service_tax as $key=>$val) {
 																echo '<tr>';
 																echo '<td style="width:90px;">';
 																$checked = '';
@@ -248,26 +264,15 @@ $product_service_tax = $do_tax->product_service_tax();
 																echo '</tr>';
 															}
 														}
-													} else { 
-														foreach ($product_service_tax as $key=>$val) {
-															echo '<tr>';
-															echo '<td style="width:90px;">';
-															$checked = '';
-															echo '<input type="checkbox" name="cb_line_tax_ft_'.$lineitem["idlineitems"].'[]" value="'.$val["tax_name"].'">';
-															echo '<span style="font-size: 12px;margin-left:4px;">'.$val["tax_name"].' ( % )</span>';
-															echo '</td>';
-															echo '<td style="margin-left:5px;"><input type="text" value="'.$val["tax_value"].'" class="input-mini" id="cb_linetax_val_'.$val["tax_name"].'_'.$lineitem["idlineitems"].'"></td>';
-															echo '</tr>';
-														}
 													}
-												}
-												?>
-											</table>
+													?>
+												</table>
+											</div>
 										</div>
-									</div>
-									<div class="modal-footer" id="set_tax_from_default_footer">
-										<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-										<input type="button" id="<?php echo $lineitem["idlineitems"]; ?>" class="btn btn-primary set_tax_available_edit" value="Set Tax"/>
+										<div class="modal-footer" id="set_tax_from_default_footer">
+											<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+											<input type="button" id="<?php echo $lineitem["idlineitems"]; ?>" class="btn btn-primary set_tax_available_edit" value="Set Tax"/>
+										</div>
 									</div>
 								</div>
 								<?php //} ?>
@@ -358,7 +363,7 @@ $product_service_tax = $do_tax->product_service_tax();
 				</td>
 				<td width="20%">
 					<div style="height:30px;text-align:right;">
-						<input value="<?php echo $module_obj->shipping_handling_charge ;?>" class="input-small" name="final_ship_hand_charge" id="final_ship_hand_charge" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
+						<input value="<?php echo $module_obj->shipping_handling_charge ;?>" class="form-control input-sm" name="final_ship_hand_charge" id="final_ship_hand_charge" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number">
 					</div>
 				</td>
 			</tr>
@@ -412,271 +417,283 @@ $product_service_tax = $do_tax->product_service_tax();
 
 <script src="/js/lineitem.js?v=1.2"></script>
 <!-- popup modal no tax for item with options to set defaut tax -->
-<div class="modal hide fade" id="item_no_tax">
-	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<span class="badge badge-info"><?php echo _('No tax available for - ');?><span id="tax_line_name"></span></span>
-</div>
-<div class="modal-body">
-	<div class="box_content">
-		<strong><?php echo _('Item does not have any tax');?></strong>
-		<br /><br />
-		<a href="#" class="set_default_tax"><?php echo _('still would like to add tax'); ?></a>
-		<br /><br />
-		<div id="defaut_tax_block" style="display:none;">
-			<table>
-				<?php
-				$i= 0 ; 
-				foreach ($product_service_tax as $key=>$val) {
-					$i++;
-				?>
-				<tr>
-					<td style="width:150px;">
-						<input type="checkbox" name="line_default_tax_opts[]" id = "line_default_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
-						<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
-					</td>
-					<td style="margin-left:5px;">
-						<span>
-						<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="line_default_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
-					</td>
-				</tr>
-				<?php 
-				}
-				?>
-			</table>
+<div class="modal fade" tabindex="-1" role="dialog" id="item_no_tax">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge badge-info"><?php echo _('No tax available for - ');?><span id="tax_line_name"></span></span>
+		</div>
+		<div class="modal-body">
+			<div class="box_content">
+				<strong><?php echo _('Item does not have any tax');?></strong>
+				<br /><br />
+				<a href="#" class="set_default_tax"><?php echo _('still would like to add tax'); ?></a>
+				<br /><br />
+				<div id="defaut_tax_block" style="display:none;">
+					<table>
+						<?php
+						$i= 0 ; 
+						foreach ($product_service_tax as $key=>$val) {
+							$i++;
+						?>
+						<tr>
+							<td style="width:150px;">
+								<input type="checkbox" name="line_default_tax_opts[]" id = "line_default_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
+								<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
+							</td>
+							<td style="margin-left:5px;">
+								<span>
+								<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="line_default_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
+							</td>
+						</tr>
+						<?php 
+						}
+						?>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" id="set_tax_from_default_footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary set_tax_from_default" value="<?php echo _('Set Tax')?>"/>
 		</div>
 	</div>
-</div>
-<div class="modal-footer" id="set_tax_from_default_footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-	<input type="button" id="" class="btn btn-primary set_tax_from_default" value="<?php echo _('Set Tax')?>"/>
-</div>
 </div>
 
 <!-- popup modal for grand tax -->
-<div class="modal hide fade" id="grand_tax">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-info"><?php echo _('Set final tax - ');?><span id="grand_tax_name"></span></span>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<table>
-				<?php
-				$grand_tax_selected_val = $module_obj->tax_values;
-				if (strlen($grand_tax_selected_val) > 5) {
-					$grand_tax_selected_array = explode(',',rtrim($grand_tax_selected_val,','));
-				}
-				$selected_grand_tax = array();
-				if (count($grand_tax_selected_array) > 0) {
-					foreach ($grand_tax_selected_array as $k=>$sel_value) {
-						$sel_value_array = explode('::',$sel_value);
-						$selected_grand_tax[$sel_value_array[0]] = $sel_value_array[1];
+<div class="modal fade" tabindex="-1" role="dialog" id="grand_tax">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge badge-info"><?php echo _('Set final tax - ');?><span id="grand_tax_name"></span></span>
+		</div>
+		<div class="modal-body">
+			<div class="box_content">
+				<table>
+					<?php
+					$grand_tax_selected_val = $module_obj->tax_values;
+					if (strlen($grand_tax_selected_val) > 5) {
+						$grand_tax_selected_array = explode(',',rtrim($grand_tax_selected_val,','));
+					}
+					$selected_grand_tax = array();
+					if (count($grand_tax_selected_array) > 0) {
+						foreach ($grand_tax_selected_array as $k=>$sel_value) {
+							$sel_value_array = explode('::',$sel_value);
+							$selected_grand_tax[$sel_value_array[0]] = $sel_value_array[1];
+						}
+					}
+					$i= 0 ; 
+					foreach ($product_service_tax as $key=>$val) {
+						$i++;
+						if (array_key_exists($val["tax_name"],$selected_grand_tax)) {
+					?>
+					<tr>
+						<td style="width:150px;">
+							<input type="checkbox" CHECKED name="grand_tax_opts[]" id = "cb_grand_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
+							<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
+						</td>
+						<td style="margin-left:5px;">
+							<span>
+							<input type="text" value="<?php echo $selected_grand_tax[$val["tax_name"]];?>" class="input-mini" id="grand_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
+						</td>
+					</tr>
+					<?php 
+					} else {
+					?>
+					<tr>
+						<td style="width:150px;">
+							<input type="checkbox" name="grand_tax_opts[]" id = "cb_grand_tax_<?php echo $i; ?>" value="<?php echo  $val["tax_name"];?>">
+							<span style="font-size: 12px;margin-left:4px;"><?php echo  $val["tax_name"];?> ( % )</span>
+						</td>
+						<td style="margin-left:5px;">
+							<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="grand_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
+						</td>
+					</tr>
+					<?php
 					}
 				}
-				$i= 0 ; 
-				foreach ($product_service_tax as $key=>$val) {
-					$i++;
-					if (array_key_exists($val["tax_name"],$selected_grand_tax)) {
 				?>
-				<tr>
-					<td style="width:150px;">
-						<input type="checkbox" CHECKED name="grand_tax_opts[]" id = "cb_grand_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
-						<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
-					</td>
-					<td style="margin-left:5px;">
-						<span>
-						<input type="text" value="<?php echo $selected_grand_tax[$val["tax_name"]];?>" class="input-mini" id="grand_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
-					</td>
-				</tr>
-				<?php 
-				} else {
-				?>
-				<tr>
-					<td style="width:150px;">
-						<input type="checkbox" name="grand_tax_opts[]" id = "cb_grand_tax_<?php echo $i; ?>" value="<?php echo  $val["tax_name"];?>">
-						<span style="font-size: 12px;margin-left:4px;"><?php echo  $val["tax_name"];?> ( % )</span>
-					</td>
-					<td style="margin-left:5px;">
-						<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="grand_tax_val_<?php echo $val["tax_name"];?>" name="grand_tax_val_<?php echo $val["tax_name"];?>">
-					</td>
-				</tr>
-				<?php
-				}
-			}
-			?>
-			</table>
+				</table>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer" id="set_grand_tax_from_default_footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="button" id="" class="btn btn-primary set_grand_tax" value="<?php echo _('Set Tax')?>"/>
+		<div class="modal-footer" id="set_grand_tax_from_default_footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary set_grand_tax" value="<?php echo _('Set Tax')?>"/>
+		</div>
 	</div>
 </div>
 
 <!-- popup modal for shipping and handling tax on grand total -->
-<div class="modal hide fade" id="shipping_handling_tax">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-info"><?php echo _('Set shipping and handling tax - ');?><span id="grand_tax_name"></span></span>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<table>
-				<?php
-				$shipping_handling_tax_selected_val = $module_obj->shipping_handling_tax_values;
-				if (strlen($shipping_handling_tax_selected_val) > 5) {
-					$shipping_handling_tax_selected_val_array = explode(',',rtrim($shipping_handling_tax_selected_val,','));
-				}
-				$selected_shipping_handling_tax = array();
-				if (count($shipping_handling_tax_selected_val_array) > 0) {
-					foreach ($shipping_handling_tax_selected_val_array as $k=>$sel_value) {
-						$sel_value_array = explode('::',$sel_value);
-						$selected_shipping_handling_tax[$sel_value_array[0]] = $sel_value_array[1];
+<div class="modal fade" tabindex="-1" role="dialog" id="shipping_handling_tax">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge badge-info"><?php echo _('Set shipping and handling tax - ');?><span id="grand_tax_name"></span></span>
+		</div>
+		<div class="modal-body">
+			<div class="box_content">
+				<table>
+					<?php
+					$shipping_handling_tax_selected_val = $module_obj->shipping_handling_tax_values;
+					if (strlen($shipping_handling_tax_selected_val) > 5) {
+						$shipping_handling_tax_selected_val_array = explode(',',rtrim($shipping_handling_tax_selected_val,','));
+					}
+					$selected_shipping_handling_tax = array();
+					if (count($shipping_handling_tax_selected_val_array) > 0) {
+						foreach ($shipping_handling_tax_selected_val_array as $k=>$sel_value) {
+							$sel_value_array = explode('::',$sel_value);
+							$selected_shipping_handling_tax[$sel_value_array[0]] = $sel_value_array[1];
+						}
+					}
+					$i= 0 ; 
+					foreach ($shipping_handling_tax as $key=>$val) {
+						if (array_key_exists($val["tax_name"],$selected_shipping_handling_tax)) {
+							$i++;
+					?>
+					<tr>
+						<td style="width:150px;">
+							<input type="checkbox" CHECKED name="grand_shtax_opts[]" id = "cb_sh_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
+							<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
+						</td>
+						<td style="margin-left:5px;">
+							<input type="text" value="<?php echo $selected_shipping_handling_tax[$val["tax_name"]];?>" class="input-mini" id="sh_tax_val_<?php echo $val["tax_name"];?>" name="sh_tax_val_<?php echo $val["tax_name"];?>">
+						</td>
+					</tr>
+					<?php 
+					} else {?>
+					<tr>
+						<td style="width:150px;">
+							<input type="checkbox" name="grand_shtax_opts[]" id = "cb_sh_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
+							<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
+						</td>
+						<td style="margin-left:5px;">
+							<span>
+							<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="sh_tax_val_<?php echo $val["tax_name"];?>" name="sh_tax_val_<?php echo $val["tax_name"];?>">
+						</td>
+					</tr>	
+					<?php
 					}
 				}
-				$i= 0 ; 
-				foreach ($shipping_handling_tax as $key=>$val) {
-					if (array_key_exists($val["tax_name"],$selected_shipping_handling_tax)) {
-						$i++;
 				?>
-				<tr>
-					<td style="width:150px;">
-						<input type="checkbox" CHECKED name="grand_shtax_opts[]" id = "cb_sh_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
-						<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
-					</td>
-					<td style="margin-left:5px;">
-						<input type="text" value="<?php echo $selected_shipping_handling_tax[$val["tax_name"]];?>" class="input-mini" id="sh_tax_val_<?php echo $val["tax_name"];?>" name="sh_tax_val_<?php echo $val["tax_name"];?>">
-					</td>
-				</tr>
-				<?php 
-				} else {?>
-				<tr>
-					<td style="width:150px;">
-						<input type="checkbox" name="grand_shtax_opts[]" id = "cb_sh_tax_<?php echo $i; ?>" value="<?php echo $val["tax_name"];?>">
-						<span style="font-size: 12px;margin-left:4px;"><?php echo $val["tax_name"];?> ( % )</span>
-					</td>
-					<td style="margin-left:5px;">
-						<span>
-						<input type="text" value="<?php echo $val["tax_value"];?>" class="input-mini" id="sh_tax_val_<?php echo $val["tax_name"];?>" name="sh_tax_val_<?php echo $val["tax_name"];?>">
-					</td>
-				</tr>	
-				<?php
-				}
-			}
-			?>
-			</table>
+				</table>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer" id="set_shipping_handling_tax_from_default_footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="button" id="" class="btn btn-primary set_shipping_handling_tax" value="<?php echo _('Set Tax')?>"/>
+		<div class="modal-footer" id="set_shipping_handling_tax_from_default_footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary set_shipping_handling_tax" value="<?php echo _('Set Tax')?>"/>
+		</div>
 	</div>
 </div>
 
 <!-- popup modal for line item discount -->
-<div class="modal hide fade" id="item_discount">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-info"><?php echo _('Set Discount for ');?><span id="on_price"></span></span>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<table class="table">
-				<tr>
-					<td colspan="2">
-						<input type="radio" id="" name="" class="item_no_dis" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="radio" id="" name="" class="item_perc_dis" value="2">
-						&nbsp;&nbsp;<?php echo _('% discount');?>
-					</td>
-					<td>
-						<span id="" class= "perc_discount_val_span_edit" style="display:block;">
-							<input type="number" class="input-small perc_discount_val" name="" id=""> %
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="radio" id="" name="" class="item_direct_dis" value="3">
-						&nbsp;&nbsp;<?php echo _('direct reduction');?>
-					</td>
-					<td>
-						<span id="" class="dir_discount_val_span_edit" style="display:block;">
-							<input type="number" class="input-small dir_discount_val" name="" id="">
-						</span>
-					</td>
-				</tr>
-			</table>
+<div class="modal fade" tabindex="-1" role="dialog" id="item_discount">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge badge-info"><?php echo _('Set Discount for ');?><span id="on_price"></span></span>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="button" id="" class="btn btn-primary set_line_discount" value="<?php echo _('Set Discount')?>"/>
+		<div class="modal-body">
+			<div class="box_content">
+				<table class="table">
+					<tr>
+						<td colspan="2">
+							<input type="radio" id="" name="" class="item_no_dis" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" id="" name="" class="item_perc_dis" value="2">
+							&nbsp;&nbsp;<?php echo _('% discount');?>
+						</td>
+						<td>
+							<span id="" class= "perc_discount_val_span_edit" style="display:block;">
+								<input type="number" class="input-small perc_discount_val" name="" id=""> %
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" id="" name="" class="item_direct_dis" value="3">
+							&nbsp;&nbsp;<?php echo _('direct reduction');?>
+						</td>
+						<td>
+							<span id="" class="dir_discount_val_span_edit" style="display:block;">
+								<input type="number" class="input-small dir_discount_val" name="" id="">
+							</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary set_line_discount" value="<?php echo _('Set Discount')?>"/>
+		</div>
 	</div>
 </div>
 
 <!-- popup modal for grand discount -->
-<div class="modal hide fade" id="grand_discount">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-info"><?php echo _('Set the grand discount on ');?><span id="grand_on_price"></span></span>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<table class="table">
-				<tr>
-					<td colspan="2">
-						<input type="radio" <?php echo ($module_obj->discount_type =='no_discount' || $module_obj->discount_type=='' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="radio"  <?php echo ($module_obj->discount_type =='percentage' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="2">
-						&nbsp;&nbsp;<?php echo _('% discount');?>
-					</td>
-					<td>
-						<span id="" class= "grand_discount_val_span" style="">
-							<input type="number" value="<?php echo ($module_obj->discount_type =='percentage' ? $module_obj->discount_value : '');?>" class="input-small" name="grand_perc_discount" id="grand_perc_discount"> %
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="radio" <?php echo ($module_obj->discount_type =='direct' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="3">
-						&nbsp;&nbsp;<?php echo _('direct reduction');?>
-					</td>
-					<td>
-						<span id="" class="grand_dir_discount_val_span" style="">
-							<input type="number" value="<?php echo ($module_obj->discount_type =='direct' ? $module_obj->discount_value : '');?>" class="input-small" name="grand_dir_discount" id="grand_dir_discount">
-						</span>
-					</td>
-				</tr>
-			</table>
+<div class="modal fade" tabindex="-1" role="dialog" id="grand_discount">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge badge-info"><?php echo _('Set the grand discount on ');?><span id="grand_on_price"></span></span>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="button" id="" class="btn btn-primary set_grand_discount" value="<?php echo _('Set Discount')?>"/>
+		<div class="modal-body">
+			<div class="box_content">
+				<table class="table">
+					<tr>
+						<td colspan="2">
+							<input type="radio" <?php echo ($module_obj->discount_type =='no_discount' || $module_obj->discount_type=='' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="1">&nbsp;&nbsp;<?php echo _('no discount');?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio"  <?php echo ($module_obj->discount_type =='percentage' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="2">
+							&nbsp;&nbsp;<?php echo _('% discount');?>
+						</td>
+						<td>
+							<span id="" class= "grand_discount_val_span" style="">
+								<input type="number" value="<?php echo ($module_obj->discount_type =='percentage' ? $module_obj->discount_value : '');?>" class="input-small" name="grand_perc_discount" id="grand_perc_discount"> %
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" <?php echo ($module_obj->discount_type =='direct' ? 'checked': '');?> id="grand_discount_option" name="grand_discount_option" class="" value="3">
+							&nbsp;&nbsp;<?php echo _('direct reduction');?>
+						</td>
+						<td>
+							<span id="" class="grand_dir_discount_val_span" style="">
+								<input type="number" value="<?php echo ($module_obj->discount_type =='direct' ? $module_obj->discount_value : '');?>" class="input-small" name="grand_dir_discount" id="grand_dir_discount">
+							</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary set_grand_discount" value="<?php echo _('Set Discount')?>"/>
+		</div>
 	</div>
 </div>
 
-<div class="modal hide fade" id="delete_lineitem_warning">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge warning"><?php echo _('DELETE CONFIRM');?></span>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<strong><?php echo _('Are you sure you want to delete');?></strong>
+<div class="modal fade" tabindex="-1" role="dialog" id="delete_lineitem_warning">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="badge warning"><?php echo _('DELETE CONFIRM');?></span>
 		</div>
-	</div>
-	<div class="modal-footer" id="set_tax_from_default_footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="button" id="" class="btn btn-primary line_item_delete_true" value="<?php echo _('Yes')?>"/>
+		<div class="modal-body">
+			<div class="box_content">
+				<strong><?php echo _('Are you sure you want to delete');?></strong>
+			</div>
+		</div>
+		<div class="modal-footer" id="set_tax_from_default_footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+			<input type="button" id="" class="btn btn-primary line_item_delete_true" value="<?php echo _('Yes')?>"/>
+		</div>
 	</div>
 </div>
 <script>

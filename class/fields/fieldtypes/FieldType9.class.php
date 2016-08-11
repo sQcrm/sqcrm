@@ -45,7 +45,7 @@ class FieldType9 extends CRMFields {
 		$html = '';
 		$html .= '
 		<div class="input-append date" data-date="'.$formated_date.'" data-date-format="'.$date_format.'" id="dd_'.$name.'" >
-			<input name="'.$name.'" id="'.$name.'" value="'.$formated_date.'" readonly="readonly" type="text"><span class="add-on"><i class="icon-calendar"></i></span>
+			<input name="'.$name.'" id="'.$name.'" value="'.$formated_date.'" readonly="readonly" type="text"><span class="add-on"><span class="glyphicon glyphicon-calendar" aria-hidden="true" style="cursor: pointer;"></span></span>
 		</div>';
 		$html .= 
 		"\n".'

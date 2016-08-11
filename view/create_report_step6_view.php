@@ -49,89 +49,111 @@ echo $e_set_report_data->getFormEvent();
 	<div class="row-fluid">
 		<div class="span12" style="margin-left:3px;">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 6');?></h3>
-				<p><?php echo _('Select filter options for the report')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 6');?></strong></p>
+				<p class="lead"><?php echo _('Select filter options for the report')?></p> 
 			</div>
 			<div class="box_content">
 				<p><?php echo _('Select date filter options for the report')?></p> 
-				<table>
-					<tr>
-						<td>
-							<label class="control-label" for=""><?php echo _('Select Date Filter');?></label>
-							<div class="controls">
-								<select name="report_date_field" id="report_date_field">
-									<option value="0"><?php echo _('Select date filter');?></option>
-									<?php
-									foreach ($date_filters as $key=>$val) {
-										$selected = '';
-										if (count($selected_date_filter) > 0 && $selected_date_filter["report_date_field"] == $val["idfields"]) {
-											$selected = "SELECTED";
-										}
-										echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["field_label"].'</option>';
-									}
-									?>
-								</select>
-								&nbsp;&nbsp;
-								<select name="report_date_field_type" id="report_date_field_type">
-									<?php
-									foreach ($date_filter_options as $key=>$val) {
-										$selected = '';
-										if (count($selected_date_filter) > 0 && $selected_date_filter["report_date_field_type"] == $key) {
-											$selected = "SELECTED";
-										}
-										echo '<option value="'.$key.'" '.$selected.'>'.$val.'</option>';
-									}
-									?>
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr><td colspan=2></td></tr>
-					<tr><td colspan=2></td></tr>
-					<tr><td colspan=2></td></tr>
-					<tr>
-						<td>
-							<div id="report_date_filter" <?php echo $custom_date_options_style;?>>
-								<?php
-								$report_date_start ='';
-								$report_date_end = '';
-								if (count($selected_date_filter) > 0) {
-									$report_date_start = $selected_date_filter["report_date_start"];
-									$report_date_end = $selected_report_filters["report_date_end"];
+				<label class="control-label" for=""><?php echo _('Select Date Filter');?></label>
+				<div class="row">
+					<div class="col-xs-6">
+						<select name="report_date_field" id="report_date_field" class="form-control input-sm">
+							<option value="0"><?php echo _('Select date filter');?></option>
+							<?php
+							foreach ($date_filters as $key=>$val) {
+								$selected = '';
+								if (count($selected_date_filter) > 0 && $selected_date_filter["report_date_field"] == $val["idfields"]) {
+									$selected = "SELECTED";
 								}
-								?>
+								echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["field_label"].'</option>';
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-6">
+						<select name="report_date_field_type" id="report_date_field_type" class="form-control input-sm">
+							<?php
+							foreach ($date_filter_options as $key=>$val) {
+								$selected = '';
+								if (count($selected_date_filter) > 0 && $selected_date_filter["report_date_field_type"] == $key) {
+									$selected = "SELECTED";
+								}
+								echo '<option value="'.$key.'" '.$selected.'>'.$val.'</option>';
+							}
+							?>
+						</select>
+					</div>
+				</div>
+				<br />
+				<div class="row" id="report_date_filter" <?php echo $custom_date_options_style;?>>
+					<?php
+					$report_date_start ='';
+					$report_date_end = '';
+					if (count($selected_date_filter) > 0) {
+						$report_date_start = $selected_date_filter["report_date_start"];
+						$report_date_end = $selected_report_filters["report_date_end"];
+					}
+					?>
+					<div class="col-xs-8">
+						<div class="row">
+							<div class="col-xs-3">
 								<label class="control-label" for=""><?php echo _('Start date');?></label>
-								<div class="controls">
-									<?php echo FieldType9::display_field('report_date_start',$report_date_start);?>
-								</div>
-								<label class="control-label" for=""><?php echo _('End date');?></label>
-								<div class="controls">
-									<?php echo FieldType9::display_field('report_date_end',$report_date_end);?>
-								</div>
 							</div>
-						</td>
-					</tr>
-				</table>
+							<div class="col-xs-5">
+								<?php echo FieldType9::display_field('report_date_start',$report_date_start);?>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-3">
+								<label class="control-label" for=""><?php echo _('End date');?></label>
+							</div>
+							<div class="col-xs-5">
+								<?php echo FieldType9::display_field('report_date_end',$report_date_end);?>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="box_content">
 				<p><?php echo _('Select advanced filter options for the report')?></p> 
-				<table>
-					<?php
-					$cnt = 0;
-					for ($i=0;$i<=4;$i++) {
-						$cnt++;
-					?>
-					<tr>	
-						<td>
-							<select name="report_adv_fields_<?php echo $i+1;?>" id="report_adv_fields_<?php echo $i+1;?>" style = "width:300px;">
-								<option value="0"><?php echo _('none');?></option>
-								<?php
-								echo '<optgroup label="'.$_SESSION["do_module"]->modules_full_details[$_SESSION["primary_module"]]["label"].'"></optgroup>';
-								foreach ($primary_report_fields as $idblock=>$blockdata) { 
+				<?php
+				$cnt = 0;
+				for ($i=0;$i<=4;$i++) {
+					$cnt++;
+				?>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="report_adv_fields_<?php echo $i+1;?>" id="report_adv_fields_<?php echo $i+1;?>" class="form-control input-sm">
+							<option value="0"><?php echo _('none');?></option>
+							<?php
+							echo '<optgroup label="'.$_SESSION["do_module"]->modules_full_details[$_SESSION["primary_module"]]["label"].'"></optgroup>';
+							foreach ($primary_report_fields as $idblock=>$blockdata) { 
+								foreach ($blockdata as $blockname=>$fieldinfo) {
+									echo '<optgroup label="'.$blockname.'" style="padding-left:15px">';
+									foreach ($fieldinfo as $key=>$val) {
+										if ($val["field_type"] == 9 ) continue ;
+										$selected = '';
+										if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
+											if (array_key_exists("report_adv_fields_$cnt",$selected_adv_filters["advanced_filter_options"])) {
+												if ($selected_adv_filters["advanced_filter_options"]["report_adv_fields_$cnt"] == $val["idfields"]) {
+													$selected = "SELECTED";
+												}
+											}
+										}
+										echo '<option value="'.$val["idfields"].'" style="padding-left:30px" '.$selected.'>'.$val["field_label"].'</option>';
+									}
+								}
+							}
+							if (count($secondary_report_fields) > 0) { 
+								echo '<optgroup label="'.$_SESSION["do_module"]->modules_full_details[$secondary_module_id]["label"].'"></optgroup>';
+								foreach ($secondary_report_fields as $idblock=>$blockdata) { 
 									foreach ($blockdata as $blockname=>$fieldinfo) {
 										echo '<optgroup label="'.$blockname.'" style="padding-left:15px">';
 										foreach ($fieldinfo as $key=>$val) {
 											if ($val["field_type"] == 9 ) continue ;
+											if ($primary_module_id == 2 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
+											if ($primary_module_id == 4 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
+											if ($primary_module_id == 6 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
 											$selected = '';
 											if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
 												if (array_key_exists("report_adv_fields_$cnt",$selected_adv_filters["advanced_filter_options"])) {
@@ -144,75 +166,55 @@ echo $e_set_report_data->getFormEvent();
 										}
 									}
 								}
-								if (count($secondary_report_fields) > 0) { 
-									echo '<optgroup label="'.$_SESSION["do_module"]->modules_full_details[$secondary_module_id]["label"].'"></optgroup>';
-									foreach ($secondary_report_fields as $idblock=>$blockdata) { 
-										foreach ($blockdata as $blockname=>$fieldinfo) {
-											echo '<optgroup label="'.$blockname.'" style="padding-left:15px">';
-											foreach ($fieldinfo as $key=>$val) {
-												if ($val["field_type"] == 9 ) continue ;
-												if ($primary_module_id == 2 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
-												if ($primary_module_id == 4 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
-												if ($primary_module_id == 6 && $secondary_module_id == 5 && $val["idfields"] == 114) continue;
-												$selected = '';
-												if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
-													if (array_key_exists("report_adv_fields_$cnt",$selected_adv_filters["advanced_filter_options"])) {
-														if ($selected_adv_filters["advanced_filter_options"]["report_adv_fields_$cnt"] == $val["idfields"]) {
-															$selected = "SELECTED";
-														}
-													}
-												}
-												echo '<option value="'.$val["idfields"].'" style="padding-left:30px" '.$selected.'>'.$val["field_label"].'</option>';
-											}
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_adv_fields_type_<?php echo $i+1;?>" id = "report_adv_fields_type_<?php echo $i+1;?>" class="form-control input-sm"> 	
+							<?php
+							foreach ($advanced_filter_options as $key=>$val) {
+								$selected = '';
+								if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
+									if (array_key_exists("report_adv_fields_type_$cnt",$selected_adv_filters["advanced_filter_options"])) {
+										if ($selected_adv_filters["advanced_filter_options"]["report_adv_fields_type_$cnt"] == $key) {
+											$selected = "SELECTED";
 										}
 									}
 								}
-								?>
-								</select>
-								&nbsp;&nbsp;
-								<select name="report_adv_fields_type_<?php echo $i+1;?>" id = "report_adv_fields_type_<?php echo $i+1;?>">	
-									<?php
-									foreach ($advanced_filter_options as $key=>$val) {
-										$selected = '';
-										if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
-											if (array_key_exists("report_adv_fields_type_$cnt",$selected_adv_filters["advanced_filter_options"])) {
-												if ($selected_adv_filters["advanced_filter_options"]["report_adv_fields_type_$cnt"] == $key) {
-													$selected = "SELECTED";
-												}
-											}
-										}
-										echo '<option value="'.$key.'" '.$selected.'>'.$val.'</option>';
-									}
-									?>
-								</select>
-								&nbsp;&nbsp;
-								<?php
-									$report_adv_fields_val = '';
-									if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
-										if (array_key_exists("report_adv_fields_val_$cnt",$selected_adv_filters["advanced_filter_options"])) {
-											$report_adv_fields_val = $selected_adv_filters["advanced_filter_options"]["report_adv_fields_val_$cnt"];
-										}
-									}
-								?>
-								<input type="text" name="report_adv_fields_val_<?php echo $i+1;?>" id="report_adv_fields_val_<?php echo $i+1;?>" value="<?php echo $report_adv_fields_val;?>">
-								&nbsp;&nbsp;
-								<?php if($i<4) echo '<span style="font-size: 11px;">'._('and').'</span>';?>
-							</td>
-						</tr>
-						<tr><td></td></tr>
-						<tr><td></td></tr>
-					<?php } ?>
-				</table>
-			</div>
-			<div class="form-actions">  
+								echo '<option value="'.$key.'" '.$selected.'>'.$val.'</option>';
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<?php
+							$report_adv_fields_val = '';
+							if (is_array($selected_adv_filters) && count($selected_adv_filters) > 0 && array_key_exists("advanced_filter_options",$selected_adv_filters)) {
+								if (array_key_exists("report_adv_fields_val_$cnt",$selected_adv_filters["advanced_filter_options"])) {
+									$report_adv_fields_val = $selected_adv_filters["advanced_filter_options"]["report_adv_fields_val_$cnt"];
+								}
+							}
+						?>
+						<input type="text" name="report_adv_fields_val_<?php echo $i+1;?>" id="report_adv_fields_val_<?php echo $i+1;?>" value="<?php echo $report_adv_fields_val;?>" class="form-control input-sm">
+					</div>
+					<div class="col-xs-1">
+						<?php if($i<4) echo '<span style="font-size: 11px;">'._('and').'</span>';?>
+					</div>
+				</div>
+				<?php
+				}
+				?>
+				<br />
+				<hr class="form_hr">
 				<?php
 				if (isset($edit) && $edit == 1) { ?>
-					<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=5&sqrecord=".$sqcrm_record_id);?>" class="btn btn-inverse">
+					<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=5&sqrecord=".$sqcrm_record_id);?>" class="btn btn-default active">
 				<?php } else { ?>
-					<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=5");?>" class="btn btn-inverse">
+					<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=5");?>" class="btn btn-default active">
 				<?php } ?>
-					<i class="icon-white icon-remove-sign"></i> <?php echo _('Back');?></a>  
-					<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Back');?></a>  
+					<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>	
 			</div>
 			</form>
 		</div>

@@ -60,7 +60,7 @@ class FieldType150 extends CRMFields{
 		} else {
 			$mid = 6 ;
 		}
-		$html .='<select class="input-large" name="related_to_opt" id="related_to_opt">';
+		$html .='<select class="form-control input-sm" name="related_to_opt" id="related_to_opt">';
 		$html .='<option value="6" '.$organization_selected.'>'._('Organization').'</option>';
 		$html .='<option value="4" '.$contact_selected.'>'._('Contacts').'</option>';
 		$html .='</select>';

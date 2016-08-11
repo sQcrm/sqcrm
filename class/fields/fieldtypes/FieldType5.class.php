@@ -31,7 +31,7 @@ class FieldType5 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$idfield,$value = '',$css = '') {
+	public static function display_field($name,$idfield,$value = '',$css = 'form-control input-sm') {
 		$combo_values = new ComboValues();
 		$combo_values->get_combo_values($idfield);
 		echo '<select class="'.$css.'" name = "'.$name.'" id="'.$name.'">'."\n";

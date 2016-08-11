@@ -53,7 +53,7 @@ class FieldType167 extends CRMFields {
 				<td style="width:90px;">
 					<input type="checkbox" name="'.$name.'[]" CHECKED id = "sh_tax_ft_'.$i.'" value="'.$tax_values[0].'" onclick="show_shtax_val_ft(\''.$i.'\')"><span style="font-size: 12px;margin-left:4px;">'.$tax_values[0]. ' ( % )</span>
 				</td>
-				<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:block;"><input type="text" value="'.$tax_values[1].'" class="input-mini" name="'.$name.'_'.$i.'"></td>';
+				<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:block;"><input type="text" value="'.$tax_values[1].'" class="form-control input-sm" name="'.$name.'_'.$i.'"></td>';
 				$html .= '</tr>';			
 				$i++;
 			}
@@ -63,7 +63,7 @@ class FieldType167 extends CRMFields {
 				<td style="width:90px;">
 					<input type="checkbox" name="'.$name.'[]" id ="sh_tax_ft_'.$i.'" value="'.$t_val.'" onclick="show_shtax_val_ft(\''.$i.'\')"><span style="font-size: 12px;margin-left:4px;">'.$t_val. ' ( % )</span>
 				</td>
-				<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:none;"><input type="text" value="'.$tax_setting_values[$t_val].'" class="input-mini" name="'.$name.'_'.$i.'"></td>';
+				<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:none;"><input type="text" value="'.$tax_setting_values[$t_val].'" class="form-control input-sm" name="'.$name.'_'.$i.'"></td>';
 				$html .= '</tr>';		
 				$i++;
 			}
@@ -80,7 +80,7 @@ class FieldType167 extends CRMFields {
 					<td style="width:90px;">
 						<input type="checkbox" name="'.$name.'[]" id = "sh_tax_ft_'.$i.'" value="'.$do_tax_settings->tax_name.'" onclick="show_shtax_val_ft(\''.$i.'\')"><span style="font-size: 12px;margin-left:4px;">'.$do_tax_settings->tax_name. ' ( % )</span>
 					</td>
-					<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:none;"><input type="text" value="'.$do_tax_settings->tax_value.'" class="input-mini" name="'.$name.'_'.$i.'"></td>';
+					<td style="margin-left:5px;"><span id="tax_vl_sh_ft_'.$i.'" style="display:none;"><input type="text" value="'.$do_tax_settings->tax_value.'" class="form-control input-sm" name="'.$name.'_'.$i.'"></td>';
 					$html .= '</tr>';			
 					$i++;
 				}

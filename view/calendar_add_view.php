@@ -6,7 +6,7 @@
 */ 
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php
 		$e_add_entity = new Event($module."->eventAddRecord");
 		$e_add_entity->addParam("idmodule",$module_id);
@@ -15,54 +15,60 @@
 		echo '<form class="" id="'.$module.'__addRecord" name="'.$module.'__addRecord" action="/eventcontroler.php" method="post" enctype="multipart/form-data">';
 		echo $e_add_entity->getFormEvent();
 		?>
-		<div class="span7" style="margin-left:3px;">
-			<div class="row-fluid">
-				<div class="datadisplay-outer">
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-12"> 
+					<div class="datadisplay-outer">
 					<?php
 					require("add_view_form_fields.php");
 					?>
+					</div>
 				</div>
 			</div><!--/row-->
 		</div><!--/span-->
     
-		<div class="span5" style="margin-left:10px;">
-			<?php
-			require("view/calendar_repeat_event_add_view.php");
-			?>
-			<div class="box_content">
-				<label class="checkbox">
-					<input type="checkbox" id="event_alert" name="event_alert">
-					<b><?php echo _('Send Alert'); ?></b>
-				</label>
-				<div id="event_alert_opt_section" style="display:none;">
+		<div class="col-md-5">
+			<div class="row">
+				<div class="col-md-12"> 
 					<?php
-					echo '<br />';
-					echo _('Send alert before');
-					echo '<br />';
-					echo '<select name="event_alert_day" id="event_alert_day" class="input-small">';
-					for ($i=0;$i<=31;$i++) {
-						echo '<option value ="'.$i.'">'.$i.'</option>';
-					}
-					echo '</select>';
-					echo '&nbsp;'._('days').'&nbsp;';
-					echo '<select name="event_alert_hrs" id="event_alert_hrs" class="input-small">' ;
-					for ($i=0;$i<24;$i++) {
-						echo '<option value ="'.$i.'">'.$i.'</option>';
-					}
-					echo '</select>';
-					echo '&nbsp;'._('hours').'&nbsp;';
-					echo '<select name="event_alert_mins" id="event_alert_mins" class="input-small">' ;
-					for ($i=0;$i<=55;$i++) {
-						echo '<option value ="'.$i.'">'.$i.'</option>';
-					}
-					echo '</select>';
-					echo '&nbsp;'._('minutes').'&nbsp;';
-					echo '<br />';
-					echo _('Add more email ids by comma separation to receive alert.(ex: abhik@sqcrm.com,joe@sqcrm.com)');
-					echo '<br />';
-					FieldType20::display_field('event_alert_email_ids','','expand_text_area');
-					echo '<br />';
+					require("view/calendar_repeat_event_add_view.php");
 					?>
+					<div class="box_content">
+						<div class="form-group">
+							<input type="checkbox" id="event_alert" name="event_alert">
+							<b><?php echo _('Send Alert'); ?></b>
+						</div>
+						<div id="event_alert_opt_section" style="display:none;">
+						<?php
+						echo '<br />';
+						echo _('Send alert before');
+						echo '<br />';
+						echo '<select name="event_alert_day" id="event_alert_day" class="form-control input-sm">';
+						for ($i=0;$i<=31;$i++) {
+							echo '<option value ="'.$i.'">'.$i.'</option>';
+						}
+						echo '</select>';
+						echo '&nbsp;'._('days').'&nbsp;';
+						echo '<select name="event_alert_hrs" id="event_alert_hrs" class="form-control input-sm">' ;
+						for ($i=0;$i<24;$i++) {
+							echo '<option value ="'.$i.'">'.$i.'</option>';
+						}
+						echo '</select>';
+						echo '&nbsp;'._('hours').'&nbsp;';
+						echo '<select name="event_alert_mins" id="event_alert_mins" class="form-control input-sm">' ;
+						for ($i=0;$i<=55;$i++) {
+							echo '<option value ="'.$i.'">'.$i.'</option>';
+						}
+						echo '</select>';
+						echo '&nbsp;'._('minutes').'&nbsp;';
+						echo '<br />';
+						echo _('Add more email ids by comma separation to receive alert.(ex: abhik@sqcrm.com,joe@sqcrm.com)');
+						echo '<br />';
+						FieldType20::display_field('event_alert_email_ids','','expand_text_area');
+						echo '<br /><br />';
+						?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
