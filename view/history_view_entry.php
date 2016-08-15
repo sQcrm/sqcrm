@@ -51,7 +51,7 @@ if ($data_history === false) {
 					$avatar = $data["avatar"] ;
 				} else { $avatar =  '/themes/images/blank_avatar.jpg'; }
 				echo '<div style="float:left;"><div class="circular_35" style="background-image: url(\''.$avatar.'\')"></div></div>';
-				echo '<div style="float:right;left:67;position:absolute;top:28;"><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>'.$data["row1"].'</small></p></div>';
+				echo '<div style="float:right;left:67;position:absolute;top:28;"><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> '.$data["row1"].'</small></p></div>';
 				echo '<div class="clear_float"></div>';
 				echo '<br />';
 				echo '<div class="tl-body">
