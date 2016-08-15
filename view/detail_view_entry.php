@@ -13,7 +13,7 @@ if (is_array($update_history) && count($update_history) > 0) { ?>
 		<?php
         if (array_key_exists("add",$update_history)) {
 			if ($update_history["add"]["user_avatar"] == '') {
-				echo '<span class="add-on"><i class="icon-user"></i></span>';
+				echo '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>';
 			} else {
 				echo '<img src="'.$update_history["add"]["user_avatar"].'" style="width:20px;height:20px;" />';
 			}
@@ -23,7 +23,7 @@ if (is_array($update_history) && count($update_history) > 0) { ?>
         }
         if (array_key_exists("update",$update_history)) {
 			if ($update_history["update"]["user_avatar"] == '') {
-				echo '<span class="add-on"><i class="icon-user"></i></span>';
+				echo '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>';
 			} else {
 				echo '<img src="'.$update_history["update"]["user_avatar"].'" style="width:20px;height:20px;" />';
 			}
@@ -37,15 +37,15 @@ if (is_array($update_history) && count($update_history) > 0) { ?>
 }
 if (!isset($_GET["onlyData"])) {
 ?>
-	<div class="span5">
-		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
-		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+	<div class="col-md-5">
+		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-default active">
+		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>  
 		<?php
 		if ($converted_lead == true && $module_id == 3) {
 			echo '&nbsp;';
 		} else {
 			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
-				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>'._('Edit').'</a>';
 			}
 		}
 		?>
@@ -113,15 +113,15 @@ if ($module_id == 13 || $module_id == 14 || $module_id == 15 || $module_id == 16
 }
 if (!isset($_GET["onlyData"])) {
 ?>
-	<div class="span5">
-		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-inverse">
-		<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+	<div class="col-md-5">
+		<a href="<?php echo NavigationControl::getNavigationLink($module,"list");?>" class="btn btn-default active">
+		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>  
 		<?php
 		if ($converted_lead == true && $module_id == 3) {
 			echo '&nbsp;';
 		} else {
 			if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
-				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="icon-white icon-edit"></i>'._('Edit').'</a>';
+				echo '<a href="'.NavigationControl::getNavigationLink($module,"edit",$sqcrm_record_id,"&return_page=detail").'" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>'._('Edit').'</a>';
 			}
 			echo '&nbsp;';
 		}
