@@ -12,13 +12,19 @@ $(document).ready(function() {
                 required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});
            
@@ -31,13 +37,19 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});
           
@@ -52,13 +64,19 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});
            
@@ -73,13 +91,19 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});
            
@@ -94,13 +118,19 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});
            
@@ -115,13 +145,19 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		highlight: function(label) {
-			$(label).closest('.control-group').addClass('error');
+		highlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 		},
-		success: function(label) {
-			label
-			.text('OK!').addClass('valid')
-			.closest('.control-group').addClass('success');
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function (error, element) {
+			if (element.parent('.input-group').length) {
+				error.insertAfter(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
 		}
 	});      
 }); // end document.ready
@@ -308,6 +344,7 @@ $("#update_datashare").click( function() {
 */
 function return_delete_profile_confirm(id,classname,module,referrar) {
 	$("#delete_confirm").modal('show');
+	$("#delete_confirm .btn-primary").off('click');
 	$("#delete_confirm .btn-primary").click(function() {
 		$("#delete_confirm").modal('hide');
 		var href = '/popups/delete_profile_modal?sqrecord='+id+'&classname='+classname+'&m='+module+'&referrar='+referrar;
@@ -320,7 +357,7 @@ function return_delete_profile_confirm(id,classname,module,referrar) {
 				$("#return_delete_profile_confirm").html(''); 
 				$("#return_delete_profile_confirm").hide();
 				$("#return_delete_profile_confirm").attr("id","ugly_heck");
-				$('<div class="modal hide fade in" id="return_delete_profile_confirm">' + data + '</div>').modal();
+				$('<div class="modal fade" tabindex="-1" role="dialog" id="return_delete_profile_confirm">' + data + '</div>').modal();
 			}).success(function() { $('input:text:visible:first').focus(); });
 		}
 	});
@@ -380,7 +417,7 @@ function add_custom_field(module,referrar) {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#add_custom_field").html(''); 
 			$("#add_custom_field").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="add_custom_field">' + data + '</div>').modal();
+			$('<div class="modal fade" tabindex="-1" role="dialog" id="add_custom_field">' + data + '</div>').modal();
 		}).success(function() { $('input:text:visible:first').focus(); });
 	}
 }
@@ -400,7 +437,7 @@ function edit_custom_field(module,idfields,referrar) {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#edit_custom_field").html(''); 
 			$("#edit_custom_field").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="edit_custom_field">' + data + '</div>').modal();
+			$('<div class="modal fade" tabindex="-1" role="dialog" id="edit_custom_field">' + data + '</div>').modal();
 		}).success(function() { $('input:text:visible:first').focus(); });
 	}
 }

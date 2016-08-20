@@ -33,29 +33,29 @@ class Roles extends DataObject {
 				if ($data["editable"] == 0)
 					echo '<span style="display:none;" class="role_hierarchy_opt">
 							<a href="'.NavigationControl::getNavigationLink($module,'roles_add','','?parentrole='.$data["idrole"]).'">
-								<i class="icon-plus"></i>
+								<i class="glyphicon glyphicon-plus"></i>
 							</a>
 							</span>'."\n" ;
 				else
 					if ($data["idrole"] == "N2")
 						echo '<span style="display:none;" class="role_hierarchy_opt">
 								<a href="'.NavigationControl::getNavigationLink($module,'roles_add','','?parentrole='.$data["idrole"]).'">
-									<i class="icon-plus"></i>
+									<i class="glyphicon glyphicon-plus"></i>
 								</a>
 								<a href="'.NavigationControl::getNavigationLink($module,'roles_edit','','?idrole='.$data["idrole"]).'">
-									<i class="icon-pencil"></i>
+									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
 								</span>'."\n" ;
 					else
 						echo '<span style="display:none;" class="role_hierarchy_opt">
 								<a href="'.NavigationControl::getNavigationLink($module,'roles_add','','?parentrole='.$data["idrole"]).'">
-									<i class="icon-plus"></i>
+									<i class="glyphicon glyphicon-plus"></i>
 								</a>
 								<a href="'.NavigationControl::getNavigationLink($module,'roles_edit','','?idrole='.$data["idrole"]).'">
-									<i class="icon-pencil"></i>
+									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
 								<a class="del_role" href="'.NavigationControl::getNavigationLink($module,'roles_delete','','?idrole='.$data["idrole"]).'">
-									<i class="icon-remove-sign"></i>
+									<i class="glyphicon glyphicon-remove-sign"></i>
 								</a>
 								</span>'."\n" ;
 				echo '</label>'."\n";

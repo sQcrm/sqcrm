@@ -10,15 +10,18 @@ $do_roles = new Roles();
     
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list")?>"><?php echo _('Roles'); ?></a></h3>
-				<p><?php echo _('Manage Roles hierarchy for users')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list")?>"><?php echo _('Roles'); ?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Manage Roles hierarchy for users')?></p> 
 			</div>
 			<div class="datadisplay-outer">
-				<div class="left_300"><h3><?php echo _('Tree view of roles and hierarchy');?></h3></div>
+				<h2><small class="text-muted"><?php echo _('Tree view of roles and hierarchy');?></small></h2>
 				<div class="clear_float"></div>
 				<div class="css-treeview">
 					<?php

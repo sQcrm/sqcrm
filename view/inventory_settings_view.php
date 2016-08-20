@@ -8,67 +8,79 @@
 <script type="text/javascript" src="/js/jquery/plugins/jquery.form.js"></script>
 <div id="message"></div>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"tax_settings")?>"><?php echo _('Tax')?></a></h3>
-				<p><?php echo _('Manage Inventory settings. Quote ,Invoice, Sales Order, Purchase Order')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"tax_settings")?>"><?php echo _('Tax')?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Manage Inventory settings. Quote ,Invoice, Sales Order, Purchase Order')?></p> 
 			</div>		
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Logo for Quote/Invoice/SO/PO');?></h4></div>
+				<h2><small><?php echo _('Logo for Quote/Invoice/SO/PO');?></small></h2>
 				<div class="clear_float"></div>
-				<div id="logo_dis">
-					<img src="<?php echo $GLOBALS['FILE_UPLOAD_DISPLAY_PATH'].'/'.$inventory_logo?>" width="200" height="70">
-				</div>
-				<?php
-				$e_logo_up = new Event("CRMGlobalSettings->eventAjaxUpdateInventoryLogo");
-				echo '<form class="form-horizontal" id="CRMGlobalSettings__eventAjaxUpdateInventoryLogo" name="CRMGlobalSettings__eventAjaxUpdateInventoryLogo"  method="post" enctype="multipart/form-data">';
-				echo $e_logo_up->getFormEvent();
-				?>
-				<div>
-					<div class="left_300">
-						<input type="file" class="" id="inventory_logo" name="inventory_logo"/>
+				<div class="row">
+					<div class="col-xs-4">
+						<div id="logo_dis">
+							<img src="<?php echo $GLOBALS['FILE_UPLOAD_DISPLAY_PATH'].'/'.$inventory_logo?>" width="200" height="70">
+						</div>
 					</div>
-					&nbsp;&nbsp;
-					<input type="submit" id="" class="btn btn-primary" value="<?php echo _('change')?>"/>
-					&nbsp;&nbsp;
-					<?php echo _('( best dimension is 200x70 )');?>
 				</div>
-				</form>
+				<br />
+				<div class="row">
+					<?php
+					$e_logo_up = new Event("CRMGlobalSettings->eventAjaxUpdateInventoryLogo");
+					echo '<form class="form-horizontal" id="CRMGlobalSettings__eventAjaxUpdateInventoryLogo" name="CRMGlobalSettings__eventAjaxUpdateInventoryLogo"  method="post" enctype="multipart/form-data">';
+					echo $e_logo_up->getFormEvent();
+					?>
+					<div class="col-md-12">
+						<div class="col-xs-4">
+							<input type="file" class="" id="inventory_logo" name="inventory_logo"/>
+						</div>
+						<div class="col-xs-2">
+							<input type="submit" id="" class="btn btn-primary" value="<?php echo _('change')?>"/>
+						</div>
+						<div class="col-xs-3">
+							<?php echo _('( best dimension is 200x70 )');?>
+						</div>
+					</div>
+					</form>
+				</div>
 			</div>
 		
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Company Address');?></h4></div>
+				<h2><small><?php echo _('Company Address');?></small></h2>
 				<div class="clear_float"></div>
 				<div id="company_address_block_hidden" style="display:none;">
 					<br />
 					<textarea name="company_address" id="company_address" class="expand_text_area"><?php echo $company_address;?></textarea>
 					<br />
+					<a href="#" class="btn btn-default active cancel_company_address">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" class="btn btn-primary save_company_address"><?php echo _('save');?></a>
-					<a href="#" class="btn btn-inverse cancel_company_address">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="company_address_block" style="">
 					<div class="" id="company_address_val">
 						<?php echo nl2br($company_address);?>
 						&nbsp;&nbsp;
-						<a href="#" class="btn btn-primary btn-mini company_address_edit">
-						<i class="icon-white icon-edit"></i></a>
+						<a href="#" class="btn btn-primary btn-xs company_address_edit">
+						<i class="glyphicon glyphicon-edit"></i></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Quote Number Prefix');?></h4></div>
+				<h2><small><?php echo _('Quote Number Prefix');?></small></h2>
 				<div id="quote_prefix_add_block_hidden" style="display:none;">
 					<br />
-					<input type="text" id="quote_num_prefix" value="<?php echo $inventory_prefixes["quote_num_prefix"];?>">
+					<input type="text" id="quote_num_prefix" class="form-control input-sm" value="<?php echo $inventory_prefixes["quote_num_prefix"];?>">
 					<br />
+					<a href="#" onclick="cancel_inventory_setting('quote_num_prefix');return false;" class="btn btn-default active">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" class="btn btn-primary" onclick="save_inventory_setting('quote_num_prefix');return false;"><?php echo _('save');?></a>
-					<a href="#" onclick="cancel_inventory_setting('quote_num_prefix');return false;" class="btn btn-inverse">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="quote_prefix_value_block" style="">
@@ -76,20 +88,20 @@
 						<?php echo $inventory_prefixes["quote_num_prefix"];?>
 					</div>
 					&nbsp;&nbsp;
-					<a href="#" class="btn btn-primary btn-mini" onclick="edit_inventory_settings('quote_num_prefix');return false;">
-					<i class="icon-white icon-edit"></i></a>
+					<a href="#" class="btn btn-primary btn-xs" onclick="edit_inventory_settings('quote_num_prefix');return false;">
+					<i class="glyphicon glyphicon-edit"></i></a>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Invoice Number Prefix');?></h4></div>
+				<h2><small><?php echo _('Invoice Number Prefix');?></small></h2>
 				<div id="invoice_prefix_add_block_hidden" style="display:none;">
 					<br />
 					<input type="text" id="invoice_num_prefix" value="<?php echo $inventory_prefixes["invoice_num_prefix"];?>">
 					<br />
+					<a href="#" onclick="cancel_inventory_setting('invoice_num_prefix');return false;" class="btn btn-default active">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" class="btn btn-primary" onclick="save_inventory_setting('invoice_num_prefix');return false;"><?php echo _('save');?></a>
-					<a href="#" onclick="cancel_inventory_setting('invoice_num_prefix');return false;" class="btn btn-inverse">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="invoice_prefix_value_block" style="">
@@ -97,20 +109,20 @@
 						<?php echo $inventory_prefixes["invoice_num_prefix"];?>
 					</div>
 					&nbsp;&nbsp;
-					<a href="#" class="btn btn-primary btn-mini" onclick="edit_inventory_settings('invoice_num_prefix');return false;">
-					<i class="icon-white icon-edit"></i></a>
+					<a href="#" class="btn btn-primary btn-xs" onclick="edit_inventory_settings('invoice_num_prefix');return false;">
+					<i class="glyphicon glyphicon-edit"></i></a>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Sales Order Number Prefix');?></h4></div>
+				<h2><small><?php echo _('Sales Order Number Prefix');?></small></h2>
 				<div id="so_prefix_add_block_hidden" style="display:none;">
 					<br />
-					<input type="text" id="so_num_prefix" value="<?php echo $inventory_prefixes["salesorder_num_prefix"];?>">
+					<input type="text" class="form-control input-sm" id="so_num_prefix" value="<?php echo $inventory_prefixes["salesorder_num_prefix"];?>">
 					<br />
+					<a href="#" onclick="cancel_inventory_setting('so_num_prefix');return false;" class="btn btn-default active">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" class="btn btn-primary" onclick="save_inventory_setting('so_num_prefix');return false;"><?php echo _('save');?></a>
-					<a href="#" onclick="cancel_inventory_setting('so_num_prefix');return false;" class="btn btn-inverse">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="so_prefix_value_block" style="">
@@ -118,20 +130,20 @@
 						<?php echo $inventory_prefixes["salesorder_num_prefix"];?>
 					</div>
 					&nbsp;&nbsp;
-					<a href="#" class="btn btn-primary btn-mini" onclick="edit_inventory_settings('so_num_prefix');return false;">
-					<i class="icon-white icon-edit"></i></a>
+					<a href="#" class="btn btn-primary btn-xs" onclick="edit_inventory_settings('so_num_prefix');return false;">
+					<i class="glyphicon glyphicon-edit"></i></a>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Purchase Order Number Prefix');?></h4></div>
+				<h2><small><?php echo _('Purchase Order Number Prefix');?></small></h2>
 				<div id="po_prefix_add_block_hidden" style="display:none;">
 					<br />
-					<input type="text" id="po_num_prefix" value="<?php echo $inventory_prefixes["purchaseorder_num_prefix"];?>">
+					<input type="text" class="form-control input-sm" id="po_num_prefix" value="<?php echo $inventory_prefixes["purchaseorder_num_prefix"];?>">
 					<br />
+					<a href="#" onclick="cancel_inventory_setting('po_num_prefix');return false;" class="btn btn-default active">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" class="btn btn-primary" onclick="save_inventory_setting('po_num_prefix');return false;"><?php echo _('save');?></a>
-					<a href="#" onclick="cancel_inventory_setting('po_num_prefix');return false;" class="btn btn-inverse">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="po_prefix_value_block" style="">
@@ -139,95 +151,95 @@
 						<?php echo $inventory_prefixes["purchaseorder_num_prefix"];?>
 					</div>
 					&nbsp;&nbsp;
-					<a href="#" class="btn btn-primary btn-mini" onclick="edit_inventory_settings('po_num_prefix');return false;">
-					<i class="icon-white icon-edit"></i></a>
+					<a href="#" class="btn btn-primary btn-xs" onclick="edit_inventory_settings('po_num_prefix');return false;">
+					<i class="glyphicon glyphicon-edit"></i></a>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Quotes Terms & Condition');?></h4></div>
+				<h2><small><?php echo _('Quotes Terms & Condition');?></small></h2>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_hidden_q" style="display:none;">
 					<br />
 					<textarea name="inv_terms_cond_q" id="inv_terms_cond_q" class="expand_text_area"><?php echo $inventory_terms_cond["quote_terms_condition"];?></textarea>
 					<br />
+					<a href="#" id="q" class="btn btn-default active cancel_terms_condition">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" id="q" class="btn btn-primary save_terms_condition"><?php echo _('save');?></a>
-					<a href="#" id="q" class="btn btn-inverse cancel_terms_condition">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_q" style="">
 					<div class="" id="terms_cond_val_q">
 						<?php echo nl2br($inventory_terms_cond["quote_terms_condition"]);?>
 						&nbsp;&nbsp;
-						<a href="#" class="btn btn-primary btn-mini inv_terms_cond_edit" id="q">
-						<i class="icon-white icon-edit"></i></a>
+						<a href="#" class="btn btn-primary btn-xs inv_terms_cond_edit" id="q">
+						<i class="glyphicon glyphicon-edit"></i></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Invoice Terms & Condition');?></h4></div>
+				<h2><small><?php echo _('Invoice Terms & Condition');?></small></h2>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_hidden_i" style="display:none;">
 					<br />
 					<textarea name="inv_terms_cond_i" id="inv_terms_cond_i" class="expand_text_area"><?php echo $inventory_terms_cond["invoice_terms_condition"];?></textarea>
-					<br />
+					<br /><br />
+					<a href="#" id="i" class="btn btn-default active cancel_terms_condition">
+					<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 					<a href="#" id="i" class="btn btn-primary save_terms_condition"><?php echo _('save');?></a>
-					<a href="#" id="i" class="btn btn-inverse cancel_terms_condition">
-					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_i" style="">
 					<div class="" id="terms_cond_val_i">
 						<?php echo nl2br($inventory_terms_cond["invoice_terms_condition"]);?>
 						&nbsp;&nbsp;
-						<a href="#" class="btn btn-primary btn-mini inv_terms_cond_edit" id="i">
-						<i class="icon-white icon-edit"></i></a>
+						<a href="#" class="btn btn-primary btn-xs inv_terms_cond_edit" id="i">
+						<i class="glyphicon glyphicon-edit"></i></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Sales Order Terms & Condition');?></h4></div>
+				<h2><small><?php echo _('Sales Order Terms & Condition');?></small></h2>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_hidden_s" style="display:none;">
 					<br />
 					<textarea name="inv_terms_cond_s" id="inv_terms_cond_s" class="expand_text_area"><?php echo $inventory_terms_cond["salesorder_terms_condition"];?></textarea>
-					<br />
-					<a href="#" id="s" class="btn btn-primary save_terms_condition"><?php echo _('save');?></a>
-					<a href="#" id="s" class="btn btn-inverse cancel_terms_condition">
+					<br /><br />
+					<a href="#" id="s" class="btn btn-default active cancel_terms_condition">
 					<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
+					<a href="#" id="s" class="btn btn-primary save_terms_condition"><?php echo _('save');?></a>
 				</div>
 				<div class="clear_float"></div>
 				<div id="terms_cond_block_s" style="">
 					<div class="" id="terms_cond_val_s">
 						<?php echo nl2br($inventory_terms_cond["salesorder_terms_condition"]);?>
 						&nbsp;&nbsp;
-						<a href="#" class="btn btn-primary btn-mini inv_terms_cond_edit" id="s">
-						<i class="icon-white icon-edit"></i></a>
+						<a href="#" class="btn btn-primary btn-xs inv_terms_cond_edit" id="s">
+						<i class="glyphicon glyphicon-edit"></i></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="datadisplay-outer">
-				<div class="left_300"><h4><?php echo _('Purchase Order Terms & Condition');?></h4></div>
+				<h2><small><?php echo _('Purchase Order Terms & Condition');?></small></h2>
 				<div class="clear_float"></div>
 					<div id="terms_cond_block_hidden_p" style="display:none;">
 						<br />
 						<textarea name="inv_terms_cond_p" id="inv_terms_cond_p" class="expand_text_area"><?php echo $inventory_terms_cond["purchaseorder_terms_condition"];?></textarea>
-						<br />
+						<br /><br />
+						<a href="#" id="p" class="btn btn-default active cancel_terms_condition">
+						<i class="glyphicon glyphicon-remove-sign"></i><?php echo _('cancel');?></a>
 						<a href="#" id="p" class="btn btn-primary save_terms_condition"><?php echo _('save');?></a>
-						<a href="#" id="p" class="btn btn-inverse cancel_terms_condition">
-						<i class="icon-white icon-remove-sign"></i><?php echo _('cancel');?></a>
 					</div>
 					<div class="clear_float"></div>
 					<div id="terms_cond_block_p" style="">
 						<div class="" id="terms_cond_val_p">
 							<?php echo nl2br($inventory_terms_cond["purchaseorder_terms_condition"]);?>
 							&nbsp;&nbsp;
-							<a href="#" class="btn btn-primary btn-mini inv_terms_cond_edit" id="p">
-							<i class="icon-white icon-edit"></i></a>
+							<a href="#" class="btn btn-primary btn-xs inv_terms_cond_edit" id="p">
+							<i class="glyphicon glyphicon-edit"></i></a>
 						</div>
 					</div>
 				</div>
@@ -251,7 +263,7 @@ $(document).ready(function() {
 		},
 		success:  function(data) {
 			if (data.trim() == '0') {
-				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 				var succ_msg = succ_element+'<strong>'+UPLOAD_ERROR+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
@@ -297,7 +309,7 @@ $(document.body).on('click', '.save_company_address' ,function(e) {
 		?>
 		url: "<?php echo $e_save_add->getUrl(); ?>",
 		success:  function(html) {
-			$("#company_address_val").html(html+'&nbsp;&nbsp;<a href="#" class="btn btn-primary btn-mini company_address_edit"><i class="icon-white icon-edit"></i></a>');
+			$("#company_address_val").html(html+'&nbsp;&nbsp;<a href="#" class="btn btn-primary btn-xs company_address_edit"><i class="glyphicon glyphicon-edit"></i></a>');
 			$("#company_address_block_hidden").hide('slow');
 			$("#company_address_block").show('slow');
 		}
@@ -333,7 +345,7 @@ $(document.body).on('click', '.save_terms_condition' ,function(e) {
 		?>
 		url: "<?php echo $e_save_tax->getUrl(); ?>"+qry_string,
 		success:  function(html) {
-			$("#terms_cond_val_"+current_item).html(html+'&nbsp;&nbsp;'+'<a href="#" class="btn btn-primary btn-mini inv_terms_cond_edit" id="'+current_item+'"><i class="icon-white icon-edit"></i></a>');
+			$("#terms_cond_val_"+current_item).html(html+'&nbsp;&nbsp;'+'<a href="#" class="btn btn-primary btn-xs inv_terms_cond_edit" id="'+current_item+'"><i class="glyphicon glyphicon-edit"></i></a>');
 			$("#terms_cond_block_hidden_"+current_item).hide('slow');
 			$("#terms_cond_block_"+current_item).show('slow');
 		}

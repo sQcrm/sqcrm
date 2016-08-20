@@ -60,13 +60,13 @@
 				<td colspan=1 width="15%"></td>
 				<?php } ?>
 				<td width="10%">
-					<a href="#" class="btn btn-primary btn-mini bs-prompt" 
+					<a href="#" class="btn btn-primary btn-xs" 
 					onclick="edit_custom_field('<?php echo $module;?>',<?php echo $do_custom_field->idfields ;?>,'customfield');">
-					<i class="icon-white icon-edit"></i>
+					<i class="glyphicon glyphicon-edit"></i>
 					</a>
-					<a href="#" class="btn btn-primary btn-mini bs-prompt" 
+					<a href="#" class="btn btn-primary btn-xs" 
 					onclick="delete_custom_field('<?php echo $cf_module;?>',<?php echo $do_custom_field->idfields ;?>);">
-					<i class="icon-white icon-trash"></i>
+					<i class="glyphicon glyphicon-trash"></i>
 					</a> 
 				</td>
 			</tr>
@@ -100,13 +100,13 @@
 					<td width="40%"><?php echo $do_custom_field->field_label;?></td>
 					<td width="40%"><?php echo $field_type_name ; ?></td>
 					<td width="15%">
-						<a href="#" class="btn btn-primary btn-mini bs-prompt" 
+						<a href="#" class="btn btn-primary btn-xs" 
 						onclick="edit_custom_field('<?php echo $module;?>',<?php echo $do_custom_field->idfields ;?>,'customfield');">
-						<i class="icon-white icon-edit"></i>
+						<i class="glyphicon glyphicon-edit"></i>
 						</a>
-						<a href="#" class="btn btn-primary btn-mini bs-prompt" 
+						<a href="#" class="btn btn-primary btn-xs" 
 						onclick="delete_custom_field('<?php echo $cf_module;?>',<?php echo $do_custom_field->idfields ;?>);">
-						<i class="icon-white icon-trash"></i>
+						<i class="glyphicon glyphicon-trash"></i>
 						</a>
 					</td>
 				</tr>
