@@ -7,12 +7,15 @@
 ?>
 <div id="message"></div>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"plugins_sort")?>"><?php echo _('Sort Plugin')?></a></h3>
-				<p><?php echo _('Sort plugins (display and action)')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"plugins")?>"><?php echo _('Plugin')?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Sort plugins (display and action)')?></p> 
 			</div>		
 			
 			<?php 
@@ -30,7 +33,7 @@
 				}
 			?>
 			<div class="datadisplay-outer" id="detail-view-plugin-sortable" <?php echo $detail_plguin_style ;?>>
-				<div class="left_300"><p><?php echo _('Set display priority for detail view plugins.');?></p></div>
+				<h2><small><?php echo _('Set display priority for detail view plugins.');?></small></h2>
 				<br />
 				<ol class="serialization-detail-view vertical">
 				<?php
@@ -38,7 +41,7 @@
 					foreach ($detail_view_plugins as $key=>$val) {
 						$plugin_obj = new $val["name"]() ;
 				?>
-						<li data-id="<?php echo $val["id"];?>" data-name="<?php echo $val["name"];?>"><i class="icon-move"></i>&nbsp;&nbsp;<?php echo $plugin_obj->get_plugin_title();?></li>
+						<li data-id="<?php echo $val["id"];?>" data-name="<?php echo $val["name"];?>"><i class="glyphicon glyphicon-move" style="cursor: pointer;"></i>&nbsp;&nbsp;<?php echo $plugin_obj->get_plugin_title();?></li>
 				<?php 
 					}
 				}
@@ -61,7 +64,7 @@
 				}
 			?>
 			<div class="datadisplay-outer" id="action-plugin-sortable" <?php echo $action_plguin_style ;?>>
-				<div class="left_300"><p><?php echo _('Set action priority for action plugins.');?></p></div>
+				<h2><small><?php echo _('Set action priority for action plugins.');?></small></h2>
 				<br />
 				<ol class="serialization-action vertical">
 				<?php
@@ -69,7 +72,7 @@
 					foreach ($action_view_plugins as $key=>$val) {
 						$plugin_obj = new $val["name"]() ;
 				?>
-						<li data-id="<?php echo $val["id"];?>" data-name="<?php echo $val["name"];?>"><i class="icon-move"></i>&nbsp;&nbsp;<?php echo $plugin_obj->get_plugin_title();?></li>
+						<li data-id="<?php echo $val["id"];?>" data-name="<?php echo $val["name"];?>"><i class="glyphicon glyphicon-move" style="cursor: pointer;"></i>&nbsp;&nbsp;<?php echo $plugin_obj->get_plugin_title();?></li>
 				<?php 
 					}
 				}

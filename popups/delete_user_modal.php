@@ -40,31 +40,34 @@ if ($delete_single === true) {
 	echo $e_del->getFormEvent();
 }
 ?>
-
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<h3><?php echo _('Delete user data transfer');?></h3>
-</div>
-<div class="modal-body">
-<?php echo _('Before deleting the user please select an user to trasfer the existing user\'s data.');?>
-<br />
-	<div id="user_selector_block">
-		<select name="user_selector" id="user_selector">
-		<?php
-		while ($do_user->next()) {
-			if (in_array($do_user->iduser,$mul_records) && $delete_mul === true) continue ;
-				if ($do_user->iduser == $sqrecord && $delete_single === true ) continue ;
-				$user_dis = $do_user->firstname.' '.$do_user->lastname.' ('.$do_user->user_name.' )';
-		?>
-			<option value="<?php echo $do_user->iduser;?>"><?php echo $user_dis;?></option>
-		<?php
-		}
-		?>
-        </select>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Delete user data transfer');?></span></h3>
+		</div>
+		<div class="modal-body">
+			<?php echo _('Before deleting the user please select an user to trasfer the existing user\'s data.');?>
+			<br /><br />
+			<div id="user_selector_block">
+				<select name="user_selector" id="user_selector" class="form-control input-sm">
+					<?php
+					while ($do_user->next()) {
+						if (in_array($do_user->iduser,$mul_records) && $delete_mul === true) continue ;
+						if ($do_user->iduser == $sqrecord && $delete_single === true ) continue ;
+						$user_dis = $do_user->firstname.' '.$do_user->lastname.' ('.$do_user->user_name.' )';
+					?>
+					<option value="<?php echo $do_user->iduser;?>"><?php echo $user_dis;?></option>
+					<?php
+					}
+					?>
+				</select>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+			<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
+		</div>
 	</div>
+	</form>
 </div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-	<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
-</div>
-</form>

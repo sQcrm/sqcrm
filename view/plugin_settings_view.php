@@ -7,15 +7,18 @@
 ?>
 <div id="message"></div>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"plugins")?>"><?php echo _('Plugin')?></a></h3>
-				<p><?php echo _('Manage plugins')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"plugins")?>"><?php echo _('Plugin')?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Manage plugins')?></p> 
 			</div>		
 			<div class="datadisplay-outer">
-			<div class="left_300"><p><?php echo _('Available plugins');?></p></div>
+			<h2><small><?php echo _('Available plugins');?></small></h2>
 			<?php
 			$cnt = 0 ;
 			if (is_array($plugins) && count($plugins) >0) {
@@ -41,7 +44,7 @@
 							if (in_array($plugin,$activated_plugin_names)) {
 							?>
 							<td width="20%" id="plugin_deactivate_<?php echo array_search($plugin,$activated_plugin_names);?>">
-								<a href="#" class="btn btn-inverse deactivate-plugin" id="<?php echo array_search($plugin,$activated_plugin_names);?>">
+								<a href="#" class="btn btn-default active deactivate-plugin" id="<?php echo array_search($plugin,$activated_plugin_names);?>">
 									<?php echo _('deactivate');?>
 								</a>
 								<a href="#" class="btn btn-primary set-plugin-permission" id="<?php echo $plugin;?>">
@@ -76,54 +79,57 @@
 	</div><!--/row-->
 </div>
 
-<div class="modal fade hide" id="plugin-permission-modal">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<h3><?php echo _('Set permission for the plugin');?></h3>
-	</div>
-	<div class="modal-body">
-		<div class="box_content">
-			<input type="hidden" name="plugin_name" id="plugin_name">
-			<div class="alert alert-info">
-			<?php
-			echo _('If the following option is selected then the plugin will be accessible to all the users who have permission to view the module for which the plugin is meant for.');
-			?>
+<div class="modal fade" tabindex="-1" role="dialog" id="plugin-permission-modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-info"><?php echo _('Set permission for the plugin');?></span></h3>
 			</div>
-			<input type="radio" name="all_users" id="all_users">&nbsp;&nbsp;<?php echo _('Allow access to all users');?>
-			<div style="margin-top:10px;text-align:center;">
-			<?php
-			echo _('OR');
-			?>
+			<div class="modal-body">
+				<div class="box_content">
+					<input type="hidden" name="plugin_name" id="plugin_name">
+					<div class="alert alert-info">
+					<?php
+					echo _('If the following option is selected then the plugin will be accessible to all the users who have permission to view the module for which the plugin is meant for.');
+					?>
+					</div>
+					<input type="radio" name="all_users" id="all_users">&nbsp;&nbsp;<?php echo _('Allow access to all users');?>
+					<div style="margin-top:10px;text-align:center;">
+					<?php
+					echo _('OR');
+					?>
+					</div>
+					<br />
+					<div class="alert alert-info">
+					<?php
+					echo _('Please select the roles and all the users associated with the role will be having the permission to access the plugin. The associated users should be having permission to view the module for which the plugin is meant for.');
+					?>
+					</div>
+					<input type="radio" name="by_roles" id="by_roles">&nbsp;&nbsp;<?php echo _('Allow access to selected roles');?>
+					<div id="roles_options_section" style="display:none;"></div>
+					<div style="margin-top:10px;text-align:center;">
+					<?php
+					echo _('OR');
+					?>
+					</div>
+					<br />
+					<div class="alert alert-info">
+					<?php
+					echo _('Please select the users and the plugin will be accessible to the selected users if they have permission to view the module for which the plugin is meant for.');
+					?>
+					</div>
+					<input type="radio" name="by_users" id="by_users">&nbsp;&nbsp;<?php echo _('Allow access to selected users');?>
+					<div id="users_options_section" style="display:none;"></div>
+				</div>
 			</div>
-			<br />
-			<div class="alert alert-info">
-			<?php
-			echo _('Please select the roles and all the users associated with the role will be having the permission to access the plugin. The associated users should be having permission to view the module for which the plugin is meant for.');
-			?>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary plugin-set-permission" id="" value="<?php echo _('set permission')?>"/>
 			</div>
-			<input type="radio" name="by_roles" id="by_roles">&nbsp;&nbsp;<?php echo _('Allow access to selected roles');?>
-			<div id="roles_options_section" style="display:none;"></div>
-			<div style="margin-top:10px;text-align:center;">
-			<?php
-			echo _('OR');
-			?>
-			</div>
-			<br />
-			<div class="alert alert-info">
-			<?php
-			echo _('Please select the users and the plugin will be accessible to the selected users if they have permission to view the module for which the plugin is meant for.');
-			?>
-			</div>
-			<input type="radio" name="by_users" id="by_users">&nbsp;&nbsp;<?php echo _('Allow access to selected users');?>
-			<div id="users_options_section" style="display:none;"></div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="submit" class="btn btn-primary plugin-set-permission" id="" value="<?php echo _('set permission')?>"/>
-	</div>
 </div>
-
 <script>
 $(document).ready(function() { 
 	$(document.body).on('click','.activate-plugin',function(e) {
@@ -140,7 +146,7 @@ $(document).ready(function() {
 				$("#plugin_activate_"+plugin_name).html('<img src="/themes/images/ajax-loader1.gif" border="0" />');
 			},
 			success:  function(html) {
-				var content = '<a href="#" class="btn btn-inverse deactivate-plugin" id="'+html+'">'+DEACTIVATE+'</a>';
+				var content = '<a href="#" class="btn btn-default active deactivate-plugin" id="'+html+'">'+DEACTIVATE+'</a>';
 				content += '<a href="#" class="btn btn-primary set-plugin-permission" id="'+html+'">'+SET_PERMISSION+'</a>';
 				$("#plugin_activate_"+plugin_name).html(content);
 				$("#plugin_activate_"+plugin_name).prop("id","plugin_deactivate_"+html.trim());
@@ -204,7 +210,7 @@ $(document).ready(function() {
 				
 				// create the roles data form element
 				var rolesFormData = '';
-				rolesFormData += '<select class="input-xlarge-100" name="roles_data" id="roles_data" size=6 multiple>';
+				rolesFormData += '<select class="form-control input-sm" name="roles_data" id="roles_data" size=6 multiple>';
 				jsonResponse.by_roles_data.forEach( function(val,key) {
 					var selected = (val.selected === true ? "SELECTED" : "");
 					rolesFormData += '<option value=\''+val.idrole+'\' '+selected+'>'+val.rolename+'</option>';
@@ -214,7 +220,7 @@ $(document).ready(function() {
 				
 				// create the users data form element
 				var usersFormData = '';
-				usersFormData += '<select class="input-xlarge-100" name="users_data" id="users_data" size=6 multiple>';
+				usersFormData += '<select class="form-control input-sm" name="users_data" id="users_data" size=6 multiple>';
 				jsonResponse.by_users_data.forEach( function(val,key) {
 					var selected = (val.selected === true ? "SELECTED" : "");
 					usersFormData += '<option value=\''+val.iduser+'\' '+selected+'>'+val.user_name+'('+val.firstname+' '+val.lastname+')</option>';

@@ -10,13 +10,14 @@ $(document).ready(function() {
 	$('#delete_data_user').click(function() {
     	var sData = oTable.$('input:checkbox').serialize();
 		if (sData == '') {
-			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var err_msg = err_element+'<strong>'+SELECT_ONE_RECORD_BEFORE_DELETE+'</strong></div>';
 			$("#message").html(err_msg);
 			$("#message").show();
 			return false ;
 		} else {
 			$("#delete_confirm").modal('show');
+			$("#delete_confirm .btn-primary").off('click');
 			$("#delete_confirm .btn-primary").click(function(){
 				$("#delete_confirm").modal('hide');
 				var href = '/popups/delete_user_modal?classname=User&m=Settings&referrar=users&'+sData;
@@ -28,7 +29,7 @@ $(document).ready(function() {
 						$("#delete_user_transfer_data").html(''); 
 						$("#delete_user_transfer_data").hide();
 						$("#delete_user_transfer_data").attr("id","ugly_heck");
-						$('<div class="modal hide" id="delete_user_transfer_data">' + data + '</div>').modal();
+						$('<div class="modal fade" tabindex="-1" role="dialog" id="delete_user_transfer_data">' + data + '</div>').modal();
 					}).success(function() { $('input:text:visible:first').focus(); });
 				}
 			});
@@ -42,13 +43,14 @@ $(document).ready(function() {
 	$(".datadisplay").on('click','.delete_entity_user', function(e) {
 		var sqrecord = $(this).closest('a').attr('id') ; 
 		if (sqrecord == '') {
-			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var err_msg = err_element+'<strong>'+SELECT_ONE_RECORD_BEFORE_DELETE+'</strong></div>';
 			$("#message").html(err_msg);
 			$("#message").show();
 			return false ;
 		} else {
 			$("#delete_confirm").modal('show');
+			$("#delete_confirm .btn-primary").off('click');
 			$("#delete_confirm .btn-primary").click(function() {
 				$("#delete_confirm").modal('hide');
 				var href = '/popups/delete_user_modal?classname=User&m=Settings&referrar=users&sqrecord='+sqrecord;
@@ -60,7 +62,7 @@ $(document).ready(function() {
 						$("#delete_user_transfer_data").html(''); 
 						$("#delete_user_transfer_data").hide();
 						$("#delete_user_transfer_data").attr("id","ugly_heck");
-						$('<div class="modal hide" id="delete_user_transfer_data">' + data + '</div>').modal();
+						$('<div class="modal fade" tabindex="-1" role="dialog" id="delete_user_transfer_data">' + data + '</div>').modal();
 					}).success(function() { $('input:text:visible:first').focus(); });
 				}
 			});

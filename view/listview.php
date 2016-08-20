@@ -37,6 +37,7 @@ $(document).ready(function() {
 			return false ;
 		}
 		$("#delete_confirm").modal('show');
+		$("#delete_confirm .btn-primary").off('click');
 		$("#delete_confirm .btn-primary").click(function() {
 			$("#delete_confirm").modal('hide');
 			$.ajax({
@@ -85,6 +86,7 @@ $(document).ready(function() {
 		var sqrecord = $(this).closest('a').attr('id') ; 
 		var qry_string = "sqrecord="+sqrecord+"&referrer=list";
 		$("#delete_confirm").modal('show');
+		$("#delete_confirm .btn-primary").off('click');
 		$("#delete_confirm .btn-primary").click(function() {
 			$("#delete_confirm").modal('hide');
 			$.ajax({
@@ -209,6 +211,7 @@ $(document).ready(function() {
 		var custom_view_detail_info = custom_view_data.split('::');
 		var custom_view_id = custom_view_detail_info[0];
 		$("#delete_confirm").modal('show');
+		$("#delete_confirm .btn-primary").off('click');
 		$("#delete_confirm .btn-primary").click(function() {
 			$("#delete_confirm").modal('hide');
 			var qry_string = "sqrecord="+custom_view_id+"&referrer=list";
@@ -280,7 +283,7 @@ $(document).ready(function() {
 		if ($module == 'User') {
 		include_once("modules/Settings/settings_leftmenu.php");
 		?>
-		<div class="col-md-9" style="margin-left:3px;">
+		<div class="col-md-9">
 		<?php
 		} else {
 		?>

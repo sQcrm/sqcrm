@@ -42,6 +42,10 @@ label {
     font-weight: normal !important;
 }
 
+.custom_active {
+  background-color: #303136;
+}
+
 .box_content {
 	padding: 10px;
 	margin-bottom: 10px;
@@ -470,7 +474,7 @@ table.datadisplay_col_block {
 .css-treeview label,
 .css-treeview label::before
 {
-	background: url("../bootstrap/img/tree_icons.png") no-repeat;
+	background: url("../images/css-img/tree_icons.png") no-repeat;
 }
 
 .css-treeview label,
@@ -513,7 +517,7 @@ body.dragging, body.dragging * {
 }
 
 ol.vertical {
-	margin: 0 0 9px 0;
+	margin: 0 10 9px -25px;
 	min-height: 10px; 
 }
 ol.vertical li {

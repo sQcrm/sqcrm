@@ -42,8 +42,8 @@ class FieldType102 extends CRMFields {
 			if ($do_user->getNumRows() > 0) $user_name = $do_user->user_name ;
 		}
 		$html .='<input type="text" class = "'.$css.'" name="user_'.$name.'" id="user_'.$name.'" value="'.$user_name.'">';
-		$html .='&nbsp;&nbsp;<a href="#"  id="select_'.$name.'"  class="btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
-		$html .='&nbsp;&nbsp;<a href="#" id="remove_'.$name.'" class="btn btn-primary btn-mini"><i class="icon-white icon-remove"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#"  id="select_'.$name.'"  class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#" id="remove_'.$name.'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-remove"></i></a>';
 		$html .='<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
 		$html .= 
 		"\n".'<script>
@@ -53,7 +53,7 @@ class FieldType102 extends CRMFields {
 					$(href).modal(\'open\');
 				} else {
 					$.get(href, function(data) {
-						$(\'<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
+						$(\'<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="listdata_popup_selector">\' + data + \'</div>\').modal();
 					}).success(function() { $(\'input:text:visible:first\').focus(); });
 				}
 			}); 
