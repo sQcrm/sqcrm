@@ -9,7 +9,7 @@
 if (count($queue_data)> 0 && array_key_exists('today',$queue_data)) {
 ?>
 <div class="datadisplay-outer" id="content_today">
-	<h4><?php echo _('Queue for the day');?></h4>
+	<h2><small><?php echo _('Queue for the day');?></small></h2>
 	<hr class="form_hr">
 	<table class="datadisplay" id="today">
 		<tbody>
@@ -23,15 +23,15 @@ if (count($queue_data)> 0 && array_key_exists('today',$queue_data)) {
 					<?php 
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini edit-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-edit"></i>
+					<a href="#" class="btn btn-primary btn-xs edit-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-edit"></i>
 					</a>
 					<?php 
 					}
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini bs-prompt delete-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-trash"></i>
+					<a href="#" class="btn btn-primary btn-xs bs-prompt delete-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 					<?php
 					}
@@ -47,7 +47,7 @@ if (count($queue_data)> 0 && array_key_exists('today',$queue_data)) {
 <?php
 } else { ?>
 <div class="datadisplay-outer" id="content_today">
-	<h4><?php echo _('Queue for the day');?></h4>
+	<h2><small><?php echo _('Queue for the day');?></small></h2>
 	<hr class="form_hr">
 	<strong id="msg"><?php echo _('No queue data found !');?></strong>
 </div>
@@ -59,7 +59,7 @@ if (count($queue_data)> 0 && array_key_exists('today',$queue_data)) {
 if (count($queue_data)> 0 && array_key_exists('tomorrow',$queue_data)) {
 ?>
 <div class="datadisplay-outer" id="content_tomorrow">
-	<h4><?php echo _('Queue for tomorrow');?></h4>
+	<h2><small><?php echo _('Queue for tomorrow');?></small></h2>
 	<hr class="form_hr">
 	<table class="datadisplay" id="tomorrow">
 		<tbody>
@@ -73,15 +73,15 @@ if (count($queue_data)> 0 && array_key_exists('tomorrow',$queue_data)) {
 					<?php
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini edit-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-edit"></i>
+					<a href="#" class="btn btn-primary btn-xs edit-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-edit"></i>
 					</a>
 					<?php 
 					}
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini bs-prompt delete-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-trash"></i>
+					<a href="#" class="btn btn-primary btn-xs delete-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 					<?php
 					}
@@ -97,7 +97,7 @@ if (count($queue_data)> 0 && array_key_exists('tomorrow',$queue_data)) {
 <?php
 } else { ?>
 <div class="datadisplay-outer" id="content_tomorrow">
-	<h4><?php echo _('Queue for tomorrow');?></h4>
+	<h2><small><?php echo _('Queue for tomorrow');?></small></h2>
 	<hr class="form_hr">
 	<strong id="msg"><?php echo _('No queue data found !');?></strong>
 </div>
@@ -110,7 +110,7 @@ if (count($queue_data)> 0 && array_key_exists('tomorrow',$queue_data)) {
 if (count($queue_data)> 0 && array_key_exists('later',$queue_data)) {
 ?>
 <div class="datadisplay-outer" id="content_later">
-	<h4><?php echo _('Queue for later');?></h4>
+	<h2><small><?php echo _('Queue for later');?></small></h2>
 	<hr class="form_hr">
 	<table class="datadisplay" id="later">
 		<tbody>
@@ -124,15 +124,15 @@ if (count($queue_data)> 0 && array_key_exists('later',$queue_data)) {
 					<?php
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('edit',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini edit-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-edit"></i>
+					<a href="#" class="btn btn-primary btn-xs edit-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-edit"></i>
 					</a>
 					<?php
 					}
 					if ($_SESSION["do_crm_action_permission"]->action_permitted('delete',$module_id) === true) {
 					?>
-					<a href="#" class="btn btn-primary btn-mini bs-prompt delete-queue" id="<?php echo $val["idqueue"]?>">
-						<i class="icon-white icon-trash"></i>
+					<a href="#" class="btn btn-primary btn-xs delete-queue" id="<?php echo $val["idqueue"]?>">
+						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 					<?php
 					}
@@ -148,7 +148,7 @@ if (count($queue_data)> 0 && array_key_exists('later',$queue_data)) {
 <?php
 } else { ?>
 <div class="datadisplay-outer" id="content_later">
-	<h4><?php echo _('Queue for later');?></h4>
+	<h2><small><?php echo _('Queue for later');?></small></h2>
 	<hr class="form_hr">
 	<strong id="msg"><?php echo _('No queue data found !');?></strong>
 </div>
