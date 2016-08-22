@@ -65,7 +65,7 @@ $product_service_tax = $do_tax->product_service_tax();
 							</a>
 						</td>
 						<td>
-							<select name="line_item_selector_opt[]" id="line_item_selector_opt_<?php echo $lineitem["idlineitems"]; ?>" onchange="lineItemTypeChanged(<?php echo $lineitem["idlineitems"];?>);">
+							<select name="line_item_selector_opt[]" class="form-control input-sm" id="line_item_selector_opt_<?php echo $lineitem["idlineitems"]; ?>" onchange="lineItemTypeChanged(<?php echo $lineitem["idlineitems"];?>);">
 								<option value="product" <?php echo ($lineitem["item_type"] == 'product' ? "SELECTED":""); ?>>
 									<?php echo _('Products'); ?>
 								</option>

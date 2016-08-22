@@ -15,146 +15,156 @@ $e_add->addParam("idleads",(int)$sqcrm_record_id);
 echo '<form class="form-horizontal" id="LeadConversion__eventConvertLeads" name="LeadConversion__eventConvertLeads" action="/eventcontroler.php" method="post">';
 echo $e_add->getFormEvent();
 ?>
+<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-info"><?php echo _('Convert ').'"'.$leads_obj->firstname.' '.$leads_obj->lastname.'"';?></span></h3>
+			</div>
+			<div class="modal-body">
+				<!-- Organization section -->
+				<div class="box_content" id="org">
+					<input type="checkbox" name="org_convertion" id="org_convertion" CHECKED>
+					<?php echo _('Organization');?>
+					<div id="org_section">
+						<div style="margin-left:30px;margin-top:20px;">
+							<input type="radio" name="create_org" id="create_org" CHECKED>&nbsp;&nbsp;<?php echo _('Create a new Organization');?>
+						</div>
+					
+						<div id="org_fields" style="margin-left:30px;margin-top:20px;">
+							<label class="control-label" for="organization_name">* <?php echo _('Organization Name');?></label>
+							<div class="controls">
+								<input type = "text" class="form-control input-sm" name="organization_name" id="organization_name" value="<?php echo $leads_obj->organization; ?>">
+							</div><br />
+							<label class="control-label" for="industry">* <?php echo _('Industry');?></label>
+							<div class="controls">
+							<?php
+								FieldType5::display_field("industry",34,$leads_obj->industry);
+							?>
+							</div>
+						</div>
+					
+						<div style="margin-left:30px;margin-top:20px;">
+							<input type="radio" name="select_org" id="select_org">&nbsp;&nbsp;<?php echo _('Select Organization');?>
+						</div>
+					
+						<div id="org_select" style="margin-left:30px;margin-top:20px;display:none;">
+							<?php echo FieldType131::display_field("idorganization"); ?>
+						</div>
+					</div>
+				</div>
+				<!--/Organization section ends-->
+				<hr class="form_hr">
+				<!--Contact section-->
+				<div class="box_content" id="cont">
+					<input type="checkbox" name="cnt_convertion" id="cnt_convertion">
+					<?php echo _('Contact');?>
+					<div id="cnt_section" style="display:none;">
+						<div style="margin-left:30px;margin-top:20px;">
+							<input type="radio" name="create_cnt" id="create_cnt" CHECKED>&nbsp;&nbsp;<?php echo _('Create a new Contact');?>
+						</div>
+						<div id="cnt_fields" style="margin-left:30px;margin-top:20px;">
+							<label class="control-label" for="firstname">* <?php echo _('First Name');?></label>
+							<div class="controls">
+								<input type = "text" class="form-control input-sm" name="firstname" id="firstname" value="<?php echo $leads_obj->firstname;?>">
+							</div><br />
+							<label class="control-label" for="lastname">* <?php echo _('Last Name');?></label>
+								<div class="controls">
+									<input type = "text" class="form-control input-sm" name="lastname" id="lastname" value="<?php echo $leads_obj->lastname;?>">
+								</div><br />
+							<label class="control-label" for="email">* <?php echo _('Email');?></label>
+								<div class="controls">
+									<input type = "text" class="form-control input-sm" name="email" id="email" value="<?php echo $leads_obj->email;?>">
+								</div><br />
+						</div>
+						<div style="margin-left:30px;margin-top:20px;">
+							<input type="radio" name="select_cnt" id="select_cnt">&nbsp;&nbsp;<?php echo _('Select Contact');?>
+						</div>
+						<div id="cnt_select" style="margin-left:30px;margin-top:20px;display:none;">
+							<?php echo FieldType130::display_field("idcontacts"); ?>
+						</div>
+					</div>
+				</div>
+				<!--/Contact section ends-->
+				<hr class="form_hr">
+				<!--Potential section-->
+				<div class="box_content" id="pot">
+					<input type="checkbox" name="pot_convertion" id="pot_convertion" CHECKED>
+					<?php echo _('Prospect');?>
+					<div id="pot_section" style="">
+						<div id="pot_fields" style="margin-left:30px;margin-top:20px;">
+							<label class="control-label" for="potential_name">* <?php echo _('Prospect Name');?></label>
+							<div class="controls">
+								<input type = "text" class="form-control input-sm" name="potential_name" id="potential_name" value="<?php echo $leads_obj->organization; ?>">
+							</div><br />
+							<label class="control-label" for="expected_closing_date">* <?php echo _('Expected Closing Date');?></label>
+							<div class="controls">
+								<?php echo FieldType9::display_field('expected_closing_date');?>
+							</div><br />
+							<label class="control-label" for="sales_stage">* <?php echo _('Sales Stage');?></label>
+							<div class="controls">
+								<?php echo FieldType5::display_field('sales_stage',117);?>
+							</div><br />
+							<label class="control-label" for="amount">* <?php echo _('Amount');?></label>
+							<div class="controls">
+								<!--<input type = "text" name="amount" id="amount" value="">-->
+								<?php echo FieldType30::display_field('amount'); ?>
+							</div><br />
+							<label class="control-label" for="probability">* <?php echo _('Probability');?></label>
+							<div class="controls">
+								<input type = "text" class="form-control input-sm" name="probability" id="probability" value="">
+							</div><br />   
+						</div>
+						<div id="close_lost_reason" style="display:none;margin-left:30px;margin-top:5px;">
+							<label class="control-label" for="lost_reason"><?php echo _('Lost Reason');?></label>
+							<div class="controls">
+								<?php echo FieldType5::display_field('lost_reason',341);?>
+							</div><br />
+						</div>
+						<div id="close_lost_competitor" style="display:none;margin-left:30px;margin-top:5px;">
+							<label class="control-label" for="competitor_name"><?php echo _('Competitor Name');?></label>
+							<div class="controls">
+								<?php echo FieldType5::display_field('competitor_name',342);?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/Potential section ends-->
+				<hr class="form_hr">
+				<!-- Assigned to section -->
+				<div class="box_content">
+					<label class="control-label" for="assigned_to"><?php echo _('Assigned To');?></label>
+					<div class="controls">
+						<?php echo FieldType15::display_field('','',5);?>
+					</div><br />
+				</div>
+				<!-- /Assigned to section Ends-->
+				<hr class="form_hr">
+				<div class="box_content">
+					<?php
+					echo _('Transfer related data to ');
+					?>
+					<div style="margin-left:30px;margin-top:5px;" id="transfer_to_org_section">
+						<input type="radio" name="transfer_related_data" id="transfer_related_data" value="1" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Organization');?>
+					</div>
+					<div style="margin-left:30px;margin-top:5px;display:none;" id="transfer_to_cnt_section">
+						<input type="radio" name="transfer_related_data" id="transfer_related_data" value="2" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Contact');?>
+					</div>
+					<div style="margin-left:30px;margin-top:5px;" id="transfer_to_pot_section">
+						<input type="radio" name="transfer_related_data" id="transfer_related_data" value="3" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Prospect');?>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary" value="<?php echo _('Save Changes')?>"/>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
 
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<h3><?php echo _('Convert ').'"'.$leads_obj->firstname.' '.$leads_obj->lastname.'"';?></h3>
-</div>
-<div class="modal-body">
-	<!-- Organization section -->
-    <div class="box_content" id="org">
-		<input type="checkbox" name="org_convertion" id="org_convertion" CHECKED>
-		<?php echo _('Organization');?>
-		<div id="org_section">
-			<div style="margin-left:30px;margin-top:20px;">
-				<input type="radio" name="create_org" id="create_org" CHECKED>&nbsp;&nbsp;<?php echo _('Create a new Organization');?>
-			</div>
-          
-			<div id="org_fields" style="margin-left:30px;margin-top:20px;">
-				<label class="control-label" for="organization_name">* <?php echo _('Organization Name');?></label>
-                <div class="controls">
-					<input type = "text" name="organization_name" id="organization_name" value="<?php echo $leads_obj->organization; ?>">
-				</div><br />
-				<label class="control-label" for="industry">* <?php echo _('Industry');?></label>
-				<div class="controls">
-				<?php
-					FieldType5::display_field("industry",34,$leads_obj->industry);
-				?>
-				</div>
-			</div>
-          
-			<div style="margin-left:30px;margin-top:20px;">
-				<input type="radio" name="select_org" id="select_org">&nbsp;&nbsp;<?php echo _('Select Organization');?>
-			</div>
-          
-			<div id="org_select" style="margin-left:30px;margin-top:20px;display:none;">
-				<?php echo FieldType131::display_field("idorganization"); ?>
-			</div>
-		</div>
-	</div>
-    <!--/Organization section ends-->
-    <!--Contact section-->
-    <div class="box_content" id="cont">
-		<input type="checkbox" name="cnt_convertion" id="cnt_convertion">
-		<?php echo _('Contact');?>
-		<div id="cnt_section" style="display:none;">
-			<div style="margin-left:30px;margin-top:20px;">
-				<input type="radio" name="create_cnt" id="create_cnt" CHECKED>&nbsp;&nbsp;<?php echo _('Create a new Contact');?>
-			</div>
-			<div id="cnt_fields" style="margin-left:30px;margin-top:20px;">
-				<label class="control-label" for="firstname">* <?php echo _('First Name');?></label>
-				<div class="controls">
-					<input type = "text" name="firstname" id="firstname" value="<?php echo $leads_obj->firstname;?>">
-                </div><br />
-				<label class="control-label" for="lastname">* <?php echo _('Last Name');?></label>
-					<div class="controls">
-						<input type = "text" name="lastname" id="lastname" value="<?php echo $leads_obj->lastname;?>">
-					</div><br />
-				<label class="control-label" for="email">* <?php echo _('Email');?></label>
-					<div class="controls">
-						<input type = "text" name="email" id="email" value="<?php echo $leads_obj->email;?>">
-					</div><br />
-			</div>
-			<div style="margin-left:30px;margin-top:20px;">
-				<input type="radio" name="select_cnt" id="select_cnt">&nbsp;&nbsp;<?php echo _('Select Contact');?>
-			</div>
-			<div id="cnt_select" style="margin-left:30px;margin-top:20px;display:none;">
-				<?php echo FieldType130::display_field("idcontacts"); ?>
-			</div>
-		</div>
-    </div>
-    <!--/Contact section ends-->
-    <!--Potential section-->
-	<div class="box_content" id="pot">
-		<input type="checkbox" name="pot_convertion" id="pot_convertion" CHECKED>
-		<?php echo _('Prospect');?>
-		<div id="pot_section" style="">
-			<div id="pot_fields" style="margin-left:30px;margin-top:20px;">
-				<label class="control-label" for="potential_name">* <?php echo _('Prospect Name');?></label>
-				<div class="controls">
-					<input type = "text" name="potential_name" id="potential_name" value="<?php echo $leads_obj->organization; ?>">
-                </div><br />
-				<label class="control-label" for="expected_closing_date">* <?php echo _('Expected Closing Date');?></label>
-				<div class="controls">
-					<?php echo FieldType9::display_field('expected_closing_date');?>
-				</div><br />
-				<label class="control-label" for="sales_stage">* <?php echo _('Sales Stage');?></label>
-				<div class="controls">
-					<?php echo FieldType5::display_field('sales_stage',117);?>
-                </div><br />
-				<label class="control-label" for="amount">* <?php echo _('Amount');?></label>
-				<div class="controls">
-					<!--<input type = "text" name="amount" id="amount" value="">-->
-					<?php echo FieldType30::display_field('amount'); ?>
-                </div><br />
-				<label class="control-label" for="probability">* <?php echo _('Probability');?></label>
-                <div class="controls">
-					<input type = "text" name="probability" id="probability" value="">
-                </div><br />   
-			</div>
-			<div id="close_lost_reason" style="display:none;margin-left:30px;margin-top:5px;">
-				<label class="control-label" for="lost_reason"><?php echo _('Lost Reason');?></label>
-				<div class="controls">
-					<?php echo FieldType5::display_field('lost_reason',341);?>
-				</div><br />
-			</div>
-			<div id="close_lost_competitor" style="display:none;margin-left:30px;margin-top:5px;">
-				<label class="control-label" for="competitor_name"><?php echo _('Competitor Name');?></label>
-				<div class="controls">
-					<?php echo FieldType5::display_field('competitor_name',342);?>
-				</div>
-			</div>
-		</div>
-	</div>
-    <!--/Potential section ends-->
-    <!-- Assigned to section -->
-	<div class="box_content">
-		<label class="control-label" for="assigned_to"><?php echo _('Assigned To');?></label>
-		<div class="controls">
-			<?php echo FieldType15::display_field('','',5);?>
-		</div><br />
-    </div>
-    <!-- /Assigned to section Ends-->
-	<div class="box_content">
-		<?php
-		echo _('Transfer related data to ');
-		?>
-		<div style="margin-left:30px;margin-top:5px;" id="transfer_to_org_section">
-			<input type="radio" name="transfer_related_data" id="transfer_related_data" value="1" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Organization');?>
-		</div>
-		<div style="margin-left:30px;margin-top:5px;display:none;" id="transfer_to_cnt_section">
-			<input type="radio" name="transfer_related_data" id="transfer_related_data" value="2" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Contact');?>
-		</div>
-		<div style="margin-left:30px;margin-top:5px;" id="transfer_to_pot_section">
-			<input type="radio" name="transfer_related_data" id="transfer_related_data" value="3" class="transfer_related_data">&nbsp;&nbsp;<?php echo _('Prospect');?>
-		</div>
-    </div>
-</div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close');?></a>
-    <input type="submit" class="btn btn-primary" value="<?php echo _('Save Changes')?>"/>
-</div>
-</form>
 <script>
 $(document).ready(function() {  
 	$("#org_convertion").click( function() {

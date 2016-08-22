@@ -259,6 +259,7 @@ $(document).ready(function() {
 			"bServerSide": true,
 			"sDom": "<'row'<'span3'l><'span3'f>r>t<'row'<'span3'i><'span'3'p>>'",
 			"sPaginationType": "full_numbers",
+			"bAutoWidth": false,
 			<?php 
 			if (isset($_REQUEST["line_item"]) && $_REQUEST["line_item"] == 'yes') { ?>
 				"sAjaxSource": "/listdata_popup.php?m=<?php echo $m;?>&line_level=<?php echo $_REQUEST["line_level"];?>&line_item=yes",
