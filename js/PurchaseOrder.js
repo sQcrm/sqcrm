@@ -15,7 +15,7 @@ function send_po_with_email(idpurchase_order,idcontact) {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#send_po_with_emaill").html(''); 
 			$("#send_po_with_emaill").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="#send_po_with_emaill">' + data + '</div>').modal();
+			$('<div class="modal fade" tabindex="-1" role="dialog" id="send_po_with_emaill">' + data + '</div>').modal();
 		}).success(function() { $('input:text:visible:first').focus(); });
 	}
 }

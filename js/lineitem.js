@@ -31,7 +31,7 @@ $(document).ready(function() {
 					//ugly heck to prevent the content getting append when opening the same modal multiple time
 					$("#listdata_popup_selector").html(''); 
 					$("#listdata_popup_selector").attr("id","ugly_heck");
-					$('<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">' + data + '</div>').modal();
+					$('<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector">' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); window.scrollTo(0,document.body.scrollHeight);});
 			}
 		}
@@ -48,7 +48,7 @@ $(document).ready(function() {
 		line_item += 		'<a href="#" class="btn btn-primary btn-xs delete_line_item" id="'+row_count+'"><i class="glyphicon glyphicon-trash"></i></a>';
 		line_item +=	'</td>';
 		line_item +=	'<td>';
-		line_item += 		'<select name="line_item_selector_opt[]" id="line_item_selector_opt_'+row_count+'" onchange="lineItemTypeChanged(\''+row_count+'\');">';
+		line_item += 		'<select name="line_item_selector_opt[]" class="form-control input-sm" id="line_item_selector_opt_'+row_count+'" onchange="lineItemTypeChanged(\''+row_count+'\');">';
 		line_item +=			'<option value="product">Products</option>';
 		line_item +=			'<option value="manual">Manual</option>';
 		line_item +=		'</select>';

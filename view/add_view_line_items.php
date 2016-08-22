@@ -42,7 +42,7 @@ $product_service_tax = $do_tax->product_service_tax();
 					<a href="#" class="btn btn-primary btn-xs delete_line_item" id="1"><i class="glyphicon glyphicon-trash"></i></a>
 				</td>
 				<td>
-					<select name="line_item_selector_opt[]" id="line_item_selector_opt_1" onchange="lineItemTypeChanged('1');">
+					<select name="line_item_selector_opt[]" class="form-control input-sm" id="line_item_selector_opt_1" onchange="lineItemTypeChanged('1');">
 						<option value="product"><?php echo _('Products'); ?></option>
 						<option value="manual"><?php echo _('Manual'); ?></option>
 					</select>

@@ -58,17 +58,21 @@ if ($_SESSION["do_crm_action_permission"]->module_access_allowed(8) === true ) {
 		<?php 
 		} ?>
 		<!-- delete notes confirm modal -->
-		<div class="modal fade hide" id="delete_entity_notes">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
-			</div>
-			<div class="modal-body">
-				<?php echo _('Are you sure you want to delete the note.');?>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close'); ?></a>
-				<input type="submit" class="btn btn-primary delete_entity_note_submit" id="" value="<?php echo _('delete')?>"/>
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="delete_entity_notes">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
+					</div>
+					<div class="modal-body">
+						<?php echo _('Are you sure you want to delete the note.');?>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+						<input type="submit" class="btn btn-primary delete_entity_note_submit" value="<?php echo _('Delete')?>"/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -100,13 +104,13 @@ $(document).ready(function() {
 		success:  function(data) {
 			//Here code can be included that needs to be performed if Ajax request was successful
 			if (data.trim() == '1') {
-				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
+				var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
 				var err_message = err_element+'<strong>'+NOTES_REQUIRE+'</strong></div>';
 				$("#message").html(err_message);
 				$("#message").show();
 				$("#notes_submit").html('<input type="submit" class="btn btn-primary" value="Save"/>');
 			} else if (data.trim() == '2') {
-				var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
+				var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>';
 				var err_message = err_element+'<strong>'+NOTES_CANT_BE_ADDED+'</strong></div>';
 				$("#message").html(err_message);
 				$("#message").show();
@@ -287,7 +291,7 @@ function display_edit_notes(idnotes) {
 			var ret_data = '';
 			ret_data = html.trim();
 			if (ret_data == '0') { 
-				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 				var succ_msg = succ_element+'<strong>'+UNAUTHORIZED_EDIT+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
@@ -363,7 +367,7 @@ function delete_notes(idnotes) {
 			success:  function(html) {
 				var ret_data = html.trim();
 				if(ret_data == '0') {
-					var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+					var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 					var succ_msg = succ_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
 					$("#message").html(succ_msg);
 					$("#message").show();

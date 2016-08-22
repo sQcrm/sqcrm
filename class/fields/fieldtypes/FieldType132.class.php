@@ -78,7 +78,7 @@ class FieldType132 extends CRMFields{
 				//ugly heck to prevent the content getting append when opening the same modal multiple time
 				$("#listdata_popup_selector").html(\'\'); 
 				$("#listdata_popup_selector").attr("id","ugly_heck");
-				$(\'<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
+				$(\'<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector">\' + data + \'</div>\').modal();
 			}).success(function() { $(\'input:text:visible:first\').focus(); });
 		}
 		';

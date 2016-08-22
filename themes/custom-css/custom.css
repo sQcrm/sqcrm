@@ -236,7 +236,7 @@ label.error {
 	top: 0;
 	position: fixed;
 	left: 20%;
-	z-index: 1050;
+	z-index: 3050;
 	margin-bottom: 0;
 	text-align:center;
 	width:60%;
