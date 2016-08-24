@@ -31,7 +31,7 @@ class FieldType1 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$value = '',$css = '') {
+	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
 		echo '<input type="text" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
 	}
 
