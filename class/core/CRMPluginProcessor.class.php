@@ -185,7 +185,7 @@ class CRMPluginProcessor extends CRMPluginBase {
 			foreach ($active_plugins as $key=>$plugin) {
 				$plugin_object = new $plugin["name"]() ;
 				if (in_array($idmodule,$plugin_object->get_plugin_modules()) && in_array(8,$plugin_object->get_plugin_type()) && in_array(1,$plugin_object->get_list_view_plugin_position())) {
-					echo '<a href="#" class="btn btn-primary btn-mini bs-prompt" id="'.$plugin["name"].'">';
+					echo '<a href="#" class="btn btn-primary btn-xs" id="'.$plugin["name"].'">';
 					echo '</a>';
 					echo '
 					<script>

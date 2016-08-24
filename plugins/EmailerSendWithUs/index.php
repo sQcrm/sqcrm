@@ -7,7 +7,7 @@
 $idmodule = (int)$_GET["idmodule"];
 $plugin_type = (int)$_REQUEST["plugin_type"];
 if ($plugin_type == 8) {
-	echo '<i class="icon-white icon-envelope"></i> '._('sendwithus emailer');
+	echo '<i class="glyphicon glyphicon-envelope"></i> '._('sendwithus emailer');
 ?>
 <script src="/plugins/EmailerSendWithUs/asset/i18n_message.js"></script>
 <script>
@@ -15,7 +15,7 @@ $(document).ready(function() {
 	$(".listdata_action").on('click','#EmailerSendWithUs', function(e) {
 		var sData = oTable.$('input:checkbox').serialize();
 		if (sData == '') {
-			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var err_msg = err_element+'<strong>'+PLUGIN_SWU_PLEASE_SELECT_RECORD+'</strong></div>';
 			$("#message").html(err_msg);
 			$("#message").show();
@@ -30,7 +30,7 @@ $(document).ready(function() {
 					$("#EmailerSendWithUs_model").html(''); 
 					$("#EmailerSendWithUs_model").hide();
 					$("#EmailerSendWithUs_model").attr("id","ugly_heck");
-					$('<div class="modal hide fade" id="EmailerSendWithUs_model">' + data + '</div>').modal();
+					$('<div class="modal fade" tabindex="-1" role="dialog" id="EmailerSendWithUs_model">' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); });
 			}
 		}
