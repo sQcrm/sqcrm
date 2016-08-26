@@ -6,9 +6,9 @@
 */  
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
 				<div class="datadisplay-outer">
 					<?php
 					echo _('Welcome ').$_SESSION["do_cpaneluser"]->firstname.', to customer portal.';

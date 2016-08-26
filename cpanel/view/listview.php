@@ -14,9 +14,9 @@ $(document).ready(function() {
 });
 </script>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
 				<div id="list_view_entry">
 					<?php
 					require('view/listview_entry.php');
