@@ -6,15 +6,17 @@
 * @author Abhik Chakraborty
 */  
 ?>
-<div class="span5" style="margin-left:10px;">
-	<div class="row-fluid">
-		<?php
-		require("detail_view_rightblock_actions.php");
-		?>
-		<?php
-		if ($module_id == 15) {
-			require("invoice_payment_view.php");
-		}
-		?> 
+<div class="col-md-5">
+	<div class="row">
+		<div class="col-md-12">
+			<?php
+			require("detail_view_rightblock_actions.php");
+			?>
+			<?php
+			if ($module_id == 15) {
+				require("invoice_payment_view.php");
+			}
+			?>
+		</div>
 	</div>
 </div>

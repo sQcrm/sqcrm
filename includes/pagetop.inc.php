@@ -123,8 +123,7 @@
 				$user_profile = '';
 				if (isset($_SESSION["do_user"]) && $_SESSION["do_user"]->iduser != '') {
 					if ($_SESSION["do_user"]->user_avatar != '') {
-						//$user_profile .= '<div id="user-profile"><div class="circular_35" style="background-image: url(\''.FieldType12::get_file_name_with_path($_SESSION["do_user"]->user_avatar,'s').'\')"></div></div>';
-						$user_profile .= '<div id="user-profile" style="top:-5px;float:left;left:-5px;position:relative;"><div class="circular_35" style="background-image: url(\'http://demo.sqcrm.com/cache/thumb/ths_1436945322.jpg\')"></div></div>';	
+						$user_profile .= '<div id="user-profile" style="top:-5px;float:left;left:-5px;position:relative;"><div class="circular_35" style="background-image: url(\''.FieldType12::get_file_name_with_path($_SESSION["do_user"]->user_avatar,'s').'\')"></div></div>';	
 					} else {
 						$user_profile .=  '<div id="user-profile"><div>'._('Welcome,').' '.$_SESSION["do_user"]->firstname.'</div></div>' ;
 					}

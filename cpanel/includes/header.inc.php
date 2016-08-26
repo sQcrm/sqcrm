@@ -9,11 +9,11 @@
 	<head>
 		<title><?php echo $pageTitle;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="/themes/bootstrap/css/bootstrap.css" rel="stylesheet">
-		<link href="/themes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="/themes/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/themes/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link href="/themes/custom-css/custom.css" rel="stylesheet">
-		<link href="/themes/bootstrap/css/datepicker.css" rel="stylesheet"> 
-		<link href="/themes/bootstrap/css/bootstrap-timepicker.css" rel="stylesheet"> 
+		<link href="/themes/plugins/datepicker/datepicker.css" rel="stylesheet"> 
+		<link rel="stylesheet" href="/themes/plugins/bootstrap-timepicker/css/timepicker.css" type="text/css"> 
 		<link rel="shortcut icon" href="/themes/images/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/themes/images/favicon.ico" type="image/x-icon">
 		<meta name="author" content="<?php echo $Author; ?>">

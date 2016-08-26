@@ -9,8 +9,8 @@
 <div class="box_content">
     <?php
     if ($module_id == 13) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">
+		<li class="list-group-item">
 			<?php
 			$e_quote_pdf = new Event("\cpanel_export\ExportInventoryData->eventQuotesPDF");
 			$e_quote_pdf->setEventControler(CPANEL_EVENTCONTROLER_PATH.'cpanel/'."eventcontroler.php");
@@ -29,8 +29,8 @@
     
     <?php
     if ($module_id == 15) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">
+		<li class="list-group-item">
 			<?php
 			$e_inv_pdf = new Event("\cpanel_export\ExportInventoryData->eventInvoicePDF");
 			$e_inv_pdf->setEventControler(CPANEL_EVENTCONTROLER_PATH.'cpanel/'."eventcontroler.php");

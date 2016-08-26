@@ -28,7 +28,7 @@ $(document).ready( function() {
 function display_js_error(error_msg,div_element) {
 	error_msg = '<strong>'+error_msg+'</strong>';
 	if (error_msg != '') {
-		var error_html_start = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+		var error_html_start = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 		var error_html_end = '</div>';      
 		if (div_element !='') {
 			$("#"+div_element).html(error_html_start+error_msg+error_html_end);
@@ -78,7 +78,7 @@ function changeUserAvatar() {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#change_user_avatar").html(''); 
 			$("#change_user_avatar").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="change_user_avatar">' + data + '</div>').modal();
+			$('<div class="modal fade bs-example-modal-lg" id="change_user_avatar" tabindex="-1" role="dialog">' + data + '</div>').modal();
 		}).success(function() { $('input:text:visible:first').focus(); });
 	}
 }
