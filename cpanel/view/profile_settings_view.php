@@ -7,9 +7,9 @@
 ?>
 <script type="text/javascript" src="/js/jquery/plugins/jquery.form.js"></script>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
 				<div class="datadisplay-outer">
 					<div id="message"></div>
 					<div class="box_content_header"><?php echo _('Change password');?>
@@ -17,19 +17,19 @@
 						<br />
 						<?php
 						$e_change_pass = new Event("\cpanel_user\User->eventChangePassword");
-						echo '<form class="form-horizontal" id="User__eventChangePassword" name="User__eventChangePassword" action="'.CPANEL_EVENTCONTROLER_PATH.'eventcontroler.php" method="post">';
+						echo '<form class="" id="User__eventChangePassword" name="User__eventChangePassword" action="'.CPANEL_EVENTCONTROLER_PATH.'eventcontroler.php" method="post">';
 						echo $e_change_pass->getFormEvent();
 						?>
-						<div class="control-group">  
+						<div class="form-group">  
 							<label class="control-label" for="password"><?php echo _('Password')?></label>  
 							<div class="controls">  
-								<input type="password" class="input-xlarge-100" id="password" name="password"> 
+								<input type="password" class="form-control input-sm" id="password" name="password"> 
 							</div>
 						</div>
-						<div class="control-group">  
+						<div class="form-group">  
 							<label class="control-label" for="confirm_password"><?php echo _('Confirm Password')?></label>  
 							<div class="controls">  
-								<input type="password" class="input-xlarge-100" id="confirm_password" name="confirm_password"> 
+								<input type="password" class="form-control input-sm" id="confirm_password" name="confirm_password"> 
 							</div>
 						</div>  
 						<hr class="form_hr">
@@ -67,7 +67,7 @@ $(document).ready(function() {
 		},
 		success:  function(data) {
 			if (data.trim() == '0') {
-				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 				var succ_msg = succ_element+'<strong>'+UPLOAD_ERROR+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
@@ -99,7 +99,7 @@ $(document).ready(function() {
 				$("#message").html(succ_msg);
 				$("#message").show();
 			} else {
-				var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 				var succ_msg = succ_element+'<strong>'+data.trim()+'</strong></div>';
 				$("#message").html(succ_msg);
 				$("#message").show();
@@ -117,7 +117,7 @@ $(document).ready(function() {
 			err = 'Password and confirm password is not matching' ;
 		}
 		if (err != '') {
-			var succ_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var succ_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var succ_msg = succ_element+'<strong>'+err+'</strong></div>';
 			$("#message").html(succ_msg);
 			$("#message").show();

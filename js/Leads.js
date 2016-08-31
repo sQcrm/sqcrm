@@ -16,7 +16,7 @@ function convert_lead(idleads) {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#convert_lead").html(''); 
 			$("#convert_lead").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="convert_lead">' + data + '</div>').modal();
+			$('<div class="modal fade" tabindex="-1" role="dialog" id="convert_lead">' + data + '</div>').modal();
         }).success(function() { $('input:text:visible:first').focus(); });
     }
 }

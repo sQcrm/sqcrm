@@ -105,15 +105,15 @@ $(document).ready(function() {
 });
 </script>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12" style="margin-left:3px;">
 				<div class="datadisplay-outer">
 				<form id="filter_run_time">
 					<input type="hidden" name="sqrecord" value="<?php echo $sqcrm_record_id;?>">
 					<input type="hidden" name="runtime" value="1">
 					<div class="left_250">
 						<?php echo _('Date Filter');?><br />
-						<select name="report_date_field_runtime" id="report_date_field_runtime">
+						<select name="report_date_field_runtime" id="report_date_field_runtime" class="form-control input-sm">
 							<option value="0"><?php echo _('Select date filter');?></option>
 							<?php
 							foreach ($date_filters as $key=>$val) {
@@ -128,7 +128,7 @@ $(document).ready(function() {
 				</div>
 				<div class="left_250" style="margin-left:3px;">
 					<?php echo _('Date Filter Type');?><br />
-					<select name="report_date_field_type_runtime" id="report_date_field_type_runtime">
+					<select name="report_date_field_type_runtime" id="report_date_field_type_runtime" class="form-control input-sm">
 						<?php
 						foreach ($date_filter_options as $key=>$val) {
 							$selected = '';
@@ -161,9 +161,10 @@ $(document).ready(function() {
 					<input type="submit" class="btn btn-primary" id="" value="<?php echo _('generate');?>"/>
 				</div>
 			</form>
+			<br />
 			</div>
 		</div>
-		<div class="span12" style="margin-left:3px;">
+		<div class="col-md-12" style="margin-left:3px;">
 			<div class="datadisplay-outer">
 				<div class="left_250">
 				<?php echo $do_report->name ; ?> - <?php echo _('Total : ').$do_report->getNumRows().' '._('record(s)')?>

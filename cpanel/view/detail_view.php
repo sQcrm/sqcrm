@@ -7,14 +7,16 @@
 */  
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span7">
-			<div class="row-fluid">
-				<div class="datadisplay-outer">
-					<div id="detail_view_section">
-						<?php
-						require("detail_view_entry.php");
-						?>
+	<div class="row">
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="datadisplay-outer">
+						<div id="detail_view_section">
+							<?php
+							require("detail_view_entry.php");
+							?>
+						</div>
 					</div>
 				</div>
 			</div><!--/row-->

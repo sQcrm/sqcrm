@@ -15,31 +15,35 @@ $e_export->addParam("vid", $custom_view_id);
 echo '<form class="form-horizontal" id="ExportListData__eventExportListData" name="ExportListData__eventExportListData" action="/eventcontroler.php" method="post">';
 echo $e_export->getFormEvent();
 ?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<h3><?php echo _('Select the export option');?></h3>
-</div>
-<div class="modal-body">
-	<div class="box_content" id="export_list_options">
-		<div style="margin-left:30px;margin-top:5px;" id="">
-			<input type="radio" name="export_list_opt" id="export_list_xls" value="excel" class="">
-			&nbsp;&nbsp;<?php echo _('Excel');?>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Select the export option');?></span></h3>
 		</div>
-		<div style="margin-left:30px;margin-top:5px;" id="">
-			<input type="radio" name="export_list_opt" id="export_list_csv" value="csv" class="">
-			&nbsp;&nbsp;<?php echo _('CSV');?>
+		<div class="modal-body">
+			<div class="box_content" id="export_list_options">
+				<div style="margin-left:30px;margin-top:5px;" id="">
+					<input type="radio" name="export_list_opt" id="export_list_xls" value="excel" class="">
+					&nbsp;&nbsp;<?php echo _('Excel');?>
+				</div>
+				<div style="margin-left:30px;margin-top:5px;" id="">
+					<input type="radio" name="export_list_opt" id="export_list_csv" value="csv" class="">
+					&nbsp;&nbsp;<?php echo _('CSV');?>
+				</div>
+				<!--<div style="margin-left:30px;margin-top:5px;" id="">
+						<input type="radio" name="export_list_opt" id="export_list_pdf" value="pdf" class="">
+						&nbsp;&nbsp;<?php echo _('PDF');?>
+				</div>-->
+			</div>
 		</div>
-		<!--<div style="margin-left:30px;margin-top:5px;" id="">
-				<input type="radio" name="export_list_opt" id="export_list_pdf" value="pdf" class="">
-				&nbsp;&nbsp;<?php echo _('PDF');?>
-		</div>-->
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>
+			<input type="submit" class="btn btn-primary" id="export_list" value="<?php echo _('Export')?>"/>
+		</div>
 	</div>
+	</form>
 </div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Close');?></a>
-	<input type="submit" class="btn btn-primary" id="export_list" value="<?php echo _('Export')?>"/>
-</div>
-</form>
 <script>
 $(document).ready(function() {   
 	$('#ExportListData__eventExportListData').submit( function() {

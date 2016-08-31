@@ -4,8 +4,8 @@ if (isset($_REQUEST["widget_id"]) && (int)$_REQUEST["widget_id"] > 0) {
 }
 ?>
 <li data-id="<?php echo $widget_id ; ?>" class="li_no_number">
-	<div class="datadisplay-outer"><i class="icon-move"></i>
-		<?php echo _('Live Activity Feed') ;?><a href="#"><i class="icon-remove-sign remove-widget" style="float:right;" id="<?php echo $widget_id ; ?>"></i></a>
+	<div class="datadisplay-outer"><span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+		<?php echo _('Live Activity Feed') ;?><a href="#"><span class="glyphicon glyphicon-remove-sign remove-widget" aria-hidden="true" style="float:right;margin-right:20px;" id="<?php echo $widget_id ; ?>"></span></a>
 		<div id="livefeed_scroll"></div>
 	</div>
 </li>

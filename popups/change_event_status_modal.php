@@ -45,39 +45,45 @@ if ($allow_status_change === true) {
 	echo '<form class="form-horizontal" id="Calendar__eventChangeEventStatus" name="Calendar__eventChangeEventStatus" action="/eventcontroler.php" method="post">';
 	echo $e_change->getFormEvent();
 ?>
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<h3><?php echo _('Change Event Status');?></h3>
-	</div>
-	<div class="modal-body">
-		<?php echo _('Please select a status');?><br />
-		<select name="event_status" id="event_status">
-		<?php
-		while ($do_fields->next()) {
-			echo '<option value="'.$do_fields->combo_value.'">'.$do_fields->combo_option.'</option>';
-		}
-		?>
-		</select>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>
-		<input type="submit" class="btn btn-primary" value="<?php echo _('Change')?>"/>
-	</div>
-    </form>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Change Event Status');?></span></h3>
+		</div>
+		<div class="modal-body">
+			<?php echo _('Please select a status');?><br />
+			<select name="event_status" id="event_status" class="form-control input-sm">
+			<?php
+			while ($do_fields->next()) {
+				echo '<option value="'.$do_fields->combo_value.'">'.$do_fields->combo_option.'</option>';
+			}
+			?>
+			</select>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>
+			<input type="submit" class="btn btn-primary" value="<?php echo _('Change')?>"/>
+		</div>
+		</form>
+    </div>
+</div>
 <?php
 } else {
 ?>
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-warning"><?php echo _('WARNING');?></span>
-    </div>
-	<div class="modal-body alert-error">
-		<?php echo $msg?>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-warning"><?php echo _('WARNING');?></span></h3>
+		</div>
+		<div class="modal-body alert-error">
+			<h3><span class="label label-danger"><?php echo $msg?></span></h3>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>
+		</div>
 	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-	</div>
-
+</div>
 <?php 
 } ?>

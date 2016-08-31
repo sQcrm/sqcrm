@@ -7,26 +7,28 @@
 $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_data["currency_sysmbol"];
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"currency")?>"><?php echo _('Currency')?></a></h3>
-				<p><?php echo _('Manage currency settings')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"currency")?>"><?php echo _('Currency')?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Manage currency settings')?></p> 
 			</div>
 			<div class="datadisplay-outer">
 				<?php
 				echo '<div id="message"></div>';
 				$e_edit = new Event("CRMGlobalSettings->eventAjaxUpdateCurrencySettings");
-				echo '<form class="form-horizontal" id="CRMGlobalSettings__eventAjaxUpdateCurrencySettings" name="CRMGlobalSettings__eventAjaxUpdateCurrencySettings"  method="post" enctype="multipart/form-data">';
+				echo '<form class="" id="CRMGlobalSettings__eventAjaxUpdateCurrencySettings" name="CRMGlobalSettings__eventAjaxUpdateCurrencySettings"  method="post" enctype="multipart/form-data">';
 				echo $e_edit->getFormEvent();
 				?>
 				<label class="control-label" for="currency"><?php echo _('Select a currency');?></label>
 				<div class="controls">
-					<select name="currency" id="currency" class="currency_settings">
+					<select name="currency" id="currency" class="currency_settings form-control input-sm">
 					<?php
 					foreach($currency_array as $key=>$val) { ?>
-						
 						<option value = "<?php echo $key.'-'.(string)$val['hex'];?>" <?php echo ($currency_iso_with_symbol == $key.'-'.html_entity_decode($val['hex'], ENT_COMPAT, 'UTF-8') ?"SELECTED":'');?>><?php echo $val['name'].' ('.$key.'-'.(string)$val['hex'].')'?></option>
 					<?php
 					}
@@ -36,7 +38,7 @@ $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_da
 				<br />
 				<label class="control-label" for="currency_symbol_position"><?php echo _('Select currency position');?></label>
 				<div class="controls">
-					<select name="currency_symbol_position" id="currency_symbol_position" class="currency_settings">
+					<select name="currency_symbol_position" id="currency_symbol_position" class="currency_settings form-control input-sm">
 						<option value = "left" <?php if($currency_data["currency_symbol_position"] == 'left') echo "SELECTED";?>>Left</option>
 						<option value = "right" <?php if($currency_data["currency_symbol_position"] == 'right') echo "SELECTED";?>>Right</option>
 					</select>  
@@ -44,7 +46,7 @@ $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_da
 				<br />
 				<label class="control-label" for="decimal_point"><?php echo _('Select number of decimal point to show');?></label>
 				<div class="controls">
-					<select name="decimal_point" id="decimal_point" class="currency_settings">
+					<select name="decimal_point" id="decimal_point" class="currency_settings form-control input-sm">
 						<option value = "0" <?php if($currency_data["decimal_point"] == '0'|| $currency_data["decimal_point"] =="") echo "SELECTED";?>>No decimal</option>
 						<option value = "1" <?php if($currency_data["decimal_point"] == '1') echo "SELECTED";?>>One</option>
 						<option value = "2" <?php if($currency_data["decimal_point"] == '2') echo "SELECTED";?>>Two</option>
@@ -54,7 +56,7 @@ $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_da
 				<br />
 				<label class="control-label" for="decimal_symbol"><?php echo _('Select decimal symbol');?></label>
 				<div class="controls">
-					<select name="decimal_symbol" id="decimal_symbol" class="currency_settings">
+					<select name="decimal_symbol" id="decimal_symbol" class="currency_settings form-control input-sm">
 						<option value = "." <?php if($currency_data["decimal_symbol"] == '.') echo "SELECTED";?>>Period (" . ")</option>
 						<option value = "," <?php if($currency_data["decimal_symbol"] == ',') echo "SELECTED";?>>Comma (" , ")</option>
 					</select>  
@@ -62,7 +64,7 @@ $currency_iso_with_symbol = $currency_data["currency_iso_code"]."-".$currency_da
 				<br />
 				<label class="control-label" for="thousand_seperator"><?php echo _('Select seperator for every thousand');?></label>
 				<div class="controls">
-					<select name="thousand_seperator" id="thousand_seperator" class="currency_settings">
+					<select name="thousand_seperator" id="thousand_seperator" class="currency_settings form-control input-sm">
 						<option value = "," <?php if($currency_data["thousand_seperator"] == ',') echo "SELECTED";?>>Comma (" , ")</option>
 						<option value = " " <?php if($currency_data["thousand_seperator"] == " ") echo "SELECTED";?>>Space (" ")</option>
 						<option value = "." <?php if($currency_data["thousand_seperator"] == ".") echo "SELECTED";?>>Period (" . ")</option>

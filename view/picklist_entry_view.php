@@ -22,9 +22,9 @@
 		}
 		echo '<td width="33%" valign="top">';
 		echo '<strong>'.$val["field_label"].'</strong>&nbsp;&nbsp;
-              <a href="#" class="btn btn-primary btn-mini bs-prompt" 
+              <a href="#" class="btn btn-primary btn-xs" 
                   onclick="edit_pick_mulsel(\''.$module.'\',\''.$key.'\',\'picklist\',\''.$cf_module.'\')">
-                <i class="icon-white icon-edit"></i>
+                <i class="glyphicon glyphicon-edit"></i>
             </a>';
 		echo '<br /><br />';
 		foreach ($val["combo_data"] as $combo_data) {

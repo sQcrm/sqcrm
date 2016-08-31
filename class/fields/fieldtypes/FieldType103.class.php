@@ -43,19 +43,19 @@ class FieldType103 extends CRMFields {
 		}
 		
 		$html .='<input type="text" class = "'.$css.'" name="role_name" id="role_name" value="'.$role_name.'" readonly>';
-		$html .='&nbsp;&nbsp;<a href="#" onclick="get_roles_popup();" class="btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
-		$html .='&nbsp;&nbsp;<a href="#" onclick="remove_role(\''.$name.'\');" class="btn btn-primary btn-mini"><i class="icon-white icon-remove"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#" onclick="get_roles_popup();" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#" onclick="remove_role(\''.$name.'\');" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-remove"></i></a>';
 		$html .='<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
 		$html .= 
 		"\n".'<script>
 			function get_roles_popup(){ 
 				var href = \'/popups/roles_popup_modal?m=Settings&action=list&fieldname='.$name.'&ignore='.$ignore.'\';
 				if (href.indexOf(\'#\') == 0) {
-								$(href).modal(\'open\');
+					$(href).modal(\'open\');
 				} else {
-								$.get(href, function(data) {
-												$(\'<div class="modal hide fade in" id="role_selector">\' + data + \'</div>\').modal();
-								}).success(function() { $(\'input:text:visible:first\').focus(); });
+					$.get(href, function(data) {
+						$(\'<div class="modal fade" tabindex="-1" role="dialog" id="role_selector">\' + data + \'</div>\').modal();
+					}).success(function() { $(\'input:text:visible:first\').focus(); });
 				}
 			}
 		</script>';

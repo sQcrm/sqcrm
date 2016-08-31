@@ -31,7 +31,7 @@ $(document).ready(function() {
 					//ugly heck to prevent the content getting append when opening the same modal multiple time
 					$("#listdata_popup_selector").html(''); 
 					$("#listdata_popup_selector").attr("id","ugly_heck");
-					$('<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">' + data + '</div>').modal();
+					$('<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector">' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); window.scrollTo(0,document.body.scrollHeight);});
 			}
 		}
@@ -45,26 +45,26 @@ $(document).ready(function() {
 		var line_item = '';
 		line_item +='<tr id="'+row_count+'">';
 		line_item +=	'<td>';
-		line_item += 		'<a href="#" class="btn btn-primary btn-mini bs-prompt delete_line_item" id="'+row_count+'"><i class="icon-white icon-trash"></i></a>';
+		line_item += 		'<a href="#" class="btn btn-primary btn-xs delete_line_item" id="'+row_count+'"><i class="glyphicon glyphicon-trash"></i></a>';
 		line_item +=	'</td>';
 		line_item +=	'<td>';
-		line_item += 		'<select name="line_item_selector_opt[]" id="line_item_selector_opt_'+row_count+'" onchange="lineItemTypeChanged(\''+row_count+'\');">';
+		line_item += 		'<select name="line_item_selector_opt[]" class="form-control input-sm" id="line_item_selector_opt_'+row_count+'" onchange="lineItemTypeChanged(\''+row_count+'\');">';
 		line_item +=			'<option value="product">Products</option>';
 		line_item +=			'<option value="manual">Manual</option>';
 		line_item +=		'</select>';
 		line_item +=		'<br /><br />';
-		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="input-xlarge-100 line_item_name" readonly>';
+		line_item +=		'<input name="line_item_name[]" id="line_item_name_'+row_count+'" autocomplete="off" type="text" class="form-control input-sm line_item_name" readonly>';
 		line_item +=		'<input type="hidden" name="line_item_value[]" id="line_item_value_'+row_count+'">';
 		line_item +=		'<input type="hidden" name="line_item_type[]" id="line_item_type_'+row_count+'">';
 		line_item +=		'&nbsp;&nbsp;';
-		line_item +=		'<span id="line_item_selector_block_'+row_count+'"><a href="#"  id="'+row_count+'"  class="line_item_selector btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a></span>';
+		line_item +=		'<span id="line_item_selector_block_'+row_count+'"><a href="#"  id="'+row_count+'"  class="line_item_selector btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></a></span>';
 		line_item +=		'<br /><br />';
-		line_item +=		'<textarea name="line_item_description[]" id="line_item_description_'+row_count+'" class="input-xlarge-100"></textarea>';
+		line_item +=		'<textarea name="line_item_description[]" id="line_item_description_'+row_count+'" class="form-control input-sm"></textarea>';
 		line_item +=	'</td>';
-		line_item +=	'<td><input class="input-mini line_item_quantity" name="line_item_quantity[]" id="'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number"></td>';
+		line_item +=	'<td><input class="form-control input-sm line_item_quantity" name="line_item_quantity[]" id="'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number"></td>';
 		line_item +=	'<td>';
 		line_item += 		'<div style="height:40px;">';
-		line_item +=			'<input class="input-small line_item_price" name="line_item_price[]" id="line_item_price_'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" readonly>';
+		line_item +=			'<input class="form-control input-sm line_item_price" name="line_item_price[]" id="line_item_price_'+row_count+'" autocomplete="off" onkeypress="" ondrop="return false;" onpaste="return false;" type="number" readonly>';
 		line_item +=		'</div>';
 		line_item +=		'<div style="height:40px;">';
 		line_item +=			'<a href="#" id="'+row_count+'" class="line_item_discount">Discount</a>';

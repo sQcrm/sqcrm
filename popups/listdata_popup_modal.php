@@ -259,6 +259,7 @@ $(document).ready(function() {
 			"bServerSide": true,
 			"sDom": "<'row'<'span3'l><'span3'f>r>t<'row'<'span3'i><'span'3'p>>'",
 			"sPaginationType": "full_numbers",
+			"bAutoWidth": false,
 			<?php 
 			if (isset($_REQUEST["line_item"]) && $_REQUEST["line_item"] == 'yes') { ?>
 				"sAjaxSource": "/listdata_popup.php?m=<?php echo $m;?>&line_level=<?php echo $_REQUEST["line_level"];?>&line_item=yes",
@@ -277,41 +278,50 @@ $(document).ready(function() {
 		});        
 	});
 </script>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<span class=""><?php echo _('Select ').$m;?></span>
-</div>
-<div class="modal-body">
-	<div class="datadisplay-outer">
-		<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="<?php echo $table_div_id ;?>">
-			<thead>
-				<tr>
-					<?php
-                      // for the check box
-                      echo '<th width="2%" class="no_sort">&nbsp;</th>'; 
-                      foreach ($fields_info as $field=>$info) {
-                          echo '<th width="20%">'.$info["field_label"].'</th>';
-                      }
-                  ?>
-				</tr>
-			</thead>
-		</table>
+<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Select ').$m;?></span></h3>
+		</div>
+		<div class="modal-body">
+			<div class="datadisplay-outer">
+				<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="<?php echo $table_div_id ;?>">
+					<thead>
+						<tr>
+							<?php
+							// for the check box
+							echo '<th width="2%" class="no_sort">&nbsp;</th>'; 
+							foreach ($fields_info as $field=>$info) {
+								echo '<th width="20%">'.$info["field_label"].'</th>';
+							}
+						?>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+		</div> 
 	</div>
 </div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-</div>    
-</form>
 <?php } else { ?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<span class="badge badge-warning"><?php echo _('WARNING');?></span>
-</div>
-<div class="modal-body alert-error">
-	<?php echo _('You do not have permission to perform this operation');?>
-</div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-danger">
+				<?php echo _('You do not have permission to perform this operation');?>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+		</div>
+	</div>
 </div>
 <?php 
 } 

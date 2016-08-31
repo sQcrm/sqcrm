@@ -5,14 +5,14 @@
 * @author Abhik Chakraborty
 */
 $idmodule = (int)$_GET["idmodule"] ;
-echo '<i class="icon-white icon-play"></i>'._('test action plugin');
+echo '<i class="glyphicon glyphicon-play"></i>'._('test action plugin');
 ?>
 <script>
 $(document).ready(function() {
 	$(".listdata_action").on('click','#ListviewAction', function(e) {
 		var sData = oTable.$('input:checkbox').serialize();
 		if (sData == '') {
-			var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+			var err_element = '<div class="alert alert-warning sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 			var err_msg = err_element+'<strong>Please select some records first !</strong></div>';
 			$("#message").html(err_msg);
 			$("#message").show();
@@ -27,7 +27,7 @@ $(document).ready(function() {
 					$("#ListviewAction_model").html(''); 
 					$("#ListviewAction_model").hide();
 					$("#ListviewAction_model").attr("id","ugly_heck");
-					$('<div class="modal hide fade" id="ListviewAction_model">' + data + '</div>').modal();
+					$('<div class="modal fade" tabindex="-1" role="dialog" id="ListviewAction_model">' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); });
 			}
 		}

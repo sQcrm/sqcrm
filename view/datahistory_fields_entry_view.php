@@ -7,24 +7,26 @@
 
 ?>
 <div class="datadisplay-outer">
-	<?php
-	echo '<div id="message"></div>';
-	$e_edit = new Event("DataHistoryFieldOption->eventAjaxSaveHistoryFields");
-	$e_edit->addParam("mid",$dh_module);// see module/Settings/datahistory_settings.php
-	echo '<form class="form-horizontal" id="DataHistoryFieldOption__eventAjaxSaveHistoryFields" name="DataHistoryFieldOption__eventAjaxSaveHistoryFields"  method="post" enctype="multipart/form-data">';
-	echo $e_edit->getFormEvent();
-	if (count($datahistory_fields) > 0) {
-		foreach ($datahistory_fields as $key=>$fields_info) {
-		?>
-		<label class="checkbox" for="">
-			<input type="checkbox" name="datahistory_fields[]" value="<?php echo $fields_info["idfields"];?>" <?php echo ($fields_info["selected"] == 'yes' ? 'CHECKED':'') ?>>
-			<?php echo $fields_info["field_label"];?>
-		</label>
-		<br />
+	<div class="form-group" style="margin-left:10px;">  
 		<?php
+		echo '<div id="message"></div>';
+		$e_edit = new Event("DataHistoryFieldOption->eventAjaxSaveHistoryFields");
+		$e_edit->addParam("mid",$dh_module);// see module/Settings/datahistory_settings.php
+		echo '<form class="" id="DataHistoryFieldOption__eventAjaxSaveHistoryFields" name="DataHistoryFieldOption__eventAjaxSaveHistoryFields"  method="post" enctype="multipart/form-data">';
+		echo $e_edit->getFormEvent();
+		if (count($datahistory_fields) > 0) {
+			foreach ($datahistory_fields as $key=>$fields_info) {
+			?>
+			<label class="checkbox" for="">
+				<input type="checkbox" name="datahistory_fields[]" value="<?php echo $fields_info["idfields"];?>" <?php echo ($fields_info["selected"] == 'yes' ? 'CHECKED':'') ?>>
+				<?php echo $fields_info["field_label"];?>
+			</label>
+			<br />
+			<?php
+			}
 		}
-	}
-	?>
+		?>
+	</div>
 	<hr class="form_hr">
 	<div id="dhf_settings">
 		<input type="submit" class="btn btn-primary" id="" value="<?php echo _('Save');?>"/>

@@ -22,8 +22,8 @@
 	<?php
 		echo $breadcrumb ;
 	?>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<form id="filter_run_time">
 				<input type="hidden" name="runtime" value="1">
@@ -31,7 +31,7 @@
 				<input type="hidden" name="resource" value="<?php echo $_GET['resource']?>">
 				<div class="left_300" id="report_user_filter">
 					<?php echo _('User');?><br />
-					<select name="report_user_filter_runtime" id="report_user_filter_runtime">
+					<select name="report_user_filter_runtime" id="report_user_filter_runtime" class="form-control input-sm">
 						<option value="0"><?php echo _('All');?></option>
 						<?php
 						if (is_array($user_list) && count($user_list) >0) {
@@ -53,8 +53,8 @@
 		</div>
 	</div>
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<p><strong><?php echo _('Prospect Forecast 30-60-90 Days'); ?></strong></p>
 				<div id="c1">
@@ -63,8 +63,8 @@
 		</div>
 	</div>
 	<div class="clear_float"></div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="datadisplay-outer">
 				<div class="left_300"  id="">
 					<p><strong><?php echo _('Detailed report'); ?></strong></p>

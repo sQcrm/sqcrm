@@ -16,82 +16,85 @@ $role_detail = $do_role->get_role_detail($idrole);
 $allow_role_delete = false ;
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
+	<div class="row">
 		<?php include_once("modules/Settings/settings_leftmenu.php");?>
-		<div class="span9" style="margin-left:3px;">
+		<div class="col-md-9">
 			<div class="box_content">
-				<h3><?php echo _('Settings')?> > <a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list")?>">Roles</a></h3>
-				<p><?php echo _('Delete Role')?></p> 
+				<ol class="breadcrumb">
+					<li class="active"><?php echo _('Settings')?></li>
+					<li><a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list")?>"><?php echo _('Roles'); ?></a></li>
+				</ol>
+				<p class="lead"><?php echo _('Delete Role')?></p> 
 			</div>
-			<div class="row-fluid">
+			<div class="datadisplay-outer">
 				<div id="rd_js_errors" style="display:none;"></div>
-				<div class="datadisplay-outer">
-					<?php
-					$do_role = new Roles();
-					if ($idrole == 'N1' || $idrole == 'N2') {
-						$msg = _('The role you are trying to delete is not allowd !');
-					} else {
-						$role_detail = $do_role->get_role_detail($idrole);
-						if (count($role_detail) > 0) {
-							$allow_role_delete = true;
+				<div class="row">
+					<div class="col-md-12">
+						<?php
+						$do_role = new Roles();
+						if ($idrole == 'N1' || $idrole == 'N2') {
+							$msg = _('The role you are trying to delete is not allowd !');
 						} else {
-							$msg = _('The role you are trying to delete does not exist !');
-						}
-					}
-					if ($allow_role_delete === false) {
-						echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:20px;margin-left:200px;margin-right:200px;">';
-						echo '<h4>';
-						echo _('Delete not allowed !');
-						echo '</h4>';
-						echo $msg ;
-						echo '</div>';
-					} elseif ($allow_role_delete === true) {
-						$users = $do_role->get_users_with_idrole($idrole);
-						if ($users === false) {
-							echo '<div class="alert alert-info">';
-							echo _('There is no user associated with this role, so you can delete the role without having to transfer any data');
-							echo '</div>';
-						} else {
-							echo '<div class="alert alert-info">';
-							echo _('Following users are associated with the role you are trying to delete, please assign a different role to these users before delting the role.');
-							echo '<br />';
-							foreach ($users as $users) {
-								echo '- '.$users["user_name"]. '( '.$users["full_name"].' )<br />';
+							$role_detail = $do_role->get_role_detail($idrole);
+							if (count($role_detail) > 0) {
+								$allow_role_delete = true;
+							} else {
+								$msg = _('The role you are trying to delete does not exist !');
 							}
+						}
+						if ($allow_role_delete === false) {
+							echo '<div class="alert alert-danger">';
+							echo '<h4>';
+							echo _('Delete not allowed !');
+							echo '</h4>';
+							echo $msg ;
 							echo '</div>';
-						}
-						$e_del = new Event("Roles->eventDeleteRole");
-						$e_del->addParam("idrole",$idrole);
-						$e_del->addParam("next_page",NavigationControl::getNavigationLink($module,"roles_list"));
-						if( $users !== false) {
-							$e_del->addParam("role_transfer","yes");
-						} else {
-							$e_del->addParam("role_transfer","no");
-						}
-						echo '<form class="form-horizontal" id="Roles__eventDeleteRole" name="Roles__eventDeleteRole" action="/eventcontroler.php" method="post">';
-						echo $e_del->getFormEvent();
-						echo '<br />';
-						if ($users !== false) {
-							FieldType103::display_field("idrole_transfer",'','',$idrole);
+						} elseif ($allow_role_delete === true) {
+							$users = $do_role->get_users_with_idrole($idrole);
+							if ($users === false) {
+								echo '<div class="alert alert-info">';
+								echo _('There is no user associated with this role, so you can delete the role without having to transfer any data');
+								echo '</div>';
+							} else {
+								echo '<div class="alert alert-info">';
+								echo _('Following users are associated with the role you are trying to delete, please assign a different role to these users before delting the role.');
+								echo '<br />';
+								foreach ($users as $users) {
+									echo '- '.$users["user_name"]. '( '.$users["full_name"].' )<br />';
+								}
+								echo '</div>';
+							}
+							$e_del = new Event("Roles->eventDeleteRole");
+							$e_del->addParam("idrole",$idrole);
+							$e_del->addParam("next_page",NavigationControl::getNavigationLink($module,"roles_list"));
+							if( $users !== false) {
+								$e_del->addParam("role_transfer","yes");
+							} else {
+								$e_del->addParam("role_transfer","no");
+							}
+							echo '<form class="" id="Roles__eventDeleteRole" name="Roles__eventDeleteRole" action="/eventcontroler.php" method="post">';
+							echo $e_del->getFormEvent();
 							echo '<br />';
-						?>
-							<div class="form-actions">  
-								<a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list");?>" class="btn btn-inverse">
-								<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+							if ($users !== false) {
+								FieldType103::display_field("idrole_transfer",'','',$idrole);
+								echo '<br />';
+							?>
+								<hr class="form_hr">
+								<a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list");?>" class="btn btn-default active">
+								<i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 								<input type="submit" class="btn btn-primary" id="delete_with_transfer" value="<?php echo _('Delete');?>"/>
-							</div>
-						<?php
-						} else {
-						?>
-							<div class="form-actions">  
-								<a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list");?>" class="btn btn-inverse">
-								<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+							<?php
+							} else {
+							?>
+								<hr class="form_hr">
+								<a href="<?php echo NavigationControl::getNavigationLink($module,"roles_list");?>" class="btn btn-default active">
+								<i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Cancel');?></a>  
 								<input type="submit" class="btn btn-primary" id="delete_without_transfer" value="<?php echo _('Delete');?>"/>
-							</div>
-						<?php
+							<?php
+							}
 						}
-					}
-					?>
+						?>
+					</div>
 				</div>
 			</div><!--/row-->
 		</div><!--/span-->

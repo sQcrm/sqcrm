@@ -37,107 +37,95 @@ echo '<form class="form-horizontal" id="Report__eventSetReportData" name="Report
 echo $e_set_report_data->getFormEvent();
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 5');?></h3>
-				<p><?php echo _('Select order by options for report')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 5');?></strong></p>
+				<p class="lead"><?php echo _('Select order by options for report')?></p> 
 			</div>
 			<div class="box_content">
-				<table>
-					<tr>
-						<td>
-							<label class="control-label"><?php echo _('Order data by');?></label>
-							<div class="controls">
-								<select name="report_order_by_1" id="report_order_by_1" style = "width:250px;">
-									<option value="0"><?php echo _('Select field'); ?></option>
-									<?php
-									foreach ($sort_fields as $key=>$val) {
-										$selected = '';
-										if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_field"] == $val["idfields"])
-											$selected = "SELECTED";
-										echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
-									}
-									?>
-								</select>
-							</div>
-						</td>
-						<td align="left">
-							<div class="controls">
-								<select name="report_order_by_type_1" id="report_order_by_type_1" style = "width:100px;">
-									<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
-									<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr>
-						<td>
-							<label class="control-label"><?php echo _('and then by');?></label>
-							<div class="controls">
-								<select name="report_order_by_2" id="report_order_by_2" style = "width:250px;">
-									<option value="0"><?php echo _('Select field'); ?></option>
-									<?php
-									foreach ($sort_fields as $key=>$val) {
-										$selected = '';
-										if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_field"] == $val["idfields"])
-											$selected = "SELECTED";
-										echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
-									}
-									?>
-								</select>
-							</div>
-						</td>
-						<td align="left">
-							<div class="controls">
-								<select name="report_order_by_type_2" id="report_order_by_type_2" style = "width:100px;">
-									<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
-									<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr>
-						<td>
-							<label class="control-label"><?php echo _('and finally');?></label>
-							<div class="controls">
-								<select name="report_order_by_3" id="report_order_by_3" style = "width:250px;">
-									<option value="0"><?php echo _('Select field'); ?></option>
-									<?php
-									foreach ($sort_fields as $key=>$val) {
-										$selected = '';
-										if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_field"] == $val["idfields"])
-											$selected = "SELECTED";
-										echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
-									}
-									?>
-								</select>
-							</div>
-						</td>
-						<td align="left">
-							<div class="controls">
-								<select name="report_order_by_type_3" id="report_order_by_type_3" style = "width:100px;">
-									<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
-									<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
-								</select>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="form-actions">  
+				<div class="row">
+					<div class="col-xs-2">
+						<label class="control-label"><?php echo _('Order data by');?></label>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_1" id="report_order_by_1" class="form-control input-sm">
+							<option value="0"><?php echo _('Select field'); ?></option>
+							<?php
+							foreach ($sort_fields as $key=>$val) {
+								$selected = '';
+								if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_field"] == $val["idfields"])
+									$selected = "SELECTED";
+								echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_type_1" id="report_order_by_type_1" class="form-control input-sm">
+							<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
+							<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_1"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2">
+						<label class="control-label"><?php echo _('and then by');?></label>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_2" id="report_order_by_2" class="form-control input-sm">
+							<option value="0"><?php echo _('Select field'); ?></option>
+							<?php
+							foreach ($sort_fields as $key=>$val) {
+								$selected = '';
+								if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_field"] == $val["idfields"])
+									$selected = "SELECTED";
+								echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_type_2" id="report_order_by_type_2" class="form-control input-sm">
+							<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
+							<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_2"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-2">
+						<label class="control-label"><?php echo _('and finally');?></label>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_3" id="report_order_by_3" class="form-control input-sm">
+							<option value="0"><?php echo _('Select field'); ?></option>
+							<?php
+							foreach ($sort_fields as $key=>$val) {
+								$selected = '';
+								if (is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_field"] == $val["idfields"])
+									$selected = "SELECTED";
+								echo '<option value="'.$val["idfields"].'" '.$selected.'>'.$val["module_label"].'::'.$val["field_label"].'</option>';
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-xs-4">
+						<select name="report_order_by_type_3" id="report_order_by_type_3" class="form-control input-sm">
+							<option value="1" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_type"] == 1) echo "SELECTED" ;?>><?php echo _('Ascending');?></option>
+							<option value="2" <?php if(is_array($selected_report_order_by) && count($selected_report_order_by) > 0 && $selected_report_order_by["order_by_3"]["order_by_type"] == 2) echo "SELECTED" ;?>><?php echo _('Descending');?></option>
+						</select>
+					</div>
+				</div>
+				<br />
+				<hr class="form_hr">
 				<?php
 				if (isset($edit) && $edit == 1) {?>
-					<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=4&sqrecord=".$sqcrm_record_id);?>" class="btn btn-inverse">
+					<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=4&sqrecord=".$sqcrm_record_id);?>" class="btn btn-default active">
 				<?php } else { ?>
-					<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=4");?>" class="btn btn-inverse">
+					<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=4");?>" class="btn btn-default active">
 				<?php } ?>
-					<i class="icon-white icon-remove-sign"></i> <?php echo _('Back');?></a>  
-					<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Back');?></a>  
+				<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
 			</div>
 			</form>
 		</div>

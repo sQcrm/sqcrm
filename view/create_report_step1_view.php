@@ -25,19 +25,18 @@ echo '<form class="form-horizontal" id="Report__eventSetReportData" name="Report
 echo $e_set_report_data->getFormEvent();
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 1');?></h3>
-				<p><?php echo _('Select the type of the report')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 1');?></strong></p>
+				<p class="lead"><?php echo _('Select the type of the report')?></p> 
 			</div>
 			<div class="box_content">
 				<input type="radio" name="report_type" id="report_type" value="1" <?php echo ($report_type == 1 ? "CHECKED" : "") ;?>>&nbsp;&nbsp;<?php echo _('Tabular');?>
 				<br />
-			</div>
-			<div class="form-actions">  
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"index");?>" class="btn btn-inverse">
-				<i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>  
+				<hr class="form_hr">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"index");?>" class="btn btn-default active">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Cancel');?></a>  
 				<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
 			</div>
 			</form>

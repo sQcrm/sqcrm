@@ -9,14 +9,14 @@
 <div class="box_content">
 	<?php
     if ($module_id == 3) { ?>
-    <ul class="nav nav-list">
-		<li>
+	<ul class="list-group">
+		<li class="list-group-item">
 			<a href="#" onclick = "convert_lead('<?php echo $sqcrm_record_id ;?>')">
 			<img src="/themes/images/convert.png" style="vertical-align:center;">
 			<?php echo _('convert lead');?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<?php
 			$lead_event_create_qry_str = '?related_to='.$sqcrm_record_id.'&related_to_module=3';
 			?>
@@ -28,8 +28,8 @@
 	</ul>
 	<?php
     } elseif ($module_id == 4) { ?>
-	<ul class="nav nav-list">
-		<li>
+	<ul class="list-group">
+		<li class="list-group-item">
 			<?php
 			$cnt_pot_create_qry_string = '?related_to='.$sqcrm_record_id.'&related_to_module=4';
 			?>
@@ -38,7 +38,7 @@
 			<?php echo _('create prospect');?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<?php
 			$cnt_event_create_qry_str = '?related_to='.$sqcrm_record_id.'&related_to_module=4';
 			?>
@@ -53,7 +53,7 @@
 			$e_activate_cpanel_login->addParam("record_id", $sqcrm_record_id);
 			if ($portal_user['activated'] == 1) { 
 			?>
-			<li>
+			<li class="list-group-item">
 				<a href="/<?php echo $e_activate_cpanel_login->getUrl() ; ?>">
 				<img src="/themes/images/customer.png" style="vertical-align:center;">
 				<?php echo _('regenerate portal login and send email'); ?>
@@ -62,7 +62,7 @@
 			<?php
 			} else {
 			?>
-			<li>
+			<li class="list-group-item">
 				<a href="/<?php echo $e_activate_cpanel_login->getUrl() ; ?>">
 				<img src="/themes/images/customer.png" style="vertical-align:center;">
 				<?php echo _('activate portal login and send email'); ?>
@@ -75,8 +75,8 @@
 	</ul>
 	<?php 
     } elseif ($module_id == 6 ) { ?>
-    <ul class="nav nav-list">
-		<li>
+    <ul class="list-group">
+		<li class="list-group-item">
 			<?php
 			$org_pot_create_qry_string = '?related_to='.$sqcrm_record_id.'&related_to_module=6';
 			?>
@@ -85,7 +85,7 @@
 			<?php echo _('create prospect');?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<?php
 			$org_event_create_qry_str = '?related_to='.$sqcrm_record_id.'&related_to_module=6';
 			?>
@@ -97,8 +97,8 @@
 	</ul>
 	<?php
     } elseif ($module_id == 5 ) { ?>
-    <ul class="nav nav-list">
-		<li>
+    <ul class="list-group">
+		<li class="list-group-item">
 			<?php
 			$pot_event_create_qry_str = '?related_to='.$sqcrm_record_id.'&related_to_module=5';
 			?>
@@ -110,8 +110,8 @@
 	</ul>
     <?php
     } elseif ($module_id == 13) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<?php
 			$e_quote_pdf = new Event("ExportInventoryData->eventQuotesPDF");
 			$e_quote_pdf->addParam("m", $module);
@@ -123,19 +123,19 @@
 			<?php echo _('generate pdf'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="#" onclick="send_quote_with_email('<?php echo $sqcrm_record_id;?>','<?php echo $module_obj->idorganization;?>');return false;">
 				<img src="/themes/images/email.png" style="vertical-align:center;">
 				<?php echo _('send quote with email'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="<?php echo NavigationControl::getNavigationLink("Quotes","create_sales_order",$sqcrm_record_id,'&return_page=detail'); ?>" onclick = "">
 			<img src="/themes/images/sales_order.png" style="vertical-align:center;">
 			<?php echo _('create sales order');?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="<?php echo NavigationControl::getNavigationLink("Quotes","create_invoice",$sqcrm_record_id,'&return_page=detail'); ?>" onclick = "">
 			<img src="/themes/images/invoice.png" style="vertical-align:center;">
 			<?php echo _('create invoice');?>
@@ -144,8 +144,8 @@
 	</ul>
 	<?php
     } elseif ($module_id == 14) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<?php
 			$e_so_pdf = new Event("ExportInventoryData->eventSalesOrderPDF");
 			$e_so_pdf->addParam("m", $module);
@@ -157,13 +157,13 @@
 			<?php echo _('generate pdf'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="#" onclick="send_salesorder_with_email('<?php echo $sqcrm_record_id;?>','<?php echo $module_obj->idorganization;?>');return false;">
 			<img src="/themes/images/email.png" style="vertical-align:center;">
 			<?php echo _('send sales order with email'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="<?php echo NavigationControl::getNavigationLink("SalesOrder","create_invoice",$sqcrm_record_id,'&return_page=detail'); ?>" onclick = "">
 			<img src="/themes/images/invoice.png" style="vertical-align:center;">
 			<?php echo _('create invoice');?>
@@ -171,8 +171,8 @@
 		</li>
 	</ul>
     <?php } elseif ($module_id == 15) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<?php
 			$e_inv_pdf = new Event("ExportInventoryData->eventInvoicePDF");
 			$e_inv_pdf->addParam("m", $module);
@@ -184,7 +184,7 @@
 			<?php echo _('generate pdf'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="#" onclick="send_invoice_with_email('<?php echo $sqcrm_record_id;?>','<?php echo $module_obj->idorganization;?>');return false;">
 			<img src="/themes/images/email.png" style="vertical-align:center;">
 			<?php echo _('send invoice with email'); ?>
@@ -192,8 +192,8 @@
 		</li>
 	</ul>
     <?php } elseif ($module_id == 16) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<?php
 			$e_po_pdf = new Event("ExportInventoryData->eventPurchaseOrderPDF");
 			$e_po_pdf->addParam("m", $module);
@@ -205,7 +205,7 @@
 			<?php echo _('generate pdf'); ?>
 			</a>
 		</li>
-		<li>
+		<li class="list-group-item">
 			<a href="#" onclick="send_po_with_email('<?php echo $sqcrm_record_id;?>','<?php echo $module_obj->idcontacts;?>');return false;">
 			<img src="/themes/images/email.png" style="vertical-align:center;">
 			<?php echo _('send purchase order with email'); ?>
@@ -213,8 +213,8 @@
 		</li>
 	</ul>
     <?php } elseif ($module_id == 11) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<a href="<?php echo NavigationControl::getNavigationLink("Vendor","create_purchase_order",$sqcrm_record_id,'&return_page=detail'); ?>" onclick = "">
 			<img src="/themes/images/purchase_order.png" style="vertical-align:center;">
 			<?php echo _('create purchase order');?>
@@ -222,8 +222,8 @@
 		</li>
 	</ul>
     <?php } elseif ($module_id == 12) { ?>
-	<ul class="nav nav-list">	
-		<li>
+	<ul class="list-group">	
+		<li class="list-group-item">
 			<a href="<?php echo NavigationControl::getNavigationLink("Products","create_purchase_order",$sqcrm_record_id,'&return_page=detail'); ?>" onclick = "">
 			<img src="/themes/images/purchase_order.png" style="vertical-align:center;">
 			<?php echo _('create purchase order');?>

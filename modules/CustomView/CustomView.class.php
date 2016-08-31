@@ -58,7 +58,7 @@ class CustomView extends DataObject {
 		if ($this->getNumRows() > 0 ) {
 			return true ;
 		} else {
-			return true ;
+			return false ;
 		}
 	}
 	

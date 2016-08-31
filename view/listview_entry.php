@@ -84,8 +84,8 @@ $(document).ready(function() {
 		"aoColumns":dontSort,
 		"bProcessing": true,
 		"bServerSide": true,
-		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span'6'p>>'",
 		"sPaginationType": "full_numbers",
+		"bAutoWidth": false,
 		"sAjaxSource": "/listdata.php?m=<?php echo $module;?>&lp=<?php echo $lp;?>&lp_mid=<?php echo $lp_mid ;?>&lp_object=<?php echo $lp_object;?>&method=<?php echo $method;?>&method_param=<?php echo $method_param;?>&custom_view_id=<?php echo $custom_view_id;?>",
 		"fnServerParams": function ( aoData ) {
 			aoData.push( { "name": "more_data", "value": "my_value" } );
@@ -95,7 +95,7 @@ $(document).ready(function() {
 </script>
 
 <div class="datadisplay-outer">
-<table cellpadding="0" cellspacing="0" border="0" class="datadisplay nowrap dt-responsive" id="sqcrmlist">
+<table class="datadisplay dt-responsive" id="sqcrmlist" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 		<?php

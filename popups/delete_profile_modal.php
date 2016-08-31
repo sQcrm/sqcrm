@@ -37,12 +37,13 @@ if ($allow_del === true) {
 	echo '<form class="form-horizontal" id="'.$obj.'__eventDeleteRecord" name="'.$obj.'__eventDeleteRecord" action="/eventcontroler.php" method="post">';
 	echo $e_del->getFormEvent();
 ?>
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<h3><?php echo _('Delete Profile');?></h3>
-	</div>
-    <div class="modal-body">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-info"><?php echo _('Delete Profile');?></span></h3>
+		</div>
+		<div class="modal-body">
 		<?php
         if ($associated_roles === false) {
 			echo '<div class="alert alert-info">';
@@ -59,31 +60,40 @@ if ($allow_del === true) {
         }
         if ($associated_roles !== false) {
 			$do_profile->getAll();
-			echo '<select name="idprofile_transfer" name="idprofile_transfer">';
+			echo '<select name="idprofile_transfer" name="idprofile_transfer" class="form-control input-sm">';
 			while ($do_profile->next()) {
 				if ($do_profile->idprofile == $sqrecord) continue ;
 				echo '<option value="'.$do_profile->idprofile.'">'.$do_profile->profilename.'</option>'."\n";
 			}
 			echo '</select>';
         }
-      ?>
-    </div>
-    <div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
-    </div>
-</form>
-<?php 
-} else { ?>
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-warning"><?php echo _('WARNING');?></span>
+		?>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+			<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
+		</div>
 	</div>
-	<div class="modal-body alert-error">
-		<?php echo _('You do not have permission to perform this operation');?>
+	</form>
+</div>
+<?php
+} else {
+?>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-danger">
+				<?php echo _('You do not have permission to perform this operation');?>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+		</div>
 	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-	</div>
+</div>
 <?php 
 } ?>

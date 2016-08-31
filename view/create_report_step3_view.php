@@ -28,34 +28,38 @@ echo '<form class="form-horizontal" id="Report__eventSetReportData" name="Report
 echo $e_set_report_data->getFormEvent();
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
+	<div class="row">
+		<div class="col-md-12">
 			<div class="box_content">
-				<h3><?php echo $edit_msg;?> > <?php echo _('Step 3');?></h3>
-				<p><?php echo _('Select secondary module for the report')?></p> 
+				<p><strong><?php echo $edit_msg;?> > <?php echo _('Step 3');?></strong></p>
+				<p class="lead"><?php echo _('Select secondary module for the report')?></p> 
 			</div>
 			<div class="box_content">
-				<select name="secondary_module" id="secondary_module">
-					<?php
-					if (count($secondary_modules) > 0 ) {?>
-					<option value="0"></option>
-					<?php
-						foreach ($secondary_modules as $key=>$val) { ?>
-						<option value="<?php echo $key?>" <?php if($selected_secondary_module == $key) echo "SELECTED"; ?>><?php echo $val ;?></option>
-					<?php 
-						}
-					}
-					?>
-				</select>
-			</div>
-			<div class="form-actions">  
+				<div class="row">
+					<div class="col-xs-6">
+						<select name="secondary_module" id="secondary_module" class="form-control input-sm">
+							<?php
+							if (count($secondary_modules) > 0 ) {?>
+							<option value="0"></option>
+							<?php
+								foreach ($secondary_modules as $key=>$val) { ?>
+								<option value="<?php echo $key?>" <?php if($selected_secondary_module == $key) echo "SELECTED"; ?>><?php echo $val ;?></option>
+							<?php 
+								}
+							}
+							?>
+						</select>
+					</div>
+				</div>
+				<br />
+				<hr class="form_hr">
 				<?php
 				if (isset($edit) && $edit == 1) { ?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=2&sqrecord=".$sqcrm_record_id);?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"edit?step=2&sqrecord=".$sqcrm_record_id);?>" class="btn btn-default active">
 				<?php } else { ?>
-				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=2");?>" class="btn btn-inverse">
+				<a href="<?php echo NavigationControl::getNavigationLink($module,"add?step=2");?>" class="btn btn-default active">
 				<?php } ?>
-				<i class="icon-white icon-remove-sign"></i> <?php echo _('Back');?></a>  
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Back');?></a>  
 				<input type="submit" class="btn btn-primary" value="<?php echo _('Next');?>"/>
 			</div>
 			</form>

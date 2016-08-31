@@ -49,115 +49,122 @@ if (count($ids) > 0) {
 
 
 ?>
-<div id="message"></div>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<h3><?php echo _('sendwithus emailer');?></h3>
-</div>
-<div class="modal-body">
-	<div class="box_content">
-		<input type="hidden" id="ids" name="ids" value="<?php echo (true === $entity_selected ? implode(',',$ids) : '');?>">
-		<?php
-		if (true === $entity_selected) {
-		?>
-		<!--<div class="alert alert-info">
-		<?php
-		//echo _('Create a group and save the selected contacts in to the group');
-		?>
+<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div id="message"></div>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-info"><?php echo _('sendwithus emailer');?></span></h3>
+			</div>
+			<div class="modal-body">
+				<div class="box_content">
+					<input type="hidden" id="ids" name="ids" value="<?php echo (true === $entity_selected ? implode(',',$ids) : '');?>">
+					<?php
+					if (true === $entity_selected) {
+					?>
+					<!--<div class="alert alert-info">
+					<?php
+					//echo _('Create a group and save the selected contacts in to the group');
+					?>
+					</div>
+					<div class="controls">
+						<label class="control-label" for="group_name_create"><?php echo _('Group Name');?></label>
+						<input type="text" name="group_name_create" id="group_name_create" class="input-xlarge-100">
+					</div>
+					<input type="submit" class="btn btn-primary" id="create-group-and-save-entity" value="<?php echo _('save')?>"/>
+					<hr class="form_hr">-->
+					<?php
+					} 
+					if (true === $entity_selected && true === $groups_found) {
+					?>
+					<div class="alert alert-info">
+					<?php
+					echo _('Select an existing group and save the selected contacts in to the group');
+					?>
+					</div>
+					<div class="controls">
+						<label class="control-label" for="group_name_select"><?php echo _('Select an existing group');?></label>
+						<select name="group_name_select" id="group_name_select" class="form-control input-sm">
+						<?php
+						echo '<option value="0">'._('Pick One').'</option>';
+						foreach ($groups_array as $key=>$val) {
+							echo '<option value="'.$key.'">'.$val.'</option>';
+						}
+						?>
+						</select>
+					</div>
+					<hr class="form_hr">
+					<input type="submit" class="btn btn-primary" id="select-group-and-save-entity" value="<?php echo _('save')?>"/>
+					<?php
+					}
+					if (true === $entity_selected && true === $templates_found) {
+					?>
+					<div class="alert alert-info">
+					<?php
+					echo _('Select an email template and send email to the selected contacts');
+					echo '<br />';
+					echo _('The supported template placeholders are first_name,last_name so make sure if you have some placeholders in the template you should have the supported one');
+					?>
+					</div>
+					<div class="controls">
+						<label class="control-label" for="template_name_select"><?php echo _('Select a template');?></label>
+						<select name="template_name_select" id="template_name_select" class="form-control input-sm">
+						<?php
+						echo '<option value="0">'._('Pick One').'</option>';
+						foreach ($templates_array as $key=>$val) {
+							echo '<option value="'.$key.'">'.$val.'</option>';
+						}
+						?>
+						</select>
+					</div>
+					<hr class="form_hr">
+					<input type="submit" class="btn btn-primary" id="select-template-send-email" value="<?php echo _('send')?>"/>
+					<?php
+					}
+					
+					if (true === $groups_found && true === $templates_found) {
+					?>
+					<div class="alert alert-info">
+					<?php
+					echo _('Select an email template and a group and send the email to that group members');
+					?>
+					</div>
+					<div class="controls">
+						<label class="control-label" for="template_name_select_with_group"><?php echo _('Select a template');?></label>
+						<select name="template_name_select_with_group" id="template_name_select_with_group" class="form-control input-sm">
+						<?php
+						echo '<option value="0">'._('Pick One').'</option>';
+						foreach ($templates_array as $key=>$val) {
+							echo '<option value="'.$key.'">'.$val.'</option>';
+						}
+						?>
+						</select>
+						<label class="control-label" for="group_name_select_with_template"><?php echo _('Select a group');?></label>
+						<select name="group_name_select_with_template" id="group_name_select_with_template" class="form-control input-sm">
+						<?php
+						echo '<option value="0">'._('Pick One').'</option>';
+						foreach ($groups_array as $key=>$val) {
+							echo '<option value="'.$key.'">'.$val.'</option>';
+						}
+						?>
+						</select>
+					</div>
+					<hr class="form_hr">
+					<input type="submit" class="btn btn-primary" id="select-group-template-send-email" value="<?php echo _('send')?>"/>
+					<?php
+					}
+					?>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+			</div>
 		</div>
-		<div class="controls">
-			<label class="control-label" for="group_name_create"><?php echo _('Group Name');?></label>
-			<input type="text" name="group_name_create" id="group_name_create" class="input-xlarge-100">
-		</div>
-		<input type="submit" class="btn btn-primary" id="create-group-and-save-entity" value="<?php echo _('save')?>"/>
-		<hr class="form_hr">-->
-		<?php
-		} 
-		if (true === $entity_selected && true === $groups_found) {
-		?>
-		<div class="alert alert-info">
-		<?php
-		echo _('Select an existing group and save the selected contacts in to the group');
-		?>
-		</div>
-		<div class="controls">
-			<label class="control-label" for="group_name_select"><?php echo _('Select an existing group');?></label>
-			<select name="group_name_select" id="group_name_select">
-			<?php
-			echo '<option value="0">'._('Pick One').'</option>';
-			foreach ($groups_array as $key=>$val) {
-				echo '<option value="'.$key.'">'.$val.'</option>';
-			}
-			?>
-			</select>
-		</div>
-		<input type="submit" class="btn btn-primary" id="select-group-and-save-entity" value="<?php echo _('save')?>"/>
-		<hr class="form_hr">
-		<?php
-		}
-		if (true === $entity_selected && true === $templates_found) {
-		?>
-		<div class="alert alert-info">
-		<?php
-		echo _('Select an email template and send email to the selected contacts');
-		echo '<br />';
-		echo _('The supported template placeholders are first_name,last_name so make sure if you have some placeholders in the template you should have the supported one');
-		?>
-		</div>
-		<div class="controls">
-			<label class="control-label" for="template_name_select"><?php echo _('Select a template');?></label>
-			<select name="template_name_select" id="template_name_select">
-			<?php
-			echo '<option value="0">'._('Pick One').'</option>';
-			foreach ($templates_array as $key=>$val) {
-				echo '<option value="'.$key.'">'.$val.'</option>';
-			}
-			?>
-			</select>
-		</div>
-		<input type="submit" class="btn btn-primary" id="select-template-send-email" value="<?php echo _('send')?>"/>
-		<hr class="form_hr">
-		<?php
-		}
-		
-		if (true === $groups_found && true === $templates_found) {
-		?>
-		<div class="alert alert-info">
-		<?php
-		echo _('Select an email template and a group and send the email to that group members');
-		?>
-		</div>
-		<div class="controls">
-			<label class="control-label" for="template_name_select_with_group"><?php echo _('Select a template');?></label>
-			<select name="template_name_select_with_group" id="template_name_select_with_group">
-			<?php
-			echo '<option value="0">'._('Pick One').'</option>';
-			foreach ($templates_array as $key=>$val) {
-				echo '<option value="'.$key.'">'.$val.'</option>';
-			}
-			?>
-			</select>
-			<label class="control-label" for="group_name_select_with_template"><?php echo _('Select a group');?></label>
-			<select name="group_name_select_with_template" id="group_name_select_with_template">
-			<?php
-			echo '<option value="0">'._('Pick One').'</option>';
-			foreach ($groups_array as $key=>$val) {
-				echo '<option value="'.$key.'">'.$val.'</option>';
-			}
-			?>
-			</select>
-		</div>
-		<input type="submit" class="btn btn-primary" id="select-group-template-send-email" value="<?php echo _('send')?>"/>
-		<hr class="form_hr">
-		<?php
-		}
-		?>
-		
 	</div>
 </div>
-<div class="modal-footer">
-	<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> <?php echo _('Cancel');?></a>
-</div>
+
+
 <script src="/plugins/EmailerSendWithUs/asset/i18n_message.js"></script>
 <script>
 $(document).ready(function() {

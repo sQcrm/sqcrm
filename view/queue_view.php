@@ -6,30 +6,71 @@
 */  
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid" id="queue_data"></div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="queue_data"></div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade hide datadisplay-outer" id="entity">
-	<div class="modal-header entity-detail-modal-header"></div>
+<div class="modal fade" tabindex="-1" role="dialog" class="modal fade hide" id="entity">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header entity-detail-modal-header"></div>
+			<div class="modal-body datadisplay-outer" id="entity-detail-modal"></div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" class="modal fade hide" id="edit_queue">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default active" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary update_queue_submit" id="" value="<?php echo _('update')?>"/>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="delete_queue">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
+			</div>
+			<div class="modal-body">
+				<?php echo _('Are you sure you want to delete the queue ?');?>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary delete_queue_submit" value="<?php echo _('Delete')?>"/>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<!--<div class="modal-header entity-detail-modal-header"></div>
 	<div class="modal-body datadisplay-outer" id="entity-detail-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
 	</div>
-</div>
+</div>-->
 
-<div class="modal fade hide datadisplay-outer" id="edit_queue">
+<!--<div class="modal fade hide datadisplay-outer" id="edit_queue">
 	<div class="modal-body datadisplay-outer" id="queue-edit-modal"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
 		<input type="submit" class="btn btn-primary update_queue_submit" id="" value="<?php echo _('update')?>"/>
 	</div>
-</div>
+</div>-->
 
-<div class="modal fade hide" id="delete_queue">
+<!--<div class="modal fade hide" id="delete_queue">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
 		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
@@ -41,7 +82,7 @@
 		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
 		<input type="submit" class="btn btn-primary delete_queue_submit" id="" value="<?php echo _('delete')?>"/>
 	</div>
-</div>
+</div>-->
 
 <script>
 $(document).ready(function() {    

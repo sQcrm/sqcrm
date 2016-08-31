@@ -15,7 +15,7 @@ function send_invoice_with_email(idinvoice,idorganization) {
 			//ugly heck to prevent the content getting append when opening the same modal multiple time
 			$("#send_invoice_with_email_modal").html(''); 
 			$("#send_invoice_with_email_modal").attr("id","ugly_heck");
-			$('<div class="modal hide fade in" id="#send_invoice_with_email_modal">' + data + '</div>').modal();
+			$('<div class="modal fade" tabindex="-1" role="dialog" id="send_invoice_with_email_modal">' + data + '</div>').modal();
 		}).success(function() { $('input:text:visible:first').focus(); });
 	}
 }

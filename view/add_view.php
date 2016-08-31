@@ -6,9 +6,9 @@
 */ 
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12" style="margin-left:3px;">
-			<div class="row-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
 				<div class="datadisplay-outer">
 					<?php
 					$e_add_entity = new Event($module."->eventAddRecord");

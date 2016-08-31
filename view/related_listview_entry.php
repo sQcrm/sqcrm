@@ -50,7 +50,7 @@ $(".datadisplay").on('click','.delete_entity',function(e) {
 			success:  function(html) {
 				ret_data = html.trim();
 				if (ret_data == 0) {
-					var err_element = '<div class="alert alert-error sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+					var err_element = '<div class="alert alert-danger sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
 					var err_msg = err_element+'<strong>'+UNAUTHORIZED_DELETE+'</strong></div>';
 					$("#message").html(err_msg);
 					$("#message").show();
@@ -86,16 +86,21 @@ if ($related_data_information !== false && is_array($related_data_information) &
     echo '</div>';
 }
 ?>
-<div class="modal hide fade" id="delete_confirm">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
-	</div>
-	<div class="modal-body">
-		<?php echo _('Are you sure you want to delete the records.');?>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="delete_confirm">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
+			</div>
+			<div class="modal-body">
+				<?php echo _('Are you sure you want to delete the record(s).');?>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
+			</div>
+		</div>
 	</div>
 </div>

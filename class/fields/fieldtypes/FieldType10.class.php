@@ -33,13 +33,13 @@ class FieldType10 extends CRMFields {
 	*/
 	public static function display_field($name,$value = '',$css = '') {
 		if($value != '') $value = self::display_value($value);
-		$html =  '<div class="input-append bootstrap-timepicker">';
-		$html .= '<input type="text" id="'.$name.'" name="'.$name.'" class="input-small" readonly="readonly" value="'.$value.'">';
-		$html .= '<span class="add-on"><i class="icon-time"></i></span>';
+		$html =  '<div class="input-group bootstrap-timepicker timepicker">';
+		$html .= '<input type="text" id="'.$name.'" name="'.$name.'" class="form-control input-small" readonly="readonly" value="'.$value.'">';
+		$html .= '<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>';
 		$html .= '</div>';
 		$html .= 
 		"\n".
-		'<script>
+		'<script type="text/javascript">
 			$(function(){
 				$("#'.$name.'").timepicker();
 			});

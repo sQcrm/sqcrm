@@ -70,7 +70,7 @@ if ($idmodule == 4) {
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.row-fluid #fullcontact_submit_button_contact').click(function() {
+	$('.row #fullcontact_submit_button_contact').click(function() {
 		var email = $('input[name=fullcontact_email]:checked').val() ;
 		$("#fullcontact_submit_area").hide();
 		$("#fullcontact_loading").show();
@@ -96,7 +96,7 @@ $(document).ready(function() {
         return false;
     });
     
-    $('.row-fluid #fullcontact_submit_button_org').click(function() {
+    $('.row #fullcontact_submit_button_org').click(function() {
 		var website = $('input[name=fullcontact_website]:checked').val() ;
 		$("#fullcontact_submit_area").hide();
 		$("#fullcontact_loading").show();

@@ -6,60 +6,49 @@
 * @author Abhik Chakraborty
 */  
 ?>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span3"></div>
-		<div class="span6" style="margin-left:3px;">
-			<div class="box_content">
-				<?php
-				$e_login = new Event("\cpanel_user\User->eventLogin");
-				if ($login_next_url == '') {
-					$goto_after_login ="/cpanel/modules/Home/index";
-				} else {
-				// need to check if cross-side script is added 
-					$goto_after_login = $_SERVER['REQUEST_URI'];
-					// lets do some purify
-					$goto_after_login = strip_tags($goto_after_login);
-				}
-				$e_login->addParam("goto",$goto_after_login);
-				if ((int)$sqcrm_record_id > 0) {
-					$e_login->addParam("sqrecord",$sqcrm_record_id);
-				}
-				echo '<form class="form-horizontal" id="\cpanel_user\User__eventLogin" name="\cpanel_user\User__eventLogin" action="'.CPANEL_EVENTCONTROLER_PATH.'eventcontroler.php" method="post">';
-				echo $e_login->getFormEvent();
-				?>
-				<table style="margin: 0 auto;">
-					<tr>
-						<td align="center">
-							<strong><?php echo _('Customer Portal');?></strong>
-							<hr class="form_hr">
-							<br />
-						</td>
-					</tr>
-					<tr>
-						<td align="">
-							<span class="add-on"><i class="icon-user"></i></span>
-							<input name="user_name" id="user_name" class="username" placeholder="<?php echo _('Email');?>" type="text">
-						</td>
-					</tr>
+<div class="container">    
+	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+		<div class="panel panel-info" >
+			<div class="panel-heading">
+				<div class="panel-title"><?php echo _('Customer Portal Sign In');?></div>
+			</div>     
+			<div style="padding-top:30px" class="panel-body" >
+				<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+					<?php
+					$e_login = new Event("\cpanel_user\User->eventLogin");
+					if ($login_next_url == '') {
+						$goto_after_login ="/cpanel/modules/Home/index";
+					} else {
+					// need to check if cross-side script is added 
+						$goto_after_login = $_SERVER['REQUEST_URI'];
+						// lets do some purify
+						$goto_after_login = strip_tags($goto_after_login);
+					}
+					$e_login->addParam("goto",$goto_after_login);
+					if ((int)$sqcrm_record_id > 0) {
+						$e_login->addParam("sqrecord",$sqcrm_record_id);
+					}
+					echo '<form class="" id="\cpanel_user\User__eventLogin" name="\cpanel_user\User__eventLogin" action="'.CPANEL_EVENTCONTROLER_PATH.'eventcontroler.php" method="post">';
+					echo $e_login->getFormEvent();
+					?>
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+						<input name="user_name" id="user_name" type="text" class="form-control" value="" placeholder="<?php echo _('Email');?>">                                        
+					</div>
 					
-					<tr>
-						<td align="">
-							<span class="add-on"><i class="icon-lock"></i></span>
-							<input name="user_password" id="user_password" class="password" placeholder="<?php echo _('Password');?>" type="password">
-						</td>
-					</tr>
-					
-					<tr>
-						<td align="right">
-							<input type="submit" name="login_submit" class="btn btn-primary" value="<?php echo _('Login');?>">
-						</td>
-					</tr>
-				</table>
-				</form>
-			</div>
-		</div>
-		<div class="span3"></div>
-		</div><!--/span-->
-	</div><!--/row-->
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<input name="user_password" id="user_password" type="password" class="form-control" placeholder="<?php echo _('Password');?>">
+					</div>
+
+					<div style="margin-top:10px" class="form-group">
+						<!-- Button -->
+						<div class="col-sm-12 controls">
+							<input type="submit" name="login_submit" class="btn btn-success" value="<?php echo _('Login');?>">
+						</div>
+					</div>
+				</form>     
+			</div>                     
+		</div>  
+	</div>
 </div>

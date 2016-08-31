@@ -9,7 +9,7 @@
 <hr class="form_hr">
 <?php
 	if ($err != '') {
-		echo '<div class="alert alert-error">';
+		echo '<div class="alert alert-danger">';
 		echo $err;
 		echo '</div>';
 	} else {

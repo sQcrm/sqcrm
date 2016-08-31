@@ -31,7 +31,7 @@ class FieldType132 extends CRMFields{
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$value = '',$css = '') {
+	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
 		$html = '';  
 		$display_val = '';
 		if ((int)$value > 0) {
@@ -56,8 +56,8 @@ class FieldType132 extends CRMFields{
 			$special_field = true ;
 		}
 		$html .='<input type="text" class = "'.$css.'" name="lead_'.$name.'" id="lead_'.$name.'" value="'.$display_val.'" readonly>';
-		$html .='&nbsp;&nbsp;<a href="#"  id="select_'.$name.'"  class="btn btn-primary btn-mini"><i class="icon-white icon-plus-sign"></i></a>';
-		$html .='&nbsp;&nbsp;<a href="#" id="remove_'.$name.'" class="btn btn-primary btn-mini"><i class="icon-white icon-remove"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#"  id="select_'.$name.'"  class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></a>';
+		$html .='&nbsp;&nbsp;<a href="#" id="remove_'.$name.'" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-remove"></i></a>';
 		$html .='<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
 		
 		$html .= "\n".'<script>';
@@ -78,7 +78,7 @@ class FieldType132 extends CRMFields{
 				//ugly heck to prevent the content getting append when opening the same modal multiple time
 				$("#listdata_popup_selector").html(\'\'); 
 				$("#listdata_popup_selector").attr("id","ugly_heck");
-				$(\'<div class="modal hide fade in" id="listdata_popup_selector" style="width:700px;">\' + data + \'</div>\').modal();
+				$(\'<div class="modal fade" tabindex="-1" role="dialog" id="listdata_popup_selector">\' + data + \'</div>\').modal();
 			}).success(function() { $(\'input:text:visible:first\').focus(); });
 		}
 		';

@@ -6,10 +6,10 @@
 */
 ?>
 <div class="box_content">
-	<label class="checkbox">
+	<div class="form-group">
 		<input type="checkbox" id="event_repeat" name="event_repeat" checked>
 		<b><?php echo _('Repeat'); ?></b>
-    </label>
+    </div>
     <div id="recurrent_options_section" style="display:block;">
     <br />
 		<?php
@@ -34,7 +34,7 @@
 			<?php
 			echo _('Repeat every');
 			echo '<br />';
-			echo '<select id="repeat_freq_opts" name= "repeat_freq_opts">';
+			echo '<select id="repeat_freq_opts" name= "repeat_freq_opts" class="form-control input-sm">';
 			for ($i=1;$i<=30;$i++) {
 				$selected = '';
 				if ($recurrent_events_pattern["repeat_freq_opts"] == $i) $selected = "selected";
@@ -85,14 +85,14 @@
 				echo '<input type="radio" class= "repeat_monthly_opts" name="repeat_monthly_opts" id="repeat_monthly_opts" value="1" '.$repeat_monthly_opts_1_checked.'>'.'&nbsp;'._('on');
 				echo '&nbsp;';
 				echo '<div id="repeat_monthly_opts_days_section">';
-				echo '<input type="text" name="repeat_monthly_opts_days" id="repeat_monthly_opts_days" value="'.$recurrent_events_pattern["repeat_monthly_opts_days"].'" class="input-small">';
+				echo '<input type="text" name="repeat_monthly_opts_days" class="form-control input-sm" id="repeat_monthly_opts_days" value="'.$recurrent_events_pattern["repeat_monthly_opts_days"].'">';
 				echo '&nbsp;';
 				echo _('day of the month');
 				echo '</div>';
 				echo '<input type="radio" class= "repeat_monthly_opts" name="repeat_monthly_opts" id="repeat_monthly_opts" value="2" '.$repeat_monthly_opts_2_checked.'>'.'&nbsp;'._('or');
 				echo '&nbsp;';
 				echo '<div id="repeat_monthly_opts_week_section" style="'.$repeat_monthly_opts_week_section.'">';
-				echo '<select name="repeat_monthly_opts_week_freq" id="repeat_monthly_opts_week_freq">';
+				echo '<select name="repeat_monthly_opts_week_freq" id="repeat_monthly_opts_week_freq" class="form-control input-sm">';
 				echo '<option value="first" '.($recurrent_events_pattern["repeat_monthly_opts_week_freq"] == "first" ? "SELECTED": "").'>'._('first').'</option>';
 				echo '<option value="second" '.($recurrent_events_pattern["repeat_monthly_opts_week_freq"] == "second" ? "SELECTED": "").'>'._('second').'</option>';
 				echo '<option value="third" '.($recurrent_events_pattern["repeat_monthly_opts_week_freq"] == "third" ? "SELECTED": "").'>'._('third').'</option>';
@@ -100,7 +100,7 @@
 				echo '<option value="last" '.($recurrent_events_pattern["repeat_monthly_opts_week_freq"] == "last" ? "SELECTED": "").'>'._('fifth').'</option>';
 				echo '</select>';
 				echo '&nbsp;';
-				echo '<select name="repeat_monthly_opts_week_weekdays" id="repeat_monthly_opts_week">';
+				echo '<select name="repeat_monthly_opts_week_weekdays" id="repeat_monthly_opts_week" class="form-control input-sm">';
 				echo '<option value="sunday" '.($recurrent_events_pattern["repeat_monthly_opts_week_weekdays"] == "sunday" ? "SELECTED": "").'>'._('sun').'</option>';
 				echo '<option value="monday" '.($recurrent_events_pattern["repeat_monthly_opts_week_weekdays"] == "monday" ? "SELECTED": "").'>'._('mon').'</option>';
 				echo '<option value="tuesday" '.($recurrent_events_pattern["repeat_monthly_opts_week_weekdays"] == "tuesday" ? "SELECTED": "").'>'._('tue').'</option>';
@@ -137,7 +137,7 @@
 			}
 			echo '<input type="radio" class= "repeat_end_opts" name="repeat_end_opts" id="repeat_end_opts" value="1" '.$repeat_end_opts_1_checked.'>'.'&nbsp;'._('after').'&nbsp;';
 			echo '<div id="repeat_end_num_occurence_section" style="'.$repeat_end_num_occurence_section.'">';
-			echo '<input type="text" name="repeat_end_num_occurence" id="repeat_end_num_occurence" value = "'.$repeat_end_num_occurence.'" class="input-small">';
+			echo '<input type="text" name="repeat_end_num_occurence" id="repeat_end_num_occurence" value = "'.$repeat_end_num_occurence.'" class="form-control input-sm">';
 			echo '&nbsp;'._('occurrences');
 			echo '</div>';
 			echo '<input type="radio" class = "repeat_end_opts" name="repeat_end_opts" id="repeat_end_opts" value="2" '.$repeat_end_opts_2_checked.'>'.'&nbsp;'._('on').'&nbsp;';

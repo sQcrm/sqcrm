@@ -7,70 +7,82 @@
 */  
 ?>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="datadisplay-outer">
-				<div id="message"></div>
-				<div>
-					<!-- add new button -->
-					<?php 
-					if ($_SESSION["do_crm_action_permission"]->action_permitted('add',$module_id) === true) {
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12"> 
+					<div class="datadisplay-outer">
+						<div id="message"></div>
+						<div>
+						<!-- add new button -->
+						<?php 
+						if ($_SESSION["do_crm_action_permission"]->action_permitted('add',$module_id) === true) {
+						?>
+						<a href="/modules/<?php echo $module?>/add" class="btn btn-primary btn-mini bs-prompt">
+						<i class="icon-white icon-plus"></i> <?php echo _('add new');?>
+						</a>
+						<?php 
+						} ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12"> 
+					<?php
+					foreach ($left as $key=>$val) {
+						$folder_name =  $val["name"];
 					?>
-					<a href="/modules/<?php echo $module?>/add" class="btn btn-primary btn-mini bs-prompt">
-					<i class="icon-white icon-plus"></i> <?php echo _('add new');?>
-					</a>
+					<div class="datadisplay-outer" id="report_folder_<?php echo $val["idreport_folder"];?>">
+						<?php
+						$reports = $do_report->get_reports_by_folder($val["idreport_folder"]);
+						require('view/reportlist_view_entry.php');
+						?>
+					</div>
+					<?php 
+					} ?>	
+				</div>
+			</div>
+		</div>	
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12"> 
+					<?php
+					foreach ($right as $key=>$val) {
+						$folder_name =  $val["name"];
+					?>
+					<div class="datadisplay-outer" id="report_folder_<?php echo $val["idreport_folder"];?>">
+						<?php
+						$reports = $do_report->get_reports_by_folder($val["idreport_folder"]);
+						require('view/reportlist_view_entry.php');
+					?>
+					</div>
 					<?php 
 					} ?>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span6">
-			<div class="row-fluid">
-				<?php
-				foreach ($left as $key=>$val) {
-					$folder_name =  $val["name"];
-				?>
-				<div class="datadisplay-outer" id="report_folder_<?php echo $val["idreport_folder"];?>">
-					<?php
-					$reports = $do_report->get_reports_by_folder($val["idreport_folder"]);
-					require('view/reportlist_view_entry.php');
-					?>
-				</div>
-				<?php 
-				} ?>	
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="report_delete_confirm">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><span class="label label-warning"><?php echo _('WARNING')?></span></h3>
 			</div>
-		</div>	
-		<div class="span6">
-			<div class="row-fluid">
-				<?php
-				foreach ($right as $key=>$val) {
-					$folder_name =  $val["name"];
-				?>
-				<div class="datadisplay-outer" id="report_folder_<?php echo $val["idreport_folder"];?>">
-					<?php
-					$reports = $do_report->get_reports_by_folder($val["idreport_folder"]);
-					require('view/reportlist_view_entry.php');
-				?>
-				</div>
-				<?php 
-				} ?>
+			<div class="modal-body">
+				<?php echo _('Are you sure you want to delete the record.');?>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <?php echo _('Close');?></a>
+				<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
 			</div>
 		</div>
-	</div>
-</div>
-<div class="modal hide fade" id="report_delete_confirm">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
-		<span class="badge badge-warning"><?php echo _('WARNING!');?></span>
-	</div>
-	<div class="modal-body">
-		<?php echo _('Are you sure you want to delete the records.');?>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-inverse" data-dismiss="modal"><i class="icon-white icon-remove-sign"></i> Close</a>
-		<input type="submit" class="btn btn-primary" value="<?php echo _('Delete')?>"/>
 	</div>
 </div>
 <script>

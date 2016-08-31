@@ -125,7 +125,7 @@ class FieldType104 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$value = '',$css = '') {
+	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
 		if ($value == '') { $value = date_default_timezone_get() ; }
 		echo '<select class="'.$css.'" name = "'.$name.'" id="'.$name.'">'."\n";
 		foreach (self::$php_friendly_timezones as $key=>$val) {

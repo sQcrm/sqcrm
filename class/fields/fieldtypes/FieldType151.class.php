@@ -82,7 +82,7 @@ class FieldType151 extends CRMFields {
 			$mid = 3 ;
 		}
 		$html .='<div style="float:left;">';
-		$html .='<select class="input-large" name="related_to_opt" id="related_to_opt">';
+		$html .='<select class="form-control input-sm" name="related_to_opt" id="related_to_opt">';
 		foreach ($module_selectors as $module_selectors) {
 			$select = '';
 			if ($module_selectors == $mid) $select = 'SELECTED';
