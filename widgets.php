@@ -39,7 +39,7 @@ if ($show_login_on_session_expire === true) {
 	if (true === $allow_disp) {
 		require('widgets/'.$widget_name.'/'.$resource_name.'.php');
 	} else {
-		echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+		echo '<div class="alert alert-danger">';
 		echo '<strong>';
 		echo _('Access Denied ! ');
 		echo '</strong>';

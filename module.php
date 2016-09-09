@@ -167,7 +167,7 @@ if (isset($_REQUEST["sfmodname"]) && $_REQUEST["sfmodname"] != '') {
 			}
 			require('modules/'.$module.'/'.$action.'.php');
 		} else {
-			echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+			echo '<div class="alert alert-danger">';
 			echo '<strong>';
 			echo _('Access Denied ! ');
 			echo '</strong>';
@@ -177,14 +177,14 @@ if (isset($_REQUEST["sfmodname"]) && $_REQUEST["sfmodname"] != '') {
 	} elseif ($admin_modules === true && $allow_disp === true) {
 		require('modules/'.$module.'/'.$action.'.php');
 	} elseif ($admin_modules === true && $allow_disp === false) {
-		echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+		echo '<div class="alert alert-danger">';
 		echo '<h4>';
 		echo _('Access Denied ! ');
 		echo '</h4>';
 		echo _('You are not authorized to perform this operation.');
 		echo '</div>';
 	} elseif ( $module_id === false || $allow_disp !== true) {
-		echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+		echo '<div class="alert alert-danger">';
 		echo '<h4>';
 		echo _('Module Not Found ! ');
 		echo '</h4>';
@@ -192,7 +192,7 @@ if (isset($_REQUEST["sfmodname"]) && $_REQUEST["sfmodname"] != '') {
 		echo '</div>';
 	}   
 } else {
-	echo '<div class="alert alert-error alert-block" style="height:100px;margin-top:100px;margin-left:200px;margin-right:200px;">';
+	echo '<div class="alert alert-danger">';
 	echo '<strong>';
 	echo _('Module Name Missing ! ');
 	echo '</strong>';
