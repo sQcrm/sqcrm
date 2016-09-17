@@ -32,9 +32,10 @@ class FieldType210 extends CRMFields {
 	* @return html for the form containing the field
 	*/
 	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
-		echo '<div class="input-group"><div class="input-group-addon">@</div>';
+		echo '<div class="input-group">';
+		echo '<span class="input-group-addon">@</span>';
 		echo '<input type="text" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
-		echo '</div></div>';
+		echo '</div>';
 	}
 
 	/**
