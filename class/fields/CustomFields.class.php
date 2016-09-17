@@ -161,6 +161,9 @@ class CustomFields extends CRMFields {
 			case 10 :
 				$field_data_type = 'VARCHAR(10)';
 				break ;
+			case 210 :
+				$field_data_type = 'VARCHAR(15)';
+				break ;
 		}
 		if (count($field_validation) > 0) {
 			$field_validation_entry = json_encode($field_validation);

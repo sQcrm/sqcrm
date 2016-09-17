@@ -31,6 +31,7 @@ echo $e_add->getFormEvent();
 					<li class="" id="3"><a href="#"><img src="/themes/images/checkbox.png" style="vertical-align:center;margin-right:4px;"><?php echo _('Check Box');?></a></li>
 					<li class="" id="6"><a href="#"><img src="/themes/images/picklist.png" style="vertical-align:center;margin-right:4px;"><?php echo _('Multi Select Combo');?></a></li>
 					<li class="" id="10"><a href="#"><img src="/themes/images/date.png" style="vertical-align:center;margin-right:4px;"><?php echo _('Time');?></a></li>
+					<li class="" id="210"><a href="#"><img src="/themes/images/twitter.png" style="vertical-align:center;margin-right:4px;"><?php echo _('Twitter Handler');?></a></li>
 				</ul>
 			</div>
 			<div style = "float:left;margin-left:240px;position:absolute;margin-right:20px;">
