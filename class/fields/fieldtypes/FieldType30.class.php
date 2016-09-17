@@ -43,13 +43,14 @@ class FieldType30 extends CRMFields{
 			);
 		}
 		if ($currency_data["currency_symbol_position"] == "left") {
-			echo $currency_data["currency_sysmbol"];
-			echo " ";
+			echo '<div class="input-group"><div class="input-group-addon">'.$currency_data["currency_sysmbol"].'</div>';
 			echo '<input type="text" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
+			echo '</div></div>';
 		} elseif ($currency_data["currency_symbol_position"] == "right") {
+			echo '<div class="input-group">';
 			echo '<input type="text" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
-			echo " ";
-			echo $currency_data["currency_sysmbol"];
+			echo '<div class="input-group-addon">'.$currency_data["currency_sysmbol"].'</div>';
+			echo '</div>';
 		}
 		echo '<br /><script type="text/javascript">
 			$("#'.$name.'").maskMoney(
