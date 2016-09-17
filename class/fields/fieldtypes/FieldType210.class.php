@@ -21,7 +21,7 @@ class FieldType210 extends CRMFields {
 	* Function to get the field type, like Text Box, Text Area, Checkbox etc
 	*/
 	public static function get_field_type() {
-		return _('Twittter Handler') ;
+		return _('Twitter Handler') ;
 	}
 
 	/**
@@ -43,10 +43,16 @@ class FieldType210 extends CRMFields {
 	* @param boolean $format
 	*/
 	public static function display_value($value,$format=true) {
+		$return_val = '';
 		if (true === $format) {
-			return '<a href="https://twitter.com/'.$value.'" target="_blank">@'.$value.'</a>';
+			if ($value != '') {
+				$return_val = '<a href="https://twitter.com/'.$value.'" target="_blank">@'.$value.'</a>';
+			}
 		} else {
-			return '@'.$value ;
+			if ($value != '') {
+				$return_val = '@'.$value ;
+			}
 		}
+		return $return_val;
 	}
 }
