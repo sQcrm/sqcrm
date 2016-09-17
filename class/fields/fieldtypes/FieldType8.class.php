@@ -45,6 +45,8 @@ class FieldType8 extends CRMFields {
 			if ($ret = parse_url($value)) {
 				if (!isset($ret["scheme"])) {
 					$url = "http://{$value}";
+				} else {
+					$url = $value;
 				}
 			}
 			return '<a href="'.$url.'" target="_blank">'.$value.'</a>' ;
