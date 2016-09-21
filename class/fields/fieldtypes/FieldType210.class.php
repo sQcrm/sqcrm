@@ -1,12 +1,12 @@
 <?php
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt
 /**
-* Class FieldType8
-* Field Type 8 : Website
+* Class FieldType1
+* Field Type 210 : Twittter Handler 
 * @author Abhik Chakraborty
 */
 
-class FieldType8 extends CRMFields {
+class FieldType210 extends CRMFields {
 	public $table = "fields";
 	public $primary_key = "idfields";
 	
@@ -21,7 +21,7 @@ class FieldType8 extends CRMFields {
 	* Function to get the field type, like Text Box, Text Area, Checkbox etc
 	*/
 	public static function get_field_type() {
-		return _('Website') ;
+		return _('Twitter Handler') ;
 	}
 
 	/**
@@ -31,8 +31,11 @@ class FieldType8 extends CRMFields {
 	* @param string $css
 	* @return html for the form containing the field
 	*/
-	public static function display_field($name,$value = '',$css = '') {
+	public static function display_field($name,$value = '',$css = 'form-control input-sm') {
+		echo '<div class="input-group">';
+		echo '<span class="input-group-addon">@</span>';
 		echo '<input type="text" class="'.$css.'" name="'.$name.'" id="'.$name.'" value="'.$value.'">';
+		echo '</div>';
 	}
 
 	/**
@@ -41,17 +44,16 @@ class FieldType8 extends CRMFields {
 	* @param boolean $format
 	*/
 	public static function display_value($value,$format=true) {
-		if (true === $format) {	
-			if ($ret = parse_url($value)) {
-				if (!isset($ret["scheme"])) {
-					$url = "http://{$value}";
-				} else {
-					$url = $value;
-				}
+		$return_val = '';
+		if (true === $format) {
+			if ($value != '') {
+				$return_val = '<a href="https://twitter.com/'.$value.'" target="_blank">@'.$value.'</a>';
 			}
-			return '<a href="'.$url.'" target="_blank">'.$value.'</a>' ;
 		} else {
-			return $value ;
+			if ($value != '') {
+				$return_val = '@'.$value ;
+			}
 		}
+		return $return_val;
 	}
 }

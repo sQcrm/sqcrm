@@ -26,10 +26,8 @@ class EmailerSendWithUs extends CRMPluginProcessor {
 			_('This plugin is to manage the emailer using sendwithus API <a href="https://www.sendwithus.com" target="_blank">https://www.sendwithus.com</a><br /><br />
 			You can either place the api key on 
 			<br /><br /><i>/plugins/EmailerSendWithUs/EmailerSendWithUs.class.php <br />private $api_key = \'your api key\'</i>
-			<br /><br />or better create a <i>config.json</i> on <b>/plugins/EmailerSendWithUs/</b> and the place the api key in the file as <br />
-			<i>{"apiKey":"your api key"}</i> 
-			<br /><br />This is recommended so that any upgrade of the plugin could be done easily and your
-			config remains unchanged.
+			<br /><br />We recomend the api key to be added on .env file of your project against the variable name <b>SEND_WITH_US_API_KEY</b>
+			<br />Check the env.sample for more details.
 			'
 			)
 		); // optional
@@ -48,13 +46,7 @@ class EmailerSendWithUs extends CRMPluginProcessor {
 	* @return string 
 	*/
 	public function get_api_key() {
-		if (file_exists(BASE_PATH.'/plugins/EmailerSendWithUs/config.json')) {
-			$config = file_get_contents(BASE_PATH.'/plugins/EmailerSendWithUs/config.json') ;
-			if (strlen($config) > 3) {
-				$config_decoded = json_decode($config) ;
-				$this->set_api_key($config_decoded->apiKey) ;
-			}
-		}
+		$this->set_api_key(getenv('SEND_WITH_US_API_KEY'));
 		return $this->api_key ;
 	}
 	

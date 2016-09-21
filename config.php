@@ -5,9 +5,6 @@
 * Include that file in all the files that will uses PAS objects.
 */
 
-//if (!isset($GLOBALS['cfg_full_path'])) { $GLOBALS['cfg_full_path'] = ''; }
-//set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
-//$cfg_project_directory = $GLOBALS['cfg_full_path'];
 if (isset($GLOBALS['cfg_full_path'])) {
 	set_include_path(get_include_path() . PATH_SEPARATOR . $GLOBALS['cfg_full_path']);
 	$cfg_project_directory = $GLOBALS['cfg_full_path'];
@@ -24,23 +21,30 @@ $cfg_lang = 'us';
 define("RADRIA_EVENT_SECURE", false);
 define("RADRIA_LOCAL_DB", $cfg_local_db);
 
-//  Change the default events parameters times out
-//  $cfg_event_param_garbage_time_out = 3600;
-//  $cfg_event_param_garbage_interval = 3400;
-
 // Change this key. This is the key that authorized event execution coming from not local domain.
 $cfg_notrefererequestkey = "XX5X5XC7C5CFF7FC7C65FCD7FGGFD7FR22462" ;
 
 //Radria anonymous usage statistics:
 $cfg_radria_stat_usage = true;
 
-//error_reporting(E_ERROR | E_WARNING | E_PARSE);
-//error_reporting(E_ALL);
-//ini_set('display_errors', '1');
+// load the env variables for the application
+require_once(dirname(__FILE__).'/class/phpdotenv/vendor/autoload.php');
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
 
+if (getenv('DISPLAY_ERRORS') == '1') {
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
+}
 
-if (file_exists($GLOBALS['cfg_full_path'].'includes/extraconfig.inc.php')) {
-	include_once($GLOBALS['cfg_full_path'].'includes/extraconfig.inc.php');
+if (isset($GLOBALS['cfg_full_path'])) {
+	if (file_exists($GLOBALS['cfg_full_path'].'includes/extraconfig.inc.php')) {
+		include_once($GLOBALS['cfg_full_path'].'includes/extraconfig.inc.php');
+	}
+} else {
+	if (file_exists(dirname(__FILE__).'/includes/extraconfig.inc.php')) {
+		include_once(dirname(__FILE__).'/includes/extraconfig.inc.php');
+	}
 }
 
 $cfg_web_path =  dirname($_SERVER['PHP_SELF']);
