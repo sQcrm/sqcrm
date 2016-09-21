@@ -44,10 +44,8 @@ class FullContact extends CRMPluginProcessor {
 			from <a href="https://www.fullcontact.com/developer/" target="_blank">https://www.fullcontact.com/developer/</a><br /><br />
 			You can either place the api key on 
 			<br /><br /><i>/plugins/FullContact/FullContact.class.php <br />private $api_key = \'your api key\'</i>
-			<br /><br />or better create a <i>config.json</i> on <b>/plugins/FullContact/</b> and the place the api key in the file as <br />
-			<i>{"apiKey":"your api key"}</i> 
-			<br /><br />This is recommended so that any upgrade of the plugin could be done easily and your
-			config remains unchanged.
+			<br /><br />We recomend the api key to be added on .env file of your project against the variable name <b>FULL_CONTACT_API_KEY</b>
+			<br />Check the env.sample for more details.
 			'
 			)
 		); // optional
@@ -66,13 +64,7 @@ class FullContact extends CRMPluginProcessor {
 	* @return string 
 	*/
 	public function get_api_key() {
-		if (file_exists(BASE_PATH.'/plugins/FullContact/config.json')) {
-			$config = file_get_contents(BASE_PATH.'/plugins/FullContact/config.json') ;
-			if (strlen($config) > 3) {
-				$config_decoded = json_decode($config) ;
-				$this->set_api_key($config_decoded->apiKey) ;
-			}
-		}
+		$this->set_api_key(getenv('FULL_CONTACT_API_KEY'));
 		return $this->api_key ;
 	}
 	

@@ -1,0 +1,11 @@
+# cache 
+/cache/imports/*
+/cache/outbound/*
+/cache/thumb/*
+/cache/uploads/*
+
+# env file
+.env
+
+# Logs
+*.log
