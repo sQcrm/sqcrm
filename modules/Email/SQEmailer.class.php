@@ -60,7 +60,7 @@ class SQEmailer extends PHPMailer{
 	* @return Array $fields indexed on the field name.
 	*/
 	public static function getMergedField($template) {
-		while (ereg('\[([^\[]*)\]', $template, $fieldmatches)) {
+		while (preg_match('/\[([^\[]*)\]/', $template, $fieldmatches)) {
 			$fields[] = $fieldmatches[1];
 			$template = str_replace($fieldmatches[0], "", $template) ;
 		}
