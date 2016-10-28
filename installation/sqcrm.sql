@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.50, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.50-0ubuntu0.14.04.1
+-- Server version	5.5.53-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1686,8 +1686,8 @@ DROP TABLE IF EXISTS `organization`;
 CREATE TABLE `organization` (
   `idorganization` int(19) NOT NULL AUTO_INCREMENT,
   `organization_name` varchar(200) NOT NULL,
-  `website` varchar(200) NOT NULL,
-  `phone` varchar(50) NOT NULL,
+  `website` varchar(200) DEFAULT NULL,
+  `phone` varchar(200) DEFAULT NULL,
   `fax` varchar(50) DEFAULT NULL,
   `member_of` int(19) DEFAULT NULL,
   `num_employes` varchar(20) DEFAULT NULL,
@@ -3415,4 +3415,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-28 22:41:36
+-- Dump completed on 2016-10-28 21:37:15
