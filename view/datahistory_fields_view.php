@@ -46,7 +46,44 @@
 		</div><!--/span-->
 	</div><!--/row-->
 </div>
-
-<script>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#dh_entry').on('click','#save-data-history', function(e) {
+		var mid = $("#dh_module_selector").val();
+		var dh_fields = $("#dh_entry input:checkbox:checked").map(function() {
+			return $(this).val();
+		}).get();
+		$('#dh_entry #dhf_settings').html('<img src="/themes/images/ajax-loader1.gif" border="0" />'); //Including a preloader, it loads into the div tag with id uploader
+		$.ajax({
+			type: "POST",
+			<?php
+			$e_event = new Event("DataHistoryFieldOption->eventAjaxSaveHistoryFields");
+			$e_event->setEventControler("/ajax_evctl.php");
+			$e_event->setSecure(false);
+			?>
+			url: "<?php echo $e_event->getUrl(); ?>",
+			data: "datahistory_fields="+dh_fields+"&mid="+mid,
+			success: function(result) { 
+				var succ_element = '<div class="alert alert-success sqcrm-top-message" id="sqcrm_auto_close_messages"><a href="#" class="close" data-dismiss="alert">&times;</a>' ;
+				var succ_msg = succ_element+'<strong>'+result+'</strong></div>';
+				$("#dh_entry #message").html(succ_msg);
+				var submit_btn = '<input type="button" class="btn btn-primary" id="save-data-history" value="<?php echo _('Save');?>"/>';
+				$("#dh_entry #dhf_settings").html(submit_btn);
+				return false;
+			}
+		});
+    });
+    
+    $("#dh_module_selector").change( function() {
+		var mid = $("#dh_module_selector").val() ;
+		$.ajax({
+			type: "GET",
+			url: "datahistory_settings",
+			data : "cmid="+mid+"&ajaxreq="+true,
+			success: function(result) { 
+				$('#dh_entry').html(result) ;
+			}
+		});
+	});
+});
 </script>

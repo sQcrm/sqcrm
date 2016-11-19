@@ -132,6 +132,9 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Import/ProductsImport.class.php");
 	
 	include_once($cfg_project_directory."modules/Queue/Queue.class.php");
+	
+	include_once($cfg_project_directory."modules/Project/Project.class.php");
+	
 
 	// Email module
 	include_once($cfg_project_directory.THIRD_PARTY_LIB_PATH."/PHPMailer/class.phpmailer.php");
