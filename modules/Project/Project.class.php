@@ -394,7 +394,16 @@ class Project extends DataObject {
 	}
 	
 	/**
-	* 
+	* function to load the custom permission for the project access by id
+	* View/Add/Edit/Delete permission will be checked via the crm action permission 
+	* Function will check if the project is accessible by the user considering
+	* - If the user is owner
+	* - If the assigned_to is group and the user is a member of the group
+	* - If the user is a part of the project via the project members
+	* @param string $action , reserved for future use if needed
+	* @param integer $idproject
+	* @param integer $iduser
+	* @return boolean
 	*/
 	public function custom_permission($action,$idproject,$iduser=0) {
 		if ((int)$idproject == 0) return false;
@@ -447,6 +456,16 @@ class Project extends DataObject {
 		return $retval;
 	}
 	
+	/**
+	* function to get the custom where condition
+	* The where condition is returned considering
+	* - if the user is the project owner
+	* - if the user is a part of the group, if project is assigned to group
+	* - if the user is a part of the project via the project member
+	* 
+	* @param integer $iduser
+	* @return string, where condition for the list view
+	*/
 	public function get_custom_where_cond($iduser = 0) {
 		if ((int)$iduser == 0) $iduser = $_SESSION["do_user"]->iduser;
 		
