@@ -106,12 +106,19 @@ class DataHistoryFieldOption extends DataObject {
 	*/
 	public function eventAjaxSaveHistoryFields(EventControler $evctl) {
 		if ((int)$evctl->mid > 0) {
-			$fields = $evctl->datahistory_fields ;
+			$fields_data = $evctl->datahistory_fields ;
+			$fields = array();
+			
+			if ($fields_data != '') {
+				$fields = explode(',',$fields_data);
+			}
+			
 			$qry = "
 			delete from `data_history_field_opt`
 			where `idmodule` = ?
 			";
 			$this->query($qry,array((int)$evctl->mid));
+			
 			if (is_array($fields) && count($fields) > 0) {
 				foreach ($fields as $key=>$val) { 
 					$qry = "
@@ -122,8 +129,9 @@ class DataHistoryFieldOption extends DataObject {
 					";
 					$this->query($qry,array((int)$evctl->mid,$val));
 				}
-				echo _('Data history field information has been saved !');
 			}
+			echo _('Data history field information has been saved !');
+			
 		} else {
 			echo _('Operation failed ! Missing module id !');
 		}

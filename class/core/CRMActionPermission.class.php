@@ -91,6 +91,12 @@ class CRMActionPermission extends DataObject {
 			$do_module->getId($idmodule);
 			$module_name = $do_module->name ;
 			$entity_object = new $module_name();
+			
+			// check if custom permission is defined then return that 
+			if (true === $this->has_custom_permissions($entity_object)) {
+				return $entity_object->custom_permission($action,$sqrecord);
+			}
+
 			$entity_object->getId($sqrecord); 
 			if ($entity_object->getNumRows() == 0) { 
 				$retval = false ;
@@ -145,7 +151,6 @@ class CRMActionPermission extends DataObject {
 		if ($iduser == '') $iduser = $_SESSION["do_user"]->iduser ;
 		$module_data_share_permissions = $_SESSION["do_user"]->get_module_data_share_permissions();
 		$where = '';
-		//if($idmodule == 7 ) return " where 1=1 ";
 		if ($subordinate_users_data === true) {
 			if($module_data_share_permissions[$idmodule] == 5) return " AND `".$entity_table_name."`.`iduser` = ".$iduser ;
 			if($_SESSION["do_user"]->is_admin == 1) return "";
@@ -271,5 +276,18 @@ class CRMActionPermission extends DataObject {
 			}
 		}
 		return $retval ;
+	}
+	
+	/**
+	* function to check if a module has custom permission
+	* @param object $entity_object
+	* @return boolean
+	*/
+	public function has_custom_permissions($entity_object) {
+		$retval = false;
+		if (property_exists($entity_object,'overwrite_permissions') === true && true === $entity_object->overwrite_permissions) {
+			$retval = true;
+		} 
+		return $retval;
 	}
 }

@@ -313,13 +313,10 @@ class DataDisplay extends DataObject {
 		//echo $qry.$security_where.$group_by;exit;
 		if ($object->get_list_tot_rows() == 0 ) {
 			if (count($this->get_ds_additional_query_param()) > 0) {
-				//echo '<br />1 '.$qry.$security_where.$this->get_ds_additional_where().$group_by ;
 				$this->query($qry.$security_where.$this->get_ds_additional_where().$group_by,$this->get_ds_additional_query_param());
 			} elseif (strlen($this->get_ds_additional_where()) > 3) { 
-				//echo '<br />2 '.$qry.$security_where.$this->get_ds_additional_where().$group_by ;
 				$this->query($qry.$security_where.$this->get_ds_additional_where().$group_by);
 			} else {
-				//echo '<br />3 '.$qry.$security_where.$group_by ;
 				$this->query($qry.$security_where.$group_by);
 			}
 			//Get the total number of records
@@ -332,10 +329,8 @@ class DataDisplay extends DataObject {
 		if ($this->get_ds_where_cond() != '') {
 			if ($object->get_list_tot_rows() == 0 ) {
 				if (strlen($this->get_ds_additional_where()) > 3) {
-					//echo '<br />11 '.$qry.$security_where.$this->get_ds_additional_where().$this->get_ds_where_cond().$group_by ;
 					$this->query($qry.$security_where.$this->get_ds_additional_where().$this->get_ds_where_cond().$group_by,$this->get_ds_search_params());
 				} else {
-					//echo '<br />12 '.$qry.$security_where.$this->get_ds_where_cond().$group_by ;
 					$this->query($qry.$security_where.$this->get_ds_where_cond().$group_by,$this->get_ds_search_params());
 				}
 				//Get the total number of records
@@ -346,11 +341,8 @@ class DataDisplay extends DataObject {
 			}
 		} else {
 			if (strlen($this->get_ds_additional_where()) > 3) {
-				//print_r($this->get_ds_search_params());
-				//echo '<br />13 '.$qry.$security_where.$this->get_ds_additional_where().$group_by;
 				$this->query($qry.$security_where.$this->get_ds_additional_where().$group_by,$this->get_ds_search_params());
 			} else {
-				//echo '<br />14 '.$qry.$security_where.$group_by;
 				$this->query($qry.$security_where.$group_by);
 			}
 			//Get the total number of records
