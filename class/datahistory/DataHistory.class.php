@@ -199,6 +199,13 @@ class DataHistory extends DataObject {
 		}
 	}
     
+    /**
+    * function to add custom history 
+    * @param integer $id_referrer
+    * @param integer $idmodule
+    * @param string $history_text
+    * @return void
+    */
     public function add_custom_history($id_referrer, $idmodule, $history_text) {
 		$this->addNew();
 		$this->id_referrer = (int)$id_referrer ;

@@ -293,6 +293,10 @@ class CommonUtils extends DataObject {
 		return substr(str_shuffle(MD5(microtime())), 0, $length);
 	}
 	
+	/**
+	* function to generate a random color 
+	* @return string
+	*/
 	public static function get_random_color() {
 		return sprintf("#%06x",rand(0,16777215));
 	}
