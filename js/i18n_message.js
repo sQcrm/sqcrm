@@ -19,6 +19,8 @@ var CLOSE = 'Close' ;
 var ACTIVATE = 'activate';
 var DEACTIVATE = 'deactivate';
 var SET_PERMISSION = 'set permission';
+var ADD = 'ADD';
+var ADD_LW = 'add';
 
 var DATA_DELETED_SUCCESSFULLY = 'Data deleted succesfully.';
 var SELECT_ONE_RECORD_BEFORE_DELETE = 'Please select atleast one record before deleting.';
@@ -130,3 +132,6 @@ var UPLOAD_ERROR = 'Error uploading image, please check the image before uploadi
 
 //plugins
 var PLUGIN_PERMISSION_SET = 'Permission has been set successfully';
+
+//project
+var NO_MEMBER_TO_ADD_PROJECT = 'No member found to be added in to the project';

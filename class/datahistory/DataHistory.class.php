@@ -199,6 +199,19 @@ class DataHistory extends DataObject {
 		}
 	}
     
+    public function add_custom_history($id_referrer, $idmodule, $history_text) {
+		$this->addNew();
+		$this->id_referrer = (int)$id_referrer ;
+		$this->iduser = $_SESSION["do_user"]->iduser ;
+		$this->idmodule = $idmodule ;
+		$this->date_modified = date("Y-m-d H:i:s");
+		$this->action = 'custom_history';
+		$this->idfields = 0 ;
+		$this->old_value = '';
+		$this->new_value = $history_text ;
+		$this->add();
+    }
+    
 	/**
 	* function to get the field value for the entity
 	* @param integer $identity

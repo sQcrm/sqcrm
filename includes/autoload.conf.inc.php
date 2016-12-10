@@ -134,6 +134,7 @@ spl_autoload_register(function ($class) {
 	include_once($cfg_project_directory."modules/Queue/Queue.class.php");
 	
 	include_once($cfg_project_directory."modules/Project/Project.class.php");
+	include_once($cfg_project_directory."modules/Project/ProjectEmailer.class.php");
 	
 
 	// Email module

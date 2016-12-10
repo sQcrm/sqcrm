@@ -292,4 +292,8 @@ class CommonUtils extends DataObject {
 	public static function generate_random_string($length = 8) {
 		return substr(str_shuffle(MD5(microtime())), 0, $length);
 	}
+	
+	public static function get_random_color() {
+		return sprintf("#%06x",rand(0,16777215));
+	}
 }
