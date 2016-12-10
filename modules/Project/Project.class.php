@@ -374,6 +374,7 @@ class Project extends DataObject {
 		if ($stmt->rowCount() > 0) {
 			$data = $stmt->fetch();
 			return array(
+				'id' => $data['idproject_permission'],
 				'task_create' => $data['task_create'],
 				'task_edit' => $data['task_edit'],
 				'task_close' => $data['task_close'],
@@ -383,11 +384,12 @@ class Project extends DataObject {
 			);
 		} else {
 			return array(
+				'id' =>0,
 				'task_create' => 2,
 				'task_edit' => 3,
 				'task_close' => 3,
 				'task_assignees' => 3,
-				'project_members' => 2,
+				'project_members' => 1,
 				'permission_changer' =>''
 			);
 		}
@@ -416,6 +418,9 @@ class Project extends DataObject {
 		if ($this->deleted == 1) {
 			return false;
 		}
+		
+		if ($_REQUEST['sfaction'] == 'invitation') return true;
+		
 		if ((int)$iduser == 0) $iduser = $_SESSION["do_user"]->iduser;
 		// if assigned_to is same as user accessing the record return access permitted
 		$retval = false;
@@ -518,5 +523,646 @@ class Project extends DataObject {
 		}
 		
 		return $where;
+	}
+	
+	/**
+	* function to get the assigned to userids for a project
+	* A project could be assigned to an individual or a group of user ids
+	* This function is to return the user(s) assigned to the project
+	* @param object $project_obj 
+	* @return array
+	*/
+	public function get_assigned_to_userids($project_obj) {
+		$iduser = $project_obj->iduser;
+		$idgroup = $project_obj->idgroup;
+		$return_array = array();
+		
+		if ((int)$iduser == 0) {
+			$grp_user_rel = new GroupUserRelation();
+			$grp_user_rel->get_users_related_to_group($idgroup);
+			if ($grp_user_rel->getNumRows() > 0) {
+				while ($grp_user_rel->next()) {
+					$return_array[] = $grp_user_rel->iduser;
+				}
+			}
+		} else {
+			$return_array[] = $iduser;
+		}
+		return $return_array;
+	}
+	
+	/**
+	* get all the project members who are not a part of assigned to
+	* @param integer $idproject
+	* @param string $status
+	* @return array
+	*/
+	public function get_other_project_members($idproject,$status='all') {
+		$qry = '';
+		
+		switch ($status) {
+			case 'all':
+				$qry = "select * from `project_members` where `idproject` = ?";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+				break;
+				
+			case 'accepted':
+				$qry = "select * from `project_members` where `idproject` = ? and `accepted` = 1";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+				break;
+				
+			case 'pending':
+				$qry = "select * from `project_members` where `idproject` = ? and `accepted` = 0";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+				break;
+				
+			case 'rejected':
+				$qry = "select * from `project_members` where `idproject` = ? and `accepted` = 2";
+				$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+				break;
+		}
+		
+		return $stmt->fetchAll();
+	}
+	
+	/**
+	* get all the project members including assigned to and the other users
+	* The returned function returns the users with the type related to the project
+	* @param object $project_obj
+	* @return array
+	*/
+	public function get_project_members($project_obj) {
+		$idproject = $project_obj->idproject;
+		$iduser = $project_obj->iduser;
+		$idgroup = $project_obj->idgroup;
+		$return_array = array();
+		
+		if ((int)$iduser == 0) {
+			$grp_user_rel = new GroupUserRelation();
+			$grp_user_rel->get_users_related_to_group($idgroup);
+			$users = array();
+			if ($grp_user_rel->getNumRows() > 0) {
+				while ($grp_user_rel->next()) {
+					$users[$grp_user_rel->iduser] = array(
+						'iduser'=>$grp_user_rel->iduser,
+						'user_name'=>$grp_user_rel->user_name,
+						'firstname'=>$grp_user_rel->firstname,
+						'lastname'=>$grp_user_rel->lastname
+					);
+				}
+			}
+			$return_array['assigned_to'] = $users;
+		} else {
+			$do_user = new User();
+			$do_user->getId($iduser);
+			$return_array['assigned_to'][$iduser] = array(
+				'iduser'=>$iduser,
+				'user_name'=>$do_user->user_name,
+				'firstname'=>$do_user->firstname,
+				'lastname'=>$do_user->lastname
+			);
+		}
+		
+		$other_assignee = array();
+		$qry = "
+		select `p`.*,`u`.* from `project_members` `p`
+		join `user` `u` on `u`.`iduser` = `p`.`iduser`
+		where `p`.`idproject` = ? and `p`.`accepted` = 1
+		";
+		$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+		if ($stmt->rowCount() > 0) {
+			while ($data = $stmt->fetch()) {
+				$other_assignee[$data['iduser']] = array(
+					'iduser'=>$data['iduser'],
+					'user_name'=>$data['user_name'],
+					'firstname'=>$data['firstname'],
+					'lastname'=>$data['lastname']
+				);
+			}
+		}
+		$return_array['other_assignee'] = $other_assignee;
+		return $return_array;
+	}
+	
+	/**
+	* function to get the different users who are assigned to a project 
+	* by default the users assigned_to is/are member of the project
+	* other users where the request is sent but not accepted or rejected or accepted are 
+	* divided in groups as in the returned array
+	* @param integer $idproject
+	* @return array
+	*/
+	public function get_users_to_be_assigned($idproject) {
+		$this->getId($idproject);
+		// if invalid project id return 
+		if ($this->getNumRows() == 0) return array();
+		
+		$iduser = $this->iduser;
+		$idgroup = $this->idgroup;
+		
+		$users = array();
+		$assigned_to_array = array();
+		
+		// if the assigned to is a group then get all the users from the group and set them as member of the project
+		if ((int)$iduser == 0) {
+			$group_user_rel = new GroupUserRelation();
+			$group_user_rel->get_users_related_to_group($idgroup);
+			
+			if ($group_user_rel->getNumRows() > 0) {
+				while ($group_user_rel->next()) {
+					$users['member'][] = array(
+						'iduser' => $group_user_rel->iduser,
+						'user_name' => $group_user_rel->user_name,
+						'firstname' => $group_user_rel->firstname,
+						'lastname' => $group_user_rel->lastname,
+						'user_avatar' => $group_user_rel->user_avatar,
+						'assigned_to'=>1
+					);
+					$assigned_to_array[] = $group_user_rel->iduser;
+				}
+			}
+		} else {
+			// if not group then just the assigned to user
+			$do_user = new User();
+			$do_user->getId($iduser);
+			$users['member'][] = array(
+				'iduser' => $do_user->iduser,
+				'user_name' => $do_user->user_name,
+				'firstname' => $do_user->firstname,
+				'lastname' => $do_user->lastname,
+				'user_avatar' => $do_user->user_avatar,
+				'email' => $do_user->email,
+				'assigned_to'=>1
+			);
+			$assigned_to_array[] = $iduser;
+		}
+		
+		// get all the roles which are permitted to access the project module
+		$permitted_roles = array();
+		$qry_permitted_roles = "
+		select 
+		rpr.idrole,
+		max(pmr.permission_flag) as permission_flag
+		from role_profile_rel rpr 
+		join profile_module_rel pmr on pmr.idprofile = rpr.idprofile 
+		where pmr.idmodule = 19 group by rpr.idrole
+		";
+		$stmt_permitted_roles = $this->getDbConnection()->executeQuery($qry_permitted_roles);
+		
+		if ($stmt_permitted_roles->rowCount() > 0) {
+			while ($data = $stmt_permitted_roles->fetch()) {
+				if ($data['permission_flag'] == 1) {
+					$permitted_roles[] = $data['idrole'];
+				}
+			}
+		}
+		
+		/**
+		* get all the users from project members and the users table by allowed roles
+		* set the different users as part of the project as per accepted condition
+		*/
+		$roles = '';
+		if (count($permitted_roles) > 0) {
+			$roles = "'" . implode ( "','", $permitted_roles ) . "'";
+			$qry_user = "
+			select 
+			u.iduser,
+			u.user_name,
+			u.firstname,
+			u.lastname,
+			u.user_avatar,
+			u.email,
+			psp.permission,
+			case
+				when pm.accepted is null then 'not_assigned'
+				when pm.accepted = 0 then 'req_sent'
+				when pm.accepted = 1 then 'member'
+				when pm.accepted = 2 then 'req_rejected'
+			end as `project_users`
+			from user u 
+			join role_profile_rel rpr on rpr.idrole = u.idrole 
+			join 
+			( 
+				select 
+				max(permission_flag) as permission,
+				idprofile from profile_standard_permission_rel 
+				where idmodule = 19 
+				group by idprofile
+			) psp on psp.idprofile = rpr.idprofile 
+			left join project_members pm on pm.iduser = u.iduser and pm.idproject = ?
+			where u.idrole in(".$roles.")
+			";
+			$stmt_users = $this->getDbConnection()->executeQuery($qry_user,array($idproject));
+			if ($stmt_users->rowCount() > 0) {
+				while ($data = $stmt_users->fetch()) {
+					$user_data = array();
+					$user_data = array(
+						'iduser' => $data['iduser'],
+						'user_name' => $data['user_name'],
+						'firstname' => $data['firstname'],
+						'lastname' => $data['lastname'],
+						'user_avatar' => $data['user_avatar'],
+						'email' => $data['email'],
+						'assigned_to'=>0
+					);
+					
+					if ($data['project_users'] == 'not_assigned') {
+						if (in_array($data['iduser'],$assigned_to_array)) continue;
+						$users['not_assigned'][] = $user_data;
+					} elseif ($data['project_users'] == 'req_sent') {
+						$users['req_sent'][] = $user_data;
+					} elseif ($data['project_users'] == 'member') {
+						$users['member'][] = $user_data;
+					} elseif ($data['project_users'] == 'req_rejected') {
+						$users['req_rejected'][] = $user_data;
+					}
+				}
+			}
+		}
+		return $users;
+	}
+	
+	/**
+	* event function to add an user into the project
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventAddProjectMember(EventControler $evctl) {
+		$err = '';
+		$added_by = $_SESSION["do_user"]->iduser;
+		$existing_members = array();
+		
+		if ((int)$evctl->idproject == 0) {
+			$err = _('Missing the project id.');
+		} elseif ((int)$evctl->iduser == 0) {
+			$err = _('Missing user id to be added into the project.');
+		} elseif (false === $this->custom_permission('view',$evctl->idproject,$added_by)) {
+			$err = _('You do not have permission to do this operation.');
+		} else {
+			$this->getId($evctl->idproject);
+			if ($this->getNumRows() == 0) {
+				$err = _('Project does not exist.');
+			} else {
+				$additional_permissions = $this->get_additional_permissions($evctl->idproject);
+				$accepted_members = array();
+				$assigned_to_array = $this->get_assigned_to_userids($this);
+				$existing_members = $assigned_to_array;
+				$project_members_data = $this->get_other_project_members($evctl->idproject);
+				
+				if (count($project_members_data) > 0) {
+					foreach ($project_members_data as $key=>$val) {
+						$existing_members[] = $val['iduser'];
+						if ($val['accepted'] == 1) {
+							$accepted_members[] = $val['iduser'];
+						}
+					}
+				}
+				
+				if (in_array($evctl->iduser,$existing_members)) {
+					$err = _('User you are trying to add to the project is already a member or request is still pending.');
+				}
+				
+				if ($err == '') {
+					$add_action = false ;
+					if ($additional_permissions['project_members'] == 2 && (in_array($added_by,$assigned_to_array) || in_array($added_by,$accepted_members))) {
+						$add_action = true;
+					} elseif ($additional_permissions['project_members'] == 1 && in_array($added_by,$assigned_to_array)) {
+						$add_action = true;
+					}
+					
+					if (false === $add_action) {
+						echo _('You are not authorized to perform this operation');
+					}
+				}
+			}
+		}
+		
+		if ($err !='') {
+			echo $err;
+		} else {
+			$qry = "insert into `project_members` (`idproject`,`iduser`,`sender`) values (?, ?, ?)";
+			$this->getDbConnection()->executeQuery($qry,array($evctl->idproject, $evctl->iduser, $added_by));
+			$idinvitation = $this->getDbConnection()->lastInsertId();
+			
+			// send invitation email
+			$do_projectmailer = new ProjectEmailer();
+			$do_projectmailer->send_project_member_invitation_email($this, $idinvitation, $evctl->iduser);
+			
+			// add custom history
+			$do_data_history = new DataHistory();
+			$do_invitee = new User();
+			$do_invitee->getId($evctl->iduser);
+			$history_text = _('Has added');
+			$history_text .= ' '.$do_invitee->firstname.' '.$do_invitee->lastname. ' '._('to this project');
+			$do_invitee->free();
+			$do_data_history->add_custom_history($evctl->idproject, 19, $history_text);
+			$do_data_history->free();
+			
+			echo '1';
+		}
+	}
+	
+	/**
+	* event function to remove a project member
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventRemoveProjectMember(EventControler $evctl) {
+		$err = '';
+		$removed_by = $_SESSION["do_user"]->iduser;
+		
+		if ((int)$evctl->idproject == 0) {
+			$err = _('Missing project id');
+		} elseif ((int)$evctl->iduser == 0) {
+			$err = _('Missing the user id to be removed');
+		} elseif (!in_array($evctl->type,array('accepted','pending','rejected'))) {
+			$err = _('Invalid project member');
+		} else {
+			$this->getId($evctl->idproject);
+			if ($this->getNumRows() == 0) {
+				$err = _('Project does not exist.');
+			} else {
+				$additional_permissions = $this->get_additional_permissions($evctl->idproject);
+				$assigned_to_users = $this->get_assigned_to_userids($this);
+				$action_allowed = false;
+				
+				if ($err == '') {
+					$accepted_members = array();
+					$rejected_members = array();
+					$pending_members = array();
+					$project_members_data = $this->get_other_project_members($evctl->idproject);
+					
+					if (count($project_members_data) > 0) {
+						foreach ($project_members_data as $key=>$val) {
+							if ($val['accepted'] == 0) {
+								$pending_members[] = $val['iduser'];
+							}
+							
+							if ($val['accepted'] == 1) {
+								$accepted_members[] = $val['iduser'];
+							}
+							
+							if ($val['accepted'] == 2) {
+								$rejected_members[] = $val['iduser'];
+							}
+							
+						}
+					}
+					
+					if ($additional_permissions['project_members'] == 2 && (in_array($removed_by,$assigned_to_users) || in_array($removed_by,$accepted_members))) {
+						$action_allowed = true;
+					} elseif ($additional_permissions['project_members'] == 1 && in_array($removed_by,$assigned_to_users)) {
+						$action_allowed = true;
+					}
+					
+					if (in_array($evctl->iduser,$assigned_to_users)) {
+						$err = _('This user can not be removed from the project.');
+					}
+					
+					if ($evctl->type == 'accepted' && !in_array($evctl->iduser,$accepted_members)) {
+						$err = _('You are trying to remove a member who is not a part of this project.');
+					}
+					
+					if ($evctl->type == 'pending' && !in_array($evctl->iduser,$pending_members)) {
+						$err = _('You are trying to remove a member who is not a part of pending members in this project.');
+					}
+					
+					if ($evctl->type == 'rejected' && !in_array($evctl->iduser,$rejected_members)) {
+						$err = _('You are trying to remove a member who is not a part of rejected members in this project');
+					}
+				
+					if (false === $action_allowed) {
+						echo _('You are not authorized to perform this operation');
+					}
+				}
+			}
+		}
+		
+		if ($err != '') {	
+			echo $err;
+		} else {
+			$qry = "delete from `project_members` where `idproject` =? AND `iduser` = ?";
+			$this->getDbConnection()->executeQuery($qry,array($evctl->idproject,$evctl->iduser));
+			if ($evctl->type == 'accepted') {
+				// send email to the user who is removed from project
+				$do_projectmailer = new ProjectEmailer();
+				$do_projectmailer->send_removed_from_project_email($evctl->idproject, $evctl->iduser);
+				
+				// add custom history
+				$do_data_history = new DataHistory();
+				$do_invitee = new User();
+				$do_invitee->getId($evctl->iduser);
+				$history_text = _('Has removed');
+				$history_text .= ' '.$do_invitee->firstname.' '.$do_invitee->lastname. ' '._('from this project');
+				$do_invitee->free();
+				$do_data_history->add_custom_history($evctl->idproject, 19, $history_text);
+				$do_data_history->free();
+				
+				//remove the user from permission changer if the user is there
+				$permissions = $this->get_additional_permissions($evctl->idproject);
+				$permission_changer = array();
+				
+				if (trim($permissions['permission_changer']) !==null && trim($permissions['permission_changer']) != '') {
+					$permission_changer = explode(',',$permissions['permission_changer']);
+					
+					if (count($permission_changer) > 0 && ($key = array_search($evctl->iduser, $permission_changer)) !== false) {
+						unset($permission_changer[$key]);
+						$permission_changer_data = '';
+						
+						if (count($permission_changer) > 0) {
+							$permission_changer_data = implode(',', $permission_changer);
+							
+							if ((int)$permissions['id'] > 0) {
+								$q_upd = "
+								update `project_permission` set `permission_changer` = ? 
+								where `idproject_permission` = ?
+								";
+								$this->getDbConnection()->executeQuery($q_upd,array($permission_changer_data,$permissions['id']));
+							}
+						}
+					}
+				}
+			}
+			echo '1';
+		}
+	}
+	
+	/**
+	* function to check if the invitation url is valid or not 
+	* @param integer $id
+	* @param integer $idproject
+	* @param integer $iduser
+	* @return boolean
+	*/
+	public function check_valid_invitation($id, $idproject=0, $iduser=0) {
+		if ((int)$iduser == 0) $iduser = $_SESSION["do_user"]->iduser;
+		
+		if ((int)$id == 0) {
+			return false;
+		} else {
+			$qry = "select * from `project_members` where `idproject_members` = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($id));
+			if ($stmt->rowCount() > 0) {
+				$data = $stmt->fetch();
+				if ($data['accepted'] != 0) return false;
+				if ($iduser != $data['iduser']) return false;
+				if ((int)$idproject != 0 && $data['idproject'] != $idproject) return false;
+				return $data['idproject'];
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	/**
+	* event function to accept/reject the project invitation
+	* @param object $evctl
+	* @return void
+	*/
+	public function eventAcceptRejectProjectInvitation(EventControler $evctl) {
+		$err = '';
+		
+		if ((int)$evctl->id == 0) {
+			$err = _('The project invitation you are trying to access is invalid, please check again.');
+		} elseif (false === $this->check_valid_invitation($evctl->id,$evctl->idproject)) {
+			$err = _('The project invitation you are trying to access is invalid, please check again.');
+		} elseif ($evctl->action != 'accept' && $evctl->action != 'reject') {
+			$err = _('Invalid action, the action should be either "accept" or "reject"');
+		}
+		
+		if ($err == '') {
+		
+			if ($evctl->action == 'accept') {
+				$qry = "update `project_members` set `accepted` = 1 where `idproject_members` = ?";
+			} else {
+				$qry = "update `project_members` set `accepted` = 2 where `idproject_members` = ?";
+			}
+			
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($evctl->id));
+			$do_projectmailer = new ProjectEmailer();
+			$do_projectmailer->send_project_accept_reject_email($evctl->id, $evctl->action);
+			$do_data_history = new DataHistory();
+			$iduser = $_SESSION['do_user']->iduser;
+			
+			if ($evctl->action == 'accept') {
+				$do_data_history->add_custom_history($evctl->idproject, 19, _('Has joined this project'));
+				$do_data_history->free();
+				$_SESSION["do_crm_messages"]->set_message('success',_('You are now member of this project'));
+				$next_page = NavigationControl::getNavigationLink('Project',"detail");
+				$dis = new Display($next_page);
+				$dis->addParam("sqrecord",$evctl->idproject);
+				$evctl->setDisplayNext($dis) ;
+			} else {
+				$do_data_history->add_custom_history($evctl->idproject, 19, _('Has rejected invitation to join this project'));
+				$do_data_history->free();
+				$_SESSION["do_crm_messages"]->set_message('error',_('You have rejected the invitation'));
+				$next_page = NavigationControl::getNavigationLink('Project',"list");
+				$dis = new Display($next_page);
+				$evctl->setDisplayNext($dis) ;
+			}
+			
+		} else {
+			$_SESSION["do_crm_messages"]->set_message('error',$err);
+		}
+	}
+	
+	public function eventAddProjectPermission(EventControler $evctl) {
+		$response = array();
+		
+		if ((int)$evctl->idproject > 0) {
+			$this->getId($evctl->idproject);
+			$project_members = $this->get_project_members($this);
+			$permissions = $this->get_additional_permissions($evctl->idproject);
+			$current_user = $_SESSION["do_user"]->iduser;
+			$allow_action = false;
+			$permission_changer = array();
+			
+			if (trim($permissions['permission_changer']) !==null && trim($permissions['permission_changer']) != '') {
+				$permission_changer = explode(',',$permissions['permission_changer']);
+			}
+			
+			if (array_key_exists($current_user,$project_members['assigned_to'])) {
+				$allow_action = true;
+			} else {
+				if (is_array($permission_changer) && count($permission_changer) > 0) {
+					foreach ($permission_changer as $iduser) {
+						if (array_key_exists($iduser,$project_members['other_assignee']) && $current_user == $iduser) {
+							$allow_action = true;
+							break;
+						}
+					}
+				}
+			}
+			
+			if (true === $allow_action) {
+				if ((int)$evctl->id > 0) {
+					// update the existing record
+					$qry = "
+					update `project_permission` set 
+					`task_create` = ?,
+					`task_edit` = ?,
+					`task_close` = ?,
+					`task_assignees` = ?,
+					`project_members` = ?,
+					`permission_changer` = ?
+					where `idproject_permission` = ?
+					";
+					
+					$stmt = $this->getDbConnection()->executeQuery($qry,array(
+						$evctl->task_create,
+						$evctl->task_edit,
+						$evctl->task_close,
+						$evctl->task_assignees,
+						$evctl->project_members,
+						$evctl->permission_changer,
+						$evctl->id
+					));
+					
+					$response = array(
+						'status'=>'ok',
+						'id'=>$evctl->id,
+						'message'=>_('Permission has been updated successfully.')
+					);
+					
+				} else {
+					// add a new entity
+					$qry = "
+					insert into `project_permission`
+					(`task_create`,`task_edit`,`task_close`,`task_assignees`,`project_members`,`permission_changer`,`idproject`)
+					values
+					(?, ?, ?, ?, ?, ?, ?)
+					";
+					$stmt = $this->getDbConnection()->executeQuery($qry,array(
+						$evctl->task_create,
+						$evctl->task_edit,
+						$evctl->task_close,
+						$evctl->task_assignees,
+						$evctl->project_members,
+						$evctl->permission_changer,
+						$evctl->idproject
+					));
+					
+					$response = array(
+						'status'=>'ok',
+						'id'=>$this->getDbConnection()->lastInsertId(),
+						'message'=>_('Permission has been saved successfully.')
+					);
+				}
+			} else {
+				$response = array(
+					'status'=>'fail',
+					'id'=> ((int)$evctl->id > 0 ? $evctl->id : 0),
+					'message'=>_('You are not authorized to perform this operation.')
+				);
+			}
+		} else {
+			$response = array(
+				'status'=>'fail',
+				'id'=> ((int)$evctl->id > 0 ? $evctl->id : 0),
+				'message'=>_('Missing project id')
+			);
+		}
+		
+		echo json_encode($response);
 	}
 }

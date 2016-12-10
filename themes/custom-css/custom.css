@@ -969,6 +969,17 @@ th:active {
 	z-index: 99999;
 }
 
+[data-profile-initials]:before {
+  content:attr(data-profile-initials);
+  font-size:1em;
+  width:2.5em;
+  height:2.5em;
+  line-height:2.5em;
+  text-align:center;
+  vertical-align:middle;
+  color:white;
+  display:inline-block;
+}
 
 /** timeline content **/
 
