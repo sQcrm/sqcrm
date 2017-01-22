@@ -87,8 +87,9 @@ class FieldType200 extends CRMFields {
 	* Static function to display the data in detail view
 	* @param string $value
 	*/
-	public static function display_value($value) {
-		$return_val =  nl2br($value) ;
+	public static function display_value($value,$nl2br = true) {
+		$return_val =  (true === $nl2br ? nl2br($value) : $value);
+		$return_val =  $value ;
 		$return_val = preg_replace_callback(
 			'/:(.*?):+/',
 			function ($matches) {

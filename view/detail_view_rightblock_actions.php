@@ -216,7 +216,7 @@
 		if (true === $allowed_actions['task_create']) { ?>
 			<ul class="list-group">	
 				<li class="list-group-item">
-					<a href="#" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-tasks"></i> <?php echo _('create a new task')?></a>
+					<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/add" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-tasks"></i> <?php echo _('create a new task')?></a>
 				</li>
 				<li class="list-group-item">
 					<a href="#" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list"></i> <?php echo _('all tasks')?></a>
@@ -225,9 +225,13 @@
 		<?php 
 		}
 		
+		// load the project member secton if allowed
 		if (true === $allowed_actions['project_members']) {
 			require("project_members_view.php");
 		}
+		
+		// load the project email subscription
+		require("project_email_subscription_view.php");
 	?>
     <?php } elseif ($module_id == 11) { ?>
 	<ul class="list-group">	
