@@ -1157,6 +1157,25 @@ class Tasks extends DataObject {
 	}
 	
 	/**
+	* function to render the task status html display
+	* @param integer $id
+	* @param string $text
+	* @return string
+	*/
+	public function render_task_status_display($id, $text) {
+		$status = '';
+		if ($id == 1) {
+			$status = '<span class="label label-success" style="font-size: 16px;">'.$text.'</span>';
+		} elseif ($id == 2) {
+			$status = '<span class="label label-danger" style="font-size: 16px;">'.$text.'</span>';
+		} elseif ($id == 3) {
+			$status = '<span class="label label-info" style="font-size: 16px;">'.$text.'</span>';
+		}
+		
+		return $status;
+	}
+	
+	/**
 	* event function to render the task priority html
 	* @param object $evctl
 	* @return string

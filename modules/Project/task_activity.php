@@ -42,7 +42,7 @@ if (isset($_REQUEST['ajaxreq']) && $_REQUEST['ajaxreq'] == true) {
 			
 			switch ($do_task->activity_type) {
 				case 1:
-					$data['description'] = FieldType200::display_value($do_task->description);
+					$data['description'] = FieldType200::display_value($do_task->description, false);
 					$do_files_and_attachment = new CRMFilesAndAttachments();
 					$do_files_and_attachment->get_uploaded_files($do_task->get_sub_module_id(),$do_task->idtask_activity);
 					$note_documents = '';
@@ -88,7 +88,7 @@ if (isset($_REQUEST['ajaxreq']) && $_REQUEST['ajaxreq'] == true) {
 					if ($stmt->rowCount() > 0) {
 						$desc = '<a href="#" onclick="return false;"><strong>'.$do_task->firstname. ' '.$do_task->lastname.'</strong></a>'._(' has assigned ');
 						while ($user = $stmt->fetch()) {
-							$desc .= '<a href="#">'.$user['firstname'].' '.$user['lastname'].'</a>';
+							$desc .= '<a href="#" onclick="return false;">'.$user['firstname'].' '.$user['lastname'].'</a>';
 							$desc .= ' ';
 						}
 					}

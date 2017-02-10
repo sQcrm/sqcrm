@@ -14,14 +14,21 @@ if ($idtask > 0) {
 	$do_task->getId($idtask);
 	if ($do_task->getNumRows() == 0) {
 		$err = _('Task not found !!');
+	} else {
+		$do_project = new Project();
+		$do_project->getId($sqcrm_record_id);
+		if ($do_project->getNumRows() == 0) {
+			$err = _('Invalid Project !!');
+		} 
+		if ($do_task->idproject != (int)$sqcrm_record_id) {
+			$err = _('Invalid Project !!');
+		}
 	}
 } else {
 	$err = _('Missing task id !!');
 }
 
 if ($err == '') {
-	$do_project = new Project();
-	$do_project->getId($sqcrm_record_id);
 	$project_members = $do_project->get_project_members($do_project);
 	$additional_permissions = $do_project->get_additional_permissions($sqcrm_record_id);
 	$priorities = $do_task->get_task_priority();
@@ -57,16 +64,8 @@ if ($err == '') {
 	$allow_task_edit = false;
 	$allow_task_close = false;
 	
-	$status = '';
-	if ($do_task->task_status == 1) {
-		$status = '<span class="label label-success" style="font-size: 16px;">'.$do_task->task_status_name.'</span>';
-	} elseif ($do_task->task_status == 2) {
-		$status = '<span class="label label-danger" style="font-size: 16px;">'.$do_task->task_status_name.'</span>';
-	} elseif ($do_task->task_status == 3) {
-		$status = '<span class="label label-info" style="font-size: 16px;">'.$do_task->task_status_name.'</span>';
-	}
-	
-	$priority = $do_task->render_task_priority_display($do_task->priority,$do_task->task_priority);
+	$status = $do_task->render_task_status_display($do_task->task_status, $do_task->task_status_name);
+	$priority = $do_task->render_task_priority_display($do_task->priority, $do_task->task_priority);
 	
 	// generate the json for the mention @user in note, ignore the current user in the list
 	foreach ($project_members['assigned_to'] as $key=>$val) {

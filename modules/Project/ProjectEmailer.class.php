@@ -172,7 +172,7 @@ class ProjectEmailer extends SQEmailer {
 	*/
 	public function send_new_task_email($project_member, $data, $iduser) {
 		$task_note = $data['task_note'];
-		$task_note = FieldType200::display_value($task_note);
+		$task_note = FieldType200::display_value($task_note, false);
 		$task_note = str_replace('/themes/images/emoji-pngs',SITE_URL.'/themes/images/emoji-pngs',$task_note);
 		$email_receiptents = $this->get_task_email_receiptents($project_member, $data, $iduser);
 		
@@ -229,7 +229,7 @@ class ProjectEmailer extends SQEmailer {
 	*/
 	public function send_task_discussion_email($project_member,$data,$iduser) {
 		$task_note = $data['task_note'];
-		$task_note = FieldType200::display_value($task_note);
+		$task_note = FieldType200::display_value($task_note,false);
 		$task_note = str_replace('/themes/images/emoji-pngs',SITE_URL.'/themes/images/emoji-pngs',$task_note);
 		$email_receiptents = $this->get_task_email_receiptents($project_member, $data, $iduser);
 		
