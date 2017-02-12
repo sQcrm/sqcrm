@@ -20,23 +20,19 @@ $signed_in_user = $_SESSION["do_user"]->iduser;
 $allowed_actions['task_create'] = false;
 $allowed_actions['project_members'] = false ;
 
-// who can create the task
-if ($additional_permissions['task_create'] == 2) {
-	$allowed_actions['task_create'] = true;
-} else {
-	if (array_key_exists($signed_in_user,$project_members['assigned_to'])) {
-		$allowed_actions['task_create'] = true;
-	}
-}
+$allowed_actions['task_create'] = $module_obj->check_additional_permissions(
+	array(
+		'members'=>$project_members,
+		'permissions'=>$additional_permissions
+	), 'task_create'
+);
 
-// who can add more users into the Project
-if ($additional_permissions['project_members'] == 2) {
-	$allowed_actions['project_members'] = true;
-} else {
-	if (array_key_exists($signed_in_user,$project_members['assigned_to'])) {
-		$allowed_actions['project_members'] = true;
-	}
-}
+$allowed_actions['project_members'] = $module_obj->check_additional_permissions(
+	array(
+		'members'=>$project_members,
+		'permissions'=>$additional_permissions
+	), 'project_members'
+);
 
 //updates detail, just add and last updated
 $do_crmentity = new CRMEntity();

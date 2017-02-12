@@ -2,6 +2,10 @@
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt
 
 class SQEmailer extends PHPMailer{
+
+	protected $sender_email = '';
+	protected $sender_name = '';
+	protected $sender_data_flag = false; 
 	/**
 	* setEmailTemplate load an instance of an email message to be sent or merged
 	* @param mix sqlConnect $conx connexion to the database thrue an sqlConnect object or an EmailTemplate object.
@@ -13,7 +17,14 @@ class SQEmailer extends PHPMailer{
 			$EmailTemplate = $templatename;
 			$this->MsgHTML($EmailTemplate->bodyhtml);
 			$this->Subject = $EmailTemplate->subject;
-			$this->SetFrom($EmailTemplate->senderemail, $EmailTemplate->sendername);
+			
+			if (true === $this->isSenderDataSet()) {
+				$senderData = $this->getSenderData();
+				$this->SetFrom($senderData['email'], $senderData['name']);
+			} else {
+				$this->SetFrom($EmailTemplate->senderemail, $EmailTemplate->sendername);
+			}
+			
 			return true;
 		} else {
 			if (is_null($conx)) {  $conx = $GLOBALS['conn']; }
@@ -23,7 +34,14 @@ class SQEmailer extends PHPMailer{
 				$data = $qGetTplt->fetch() ;
 				$this->Subject = $data["subject"] ;
 				$this->MsgHTML($data["bodyhtml"]) ;
-				$this->SetFrom($data["senderemail"], $data["sendername"]) ;
+				
+				if (true === $this->isSenderDataSet()) {
+					$senderData = $this->getSenderData();
+					$this->SetFrom($senderData['email'], $senderData['name']);
+				} else {
+					$this->SetFrom($data["senderemail"], $data["sendername"]) ;
+				}
+				
 				return true;
 			} else { return false; }
 		}
@@ -83,6 +101,43 @@ class SQEmailer extends PHPMailer{
 			}
 		}
 		return $thestring;
+	}
+	
+	/**
+	* set the email sender data out of EmailTemplate
+	* @param string $email
+	* @param string $senderName
+	*/
+	public function setSenderData($email, $senderName) {
+		$this->sender_data_flag = true;
+		$this->sender_email = $email;
+		$this->sender_name = $senderName;
+	}
+	
+	/**
+	* check if the sender data is set out from EmailTemplate
+	*/
+	public function isSenderDataSet() {
+		return $this->sender_data_flag;
+	}
+	
+	/**
+	* reset the sender data out of EmailTemplate
+	*/
+	public function resetSenderData() {
+		$this->sender_data_flag = false;
+		$this->sender_email = '';
+		$this->sender_name = '';
+	}
+	
+	/**
+	* get the sender data out from EmailTemplate
+	*/
+	public function getSenderData() {
+		return array(
+			'email' => $this->sender_email,
+			'name'  => $this->sender_name
+		);
 	}
    
 }

@@ -42,17 +42,17 @@ $GLOBALS['OUTBOUND_PATH'] = OUTBOUND_PATH ;
 $GLOBALS['NOSQL_DB'] = false ;
 */
 
-define('SITE_URL','http://sqcrm.localhost');
-$GLOBALS['SITE_URL'] = 'http://sqcrm.localhost' ;
+define('SITE_URL',getenv('SITE_URL'));
+$GLOBALS['SITE_URL'] = getenv('SITE_URL') ;
 
-define('PORTAL_URL','http://sqcrm.localhost/cpanel');
+define('PORTAL_URL',getenv('PORTAL_URL'));
 
 // days to keep live feed
 define('DAYS_TO_KEEP_FEED',30);
 $GLOBALS['DAYS_TO_KEEP_FEED'] = 30 ;
 
-define('CRM_NAME','sQcrm.com');
-$GLOBALS['CRM_NAME'] = 'sQcrm.com' ;
+define('CRM_NAME',getenv('CRM_NAME'));
+$GLOBALS['CRM_NAME'] = getenv('CRM_NAME') ;
 
 // Max recently viewed
 define('RECENT_VIEW_TAB',false);

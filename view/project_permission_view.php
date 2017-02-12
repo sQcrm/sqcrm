@@ -101,38 +101,38 @@
 					?>
 				</div>
 			</div>
-			<?php
-			echo '<div class="row"><div class="col-xs-12"><div class="col-xs-9" id="existing-permission-changer">';
-			if (is_array($permission_changer_data['assigned']) && count($permission_changer_data['assigned']) > 0) {
-				foreach($permission_changer_data['assigned'] as $key=>$val) {
-					echo '<div class="col-xs-3" style="margin-top:14px;" id="existing-permission-changer-'.$val['iduser'].'" >';
-					if ($val['user_avatar'] != '') {
-						$remove_opt = '';
-						$avatar = FieldType12::get_file_name_with_path($val['user_avatar'],'s');
-						$remove_opt = '<a href="#" onclick="removeProjectPermissionAdder(\''.$sqcrm_record_id.'\',\''.$val['iduser'].'\'); return false;"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="float:right;margin-top:32px;"></span></a>';
-						echo '<div class="circular_35" title= "'.$val['firstname'].' '.$val['lastname'].' ('.$val['user_name'].')" style="float:left;background-image: url(\''.$avatar.'\')">'.$remove_opt.'</div>';
-					} else {
-						$remove_opt = '';
-						$remove_opt = '<a href="#" onclick="removeProjectPermissionAdder(\''.$sqcrm_record_id.'\',\''.$val['iduser'].'\'); return false;"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="float:right;margin-bottom:5px;"></span></a>';
-						$color = CommonUtils::get_random_color();
-						$initials = strtoupper($val['firstname'][0].$val['lastname'][0]);
-						echo '<div style= "float:left;background-color:'.$color.'" class="circular_35" data-profile-initials="'.$initials.'" title= "'.$val['firstname'].' '.$val['lastname'].' ('.$val['user_name'].')">'.$remove_opt.'</div>';
-					}
-					echo '</div>';
+		</div>
+		<?php
+		echo '<div class="row"><div class="col-xs-12"><div class="col-xs-9" id="existing-permission-changer">';
+		if (is_array($permission_changer_data['assigned']) && count($permission_changer_data['assigned']) > 0) {
+			foreach($permission_changer_data['assigned'] as $key=>$val) {
+				echo '<div class="col-xs-3" style="margin-top:14px;" id="existing-permission-changer-'.$val['iduser'].'" >';
+				if ($val['user_avatar'] != '') {
+					$remove_opt = '';
+					$avatar = FieldType12::get_file_name_with_path($val['user_avatar'],'s');
+					$remove_opt = '<a href="#" onclick="removeProjectPermissionAdder(\''.$sqcrm_record_id.'\',\''.$val['iduser'].'\'); return false;"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="float:right;margin-top:32px;"></span></a>';
+					echo '<div class="circular_35" title= "'.$val['firstname'].' '.$val['lastname'].' ('.$val['user_name'].')" style="float:left;background-image: url(\''.$avatar.'\')">'.$remove_opt.'</div>';
+				} else {
+					$remove_opt = '';
+					$remove_opt = '<a href="#" onclick="removeProjectPermissionAdder(\''.$sqcrm_record_id.'\',\''.$val['iduser'].'\'); return false;"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="float:right;margin-bottom:5px;"></span></a>';
+					$color = CommonUtils::get_random_color();
+					$initials = strtoupper($val['firstname'][0].$val['lastname'][0]);
+					echo '<div style= "float:left;background-color:'.$color.'" class="circular_35" data-profile-initials="'.$initials.'" title= "'.$val['firstname'].' '.$val['lastname'].' ('.$val['user_name'].')">'.$remove_opt.'</div>';
 				}
+				echo '</div>';
 			}
-			echo '</div></div></div>';
-			?>
-			<br />
-			<hr class="form_hr">
-			<?php
-			$existing_permission_changer = (count($permission_changer) > 0 ? implode(',',$permission_changer) : '');
-			?>
-			<input type="hidden" name="permission_changer" id="permission_changer" value="<?php echo $existing_permission_changer;?>">
-			<input type="hidden" name="idpermission" id="idpermission" value="<?php echo $permissions['id'];?>">
-			<div class="col-xs-3" id="add-project-permissions-button">
-				<input type="button" class="btn btn-primary" id="add-project-permissions" value="<?php echo _('save')?>"/>
-			</div>
+		}
+		echo '</div></div></div>';
+		?>
+		<br />
+		<hr class="form_hr">
+		<?php
+		$existing_permission_changer = (count($permission_changer) > 0 ? implode(',',$permission_changer) : '');
+		?>
+		<input type="hidden" name="permission_changer" id="permission_changer" value="<?php echo $existing_permission_changer;?>">
+		<input type="hidden" name="idpermission" id="idpermission" value="<?php echo $permissions['id'];?>">
+		<div class="col-xs-3" id="add-project-permissions-button">
+			<input type="button" class="btn btn-primary" id="add-project-permissions" value="<?php echo _('save')?>"/>
 		</div>
 	</div>
 </div>

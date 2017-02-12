@@ -132,4 +132,207 @@ class ProjectEmailer extends SQEmailer {
 			$do_user->free();
 		}
 	}
+	
+	/**
+	* function to send email when a task is assigned to an user
+	* @param integer $idassignee
+	* @param array $data
+	* @return void
+	*/
+	public function send_task_assigned_email($idassignee, $data) {
+		if ((int)$idassignee > 0) {
+			$do_user = new User();
+			$do_user->getId($idassignee);
+			$email_template = new EmailTemplate("project_task_assigned");
+			$email_data = array(
+				'CRM_NAME'=>CRM_NAME,
+				'firstname'=>$do_user->firstname,
+				'lastname'=>$do_user->lastname,
+				'task_title'=>$data['task_title'],
+				'assignee_firstname'=>$data['assignee_firstname'],
+				'project_name'=>$data['project_name'],
+				'task_url'=> $data['task_url']
+			);
+			$this->resetSenderData();
+			$this->IsSendmail();
+			$this->setEmailTemplate($email_template);
+			$this->mergeArray($email_data);
+			$this->AddAddress($do_user->email, $do_user->firstname.' '.$do_user->lastname);
+			$this->send();
+			$do_user->free();
+		}
+	}
+	
+	/**
+	* function to send email when a new task is added
+	* @param array $project_member
+	* @param array $data
+	* @param integer $iduser
+	* @return void
+	*/
+	public function send_new_task_email($project_member, $data, $iduser) {
+		$task_note = $data['task_note'];
+		$task_note = FieldType200::display_value($task_note, false);
+		$task_note = str_replace('/themes/images/emoji-pngs',SITE_URL.'/themes/images/emoji-pngs',$task_note);
+		$email_receiptents = $this->get_task_email_receiptents($project_member, $data, $iduser);
+		
+		if (count($email_receiptents) > 0) {
+			$email_data = array(
+				'CRM_NAME'=>CRM_NAME,
+				'firstname'=>$data['firstname'],
+				'lastname'=>$data['lastname'],
+				'email' => $data['email'],
+				'task_title'=>$data['task_title'],
+				'project_name'=>$data['project_name'],
+				'task_note'=>$task_note,
+				'task_url'=>$data['task_url']
+			);
+			
+			if (array_key_exists('mentions',$email_receiptents)) {
+				$mentioned_template = new EmailTemplate("project_new_task");
+				$this->resetSenderData();
+				$this->setSenderData($data['email'], $data['firstname'].' '.$data['lastname']);
+				$this->IsSendmail();
+				$this->setEmailTemplate($mentioned_template);
+				$this->mergeArray($email_data);
+				
+				foreach ($email_receiptents['mentions'] as $key=>$val) {
+					// send mentioned email
+					$this->AddAddress($val['email'], $val['firstname'].' '.$val['lastname']);
+					$this->send();
+				}
+			}
+			
+			if (array_key_exists('no_mentions',$email_receiptents)) {
+				$task_template = new EmailTemplate("project_new_task");
+				$this->resetSenderData();
+				$this->setSenderData($data['email'], $data['firstname'].' '.$data['lastname']);
+				$this->IsSendmail();
+				$this->setEmailTemplate($task_template);
+				$this->mergeArray($email_data);
+				
+				foreach ($email_receiptents['no_mentions'] as $key=>$val) {
+					// send normal email
+					$this->AddAddress($val['email'], $val['firstname'].' '.$val['lastname']);
+					$this->send();
+				}
+			}
+		}
+	}
+	
+	/**
+	* function to send task discussion email
+	* @param array $project_member
+	* @param array $data
+	* @param integer $iduser
+	* @return void
+	*/
+	public function send_task_discussion_email($project_member,$data,$iduser) {
+		$task_note = $data['task_note'];
+		$task_note = FieldType200::display_value($task_note,false);
+		$task_note = str_replace('/themes/images/emoji-pngs',SITE_URL.'/themes/images/emoji-pngs',$task_note);
+		$email_receiptents = $this->get_task_email_receiptents($project_member, $data, $iduser);
+		
+		if (count($email_receiptents) > 0) {
+			$email_data = array(
+				'CRM_NAME'=>CRM_NAME,
+				'firstname'=>$data['firstname'],
+				'lastname'=>$data['lastname'],
+				'email' => $data['email'],
+				'task_title'=>$data['task_title'],
+				'project_name'=>$data['project_name'],
+				'task_note'=>$task_note,
+				'task_note_url'=>$data['task_note_url'],
+			);
+				
+			if (array_key_exists('mentions',$email_receiptents)) {
+				$mentioned_note_template = new EmailTemplate("project_task_note_mention");
+				$this->resetSenderData();
+				$this->setSenderData($data['email'], $data['firstname'].' '.$data['lastname']);
+				$this->IsSendmail();
+				$this->setEmailTemplate($mentioned_note_template);
+				$this->mergeArray($email_data);
+				
+				foreach ($email_receiptents['mentions'] as $key=>$val) {
+					// send mentioned email
+					$this->AddAddress($val['email'], $val['firstname'].' '.$val['lastname']);
+					$this->send();
+				}
+			}
+			
+			if (array_key_exists('no_mentions',$email_receiptents)) {
+				$task_note_template = new EmailTemplate("project_task_note");
+				$this->resetSenderData();
+				$this->setSenderData($data['email'], $data['firstname'].' '.$data['lastname']);
+				$this->IsSendmail();
+				$this->setEmailTemplate($task_note_template);
+				$this->mergeArray($email_data);
+				
+				foreach ($email_receiptents['no_mentions'] as $key=>$val) {
+					// send normal email
+					$this->AddAddress($val['email'], $val['firstname'].' '.$val['lastname']);
+					$this->send();
+				}
+			}
+		}
+	}
+	
+	/**
+	* function to get the email receiptents when a task is added or note is added
+	* @param array $project_member
+	* @param array $data
+	* @param integer $iduser
+	* @return array
+	*/
+	public function get_task_email_receiptents($project_member, $data, $iduser) {
+		$email_receiptents = array();
+		$members = $project_member['assigned_to'];
+		
+		if (count($project_member['other_assignee']) > 0) {
+			$members = array_merge($members, $project_member['other_assignee']);
+		}
+		
+		$task_note = $data['task_note'];
+		
+		if ($task_note != '') {
+			preg_match_all("/(^|[^@\w])@(\w{1,15})\b/im", $task_note, $mentioned_users);
+		}
+		
+		$do_project = new Project();
+		
+		foreach ($members as $key=>$val) {
+			if ($key == $iduser) continue;
+			$mentioned = false;
+			$subscription_value = $do_project->get_email_subscription_for_project_by_user($data['idproject'], $key);
+			
+			if (is_array($mentioned_users) && array_key_exists(2,$mentioned_users) && count($mentioned_users[2]) > 0) {
+				foreach ($mentioned_users[2] as $k=>$v) {
+					if ($val['user_name'] == $v && ($subscription_value == 1 || $subscription_value == 2)) {
+						$mentioned  =true;
+						$email_receiptents['mentions'][] = array(
+							'iduser'=>$val['iduser'],
+							'user_name'=>$val['user_name'],
+							'firstname'=>$val['firstname'],
+							'lastname'=>$val['lastname'],
+							'email'=>$val['email']
+						);
+						
+						break;
+					}
+				}
+			}
+			
+			if (false === $mentioned &&  $subscription_value == 1) {
+				$email_receiptents['no_mentions'][] = array(
+					'iduser'=>$val['iduser'],
+					'user_name'=>$val['user_name'],
+					'firstname'=>$val['firstname'],
+					'lastname'=>$val['lastname'],
+					'email'=>$val['email']
+				);
+			}
+		}
+		
+		return $email_receiptents;
+	}
 }

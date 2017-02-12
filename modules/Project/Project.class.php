@@ -607,7 +607,9 @@ class Project extends DataObject {
 						'iduser'=>$grp_user_rel->iduser,
 						'user_name'=>$grp_user_rel->user_name,
 						'firstname'=>$grp_user_rel->firstname,
-						'lastname'=>$grp_user_rel->lastname
+						'lastname'=>$grp_user_rel->lastname,
+						'email'=>$grp_user_rel->email,
+						'user_avatar'=>$grp_user_rel->user_avatar
 					);
 				}
 			}
@@ -619,7 +621,9 @@ class Project extends DataObject {
 				'iduser'=>$iduser,
 				'user_name'=>$do_user->user_name,
 				'firstname'=>$do_user->firstname,
-				'lastname'=>$do_user->lastname
+				'lastname'=>$do_user->lastname,
+				'email'=>$do_user->email,
+				'user_avatar'=>$do_user->user_avatar
 			);
 		}
 		
@@ -636,7 +640,9 @@ class Project extends DataObject {
 					'iduser'=>$data['iduser'],
 					'user_name'=>$data['user_name'],
 					'firstname'=>$data['firstname'],
-					'lastname'=>$data['lastname']
+					'lastname'=>$data['lastname'],
+					'email'=>$data['email'],
+					'user_avatar'=>$data['user_avatar']
 				);
 			}
 		}
@@ -1066,6 +1072,11 @@ class Project extends DataObject {
 		}
 	}
 	
+	/**
+	* event function add project's additional permissions
+	* @param object $evctl
+	* @return string
+	*/
 	public function eventAddProjectPermission(EventControler $evctl) {
 		$response = array();
 		
@@ -1164,5 +1175,189 @@ class Project extends DataObject {
 		}
 		
 		echo json_encode($response);
+	}
+	
+	/**
+	* function to check additional permissions on a project and its task
+	* @param mixed $project
+	* @param string $permission
+	* @param object $task
+	* @param integer $iduser
+	* @return boolean
+	*/
+	public function check_additional_permissions($project, $permission, $task = null, $iduser = 0) {
+		if ((int)$iduser == 0) $iduser = $_SESSION["do_user"]->iduser;
+		
+		if ($project instanceof Project) {
+			$project_members = $project->get_project_members($project);
+			$additional_permissions = $project->get_additional_permissions($project->idproject);
+		} else {
+			$project_members = $project['members'];
+			$additional_permissions = $project['permissions'];
+		}
+		
+		$permission_flag = false;
+		
+		switch ($permission) {
+		
+			case 'task_create' :
+				if ($additional_permissions['task_create'] == 2) {
+					$permission_flag = true;
+				} else {
+					if (array_key_exists($iduser,$project_members['assigned_to'])) {
+						$permission_flag = true;
+					}
+				}
+			
+			break;
+			
+			case 'task_assignees' :
+				if ($additional_permissions['task_assignees'] == 3) {
+					$permission_flag = true;
+				} elseif ($additional_permissions['task_assignees'] == 2) {
+					if ($task instanceof Tasks) {
+						if ($iduser == $task->created_by) {
+							$permission_flag = true;
+						}	
+					} else {
+						$permission_flag = true;
+					}
+				} else {
+					if (array_key_exists($iduser,$project_members['assigned_to'])) {
+						$permission_flag = true;
+					}
+				} 
+				
+			break;
+			
+			case 'task_edit' :
+				if ($additional_permissions['task_edit'] == 3) {
+					$permission_flag = true;
+				} elseif ($additional_permissions['task_edit'] == 2) {
+					if ($task instanceof Tasks && $iduser == $task->created_by) {
+						$permission_flag = true;
+					}
+				} else {
+					if (array_key_exists($iduser,$project_members['assigned_to'])) {
+						$permission_flag = true;
+					}
+				} 
+			
+			break;
+			
+			case 'task_close' :
+				if ($additional_permissions['task_close'] == 3 ) {
+					$permission_flag = true;
+				} elseif ($additional_permissions['task_close'] == 2) {
+					if ($iduser == $task->created_by) {
+						$permission_flag = true;
+					}
+				} else {
+					if (array_key_exists($iduser,$project_members['assigned_to'])) {
+						$permission_flag = true;
+					}
+				} 
+			
+			break;
+			
+			case 'project_members' :
+				if ($additional_permissions['project_members'] == 2) {
+					$permission_flag = true;
+				} else {
+					if (array_key_exists($iduser,$project_members['assigned_to'])) {
+						$permission_flag = true;
+					}
+				}
+			
+			break;
+		}
+		
+		return $permission_flag;
+	}
+	
+	/**
+	* function to get the email subscription flag in a project for an user
+	* @param integer $idproject
+	* @param integer $iduser
+	* @return integer
+	*
+	* Subscription flags are -
+	* 1 : Receive all discussion emails
+	* 2 : Receive email only when @username is mentioned in the discussion
+	* 3 : Do't receive any email on the discussion
+	*/
+	public function get_email_subscription_for_project_by_user($idproject , $iduser = 0) {
+		$subscription_flag = 1;
+		
+		if ((int)$idproject > 0) {
+			if ((int)$iduser == 0) $iduser = $_SESSION['do_user']->iduser;
+			
+			$qry = "select * from project_email_subscription where idproject = ? and iduser = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject, $iduser));
+			if ($stmt->rowCount() > 0) {
+				$data = $stmt->fetch();
+				$subscription_flag = $data['subscription_flag'];
+			}
+		}
+		
+		return $subscription_flag;
+	}
+	
+	/**
+	* function to get subscription information for all the users for a project
+	* @param integer $iduser
+	* @return array
+	*/
+	public function get_project_email_subscriptions($idproject) {
+		$return_array = array();
+		
+		if ((int)$idproject > 0) {
+			$qry = "select * from project_email_subscription where idproject = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($idproject));
+			if ($stmt->rowCount() > 0) {
+				while ($data = $stmt->fetch()) {
+					$return_array[$data['iduser']] = $data['subscription_flag'];
+				}
+			}
+		}
+		
+		return $return_array;
+	}
+	
+	public function eventChangeProjectEmailSubscriptionChoice(EventControler $evctl) {
+		$err = '';
+		
+		if ((int)$evctl->idproject == 0) {
+			$err = _('Missing project id');
+		} elseif ((int)$evctl->subscriptionFlag == 0) {
+			$err = _('Missing subscription value');
+		} else {
+			$this->getId($evctl->idproject);
+			if ($this->getNumRows() == 0) {
+				$err = _('Invalid project id');
+			}
+		}
+		
+		if ($err == '') {
+			$iduser = $_SESSION['do_user']->iduser;
+			$qry = "select * from project_email_subscription where idproject = ? and iduser = ?";
+			$stmt = $this->getDbConnection()->executeQuery($qry,array($evctl->idproject, $iduser));
+			if ($stmt->rowCount() > 0) {
+				$data = $stmt->fetch();
+				$id = $data['idproject_email_subscription'];
+				$upd = "update project_email_subscription set subscription_flag = ? where idproject_email_subscription = ?";
+				$this->getDbConnection()->executeQuery($upd,array($evctl->subscriptionFlag, $id));
+			} else {
+				$ins = "
+				insert into project_email_subscription (idproject, iduser, subscription_flag)
+				values
+				(?, ?, ?)
+				";
+				$this->getDbConnection()->executeQuery($ins,array($evctl->idproject, $iduser, $evctl->subscriptionFlag));
+			}
+			echo '1';
+		} else {
+			echo $err;
+		}
 	}
 }

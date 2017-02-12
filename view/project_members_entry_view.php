@@ -41,6 +41,7 @@ if (is_array($members) && count($members) >0 && count($members['member']) > 0) {
 		}
 		?>
 	</div>
+	<br />
 </li>
 <?php } ?>
 
@@ -114,6 +115,7 @@ if (is_array($members) && count($members) >0 && count($members['req_sent']) > 0)
 		}
 		?>
 	</div>
+	<br />
 </li>
 
 <?php 
@@ -142,5 +144,6 @@ if (is_array($members) && count($members) >0 && count($members['req_rejected']) 
 		}
 		?>
 	</div>
+	<br />
 </li>
 <?php } ?>
