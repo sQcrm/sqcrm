@@ -322,10 +322,17 @@ class User extends DataObject {
 			$this->set_subordinate_users($subordinate_users);
 			$do_mod_datashare_permission = new ModuleToDatashareRelation();
 			$this->set_module_data_share_permissions($do_mod_datashare_permission->get_all_datashare_permissions());
-			$dis = new Display($evctl->goto); //@see view/login_view
+			$goto = $evctl->goto;//@see view/login_view
+			$goto .= '?x=1';
+			
 			if ((int)$evctl->sqrecord > 0) {
-				$dis->addParam("sqrecord",(int)$evctl->sqrecord);
+				$goto .= '&sqrecord='.(int)$evctl->sqrecord;
 			}
+			
+			if ($evctl->scroll_to != '') {
+				$goto .= '#'.$evctl->scroll_to;
+			}
+			
 			//do login audit
 			$do_login_audit = new LoginAudit();
 			$do_login_audit->do_login_audit();
@@ -338,7 +345,8 @@ class User extends DataObject {
 			$do_livefeed_display = new LiveFeedDisplay();
 			$do_livefeed_display->set_feed_viewed_onlogin($iduser);
 			//finally do the re-direct
-			$evctl->setDisplayNext($dis) ; 
+			header("Location: ".$goto) ;
+			exit;
 		}	
 	}
 		 

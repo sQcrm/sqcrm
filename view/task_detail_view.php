@@ -704,7 +704,7 @@ $(document).ready(function() {
 		complete: function(data) {
 			var hash = location.hash.replace('#','');
 			if (hash != '') {
-				$(window).scrollTop(hash.offset().top).scrollLeft(hash.offset().left);
+				$('html,body').animate({scrollTop: $("#"+hash).offset().top - 50},850);
 			}
 		}
 	});
@@ -734,11 +734,11 @@ $(document).ready(function() {
 			lastActivityId = obj.id;
 			
 			if (obj.activity_type === '1') {
-				html += '<div class="qa-message-list" id="activity-'+obj.id+'">';
+				html += '<div class="qa-message-list">';
 				html += 	'<div class="message-item" id="">';
 				html += 		'<div class="message-inner">';
 				html += 			'<div class="message-head clearfix">';
-				html += 				'<div class="avatar pull-left"><a href="#" onclick="return false;"><img src="'+obj.user_avatar+'"></a></div>';
+				html += 				'<div class="avatar pull-left"><a href="#" id="activity-'+obj.id+'" onclick="return false;"><img src="'+obj.user_avatar+'"></a></div>';
 				html += 				'<div class="user-detail">';
 				html += 					'<h5 class="handle">'+obj.firstname+' '+obj.lastname+'</h5>';
 				html += 					'<div class="post-meta">';
