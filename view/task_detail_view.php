@@ -1,7 +1,7 @@
 <?php 
 // Copyright SQCRM. For licensing, reuse, modification and distribution see license.txt
 /**
-* Entity add view 
+* task detail view 
 * @author Abhik Chakraborty
 */ 
 ?>
@@ -20,14 +20,23 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box_content">
-						<ol class="breadcrumb">
-							<li>
-								<a href="<?php echo NavigationControl::getNavigationLink($module,"list")?>"><?php echo _('Project')?></a>
-							</li>
-							<li>
-								<a href="<?php echo NavigationControl::getNavigationLink($module,"detail",$sqcrm_record_id)?>"><?php echo $project_name;?></a>
-							</li>
-						</ol>
+						<div class="row">
+							<div class="col-md-7">
+								<ol class="breadcrumb">
+									<li>
+										<a href="<?php echo NavigationControl::getNavigationLink($module,"list")?>"><?php echo _('Project')?></a>
+									</li>
+									<li>
+										<a href="<?php echo NavigationControl::getNavigationLink($module,"detail",$sqcrm_record_id)?>"><?php echo $project_name;?></a>
+									</li>
+								</ol>
+							</div>
+							<div class="col-md-5">
+								<span class="pull-right">
+									<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/list" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list"></i> <?php echo _('view all tasks')?></a>
+								<span>
+							</div>
+						</div>
 					</div>
 					
 					<div class="box_content" id="task-detail-section">
@@ -58,7 +67,7 @@
 								<?php
 									} elseif ($do_task->task_status == 2) {
 								?>
-										<span id="task-reopen-reopen-icon-block"><a href="#" class="btn btn-primary btn-xs" id= "task-reopen-icon"><i class="glyphicon glyphicon-open-file"></i> <?php echo _('reopen')?></a></span>
+										<span id="task-close-reopen-icon-block"><a href="#" class="btn btn-primary btn-xs" id= "task-reopen-icon"><i class="glyphicon glyphicon-open-file"></i> <?php echo _('reopen')?></a></span>
 								<?php
 									}
 								}
