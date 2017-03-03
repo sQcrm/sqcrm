@@ -70,7 +70,7 @@ if (isset($_REQUEST['ajaxreq']) && $_REQUEST['ajaxreq'] == true) {
 					if (count($labels) > 0) {
 						$desc = '<a href="#" onclick="return false;"><strong>'.$do_task->firstname.' '.$do_task->lastname.'</strong></a>'._(' has added the label(s) ');
 						foreach ($labels as $val) {
-							$desc .= '<span class="label" style="background-color:grey;">'.$val.'</span>&nbsp;';
+							$desc .= '<span class="label" style="background-color:grey;font-size:12px;">'.$val.'</span>&nbsp;';
 						}
 					}
 					$data['description'] = $desc;
@@ -100,7 +100,7 @@ if (isset($_REQUEST['ajaxreq']) && $_REQUEST['ajaxreq'] == true) {
 					if (count($labels) > 0) {
 						$desc = '<a href="#" onclick="return false;"><strong>'.$do_task->firstname.' '.$do_task->lastname.'</strong></a>'._(' has removed the label(s) ');
 						foreach ($labels as $val) {
-							$desc .= '<span class="label" style="background-color:grey;">'.$val.'</span>&nbsp;';
+							$desc .= '<span class="label" style="background-color:grey;font-size:12px;">'.$val.'</span>&nbsp;';
 						}
 					}
 					$data['description'] = $desc;

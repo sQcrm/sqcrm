@@ -146,4 +146,8 @@ var PLUGIN_PERMISSION_SET = 'Permission has been set successfully';
 
 //project
 var NO_MEMBER_TO_ADD_PROJECT = 'No member found to be added in to the project';
-var SELECT_DUE_DATE_BEFORE_SAVE = 'Please select a due date before saving.';
+var SELECT_DUE_DATE_BEFORE_SAVE = 'Please select a due date before saving';
+var SELECT_ONE_TASK_BEFORE_CLOSE = 'Please select at-least one task before closing';
+var SELECT_ONE_TASK_BEFORE_PRIORITY_CHANGE = 'Please select at-least one task before changing the priority';
+var SELECT_ONE_TASK_BEFORE_DUEDATE_CHANGE = 'Please select at-least one task before changing the due date';
+var SELECT_ONE_TASK_BEFORE_REOPEN = 'Please select at-least one task before re-open';

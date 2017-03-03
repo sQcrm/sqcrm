@@ -323,7 +323,12 @@ class User extends DataObject {
 			$do_mod_datashare_permission = new ModuleToDatashareRelation();
 			$this->set_module_data_share_permissions($do_mod_datashare_permission->get_all_datashare_permissions());
 			$goto = $evctl->goto;//@see view/login_view
-			$goto .= '?x=1';
+			
+			if (strpos($goto, '?') !== false) {
+				$goto .= '&x=1';
+			} else {
+				$goto .= '?x=1';
+			}
 			
 			if ((int)$evctl->sqrecord > 0) {
 				$goto .= '&sqrecord='.(int)$evctl->sqrecord;

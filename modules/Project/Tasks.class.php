@@ -26,7 +26,115 @@ class Tasks extends DataObject {
 	}
 	
 	
-	public function get_tasks($idproject,$iduser = 0) {
+	public function get_tasks($idproject,$search_param = [], $page = 1) {
+		$start = ((int)$page > 0 ? $page-1 : 0);
+		$limit = LIST_VIEW_PAGE_LENGTH;
+		$status = (count($search_param) > 0 ? $search_param['status'] : 1);
+		$labels = (count($search_param) > 0 && array_key_exists('labels',$search_param) && count($search_param['labels']) > 0 ? $search_param['labels'] : []);
+		$assignee = (count($search_param) > 0 && array_key_exists('assignee',$search_param) && count($search_param['assignee']) > 0 ? $search_param['assignee'] : []);
+		$priority = (count($search_param) > 0 && array_key_exists('priority',$search_param) && count($search_param['priority']) > 0 ? $search_param['priority'] : []);
+		
+		$labels_join = '';
+		$labels_where = '';
+		
+		if (count($labels) > 0) {
+			$labels_join = " join task_label_rel tlr on tlr.idtasks = t.idtasks";
+			$labels_where= " and tlr.idtask_labels in (".implode(',',$labels).")";
+		} else {
+			$labels_join = " left join task_label_rel tlr on tlr.idtasks = t.idtasks";
+		}
+		
+		$assignee_join = '';
+		$assignee_where = '';
+		
+		if (count($assignee) > 0) {
+			$assignee_join = " join task_assignee ta on ta.idtasks = t.idtasks";
+			$assignee_where = " and ta.iduser in (".implode(',', $assignee).")";
+		} else {
+			$assignee_join = " left join task_assignee ta on ta.idtasks = t.idtasks";
+		}
+		
+		$priority_where = '';
+		
+		if (count($priority) > 0) {
+			$priority_where = " and t.priority in (".implode(',',$priority).")";
+		}
+		
+		$qry_count = "
+		select count(*) as total from tasks t 
+		join user u on u.iduser = t.created_by 
+		left join task_status ts on ts.idtask_status = t.task_status 
+		left join task_priority tp on tp.idtask_priority = t.priority
+		$labels_join
+		$assignee_join
+		where t.idproject = ?
+		AND t.task_status = ?
+		$priority_where
+		$labels_where
+		$assignee_where
+		";
+		
+		$stmt = $this->getDbConnection()->executeQuery(
+			$qry_count,
+			array($idproject, $status)
+		);
+		$count_data = $stmt->fetch();
+		$record_count = $count_data['total'];
+		
+		$qry = "
+		select t.idtasks, 
+		group_concat(tlr.idtask_labels) as task_labels,
+		group_concat(ta.iduser) as task_assignees
+		from tasks t
+		$labels_join
+		$assignee_join
+		where 
+		t.idproject = ?
+		AND t.task_status = ?
+		$priority_where
+		$labels_where
+		$assignee_where
+		group by t.idtasks
+		order by t.idtasks
+		LIMIT $start,$limit 
+		";
+		
+		if ((int)$record_count > 0) {
+			$response = [];
+			$response['recordCount'] = $record_count;
+			$this->query($qry, array($idproject, $status));
+			while ($this->next()) {
+				$qry_one = "
+				select 
+				t.task_title,
+				t.date_created,
+				t.priority,
+				t.due_date,
+				t.task_status,
+				u.user_name, 
+				u.firstname, 
+				u.lastname, 
+				u.email, 
+				u.user_avatar, 
+				ts.status as task_status_name, 
+				tp.priority as task_priority
+				from tasks t 
+				join user u on u.iduser = t.created_by 
+				left join task_status ts on ts.idtask_status = t.task_status 
+				left join task_priority tp on tp.idtask_priority = t.priority
+				where t.idtasks = ?
+				";
+				
+				$stmt = $this->getDbConnection()->executeQuery($qry_one, array($this->idtasks));
+				$data = $stmt->fetch();
+				$data['idtasks'] = $this->idtasks;
+				$data['task_labels'] = $this->task_labels;
+				$data['task_assignees'] = $this->task_assignees;
+				$response['data'][] = $data;
+			}
+		}
+		
+		return $response;
 	}
 	
 	/**
@@ -238,10 +346,20 @@ class Tasks extends DataObject {
 	* function to get all the task labels
 	* @return array
 	*/
-	public function get_task_labels() {
-		$qry = "select `idtask_labels` as `id`,`label` as `name` from `task_labels`";
-		$stmt = $this->getDbConnection()->executeQuery($qry);
-		
+	public function get_task_labels($idproject = 0) {
+		if ((int)$idproject == 0) {
+			$qry = "select `idtask_labels` as `id`,`label` as `name` from `task_labels`";
+			$stmt = $this->getDbConnection()->executeQuery($qry);
+		} else {
+			$qry = "
+			select distinct tl.idtask_labels as id , tl.label as name from task_labels tl
+			join task_label_rel tlr on tlr.idtask_labels = tl.idtask_labels 
+			join tasks t on t.idtasks = tlr.idtasks
+			where t.idproject = ?
+			";
+			$stmt = $this->getDbConnection()->executeQuery($qry, array($idproject));
+		}
+
 		if ($stmt->rowCount() > 0) {
 			return $stmt->fetchAll();
 		} else {
@@ -804,7 +922,7 @@ class Tasks extends DataObject {
 		} else {
 			$this->getId($evctl->idtasks);
 			if ($this->getNumRows() > 0) {
-				if ($this->due_date == FieldType9::convert_before_save($evctl->due_date)) {
+				if (strtotime($this->due_date) == strtotime(FieldType9::convert_before_save($evctl->due_date))) {
 					$err .= _('Nothing to save.');
 				} elseif ($this->idproject == (int)$evctl->idproject) {
 					$do_project = new Project();
@@ -828,20 +946,123 @@ class Tasks extends DataObject {
 		
 		if ($err == '') {
 			$due_date = FieldType9::convert_before_save($evctl->due_date);
-			$qry = "update tasks set due_date = ? where idtasks = ?";
-			$stmt = $this->getDbConnection()->executeQuery($qry,array($due_date, $evctl->idtasks));
-			$this->add_task_activity(
-				$evctl->idtasks,
-				array(
-					'activity_type'=>3,
-					'description'=>$due_date
-				),
-				$signed_in_user
-			);
+			$this->change_task_due_date($due_date, $idtasks);
 			echo '1';
 		} else {
 			echo $err;
 		}
+	}
+	
+	/**
+	* event function to change the due date of multiple tasks
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventChangeDuedateMultipleTask(EventControler $evctl) {
+		$record_ids = $evctl->chk;
+		$err = false;
+		$msg = '';
+		
+		if (!is_array($record_ids)) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif (is_array($record_ids) && count($record_ids) == 0) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif ((int)$evctl->idproject == 0) {
+			$err = true;
+			$msg = _('Missing Project Id');
+		} elseif ($evctl->due_date == '') {
+			$err = true;
+			$msg = _('Missing due date');
+		} else {
+			$do_project = new Project();
+			$do_project->getId($evctl->idproject);
+			
+			if ($do_project->getNumRows() == 0) {
+				$err = true;
+				$msg = _('Invalid Project Id');
+			} else {
+				$project_members = $do_project->get_project_members($do_project);
+			}
+		}
+		
+		if (true === $err) {
+			echo json_encode($response = [
+				'status'=>'fail',
+				'ids'=>0,
+				'message'=>$msg
+			]);
+			exit;
+		} else {
+			$partial = false ;
+			$processed_ids = [];
+			$due_date = FieldType9::convert_before_save($evctl->due_date);
+			foreach ($record_ids as $id) {
+				$this->getId($id);
+				if ($this->getNumRows() == 0) {
+					$partial = true;
+					continue;
+				}
+				if ($this->idproject != (int)$evctl->idproject) {
+					$partial = true;
+					continue;
+				}
+				if ($this->task_status != 1) {
+					$partial = true;
+					continue;
+				} 
+				if (strtotime($this->due_date) == strtotime($due_date)) {
+					$partial = true;
+					continue;
+				}
+				
+				$allow_task_edit = false;
+				$allow_task_edit = $do_project->check_additional_permissions($do_project, 'task_edit', $this);
+				if (false === $allow_task_edit) {
+					$partial = true;
+					continue;
+				}
+				
+				$this->change_task_due_date($due_date, $id);
+				$processed_ids[] = $id;
+			}
+		}
+		
+		if (true === $partial) {
+			$response = [
+				'status'=>'partial',
+				'ids'=>$processed_ids,
+				'message'=>_('Due date changed for partial records. It could be wrong task id, or trying to change due date for a closed task or not authorized')
+			];
+		} else {
+			$response = [
+				'status'=>'ok',
+				'ids'=>$processed_ids,
+				'message'=>_('Due date updated successfully')
+			];
+		}
+		echo json_encode($response);
+	}
+	
+	/**
+	* function to change the task due date
+	* @param string $due_date
+	* @param integer $idtasks
+	* @return void
+	*/
+	public function change_task_due_date($due_date, $idtasks) {
+		$signed_in_user = $_SESSION["do_user"]->iduser;
+		$qry = "update tasks set due_date = ? where idtasks = ?";
+		$stmt = $this->getDbConnection()->executeQuery($qry,array($due_date, $idtasks));
+		$this->add_task_activity(
+			$idtasks,
+			array(
+				'activity_type'=>3,
+				'description'=>$due_date
+			),
+			$signed_in_user
+		);
 	}
 	
 	/**
@@ -1139,18 +1360,18 @@ class Tasks extends DataObject {
 	* @param string $text
 	* @return string
 	*/
-	public function render_task_priority_display($id,$text) {
+	public function render_task_priority_display($id, $text, $font_size=12) {
 		$priority = '';
 		if ($id == 1) {
-			$priority = '<span class="label" style="background-color:grey;">'.$text.'</span>';
+			$priority = '<span class="label" style="background-color:grey;font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 2) {
-			$priority = '<span class="label" style="background-color:green;">'.$text.'</span>';
+			$priority = '<span class="label" style="background-color:green;font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 3) {
-			$priority = '<span class="label" style="background-color:blue;">'.$text.'</span>';
+			$priority = '<span class="label" style="background-color:blue;font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 4) {
-			$priority = '<span class="label" style="background-color:orange;">'.$text.'</span>';
+			$priority = '<span class="label" style="background-color:orange;font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 5) {
-			$priority = '<span class="label" style="background-color:red;">'.$text.'</span>';
+			$priority = '<span class="label" style="background-color:red;font-size:'.$font_size.'px;">'.$text.'</span>';
 		}
 		
 		return $priority;
@@ -1162,14 +1383,14 @@ class Tasks extends DataObject {
 	* @param string $text
 	* @return string
 	*/
-	public function render_task_status_display($id, $text) {
+	public function render_task_status_display($id, $text, $font_size=16) {
 		$status = '';
 		if ($id == 1) {
-			$status = '<span class="label label-success" style="font-size: 16px;">'.$text.'</span>';
+			$status = '<span class="label label-success" style="font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 2) {
-			$status = '<span class="label label-danger" style="font-size: 16px;">'.$text.'</span>';
+			$status = '<span class="label label-danger" style="font-size:'.$font_size.'px;">'.$text.'</span>';
 		} elseif ($id == 3) {
-			$status = '<span class="label label-info" style="font-size: 16px;">'.$text.'</span>';
+			$status = '<span class="label label-info" style="font-size:'.$font_size.'px;">'.$text.'</span>';
 		}
 		
 		return $status;
@@ -1196,6 +1417,7 @@ class Tasks extends DataObject {
 		} elseif ((int)$evctl->idproject == 0) {
 			$err = _('Missing project id');
 		} elseif ((int)$evctl->type == 0) {
+			$err = _('Missing action type');
 		} else {
 			$this->getId($evctl->idtasks);
 			if ($this->getNumRows() > 0) {
@@ -1218,25 +1440,225 @@ class Tasks extends DataObject {
 		}
 		
 		if ($err == '') {
-			$qry = "update tasks set task_status = ? where idtasks = ?";
-			if ((int)$evctl->type == 1) {
-				$stmt = $this->getDbConnection()->executeQuery($qry, array(2,$evctl->idtasks));
-			} elseif ((int)$evctl->type == 2) {
-				$stmt = $this->getDbConnection()->executeQuery($qry, array(1,$evctl->idtasks));
-			}
-			
-			$this->add_task_activity(
-				$evctl->idtasks,
-				array(
-					'activity_type'=>9,
-					'description'=>$evctl->type
-				),
-				$signed_in_user
-			);
+			$this->close_reopen_task($evctl->idtasks, $evctl->type);
 			echo '1';
 		} else {
 			echo $err;
 		}
+	}
+	
+	/**
+	* event function to close/re-open multiple tasks
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventCloseReopenMultipleTask(EventControler $evctl) {
+		$record_ids = $evctl->chk;
+		$err = false;
+		$msg = '';
+		
+		if (!is_array($record_ids)) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif (is_array($record_ids) && count($record_ids) == 0) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif ((int)$evctl->idproject == 0) {
+			$err = true;
+			$msg = _('Missing Project Id');
+		} elseif ((int)$evctl->type == 0) {
+			$err = true;
+			$msg = _('Missing action type');
+		} else {
+			$do_project = new Project();
+			$do_project->getId($evctl->idproject);
+			
+			if ($do_project->getNumRows() == 0) {
+				$err = true;
+				$msg = _('Invalid Project Id');
+			} else {
+				$project_members = $do_project->get_project_members($do_project);
+			}
+		}
+		
+		if (true === $err) {
+			echo json_encode($response = [
+				'status'=>'fail',
+				'ids'=>0,
+				'message'=>$msg
+			]);
+			exit;
+		} else {
+			$partial = false ;
+			$processed_ids = [];
+			foreach ($record_ids as $id) {
+				$this->getId($id);
+				if ($this->getNumRows() == 0) {
+					$partial = true;
+					continue;
+				}
+				if ($this->idproject != (int)$evctl->idproject) {
+					$partial = true;
+					continue;
+				}
+				if ($this->task_status != 1 && (int)$evctl->type == 1) {
+					$partial = true;
+					continue;
+				}
+				
+				if ($this->task_status != 2 && (int)$evctl->type == 2) {
+					$partial = true;
+					continue;
+				}
+				
+				$allow_task_close = false;
+				$allow_task_close = $do_project->check_additional_permissions($do_project, 'task_close', $this);
+				if (false === $allow_task_close) {
+					$partial = true;
+					continue;
+				}
+				
+				$this->close_reopen_task($id, $evctl->type);
+				$processed_ids[] = $id;
+			}
+		}
+		
+		if (true === $partial) {
+			$response = [
+				'status'=>'partial',
+				'ids'=>$processed_ids,
+				'message'=>_('Status changed for partial records. It could be wrong task id, or trying to close or re-open a task with the same status or not authorized')
+			];
+		} else {
+			$response = [
+				'status'=>'ok',
+				'ids'=>$processed_ids,
+				'message'=>_('Status updated successfully')
+			];
+		}
+		echo json_encode($response);
+	}
+	
+	/**
+	* function to close or reopen a task
+	* @param integer $idtasks
+	* @param integer $type
+	* @return void
+	*/
+	public function close_reopen_task($idtasks, $type) {
+		$signed_in_user = $_SESSION["do_user"]->iduser;
+		$qry = "update tasks set task_status = ? where idtasks = ?";
+		
+		if ((int)$type == 1) {
+			$stmt = $this->getDbConnection()->executeQuery($qry, array(2, $idtasks));
+		} elseif ((int)$type == 2) {
+			$stmt = $this->getDbConnection()->executeQuery($qry, array(1, $idtasks));
+		}
+		
+		$this->add_task_activity(
+			$idtasks,
+			array(
+				'activity_type'=>9,
+				'description'=>$type
+			),
+			$signed_in_user
+		);
+	}
+	
+	/**
+	* event function to change priority for multiple tasks
+	* @param object $evctl
+	* @return string
+	*/
+	public function eventChangePriorityMultipleTask(EventControler $evctl) {
+		$record_ids = $evctl->chk;
+		$err = false;
+		$msg = '';
+		
+		if (!is_array($record_ids)) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif (is_array($record_ids) && count($record_ids) == 0) {
+			$err = true;
+			$msg = _('Missing task id(s)');
+		} elseif ((int)$evctl->idproject == 0) {
+			$err = true;
+			$msg = _('Missing Project Id');
+		} elseif ((int)$evctl->priority == 0) {
+			$err = true;
+			$msg = _('Invalid task priority');
+		} else {
+			$do_project = new Project();
+			$do_project->getId($evctl->idproject);
+			
+			if ($do_project->getNumRows() == 0) {
+				$err = true;
+				$msg = _('Invalid Project Id');
+			} else {
+				$project_members = $do_project->get_project_members($do_project);
+			}
+		}
+		
+		if (true === $err) {
+			echo json_encode($response = [
+				'status'=>'fail',
+				'ids'=>0,
+				'message'=>$msg
+			]);
+			exit;
+		} else {
+			$partial = false ;
+			$processed_ids = [];
+			foreach ($record_ids as $id) {
+				$this->getId($id);
+				if ($this->getNumRows() == 0) {
+					$partial = true;
+					continue;
+				}
+				if ($this->idproject != (int)$evctl->idproject) {
+					$partial = true;
+					continue;
+				}
+				if ($this->task_status != 1) {
+					$partial = true;
+					continue;
+				}
+				
+				$allow_task_edit = false;
+				$allow_task_edit = $do_project->check_additional_permissions($do_project, 'task_edit', $this);
+				if (false === $allow_task_edit) {
+					$partial = true;
+					continue;
+				}
+								
+				$qry = "update tasks set priority = ? where idtasks = ?";
+				$stmt = $this->getDbConnection()->executeQuery($qry, array($evctl->priority, $id));
+				$this->add_task_activity(
+					$id,
+					array(
+						'activity_type'=>8,
+						'description'=>$evctl->priority
+					),
+					$_SESSION["do_user"]->iduser
+				);
+				$processed_ids[] = $id;
+			}
+		}
+		
+		if (true === $partial) {
+			$response = [
+				'status'=>'partial',
+				'ids'=>$processed_ids,
+				'message'=>_('Priority changed for partial records. It could be wrong task id, or trying to change priority for a closed task or not authorized')
+			];
+		} else {
+			$response = [
+				'status'=>'ok',
+				'ids'=>$processed_ids,
+				'message'=>_('Priority updated successfully')
+			];
+		}
+		echo json_encode($response);
 	}
 	
 	/**

@@ -219,7 +219,7 @@
 					<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/add" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-tasks"></i> <?php echo _('create a new task')?></a>
 				</li>
 				<li class="list-group-item">
-					<a href="#" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list"></i> <?php echo _('all tasks')?></a>
+					<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/list" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list"></i> <?php echo _('all tasks')?></a>
 				</li>
 			</ul>
 		<?php 
