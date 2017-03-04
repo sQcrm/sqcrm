@@ -53,6 +53,12 @@ $allow_task_assignees = $module_obj->check_additional_permissions(
 );
 
 if (true === $allow_task_create) {
+	$cancel_referrer = '';
+	if (isset($_SESSION['task_add_referrer']) && $_SESSION['task_add_referrer'] != '') {
+		$cancel_referrer = $_SESSION['task_add_referrer'];
+	} else {
+		$cancel_referrer = 'Project/'.$sqcrm_record_id.'/task/list';
+	}
 	require_once('view/task_create_view.php');
 } else {
 	echo '<br /><br />';
