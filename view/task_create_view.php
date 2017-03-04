@@ -89,6 +89,15 @@
 							</div>
 						</div>
 						<hr class="form_hr">
+						<?php
+						if ($cancel_referrer != '') {?>
+						<a class="btn btn-default" href="/modules/<?php echo $cancel_referrer;?>" role="button"><?php echo _('Cancel');?></a>
+						<?php
+						} else { ?>
+						<a class="btn btn-default" href="/modules/<?php echo $cancel_referrer;?>" role="button"><?php echo _('Cancel');?></a>
+						<?php
+						}
+						?>
 						<input type="button" id= "save-new-task" class="btn btn-primary" value="<?php echo _('Save');?>"/>
 					</div>
 				</div>

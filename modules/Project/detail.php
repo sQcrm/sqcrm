@@ -38,6 +38,8 @@ $allowed_actions['project_members'] = $module_obj->check_additional_permissions(
 $do_crmentity = new CRMEntity();
 $update_history = $do_crmentity->get_last_updates($sqcrm_record_id,$module_id,$module_obj);
 
+$_SESSION['task_add_referrer'] = 'Project/detail?sqrecord='.$sqcrm_record_id;
+
 if (isset($_GET['ajaxreq']) && $_GET['ajaxreq'] == true) {
 	require_once('view/detail_view_entry.php');
 } else {

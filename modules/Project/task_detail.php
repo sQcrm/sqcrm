@@ -8,6 +8,7 @@
 $idtask = (int)$_REQUEST['idtasks'];
 $err = '';
 $signed_in_user = $_SESSION["do_user"]->iduser;
+$_SESSION['task_add_referrer'] = 'Project/'.$sqcrm_record_id.'/task/'.$idtask;
 
 if ($idtask > 0) {
 	$do_task = new Tasks();

@@ -17,6 +17,8 @@ $priority = (isset($_REQUEST['priority']) ? $_REQUEST['priority'] : []);
 $search_param = [];
 $search_param['status'] = $status;
 
+$_SESSION['task_add_referrer'] = 'Project/'.$sqcrm_record_id.'/task/list';
+
 if ($status != 1) $search_on = true;
 
 $labels_query_string = (count($labels) > 0 ? http_build_query(array('labels'=>$labels)) : '');
