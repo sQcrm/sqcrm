@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.54, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: sqrelease
 -- ------------------------------------------------------
--- Server version	5.5.53-0ubuntu0.14.04.1
+-- Server version	5.5.54-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `block` (
   PRIMARY KEY (`idblock`),
   KEY `block_idblock_idx` (`idblock`),
   KEY `block_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `block` (
 
 LOCK TABLES `block` WRITE;
 /*!40000 ALTER TABLE `block` DISABLE KEYS */;
-INSERT INTO `block` VALUES (1,7,'User Information',1),(2,7,'Other Information',2),(3,7,'Address Information',3),(4,3,'Lead Information',1),(5,3,'Address Information',2),(6,3,'Custom Information',3),(7,6,'Organization Information',1),(8,6,'Address Information',2),(9,6,'Custom Information',3),(10,4,'Contact Information',1),(11,4,'Portal Information',2),(12,4,'Address Information',3),(13,4,'Custom Information',4),(14,5,'Prospect Information',1),(15,5,'Custom Information',3),(16,2,'Event information',1),(17,2,'Custom information',2),(18,11,'Vendor Information',1),(19,11,'Address Information',2),(20,11,'Custom Information',3),(21,12,'Product Information',1),(22,12,'Product Pricing',2),(23,12,'Stock Information',3),(24,12,'Custom Information',4),(25,13,'Quote Information',1),(26,13,'Address Information',2),(27,14,'Sales Order Information',1),(28,14,'Address Information',2),(29,13,'Custom Information',3),(30,14,'Custom Information',3),(31,15,'Invoice Information',1),(32,15,'Address Information',2),(33,15,'Custom Information',3),(34,16,'Purchase Order Information',1),(35,16,'Address Information',2),(36,16,'Custom Information',3),(37,5,'Close Lost Information',2);
+INSERT INTO `block` VALUES (1,7,'User Information',1),(2,7,'Other Information',2),(3,7,'Address Information',3),(4,3,'Lead Information',1),(5,3,'Address Information',2),(6,3,'Custom Information',3),(7,6,'Organization Information',1),(8,6,'Address Information',2),(9,6,'Custom Information',3),(10,4,'Contact Information',1),(11,4,'Portal Information',2),(12,4,'Address Information',3),(13,4,'Custom Information',4),(14,5,'Prospect Information',1),(15,5,'Custom Information',3),(16,2,'Event information',1),(17,2,'Custom information',2),(18,11,'Vendor Information',1),(19,11,'Address Information',2),(20,11,'Custom Information',3),(21,12,'Product Information',1),(22,12,'Product Pricing',2),(23,12,'Stock Information',3),(24,12,'Custom Information',4),(25,13,'Quote Information',1),(26,13,'Address Information',2),(27,14,'Sales Order Information',1),(28,14,'Address Information',2),(29,13,'Custom Information',3),(30,14,'Custom Information',3),(31,15,'Invoice Information',1),(32,15,'Address Information',2),(33,15,'Custom Information',3),(34,16,'Purchase Order Information',1),(35,16,'Address Information',2),(36,16,'Custom Information',3),(37,5,'Close Lost Information',2),(38,19,'Project Information',1),(39,19,'Custom Information',1);
 /*!40000 ALTER TABLE `block` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `combo_values` (
   `sequence` int(10) NOT NULL,
   PRIMARY KEY (`idcombo_values`),
   KEY `combo_idfields_idx` (`idfields`)
-) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `combo_values` (
 
 LOCK TABLES `combo_values` WRITE;
 /*!40000 ALTER TABLE `combo_values` DISABLE KEYS */;
-INSERT INTO `combo_values` VALUES (1,19,'mm-dd-yyyy','mm-dd-yyyy',1),(2,19,'mm/dd/yyyy','mm/dd/yyyy',2),(3,19,'dd-mm-yyyy','dd-mm-yyyy',3),(4,19,'dd/mm/yyyy','dd/mm/yyyy',4),(5,19,'yyyy-mm-dd','yyyy-mm-dd',5),(6,19,'yyyy/mm/dd','yyyy/mm/dd',6),(7,25,'Yes','Yes',1),(8,25,'No','No',1),(9,33,'Pick One','Pick One',1),(10,33,'Advertisement,','Advertisement',2),(11,33,'Channel Partner','Channel Partner',3),(12,33,'Cold Call','Cold Call',4),(13,33,'Existing Customer','Existing Customer',5),(14,33,'Marketing Event','Marketing Event',6),(15,33,'Other','Other',7),(16,33,'Public Relation','Public Relation',8),(17,33,'Self Generated','Self Generated',9),(18,33,'Webiners','Webiners',10),(19,34,'Pick One','Pick One',1),(20,34,'Apparel','Apparel',2),(21,34,'Banking','Banking',3),(22,34,'Biotechnology','Biotechnology',4),(23,34,'Chemicals','Chemicals',5),(24,34,'Comunications','Comunications',6),(25,34,'Consulting','Consulting',7),(26,34,'Education','Education',8),(27,34,'Electronics','Electronics',9),(28,34,'Energy','Energy',10),(29,34,'Engineering','Engineering',11),(30,34,'Entiretainment','Entiretainment',12),(31,34,'Finance','Finance',13),(32,34,'Government','Government',14),(33,34,'Healthcare','Healthcare',15),(34,34,'Hospitality','Hospitality',16),(35,34,'Insurance','Insurance',17),(36,34,'Media','Media',18),(37,34,'Technology','Technology',19),(38,34,'Transpotation','Transpotation',20),(39,34,'Other','Other',21),(40,37,'Pick One','Pick One',1),(41,37,'Archived-No Marketing','Archived-No Marketing',2),(42,37,'Cold','Cold',3),(43,37,'Hot','Hot',4),(44,37,'Future Interest','Future Interest',5),(45,37,'Lost Lead','Lost Lead',6),(46,37,'No Response','No Response',7),(47,37,'Qualified','Qualified',8),(48,39,'Pick One','Pick One',1),(49,39,'Acquired','Acquired',2),(50,39,'Active','Active',3),(51,39,'Market Failed','Market Failed',4),(52,39,'Project Cancelled','Project Cancelled',5),(53,39,'Other','Other',6),(54,56,'Pick One','Pick One',1),(55,56,'Apparel','Apparel',2),(56,56,'Banking','Banking',3),(57,56,'Biotechnology','Biotechnology',4),(58,56,'Chemicals','Chemicals',5),(59,56,'Comunications','Comunications',6),(60,56,'Consulting','Consulting',7),(61,56,'Education','Education',8),(62,56,'Electronics','Electronics',9),(63,56,'Energy','Energy',10),(64,56,'Engineering','Engineering',11),(65,56,'Entiretainment','Entiretainment',12),(66,56,'Finance','Finance',13),(67,56,'Government','Government',14),(68,56,'Healthcare','Healthcare',15),(69,56,'Hospitality','Hospitality',16),(70,56,'Insurance','Insurance',17),(71,56,'Media','Media',18),(72,56,'Technology','Technology',19),(73,56,'Transpotation','Transpotation',20),(74,56,'Other','Other',21),(75,57,'Pick One','Pick One',1),(76,57,'Acquired','Acquired',2),(77,57,'Active','Active',3),(78,57,'Market Failed','Market Failed',4),(79,57,'Project Cancelled','Project Cancelled',5),(80,57,'Other','Other',6),(81,60,'Pick One','Pick One',1),(82,60,'Analyst','Analyst',2),(83,60,'Competitor','Competitor',3),(84,60,'Customer','Customer',4),(85,60,'Distributor','Distributor',5),(86,60,'Investor','Investor',6),(87,60,'OEM','OEM',7),(88,60,'Prospect','Prospect',8),(89,60,'Reseller','Reseller',9),(90,60,'Other','Other',10),(91,80,'Pick One','Pick One',1),(92,80,'Advertisement,','Advertisement',2),(93,80,'Channel Partner','Channel Partner',3),(94,80,'Cold Call','Cold Call',4),(95,80,'Existing Customer','Existing Customer',5),(96,80,'Marketing Event','Marketing Event',6),(97,80,'Other','Other',7),(98,80,'Public Relation','Public Relation',8),(99,80,'Self Generated','Self Generated',9),(100,80,'Webiners','Webiners',10),(101,116,'Pick One','Pick One',1),(102,116,'Advertisement,','Advertisement',2),(103,116,'Channel Partner','Channel Partner',3),(104,116,'Cold Call','Cold Call',4),(105,116,'Existing Customer','Existing Customer',5),(106,116,'Marketing Event','Marketing Event',6),(107,116,'Other','Other',7),(108,116,'Public Relation','Public Relation',8),(109,116,'Self Generated','Self Generated',9),(110,116,'Webiners','Webiners',10),(111,113,'Pick One','Pick One',1),(112,113,'Analyst','Analyst',2),(113,113,'Competitor','Competitor',3),(114,113,'Customer','Customer',4),(115,113,'Distributor','Distributor',5),(116,113,'Investor','Investor',6),(117,113,'OEM','OEM',7),(118,113,'Prospect','Prospect',8),(119,113,'Reseller','Reseller',9),(120,113,'Other','Other',10),(121,117,'Pick One','Pick One',1),(122,117,'Close Lost','Close Lost',2),(123,117,'Close Win','Close Win',3),(124,117,'Need Analysis','Need Analysis',4),(125,117,'Negotiating','Negotiating',5),(126,117,'Prospecting','Prospecting',6),(127,117,'Qualification','Qualification',7),(128,117,'Verval','Verval',8),(129,122,'Call','Call',1),(130,122,'Meeting','Meeting',2),(131,122,'Non Marketing','Non Marketing',3),(132,131,'Planned','Planned',1),(133,131,'Held','Held',2),(134,131,'Cancelled','Cancelled',3),(135,126,'High','High',1),(136,126,'Medium','Medium',2),(137,126,'Low','Low',3),(138,167,'Pick One','Pick One',1),(139,167,'Software','Software',2),(140,167,'Hardware','Hardware',3),(141,167,'CRM Application','CRM Application',4),(142,168,'Pick One','Pick One',1),(143,168,'sQcrm','sQcrm',2),(144,168,'Microsoft','Microsoft',3),(145,168,'IBM','IBM',4),(146,183,'Created','Created',2),(147,183,'Sent','Sent',3),(148,183,'Delivered','Delivered',4),(149,183,'Accepted','Accepted',5),(150,183,'Rejected','Rejected',6),(151,217,'Created','Created',2),(152,217,'Sent','Sent',3),(153,217,'Delivered','Delivered',4),(154,217,'Accepted','Accepted',5),(155,217,'Rejected','Rejected',6),(156,253,'Created','Created',1),(157,253,'Sent','Sent',2),(158,253,'Partial','Partial',3),(159,253,'Paid','Paid',4),(160,253,'Overdue','Overdue',5),(161,253,'Rejected','Rejected',6),(162,289,'Created','Created',1),(163,289,'Sent','Sent',2),(164,289,'Approved','Approved',3),(165,289,'Cancelled','Cancelled',4),(166,322,'Pick One','Pick One',1),(167,322,'Timing','Timing',2),(168,322,'Poor Qualification','Poor Qualification',3),(169,322,'Price','Price',4),(170,322,'Project Canceled','Project Canceled',5),(171,322,'Lost To Competitor','Lost To Competitor',6),(172,323,'Pick One','Pick One',1),(173,323,'ABC Corp','ABC Corp',2),(174,323,'Echo Cloud','Echo Cloud',3);
+INSERT INTO `combo_values` VALUES (1,19,'mm-dd-yyyy','mm-dd-yyyy',1),(2,19,'mm/dd/yyyy','mm/dd/yyyy',2),(3,19,'dd-mm-yyyy','dd-mm-yyyy',3),(4,19,'dd/mm/yyyy','dd/mm/yyyy',4),(5,19,'yyyy-mm-dd','yyyy-mm-dd',5),(6,19,'yyyy/mm/dd','yyyy/mm/dd',6),(7,25,'Yes','Yes',1),(8,25,'No','No',1),(9,33,'Pick One','Pick One',1),(10,33,'Advertisement,','Advertisement',2),(11,33,'Channel Partner','Channel Partner',3),(12,33,'Cold Call','Cold Call',4),(13,33,'Existing Customer','Existing Customer',5),(14,33,'Marketing Event','Marketing Event',6),(15,33,'Other','Other',7),(16,33,'Public Relation','Public Relation',8),(17,33,'Self Generated','Self Generated',9),(18,33,'Webiners','Webiners',10),(19,34,'Pick One','Pick One',1),(20,34,'Apparel','Apparel',2),(21,34,'Banking','Banking',3),(22,34,'Biotechnology','Biotechnology',4),(23,34,'Chemicals','Chemicals',5),(24,34,'Comunications','Comunications',6),(25,34,'Consulting','Consulting',7),(26,34,'Education','Education',8),(27,34,'Electronics','Electronics',9),(28,34,'Energy','Energy',10),(29,34,'Engineering','Engineering',11),(30,34,'Entiretainment','Entiretainment',12),(31,34,'Finance','Finance',13),(32,34,'Government','Government',14),(33,34,'Healthcare','Healthcare',15),(34,34,'Hospitality','Hospitality',16),(35,34,'Insurance','Insurance',17),(36,34,'Media','Media',18),(37,34,'Technology','Technology',19),(38,34,'Transpotation','Transpotation',20),(39,34,'Other','Other',21),(40,37,'Pick One','Pick One',1),(41,37,'Archived-No Marketing','Archived-No Marketing',2),(42,37,'Cold','Cold',3),(43,37,'Hot','Hot',4),(44,37,'Future Interest','Future Interest',5),(45,37,'Lost Lead','Lost Lead',6),(46,37,'No Response','No Response',7),(47,37,'Qualified','Qualified',8),(48,39,'Pick One','Pick One',1),(49,39,'Acquired','Acquired',2),(50,39,'Active','Active',3),(51,39,'Market Failed','Market Failed',4),(52,39,'Project Cancelled','Project Cancelled',5),(53,39,'Other','Other',6),(54,56,'Pick One','Pick One',1),(55,56,'Apparel','Apparel',2),(56,56,'Banking','Banking',3),(57,56,'Biotechnology','Biotechnology',4),(58,56,'Chemicals','Chemicals',5),(59,56,'Comunications','Comunications',6),(60,56,'Consulting','Consulting',7),(61,56,'Education','Education',8),(62,56,'Electronics','Electronics',9),(63,56,'Energy','Energy',10),(64,56,'Engineering','Engineering',11),(65,56,'Entiretainment','Entiretainment',12),(66,56,'Finance','Finance',13),(67,56,'Government','Government',14),(68,56,'Healthcare','Healthcare',15),(69,56,'Hospitality','Hospitality',16),(70,56,'Insurance','Insurance',17),(71,56,'Media','Media',18),(72,56,'Technology','Technology',19),(73,56,'Transpotation','Transpotation',20),(74,56,'Other','Other',21),(75,57,'Pick One','Pick One',1),(76,57,'Acquired','Acquired',2),(77,57,'Active','Active',3),(78,57,'Market Failed','Market Failed',4),(79,57,'Project Cancelled','Project Cancelled',5),(80,57,'Other','Other',6),(81,60,'Pick One','Pick One',1),(82,60,'Analyst','Analyst',2),(83,60,'Competitor','Competitor',3),(84,60,'Customer','Customer',4),(85,60,'Distributor','Distributor',5),(86,60,'Investor','Investor',6),(87,60,'OEM','OEM',7),(88,60,'Prospect','Prospect',8),(89,60,'Reseller','Reseller',9),(90,60,'Other','Other',10),(91,80,'Pick One','Pick One',1),(92,80,'Advertisement,','Advertisement',2),(93,80,'Channel Partner','Channel Partner',3),(94,80,'Cold Call','Cold Call',4),(95,80,'Existing Customer','Existing Customer',5),(96,80,'Marketing Event','Marketing Event',6),(97,80,'Other','Other',7),(98,80,'Public Relation','Public Relation',8),(99,80,'Self Generated','Self Generated',9),(100,80,'Webiners','Webiners',10),(101,116,'Pick One','Pick One',1),(102,116,'Advertisement,','Advertisement',2),(103,116,'Channel Partner','Channel Partner',3),(104,116,'Cold Call','Cold Call',4),(105,116,'Existing Customer','Existing Customer',5),(106,116,'Marketing Event','Marketing Event',6),(107,116,'Other','Other',7),(108,116,'Public Relation','Public Relation',8),(109,116,'Self Generated','Self Generated',9),(110,116,'Webiners','Webiners',10),(111,113,'Pick One','Pick One',1),(112,113,'Analyst','Analyst',2),(113,113,'Competitor','Competitor',3),(114,113,'Customer','Customer',4),(115,113,'Distributor','Distributor',5),(116,113,'Investor','Investor',6),(117,113,'OEM','OEM',7),(118,113,'Prospect','Prospect',8),(119,113,'Reseller','Reseller',9),(120,113,'Other','Other',10),(121,117,'Pick One','Pick One',1),(122,117,'Close Lost','Close Lost',2),(123,117,'Close Win','Close Win',3),(124,117,'Need Analysis','Need Analysis',4),(125,117,'Negotiating','Negotiating',5),(126,117,'Prospecting','Prospecting',6),(127,117,'Qualification','Qualification',7),(128,117,'Verval','Verval',8),(129,122,'Call','Call',1),(130,122,'Meeting','Meeting',2),(131,122,'Non Marketing','Non Marketing',3),(132,131,'Planned','Planned',1),(133,131,'Held','Held',2),(134,131,'Cancelled','Cancelled',3),(135,126,'High','High',1),(136,126,'Medium','Medium',2),(137,126,'Low','Low',3),(138,167,'Pick One','Pick One',1),(139,167,'Software','Software',2),(140,167,'Hardware','Hardware',3),(141,167,'CRM Application','CRM Application',4),(142,168,'Pick One','Pick One',1),(143,168,'sQcrm','sQcrm',2),(144,168,'Microsoft','Microsoft',3),(145,168,'IBM','IBM',4),(146,183,'Created','Created',2),(147,183,'Sent','Sent',3),(148,183,'Delivered','Delivered',4),(149,183,'Accepted','Accepted',5),(150,183,'Rejected','Rejected',6),(151,217,'Created','Created',2),(152,217,'Sent','Sent',3),(153,217,'Delivered','Delivered',4),(154,217,'Accepted','Accepted',5),(155,217,'Rejected','Rejected',6),(156,253,'Created','Created',1),(157,253,'Sent','Sent',2),(158,253,'Partial','Partial',3),(159,253,'Paid','Paid',4),(160,253,'Overdue','Overdue',5),(161,253,'Rejected','Rejected',6),(162,289,'Created','Created',1),(163,289,'Sent','Sent',2),(164,289,'Approved','Approved',3),(165,289,'Cancelled','Cancelled',4),(166,322,'Pick One','Pick One',1),(167,322,'Timing','Timing',2),(168,322,'Poor Qualification','Poor Qualification',3),(169,322,'Price','Price',4),(170,322,'Project Canceled','Project Canceled',5),(171,322,'Lost To Competitor','Lost To Competitor',6),(172,323,'Pick One','Pick One',1),(173,323,'ABC Corp','ABC Corp',2),(174,323,'Echo Cloud','Echo Cloud',3),(175,326,'Pick One','Pick One',1),(176,326,'Active','Active',2),(177,326,'On Hold','On Hold',3),(178,326,'Completed','Completed',4),(179,326,'Closed','Closed',5);
 /*!40000 ALTER TABLE `combo_values` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,7 +524,7 @@ CREATE TABLE `custom_view_module_rel` (
   `idmodule` int(11) DEFAULT NULL,
   PRIMARY KEY (`idcustom_view_module_rel`),
   KEY `idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,7 +533,7 @@ CREATE TABLE `custom_view_module_rel` (
 
 LOCK TABLES `custom_view_module_rel` WRITE;
 /*!40000 ALTER TABLE `custom_view_module_rel` DISABLE KEYS */;
-INSERT INTO `custom_view_module_rel` VALUES (1,2),(2,3),(3,4),(4,5),(5,6),(6,11),(7,12),(8,13),(9,14),(10,15),(11,16);
+INSERT INTO `custom_view_module_rel` VALUES (1,2),(2,3),(3,4),(4,5),(5,6),(6,11),(7,12),(8,13),(9,14),(10,15),(11,16),(12,19);
 /*!40000 ALTER TABLE `custom_view_module_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -674,7 +674,7 @@ CREATE TABLE `emailtemplate` (
   KEY `emailt_idemailtemplate_idx` (`idemailtemplate`),
   KEY `emailt_iduser_idx` (`iduser`),
   KEY `emailt_name_idx` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -683,7 +683,7 @@ CREATE TABLE `emailtemplate` (
 
 LOCK TABLES `emailtemplate` WRITE;
 /*!40000 ALTER TABLE `emailtemplate` DISABLE KEYS */;
-INSERT INTO `emailtemplate` VALUES (1,'[event_type] reminder :: [subject]','','[firstname],<br />\nYou have a [event_type] at [start_time] on [start_date] <br />\nPlease <a href=\"[event_url]\">click here</a> to see more details.<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[event_url]<br /><br />\n[CRM_NAME]\n','event_reminder','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(2,'Quote [quote_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached quote [quote_num] from [company_name]\n<br><br>\n[company_address]\n','send_quote_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(3,'Sales order [sales_order_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached sales order [sales_order_num] from [company_name]\n<br><br>\n[company_address]\n','send_sales_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(4,'Invoice [invoice_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached invoice [invoice_number] from [company_name]\n<br><br>\n[company_address]\n','send_invoice_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(5,'Purchase order [po_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached purchase order [po_number] from [company_name]\n<br><br>\n[company_address]\n','send_purchase_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(6,'You have been mentioned on [module_name] note','','[firstname],<br />\nYou have been mentioned in the following note by [user_name] on a [module_name] <br /><br />\n[notes_content] <br /><br />\n[view_url]\n','send_notes_user_mentioned_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(7,'sQcrm customer portal login details','','[firstname],<br />\nYour login has been activated for sQcrm customer portal <br />\nThe login details are - <br />\nEmail : [email] <br />\nPassword : [password] <br />\nPlease <a href=\"[portal_url]\">click here</a> to login in customer portal<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[portal_url]<br />\nPlease change your password after you login to customer portal\n<br /><br />\n[CRM_NAME]','send_portal_login_details','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0);
+INSERT INTO `emailtemplate` VALUES (1,'[event_type] reminder :: [subject]','','[firstname],<br />\nYou have a [event_type] at [start_time] on [start_date] <br />\nPlease <a href=\"[event_url]\">click here</a> to see more details.<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[event_url]<br /><br />\n[CRM_NAME]\n','event_reminder','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(2,'Quote [quote_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached quote [quote_num] from [company_name]\n<br><br>\n[company_address]\n','send_quote_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(3,'Sales order [sales_order_num] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached sales order [sales_order_num] from [company_name]\n<br><br>\n[company_address]\n','send_sales_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(4,'Invoice [invoice_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached invoice [invoice_number] from [company_name]\n<br><br>\n[company_address]\n','send_invoice_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(5,'Purchase order [po_number] from [company_name]','','Dear [firstname] [lastname],<br>\nPlease find the attached purchase order [po_number] from [company_name]\n<br><br>\n[company_address]\n','send_purchase_order_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(6,'You have been mentioned on [module_name] note','','[firstname],<br />\nYou have been mentioned in the following note by [user_name] on a [module_name] <br /><br />\n[notes_content] <br /><br />\n[view_url]\n','send_notes_user_mentioned_email','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(7,'sQcrm customer portal login details','','[firstname],<br />\nYour login has been activated for sQcrm customer portal <br />\nThe login details are - <br />\nEmail : [email] <br />\nPassword : [password] <br />\nPlease <a href=\"[portal_url]\">click here</a> to login in customer portal<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[portal_url]<br />\nPlease change your password after you login to customer portal\n<br /><br />\n[CRM_NAME]','send_portal_login_details','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(8,'{sQcrm} [sender_firstname] [sender_lastname] has invited you to join [project_name]','','[firstname],<br />\n[sender_firstname] [sender_lastname] has invited you to join <b>[project_name]</b>. <br />\nPlease <a href=\"[activation_url]\">click here</a> to accept the invitation.<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[activation_url]<br /><br />\n[CRM_NAME]\n','project_invitation','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(9,'{sQcrm} [firstname] [lastname] has accepted the invitation to join [project_name]','','[sender_firstname],<br />\n[firstname] [lastname] has accepted your invitation to join <b>[project_name]</b>. <br /><br />\n[CRM_NAME]\n','project_invitation_accepted','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(10,'{sQcrm} [firstname] [lastname] has rejected the invitation to join [project_name]','','[sender_firstname],<br />\n[firstname] [lastname] has rejected your invitation to join <b>[project_name]</b>. <br /><br />\n[CRM_NAME]\n','project_invitation_rejected','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(11,'{sQcrm} [firstname] [lastname] your access has been revoked from [project_name]','','[firstname] [lastname] your access to the project <b>[project_name] has been revoked.</b>. <br />\nYou can still access other projects where you are a member of or projects created by you.<br /><br />\n[CRM_NAME]\n','project_revoke_access','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(12,'{sQcrm} [assignee_firstname] has assigned you {[task_title]}','','[firstname],<br />\n[assignee_firstname] has assigned you to the task <a href=\"[task_url]\">[task_title]</a> on project [project_name]<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[task_url]\n<br /><br />\n[CRM_NAME]\n','project_task_assigned','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(13,'{[CRM_NAME]} {[project_name]}: [task_title]','','[task_note]\n<br /><br />\n<a href=\"[task_note_url]\">click here </a> to view the discussion.\n<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[task_note_url]\n<br /><br />\n[CRM_NAME]\n','project_task_note','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(14,'{[CRM_NAME]} {[project_name]}: [firstname] has mentioned you on {[task_title]}','','[task_note]\n<br /><br />\n<a href=\"[task_note_url]\">click here </a> to view the discussion.\n<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[task_note_url]\n<br /><br />\n[CRM_NAME]\n','project_task_note_mention','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0),(15,'{[CRM_NAME]} {[project_name]}: {[task_title]}','','[task_note]\n<br /><br />\n<a href=\"[task_url]\">click here </a> to view the task.\n<br />\nIf the above link does not work please copy and paste the following url on browser.<br />\n[task_url]\n<br /><br />\n[CRM_NAME]\n','project_new_task','sQcrm.com','donot_reply@sQcrm.com','','','en_US',1,0);
 /*!40000 ALTER TABLE `emailtemplate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -897,7 +897,7 @@ CREATE TABLE `fields` (
   KEY `fields_field_name_idx` (`field_name`),
   KEY `fields_idblock_idx` (`idblock`),
   KEY `fields_field_validation_idx` (`field_validation`)
-) ENGINE=InnoDB AUTO_INCREMENT=324 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=337 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -906,7 +906,7 @@ CREATE TABLE `fields` (
 
 LOCK TABLES `fields` WRITE;
 /*!40000 ALTER TABLE `fields` DISABLE KEYS */;
-INSERT INTO `fields` VALUES (1,'user_name','User Name',1,1,7,'user',100,'{\"required\":true,\"minlength\":3,\"maxlength\":15,\"alphaNumericUnderscore\":true,\"unique\":true}',0,1),(2,'password','Password',2,1,7,'user',11,'{\"required\":true,\"minlength\":8}',0,1),(3,'firstname','Firstname',3,1,7,'user',1,'{\"required\":true}',0,1),(4,'lastname','Lastname',4,1,7,'user',1,'{\"required\":true}',0,1),(5,'email','Email Id',5,1,7,'user',7,'{\"required\":true}',0,1),(6,'is_admin','Is Admin',6,1,7,'user',3,'',0,1),(7,'idrole','Role',7,1,7,'user',103,'{\"required\":true}',0,1),(8,'reports_to','Reports To',8,1,7,'user',102,'',0,1),(9,'title','Title',1,2,7,'user',1,'',0,1),(10,'department','Department',2,2,7,'user',1,'',0,1),(11,'fax','Fax',3,2,7,'user',1,'',0,1),(12,'office_phone','Office Phone',4,2,7,'user',1,'',0,1),(13,'other_email','Other Email',5,2,7,'user',7,'',0,1),(14,'mobile_num','Mobile Number',6,2,7,'user',1,'',0,1),(15,'signature','Signature',7,2,7,'user',2,'',0,1),(16,'note','Note',8,2,7,'user',2,'',0,1),(17,'user_avatar','Avatar',9,2,7,'user',12,'',0,1),(18,'user_timezone','Time Zone',10,2,7,'user',104,'',0,1),(19,'date_view','Date View',11,2,7,'user',5,'',0,1),(20,'address','Address',1,3,7,'user',2,'',0,1),(21,'city','City',2,3,7,'user',1,'',0,1),(22,'state','State',3,3,7,'user',1,'',0,1),(23,'country','Country',4,3,7,'user',1,'',0,1),(24,'po','Post Office',5,3,7,'user',1,'',0,1),(25,'is_active','Is active',9,1,7,'user',5,'',0,1),(26,'firstname','First Name',1,4,3,'leads',1,'{\"required\":true}',0,1),(27,'lastname','Last Name',2,4,3,'leads',1,'{\"required\":true}',0,1),(28,'email','Email Id',3,4,3,'leads',7,'',0,1),(29,'phone','Phone',4,4,3,'leads',1,'',0,1),(30,'mobile','Mobile',5,4,3,'leads',1,'',0,1),(31,'title','Title',6,4,3,'leads',1,'',0,1),(32,'fax','Fax',7,4,3,'leads',1,'',0,1),(33,'leadsource','Lead Source',8,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(34,'industry','Industry',9,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(35,'organization','Organization',10,4,3,'leads',1,'{\"required\":true}',0,1),(36,'website','Website',11,4,3,'leads',8,'',0,1),(37,'lead_status','Lead Status',12,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(38,'anual_revenue','Anual Revenue',13,4,3,'leads',30,'',0,1),(39,'rating','Rating',14,4,3,'leads',5,'',0,1),(40,'description','Description',15,4,3,'leads',2,'',0,1),(41,'assigned_to','Assigned To',16,4,3,'leads',15,'',0,1),(42,'street','Street',1,5,3,'leads_address',2,'',0,1),(43,'po_box','PO Box',2,5,3,'leads_address',1,'',0,1),(44,'postal_code','Postal Code',3,5,3,'leads_address',1,'',0,1),(45,'country','Country',4,5,3,'leads_address',1,'',0,1),(46,'city','City',5,5,3,'leads_address',1,'',0,1),(47,'state','State',6,5,3,'leads_address',1,'',0,1),(48,'organization_name','Organization Name',1,7,6,'organization',1,'{\"required\":true}',0,1),(49,'website','Website',2,7,6,'organization',8,'',0,1),(50,'phone','Phone',3,7,6,'organization',1,'',0,1),(51,'fax','Fax',4,7,6,'organization',1,'',0,1),(52,'member_of','Member Of',5,7,6,'organization',131,'',0,1),(53,'num_employes','Number of Employees',6,7,6,'organization',1,'',0,1),(54,'sis_code','SIC Code',7,7,6,'organization',1,'',0,1),(55,'ticker_symbol','Ticker Symbol',8,7,6,'organization',1,'',0,1),(56,'industry','Industry',9,7,6,'organization',5,'',0,1),(57,'rating','Rating',10,7,6,'organization',5,'',0,1),(58,'annual_revenue','Annual Revenue',11,7,6,'organization',30,'',0,1),(59,'assigned_to','Assigned To',12,7,6,'organization',15,'',0,1),(60,'industry_type','Type',13,7,6,'organization',5,'',0,1),(61,'email_opt_out','Email Opt Out',14,7,6,'organization',3,'',0,1),(62,'description','Description',15,7,6,'organization',2,'',0,1),(63,'org_bill_address','Billing Address',1,8,6,'organization_address',2,'',0,1),(64,'org_ship_address','Shipping Address',2,8,6,'organization_address',2,'',0,1),(65,'org_bill_pobox','Billing PO Box',3,8,6,'organization_address',1,'',0,1),(66,'org_ship_pobox','Shipping PO Box',4,8,6,'organization_address',1,'',0,1),(67,'org_bill_city','Billing City',5,8,6,'organization_address',1,'',0,1),(68,'org_ship_city','Shipping City',6,8,6,'organization_address',1,'',0,1),(69,'org_bill_state','Billing State',7,8,6,'organization_address',1,'',0,1),(70,'org_ship_state','Shipping State',8,8,6,'organization_address',1,'',0,1),(71,'org_bill_postalcode','Billing Postal Code',9,8,6,'organization_address',1,'',0,1),(72,'org_ship_postalcode','Shipping Postal Code',10,8,6,'organization_address',1,'',0,1),(73,'org_bill_country','Billing Country',11,8,6,'organization_address',1,'',0,1),(74,'org_ship_country','Shipping Country',12,8,6,'organization_address',1,'',0,1),(75,'firstname','First Name',1,10,4,'contacts',1,'{\"required\":true}',0,1),(76,'lastname','Last Name',2,10,4,'contacts',1,'{\"required\":true}',0,1),(77,'office_phone','Office Phone',3,10,4,'contacts',1,'',0,1),(78,'idorganization','Organization Name',4,10,4,'contacts',131,'',0,1),(79,'mobile_num','Mobile Number',5,10,4,'contacts',1,'',0,1),(80,'leadsource','Lead Source',6,10,4,'contacts',5,'',0,1),(81,'home_phone','Home Phone',7,10,4,'contacts',1,'',0,1),(82,'title','Title',8,10,4,'contacts',1,'',0,1),(83,'other_phone','Other Phone',9,10,4,'contacts',1,'',0,1),(84,'department','Department',10,10,4,'contacts',1,'',0,1),(85,'email','Email',11,10,4,'contacts',7,'',0,1),(86,'fax','Fax',12,10,4,'contacts',1,'',0,1),(87,'date_of_birth','Date of birth',13,10,4,'contacts',9,'',0,1),(88,'assistant','Assistant',14,10,4,'contacts',1,'',0,1),(89,'assistant_phone','Assistant Phone',15,10,4,'contacts',1,'',0,1),(90,'reports_to','Reports To',16,10,4,'contacts',130,'',0,1),(91,'secondary_email','Secondary Email',17,10,4,'contacts',7,'',0,1),(92,'email_opt_out','Email Opt Out',18,10,4,'contacts',3,'',0,1),(93,'do_not_call','Do not call',19,10,4,'contacts',3,'',0,1),(94,'assigned_to','Assigned To',20,10,4,'contacts',15,'',0,1),(95,'description','Description',21,10,4,'contacts',2,'',0,1),(96,'contact_avatar','Avatar',22,10,4,'contacts',12,'',0,1),(97,'portal_user','Portal User',1,11,4,'contacts',3,'',0,1),(98,'support_start_date','Support Start Date',2,11,4,'contacts',9,'',0,1),(99,'support_end_date','Support End Date',3,11,4,'contacts',9,'',0,1),(100,'cnt_mail_street','Mailing Street',1,12,4,'contacts_address',2,'',0,1),(101,'cnt_other_street','Other Street',2,12,4,'contacts_address',2,'',0,1),(102,'cnt_mail_pobox','Mailing PO Box',3,12,4,'contacts_address',1,'',0,1),(103,'cnt_other_pobox','Other PO Box',4,12,4,'contacts_address',1,'',0,1),(104,'cnt_mailing_city','Mailing City',5,12,4,'contacts_address',1,'',0,1),(105,'cnt_other_city','Other City',6,12,4,'contacts_address',1,'',0,1),(106,'cnt_mailing_state','Mailing State',7,12,4,'contacts_address',1,'',0,1),(107,'cnt_other_state','Other State',8,12,4,'contacts_address',1,'',0,1),(108,'cnt_mailing_postalcode','Mailing Postal Code',9,12,4,'contacts_address',1,'',0,1),(109,'cnt_other_postalcode','Other Postal Code',10,12,4,'contacts_address',1,'',0,1),(110,'cnt_mailing_country','Mailing Country',11,12,4,'contacts_address',1,'',0,1),(111,'cnt_other_country','Other Country',11,12,4,'contacts_address',1,'',0,1),(112,'potential_name','Prospect Name',1,14,5,'potentials',1,'{\"required\":true}',0,1),(113,'potential_type','Type',2,14,5,'potentials',5,'',0,1),(114,'related_to','Related To',3,14,5,'potentials_related_to',150,'{\"required\":true}',0,1),(115,'expected_closing_date','Expected Closing Date',4,14,5,'potentials',9,'{\"required\":true}',0,1),(116,'leadsource','Lead Source',5,14,5,'potentials',5,'',0,1),(117,'sales_stage','Sales Stage',6,14,5,'potentials',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(118,'probability','Probability',7,14,5,'potentials',1,'',0,1),(119,'assigned_to','Assigned To',9,14,5,'potentials',15,'',0,1),(120,'description','Description',10,14,5,'potentials',2,'',0,1),(121,'amount','Amount',8,14,5,'potentials',30,'{\"required\":true}',0,1),(122,'event_type','Event Type',1,16,2,'events',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(123,'subject','Subject',2,16,2,'events',1,'{\"required\":true}',0,1),(124,'description','Description',3,16,2,'events',2,'',0,1),(125,'location','Location',4,16,2,'events',1,'',0,1),(126,'priority','Priority',9,16,2,'events',5,'',0,1),(127,'start_date','Start Date',5,16,2,'events',9,'{\"required\":true}',0,1),(128,'start_time','Start Time',6,16,2,'events',10,'',0,1),(129,'end_date','End Date',7,16,2,'events',9,'{\"required\":true}',0,1),(130,'end_time','End Time',8,16,2,'events',10,'',0,1),(131,'event_status','Event Status',10,16,2,'events',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(132,'assigned_to','Assigned To',11,16,2,'events',15,'',0,1),(133,'related_to','Related To',12,16,2,'events_related_to',151,'',0,1),(134,'added_on','Lead Date Added',0,0,3,'leads',9,NULL,0,0),(135,'last_modified','Lead Last Modified Date',0,0,3,'leads',9,NULL,0,0),(136,'converted','Converted',0,0,3,'leads',1,NULL,0,0),(137,'idleads','Lead Id',0,4,3,'leads',1,NULL,0,0),(138,'added_on','Contact Date Added',0,0,4,'contacts',9,NULL,0,0),(139,'last_modified','Contact Last Modified Date',0,0,4,'contacts',9,NULL,0,0),(140,'idcontacts','Contact Id',0,10,4,'contacts',1,NULL,0,0),(141,'added_on','Event Date Added',0,0,2,'events',9,NULL,0,0),(142,'last_modified','Event Last Modified Date',0,0,2,'events',9,NULL,0,0),(143,'idevents','Event Id',0,16,2,'events',1,NULL,0,0),(144,'added_on','Prospect Date Added',0,0,5,'potentials',9,NULL,0,0),(145,'last_modified','Prospect Last Modified Date',0,0,5,'potentials',9,NULL,0,0),(146,'idpotentials','Prospect Id',0,14,5,'potentials',1,NULL,0,0),(147,'added_on','Organization Date Added',0,0,6,'organization',9,NULL,0,0),(148,'last_modified','Organization Last Modified Date',0,0,6,'organization',9,NULL,0,0),(149,'idorganization','Oranization Id',0,7,6,'organization',1,NULL,0,0),(150,'vendor_name','Vendor Name',1,18,11,'vendor',1,'{\"required\":true}',0,1),(151,'email','Email Id',2,18,11,'vendor',7,'',0,1),(152,'phone','Phone number',3,18,11,'vendor',1,'',0,1),(153,'website','Website',4,18,11,'vendor',8,'',0,1),(154,'description','Description',5,18,11,'vendor',2,'',0,1),(155,'assigned_to','Assigned To',6,18,11,'vendor',15,'',0,1),(156,'added_on','Vendor Date Added',0,0,11,'vendor',9,NULL,0,0),(157,'last_modified','Vendor Last Modified Date',0,0,11,'vendor',9,NULL,0,0),(158,'idvendor','Vendor Id',0,18,11,'vendor',1,NULL,0,0),(159,'vendor_street','Street',1,19,11,'vendor_address',2,'',0,1),(160,'vendor_city','City',2,19,11,'vendor_address',1,'',0,1),(161,'vendor_postal_code','Postal Code',3,19,11,'vendor_address',1,'',0,1),(162,'vendor_po_box','PO Box',4,19,11,'vendor_address',1,'',0,1),(163,'vendor_state','State',5,19,11,'vendor_address',1,'',0,1),(164,'vendor_country','Country',6,19,11,'vendor_address',1,'',0,1),(165,'product_name','Product Name',1,21,12,'products',1,'{\"required\":true}',0,1),(166,'is_active','Active',2,21,12,'products',3,'',0,1),(167,'product_category','Category',3,21,12,'products',5,'',0,1),(168,'manufacturer','Manufacturer',4,21,12,'products',5,'',0,1),(169,'idvendor','Vendor',5,21,12,'products',160,'',0,1),(170,'website','Website',6,21,12,'products',8,'',0,1),(171,'description','Description',7,21,12,'products',2,'',0,1),(172,'assigned_to','Assigned To',8,21,12,'products',15,'',0,1),(173,'added_on','Product Date Added',0,0,12,'products',9,NULL,0,0),(174,'last_modified','Product Last Modified Date',0,0,12,'products',9,NULL,0,0),(175,'idproducts','Product Id',0,21,12,'products',1,NULL,0,0),(176,'product_price','Price',1,22,12,'products_pricing',30,'',0,1),(177,'commission_rate','Commision Rate (%)',2,22,12,'products_pricing',16,'',0,1),(178,'tax_value','Tax Information',3,22,12,'products_tax',165,'',0,1),(179,'unit_quantity','Unit Quantity',1,23,12,'products_stock',16,'',0,1),(180,'quantity_in_stock','Quantity in stock',2,23,12,'products_stock',16,'',0,1),(181,'quantity_in_demand','Quantity in demand',3,23,12,'products_stock',16,'',0,1),(182,'subject','Subject',1,25,13,'quotes',1,'{\"required\":true}',0,1),(183,'quote_stage','Quotes Stage',2,25,13,'quotes',5,'{\"required\":true}',0,1),(184,'idorganization','Organization',3,25,13,'quotes',141,'{\"required\":true}',0,1),(185,'idpotentials','Potential Name',4,25,13,'quotes',133,'',0,1),(186,'valid_till','Valid Till',5,25,13,'quotes',9,'',0,1),(187,'assigned_to','Assigned To',6,25,13,'quotes',15,'',0,1),(188,'description','Description',7,25,13,'quotes',2,'',0,1),(189,'added_on','Quotes Date Added',0,0,13,'quotes',9,NULL,0,0),(190,'last_modified','Quotes Last Modified Date',0,0,13,'quotes',9,NULL,0,0),(191,'idquotes','Quotes Id',0,25,13,'quotes',1,NULL,0,0),(192,'net_total','Net Total',0,25,13,'quotes',30,NULL,0,0),(193,'discount_type','Discount Type',0,25,13,'quotes',1,NULL,0,0),(194,'discount_value','Discount Value',0,25,13,'quotes',30,NULL,0,0),(195,'discounted_amount','Discounted Amount',0,25,13,'quotes',30,NULL,0,0),(196,'tax_values','Tax Values',0,25,13,'quotes',1,NULL,0,0),(197,'taxed_amount','Taxed Amount',0,25,13,'quotes',30,NULL,0,0),(198,'shipping_handling_charge','Shipping and Handling Charges',0,25,13,'quotes',30,NULL,0,0),(199,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,25,13,'quotes',1,NULL,0,0),(200,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,25,13,'quotes',30,NULL,0,0),(201,'final_adjustment_type','Final Adjustment Type',0,25,13,'quotes',1,NULL,0,0),(202,'final_adjustment_amount','Final Adjustment Amount',0,25,13,'quotes',30,NULL,0,0),(203,'grand_total','Grand Total',0,25,13,'quotes',30,NULL,0,0),(204,'q_billing_address','Billing Address',1,26,13,'quotes_address',2,'',0,1),(205,'q_shipping_address','Shipping Address',2,26,13,'quotes_address',2,'',0,1),(206,'q_billing_po_box','Billing PO Box',3,26,13,'quotes_address',1,'',0,1),(207,'q_shipping_po_box','Shipping PO Box',4,26,13,'quotes_address',1,'',0,1),(208,'q_billing_po_code','Billing Code',5,26,13,'quotes_address',1,'',0,1),(209,'q_shipping_po_code','Shipping Code',6,26,13,'quotes_address',1,'',0,1),(210,'q_billing_city','Billing City',7,26,13,'quotes_address',1,'',0,1),(211,'q_shipping_city','Shipping City',8,26,13,'quotes_address',1,'',0,1),(212,'q_billing_state','Billing State',9,26,13,'quotes_address',1,'',0,1),(213,'q_shipping_state','Shipping State',10,26,13,'quotes_address',1,'',0,1),(214,'q_billing_country','Billing Country',11,26,13,'quotes_address',1,'',0,1),(215,'q_shipping_country','Shipping Country',12,26,13,'quotes_address',1,'',0,1),(216,'subject','Subject',1,27,14,'sales_order',1,'{\"required\":true}',0,1),(217,'sales_order_status','Status',2,27,14,'sales_order',5,'{\"required\":true}',0,1),(218,'idorganization','Organization',3,27,14,'sales_order',141,'{\"required\":true}',0,1),(219,'idpotentials','Potential Name',4,27,14,'sales_order',133,'',0,1),(220,'idcontacts','Contact Name',5,27,14,'sales_order',142,'',0,1),(221,'idquotes','Quote Name',6,27,14,'sales_order',170,'',0,1),(222,'due_date','Due Date',7,27,14,'sales_order',9,'',0,1),(223,'assigned_to','Assigned To',8,27,14,'sales_order',15,'',0,1),(224,'description','Description',9,27,14,'sales_order',2,'',0,1),(225,'added_on','Sales Order Date Added',0,0,14,'sales_order',9,NULL,0,0),(226,'last_modified','Sales Order Last Modified Date',0,0,14,'sales_order',9,NULL,0,0),(227,'idsales_order','Sales Order Id',0,27,14,'sales_order',1,NULL,0,0),(228,'net_total','Net Total',0,27,14,'sales_order',30,NULL,0,0),(229,'discount_type','Discount Type',0,27,14,'sales_order',1,NULL,0,0),(230,'discount_value','Discount Value',0,27,14,'sales_order',30,NULL,0,0),(231,'discounted_amount','Discounted Amount',0,27,14,'sales_order',30,NULL,0,0),(232,'tax_values','Tax Values',0,27,14,'sales_order',1,NULL,0,0),(233,'taxed_amount','Taxed Amount',0,27,14,'sales_order',30,NULL,0,0),(234,'shipping_handling_charge','Shipping and Handling Charges',0,27,14,'sales_order',30,NULL,0,0),(235,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,27,14,'sales_order',1,NULL,0,0),(236,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,27,14,'sales_order',30,NULL,0,0),(237,'final_adjustment_type','Final Adjustment Type',0,27,14,'sales_order',1,NULL,0,0),(238,'final_adjustment_amount','Final Adjustment Amount',0,27,14,'sales_order',30,NULL,0,0),(239,'grand_total','Grand Total',0,27,14,'sales_order',30,NULL,0,0),(240,'so_billing_address','Billing Address',1,28,14,'sales_order_address',2,'',0,1),(241,'so_shipping_address','Shipping Address',2,28,14,'sales_order_address',2,'',0,1),(242,'so_billing_po_box','Billing PO Box',3,28,14,'sales_order_address',1,'',0,1),(243,'so_shipping_po_box','Shipping PO Box',4,28,14,'sales_order_address',1,'',0,1),(244,'so_billing_po_code','Billing Code',5,28,14,'sales_order_address',1,'',0,1),(245,'so_shipping_po_code','Shipping Code',6,28,14,'sales_order_address',1,'',0,1),(246,'so_billing_city','Billing City',7,28,14,'sales_order_address',1,'',0,1),(247,'so_shipping_city','Shipping City',8,28,14,'sales_order_address',1,'',0,1),(248,'so_billing_state','Billing State',9,28,14,'sales_order_address',1,'',0,1),(249,'so_shipping_state','Shipping State',10,28,14,'sales_order_address',1,'',0,1),(250,'so_billing_country','Billing Country',11,28,14,'sales_order_address',1,'',0,1),(251,'so_shipping_country','Shipping Country',12,28,14,'sales_order_address',1,'',0,1),(252,'subject','Subject',1,31,15,'invoice',1,'{\"required\":true}',0,1),(253,'invoice_status','Invoice Status',2,31,15,'invoice',5,'{\"required\":true}',0,1),(254,'idorganization','Organization',3,31,15,'invoice',141,'{\"required\":true}',0,1),(255,'idpotentials','Potential Name',4,31,15,'invoice',133,'',0,1),(256,'idcontacts','Contact Name',5,31,15,'invoice',142,'',0,1),(257,'idsales_order','Sales Order',6,31,15,'invoice',180,'',0,1),(258,'due_date','Due Date',7,31,15,'invoice',9,'',0,1),(259,'assigned_to','Assigned To',8,31,15,'invoice',15,'',0,1),(260,'description','Description',9,31,15,'invoice',2,'',0,1),(261,'added_on','Invoice Date Added',0,0,15,'invoice',9,NULL,0,0),(262,'last_modified','Invoice Last Modified Date',0,0,15,'invoice',9,NULL,0,0),(263,'idinvoice','Invoice Id',0,31,15,'invoice',1,NULL,0,0),(264,'net_total','Net Total',0,31,15,'invoice',30,NULL,0,0),(265,'discount_type','Discount Type',0,31,15,'invoice',1,NULL,0,0),(266,'discount_value','Discount Value',0,31,15,'invoice',30,NULL,0,0),(267,'discounted_amount','Discounted Amount',0,31,15,'invoice',30,NULL,0,0),(268,'tax_values','Tax Values',0,31,15,'invoice',1,NULL,0,0),(269,'taxed_amount','Taxed Amount',0,31,15,'invoice',30,NULL,0,0),(270,'shipping_handling_charge','Shipping and Handling Charges',0,31,15,'invoice',30,NULL,0,0),(271,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,31,15,'invoice',1,NULL,0,0),(272,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,31,15,'invoice',30,NULL,0,0),(273,'final_adjustment_type','Final Adjustment Type',0,31,15,'invoice',1,NULL,0,0),(274,'final_adjustment_amount','Final Adjustment Amount',0,31,15,'invoice',30,NULL,0,0),(275,'grand_total','Grand Total',0,31,15,'invoice',30,NULL,0,0),(276,'inv_billing_address','Billing Address',1,32,15,'invoice_address',2,'',0,1),(277,'inv_shipping_address','Shipping Address',2,32,15,'invoice_address',2,'',0,1),(278,'inv_billing_po_box','Billing PO Box',3,32,15,'invoice_address',1,'',0,1),(279,'inv_shipping_po_box','Shipping PO Box',4,32,15,'invoice_address',1,'',0,1),(280,'inv_billing_po_code','Billing Code',5,32,15,'invoice_address',1,'',0,1),(281,'inv_shipping_po_code','Shipping Code',6,32,15,'invoice_address',1,'',0,1),(282,'inv_billing_city','Billing City',7,32,15,'invoice_address',1,'',0,1),(283,'inv_shipping_city','Shipping City',8,32,15,'invoice_address',1,'',0,1),(284,'inv_billing_state','Billing State',9,32,15,'invoice_address',1,'',0,1),(285,'inv_shipping_state','Shipping State',10,32,15,'invoice_address',1,'',0,1),(286,'inv_billing_country','Billing Country',11,32,15,'invoice_address',1,'',0,1),(287,'inv_shipping_country','Shipping Country',12,32,15,'invoice_address',1,'',0,1),(288,'po_subject','Subject',1,34,16,'purchase_order',1,'{\"required\":true}',0,1),(289,'po_status','Purchase Order Status',2,34,16,'purchase_order',5,'{\"required\":true}',0,1),(290,'idvendor','Vendor',3,34,16,'purchase_order',160,'',0,1),(291,'idcontacts','Contact',4,34,16,'purchase_order',143,'',0,1),(292,'due_date','Due Date',5,34,16,'purchase_order',9,'',0,1),(293,'assigned_to','Assigned To',6,34,16,'purchase_order',15,'',0,1),(294,'description','Description',7,34,16,'purchase_order',2,'',0,1),(295,'added_on','Purchase Order Date Added',0,0,16,'purchase_order',9,NULL,0,0),(296,'last_modified','Purchase Order Last Modified Date',0,0,16,'purchase_order',9,NULL,0,0),(297,'idpurchase_order','Purchase Order Id',0,34,16,'purchase_order',1,NULL,0,0),(298,'net_total','Net Total',0,34,16,'purchase_order',30,NULL,0,0),(299,'discount_type','Discount Type',0,34,16,'purchase_order',1,NULL,0,0),(300,'discount_value','Discount Value',0,34,16,'purchase_order',30,NULL,0,0),(301,'discounted_amount','Discounted Amount',0,34,16,'purchase_order',30,NULL,0,0),(302,'tax_values','Tax Values',0,34,16,'purchase_order',1,NULL,0,0),(303,'taxed_amount','Taxed Amount',0,34,16,'purchase_order',30,NULL,0,0),(304,'shipping_handling_charge','Shipping and Handling Charges',0,34,16,'purchase_order',30,NULL,0,0),(305,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,34,16,'purchase_order',1,NULL,0,0),(306,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,34,16,'purchase_order',30,NULL,0,0),(307,'final_adjustment_type','Final Adjustment Type',0,34,16,'purchase_order',1,NULL,0,0),(308,'final_adjustment_amount','Final Adjustment Amount',0,34,16,'purchase_order',30,NULL,0,0),(309,'grand_total','Grand Total',0,34,16,'purchase_order',30,NULL,0,0),(310,'po_billing_address','Billing Address',1,35,16,'purchase_order_address',2,'',0,1),(311,'po_shipping_address','Shipping Address',2,35,16,'purchase_order_address',2,'',0,1),(312,'po_billing_po_box','Billing PO Box',3,35,16,'purchase_order_address',1,'',0,1),(313,'po_shipping_po_box','Shipping PO Box',4,35,16,'purchase_order_address',1,'',0,1),(314,'po_billing_po_code','Billing Code',5,35,16,'purchase_order_address',1,'',0,1),(315,'po_shipping_po_code','Shipping Code',6,35,16,'purchase_order_address',1,'',0,1),(316,'po_billing_city','Billing City',7,35,16,'purchase_order_address',1,'',0,1),(317,'po_shipping_city','Shipping City',8,35,16,'purchase_order_address',1,'',0,1),(318,'po_billing_state','Billing State',9,35,16,'purchase_order_address',1,'',0,1),(319,'po_shipping_state','Shipping State',10,35,16,'purchase_order_address',1,'',0,1),(320,'po_billing_country','Billing Country',11,35,16,'purchase_order_address',1,'',0,1),(321,'po_shipping_country','Shipping Country',12,35,16,'purchase_order_address',1,'',0,1),(322,'lost_reason','Lost Reason',11,37,5,'potentials',5,NULL,0,1),(323,'competitor_name','Competitor Name',12,37,5,'potentials',5,NULL,0,1);
+INSERT INTO `fields` VALUES (1,'user_name','User Name',1,1,7,'user',100,'{\"required\":true,\"minlength\":3,\"maxlength\":15,\"alphaNumericUnderscore\":true,\"unique\":true}',0,1),(2,'password','Password',2,1,7,'user',11,'{\"required\":true,\"minlength\":8}',0,1),(3,'firstname','Firstname',3,1,7,'user',1,'{\"required\":true}',0,1),(4,'lastname','Lastname',4,1,7,'user',1,'{\"required\":true}',0,1),(5,'email','Email Id',5,1,7,'user',7,'{\"required\":true}',0,1),(6,'is_admin','Is Admin',6,1,7,'user',3,'',0,1),(7,'idrole','Role',7,1,7,'user',103,'{\"required\":true}',0,1),(8,'reports_to','Reports To',8,1,7,'user',102,'',0,1),(9,'title','Title',1,2,7,'user',1,'',0,1),(10,'department','Department',2,2,7,'user',1,'',0,1),(11,'fax','Fax',3,2,7,'user',1,'',0,1),(12,'office_phone','Office Phone',4,2,7,'user',1,'',0,1),(13,'other_email','Other Email',5,2,7,'user',7,'',0,1),(14,'mobile_num','Mobile Number',6,2,7,'user',1,'',0,1),(15,'signature','Signature',7,2,7,'user',2,'',0,1),(16,'note','Note',8,2,7,'user',2,'',0,1),(17,'user_avatar','Avatar',9,2,7,'user',12,'',0,1),(18,'user_timezone','Time Zone',10,2,7,'user',104,'',0,1),(19,'date_view','Date View',11,2,7,'user',5,'',0,1),(20,'address','Address',1,3,7,'user',2,'',0,1),(21,'city','City',2,3,7,'user',1,'',0,1),(22,'state','State',3,3,7,'user',1,'',0,1),(23,'country','Country',4,3,7,'user',1,'',0,1),(24,'po','Post Office',5,3,7,'user',1,'',0,1),(25,'is_active','Is active',9,1,7,'user',5,'',0,1),(26,'firstname','First Name',1,4,3,'leads',1,'{\"required\":true}',0,1),(27,'lastname','Last Name',2,4,3,'leads',1,'{\"required\":true}',0,1),(28,'email','Email Id',3,4,3,'leads',7,'',0,1),(29,'phone','Phone',4,4,3,'leads',1,'',0,1),(30,'mobile','Mobile',5,4,3,'leads',1,'',0,1),(31,'title','Title',6,4,3,'leads',1,'',0,1),(32,'fax','Fax',7,4,3,'leads',1,'',0,1),(33,'leadsource','Lead Source',8,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(34,'industry','Industry',9,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(35,'organization','Organization',10,4,3,'leads',1,'{\"required\":true}',0,1),(36,'website','Website',11,4,3,'leads',8,'',0,1),(37,'lead_status','Lead Status',12,4,3,'leads',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(38,'anual_revenue','Anual Revenue',13,4,3,'leads',30,'',0,1),(39,'rating','Rating',14,4,3,'leads',5,'',0,1),(40,'description','Description',15,4,3,'leads',2,'',0,1),(41,'assigned_to','Assigned To',16,4,3,'leads',15,'',0,1),(42,'street','Street',1,5,3,'leads_address',2,'',0,1),(43,'po_box','PO Box',2,5,3,'leads_address',1,'',0,1),(44,'postal_code','Postal Code',3,5,3,'leads_address',1,'',0,1),(45,'country','Country',4,5,3,'leads_address',1,'',0,1),(46,'city','City',5,5,3,'leads_address',1,'',0,1),(47,'state','State',6,5,3,'leads_address',1,'',0,1),(48,'organization_name','Organization Name',1,7,6,'organization',1,'{\"required\":true}',0,1),(49,'website','Website',2,7,6,'organization',8,'',0,1),(50,'phone','Phone',3,7,6,'organization',1,'',0,1),(51,'fax','Fax',4,7,6,'organization',1,'',0,1),(52,'member_of','Member Of',5,7,6,'organization',131,'',0,1),(53,'num_employes','Number of Employees',6,7,6,'organization',1,'',0,1),(54,'sis_code','SIC Code',7,7,6,'organization',1,'',0,1),(55,'ticker_symbol','Ticker Symbol',8,7,6,'organization',1,'',0,1),(56,'industry','Industry',9,7,6,'organization',5,'',0,1),(57,'rating','Rating',10,7,6,'organization',5,'',0,1),(58,'annual_revenue','Annual Revenue',11,7,6,'organization',30,'',0,1),(59,'assigned_to','Assigned To',12,7,6,'organization',15,'',0,1),(60,'industry_type','Type',13,7,6,'organization',5,'',0,1),(61,'email_opt_out','Email Opt Out',14,7,6,'organization',3,'',0,1),(62,'description','Description',15,7,6,'organization',2,'',0,1),(63,'org_bill_address','Billing Address',1,8,6,'organization_address',2,'',0,1),(64,'org_ship_address','Shipping Address',2,8,6,'organization_address',2,'',0,1),(65,'org_bill_pobox','Billing PO Box',3,8,6,'organization_address',1,'',0,1),(66,'org_ship_pobox','Shipping PO Box',4,8,6,'organization_address',1,'',0,1),(67,'org_bill_city','Billing City',5,8,6,'organization_address',1,'',0,1),(68,'org_ship_city','Shipping City',6,8,6,'organization_address',1,'',0,1),(69,'org_bill_state','Billing State',7,8,6,'organization_address',1,'',0,1),(70,'org_ship_state','Shipping State',8,8,6,'organization_address',1,'',0,1),(71,'org_bill_postalcode','Billing Postal Code',9,8,6,'organization_address',1,'',0,1),(72,'org_ship_postalcode','Shipping Postal Code',10,8,6,'organization_address',1,'',0,1),(73,'org_bill_country','Billing Country',11,8,6,'organization_address',1,'',0,1),(74,'org_ship_country','Shipping Country',12,8,6,'organization_address',1,'',0,1),(75,'firstname','First Name',1,10,4,'contacts',1,'{\"required\":true}',0,1),(76,'lastname','Last Name',2,10,4,'contacts',1,'{\"required\":true}',0,1),(77,'office_phone','Office Phone',3,10,4,'contacts',1,'',0,1),(78,'idorganization','Organization Name',4,10,4,'contacts',131,'',0,1),(79,'mobile_num','Mobile Number',5,10,4,'contacts',1,'',0,1),(80,'leadsource','Lead Source',6,10,4,'contacts',5,'',0,1),(81,'home_phone','Home Phone',7,10,4,'contacts',1,'',0,1),(82,'title','Title',8,10,4,'contacts',1,'',0,1),(83,'other_phone','Other Phone',9,10,4,'contacts',1,'',0,1),(84,'department','Department',10,10,4,'contacts',1,'',0,1),(85,'email','Email',11,10,4,'contacts',7,'',0,1),(86,'fax','Fax',12,10,4,'contacts',1,'',0,1),(87,'date_of_birth','Date of birth',13,10,4,'contacts',9,'',0,1),(88,'assistant','Assistant',14,10,4,'contacts',1,'',0,1),(89,'assistant_phone','Assistant Phone',15,10,4,'contacts',1,'',0,1),(90,'reports_to','Reports To',16,10,4,'contacts',130,'',0,1),(91,'secondary_email','Secondary Email',17,10,4,'contacts',7,'',0,1),(92,'email_opt_out','Email Opt Out',18,10,4,'contacts',3,'',0,1),(93,'do_not_call','Do not call',19,10,4,'contacts',3,'',0,1),(94,'assigned_to','Assigned To',20,10,4,'contacts',15,'',0,1),(95,'description','Description',21,10,4,'contacts',2,'',0,1),(96,'contact_avatar','Avatar',22,10,4,'contacts',12,'',0,1),(97,'portal_user','Portal User',1,11,4,'contacts',3,'',0,1),(98,'support_start_date','Support Start Date',2,11,4,'contacts',9,'',0,1),(99,'support_end_date','Support End Date',3,11,4,'contacts',9,'',0,1),(100,'cnt_mail_street','Mailing Street',1,12,4,'contacts_address',2,'',0,1),(101,'cnt_other_street','Other Street',2,12,4,'contacts_address',2,'',0,1),(102,'cnt_mail_pobox','Mailing PO Box',3,12,4,'contacts_address',1,'',0,1),(103,'cnt_other_pobox','Other PO Box',4,12,4,'contacts_address',1,'',0,1),(104,'cnt_mailing_city','Mailing City',5,12,4,'contacts_address',1,'',0,1),(105,'cnt_other_city','Other City',6,12,4,'contacts_address',1,'',0,1),(106,'cnt_mailing_state','Mailing State',7,12,4,'contacts_address',1,'',0,1),(107,'cnt_other_state','Other State',8,12,4,'contacts_address',1,'',0,1),(108,'cnt_mailing_postalcode','Mailing Postal Code',9,12,4,'contacts_address',1,'',0,1),(109,'cnt_other_postalcode','Other Postal Code',10,12,4,'contacts_address',1,'',0,1),(110,'cnt_mailing_country','Mailing Country',11,12,4,'contacts_address',1,'',0,1),(111,'cnt_other_country','Other Country',11,12,4,'contacts_address',1,'',0,1),(112,'potential_name','Prospect Name',1,14,5,'potentials',1,'{\"required\":true}',0,1),(113,'potential_type','Type',2,14,5,'potentials',5,'',0,1),(114,'related_to','Related To',3,14,5,'potentials_related_to',150,'{\"required\":true}',0,1),(115,'expected_closing_date','Expected Closing Date',4,14,5,'potentials',9,'{\"required\":true}',0,1),(116,'leadsource','Lead Source',5,14,5,'potentials',5,'',0,1),(117,'sales_stage','Sales Stage',6,14,5,'potentials',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(118,'probability','Probability',7,14,5,'potentials',1,'',0,1),(119,'assigned_to','Assigned To',9,14,5,'potentials',15,'',0,1),(120,'description','Description',10,14,5,'potentials',2,'',0,1),(121,'amount','Amount',8,14,5,'potentials',30,'{\"required\":true}',0,1),(122,'event_type','Event Type',1,16,2,'events',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(123,'subject','Subject',2,16,2,'events',1,'{\"required\":true}',0,1),(124,'description','Description',3,16,2,'events',2,'',0,1),(125,'location','Location',4,16,2,'events',1,'',0,1),(126,'priority','Priority',9,16,2,'events',5,'',0,1),(127,'start_date','Start Date',5,16,2,'events',9,'{\"required\":true}',0,1),(128,'start_time','Start Time',6,16,2,'events',10,'',0,1),(129,'end_date','End Date',7,16,2,'events',9,'{\"required\":true}',0,1),(130,'end_time','End Time',8,16,2,'events',10,'',0,1),(131,'event_status','Event Status',10,16,2,'events',5,'{\"required\":true,\"notEqual\":\"Pick One\"}',0,1),(132,'assigned_to','Assigned To',11,16,2,'events',15,'',0,1),(133,'related_to','Related To',12,16,2,'events_related_to',151,'',0,1),(134,'added_on','Lead Date Added',0,0,3,'leads',9,NULL,0,0),(135,'last_modified','Lead Last Modified Date',0,0,3,'leads',9,NULL,0,0),(136,'converted','Converted',0,0,3,'leads',1,NULL,0,0),(137,'idleads','Lead Id',0,4,3,'leads',1,NULL,0,0),(138,'added_on','Contact Date Added',0,0,4,'contacts',9,NULL,0,0),(139,'last_modified','Contact Last Modified Date',0,0,4,'contacts',9,NULL,0,0),(140,'idcontacts','Contact Id',0,10,4,'contacts',1,NULL,0,0),(141,'added_on','Event Date Added',0,0,2,'events',9,NULL,0,0),(142,'last_modified','Event Last Modified Date',0,0,2,'events',9,NULL,0,0),(143,'idevents','Event Id',0,16,2,'events',1,NULL,0,0),(144,'added_on','Prospect Date Added',0,0,5,'potentials',9,NULL,0,0),(145,'last_modified','Prospect Last Modified Date',0,0,5,'potentials',9,NULL,0,0),(146,'idpotentials','Prospect Id',0,14,5,'potentials',1,NULL,0,0),(147,'added_on','Organization Date Added',0,0,6,'organization',9,NULL,0,0),(148,'last_modified','Organization Last Modified Date',0,0,6,'organization',9,NULL,0,0),(149,'idorganization','Oranization Id',0,7,6,'organization',1,NULL,0,0),(150,'vendor_name','Vendor Name',1,18,11,'vendor',1,'{\"required\":true}',0,1),(151,'email','Email Id',2,18,11,'vendor',7,'',0,1),(152,'phone','Phone number',3,18,11,'vendor',1,'',0,1),(153,'website','Website',4,18,11,'vendor',8,'',0,1),(154,'description','Description',5,18,11,'vendor',2,'',0,1),(155,'assigned_to','Assigned To',6,18,11,'vendor',15,'',0,1),(156,'added_on','Vendor Date Added',0,0,11,'vendor',9,NULL,0,0),(157,'last_modified','Vendor Last Modified Date',0,0,11,'vendor',9,NULL,0,0),(158,'idvendor','Vendor Id',0,18,11,'vendor',1,NULL,0,0),(159,'vendor_street','Street',1,19,11,'vendor_address',2,'',0,1),(160,'vendor_city','City',2,19,11,'vendor_address',1,'',0,1),(161,'vendor_postal_code','Postal Code',3,19,11,'vendor_address',1,'',0,1),(162,'vendor_po_box','PO Box',4,19,11,'vendor_address',1,'',0,1),(163,'vendor_state','State',5,19,11,'vendor_address',1,'',0,1),(164,'vendor_country','Country',6,19,11,'vendor_address',1,'',0,1),(165,'product_name','Product Name',1,21,12,'products',1,'{\"required\":true}',0,1),(166,'is_active','Active',2,21,12,'products',3,'',0,1),(167,'product_category','Category',3,21,12,'products',5,'',0,1),(168,'manufacturer','Manufacturer',4,21,12,'products',5,'',0,1),(169,'idvendor','Vendor',5,21,12,'products',160,'',0,1),(170,'website','Website',6,21,12,'products',8,'',0,1),(171,'description','Description',7,21,12,'products',2,'',0,1),(172,'assigned_to','Assigned To',8,21,12,'products',15,'',0,1),(173,'added_on','Product Date Added',0,0,12,'products',9,NULL,0,0),(174,'last_modified','Product Last Modified Date',0,0,12,'products',9,NULL,0,0),(175,'idproducts','Product Id',0,21,12,'products',1,NULL,0,0),(176,'product_price','Price',1,22,12,'products_pricing',30,'',0,1),(177,'commission_rate','Commision Rate (%)',2,22,12,'products_pricing',16,'',0,1),(178,'tax_value','Tax Information',3,22,12,'products_tax',165,'',0,1),(179,'unit_quantity','Unit Quantity',1,23,12,'products_stock',16,'',0,1),(180,'quantity_in_stock','Quantity in stock',2,23,12,'products_stock',16,'',0,1),(181,'quantity_in_demand','Quantity in demand',3,23,12,'products_stock',16,'',0,1),(182,'subject','Subject',1,25,13,'quotes',1,'{\"required\":true}',0,1),(183,'quote_stage','Quotes Stage',2,25,13,'quotes',5,'{\"required\":true}',0,1),(184,'idorganization','Organization',3,25,13,'quotes',141,'{\"required\":true}',0,1),(185,'idpotentials','Potential Name',4,25,13,'quotes',133,'',0,1),(186,'valid_till','Valid Till',5,25,13,'quotes',9,'',0,1),(187,'assigned_to','Assigned To',6,25,13,'quotes',15,'',0,1),(188,'description','Description',7,25,13,'quotes',2,'',0,1),(189,'added_on','Quotes Date Added',0,0,13,'quotes',9,NULL,0,0),(190,'last_modified','Quotes Last Modified Date',0,0,13,'quotes',9,NULL,0,0),(191,'idquotes','Quotes Id',0,25,13,'quotes',1,NULL,0,0),(192,'net_total','Net Total',0,25,13,'quotes',30,NULL,0,0),(193,'discount_type','Discount Type',0,25,13,'quotes',1,NULL,0,0),(194,'discount_value','Discount Value',0,25,13,'quotes',30,NULL,0,0),(195,'discounted_amount','Discounted Amount',0,25,13,'quotes',30,NULL,0,0),(196,'tax_values','Tax Values',0,25,13,'quotes',1,NULL,0,0),(197,'taxed_amount','Taxed Amount',0,25,13,'quotes',30,NULL,0,0),(198,'shipping_handling_charge','Shipping and Handling Charges',0,25,13,'quotes',30,NULL,0,0),(199,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,25,13,'quotes',1,NULL,0,0),(200,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,25,13,'quotes',30,NULL,0,0),(201,'final_adjustment_type','Final Adjustment Type',0,25,13,'quotes',1,NULL,0,0),(202,'final_adjustment_amount','Final Adjustment Amount',0,25,13,'quotes',30,NULL,0,0),(203,'grand_total','Grand Total',0,25,13,'quotes',30,NULL,0,0),(204,'q_billing_address','Billing Address',1,26,13,'quotes_address',2,'',0,1),(205,'q_shipping_address','Shipping Address',2,26,13,'quotes_address',2,'',0,1),(206,'q_billing_po_box','Billing PO Box',3,26,13,'quotes_address',1,'',0,1),(207,'q_shipping_po_box','Shipping PO Box',4,26,13,'quotes_address',1,'',0,1),(208,'q_billing_po_code','Billing Code',5,26,13,'quotes_address',1,'',0,1),(209,'q_shipping_po_code','Shipping Code',6,26,13,'quotes_address',1,'',0,1),(210,'q_billing_city','Billing City',7,26,13,'quotes_address',1,'',0,1),(211,'q_shipping_city','Shipping City',8,26,13,'quotes_address',1,'',0,1),(212,'q_billing_state','Billing State',9,26,13,'quotes_address',1,'',0,1),(213,'q_shipping_state','Shipping State',10,26,13,'quotes_address',1,'',0,1),(214,'q_billing_country','Billing Country',11,26,13,'quotes_address',1,'',0,1),(215,'q_shipping_country','Shipping Country',12,26,13,'quotes_address',1,'',0,1),(216,'subject','Subject',1,27,14,'sales_order',1,'{\"required\":true}',0,1),(217,'sales_order_status','Status',2,27,14,'sales_order',5,'{\"required\":true}',0,1),(218,'idorganization','Organization',3,27,14,'sales_order',141,'{\"required\":true}',0,1),(219,'idpotentials','Potential Name',4,27,14,'sales_order',133,'',0,1),(220,'idcontacts','Contact Name',5,27,14,'sales_order',142,'',0,1),(221,'idquotes','Quote Name',6,27,14,'sales_order',170,'',0,1),(222,'due_date','Due Date',7,27,14,'sales_order',9,'',0,1),(223,'assigned_to','Assigned To',8,27,14,'sales_order',15,'',0,1),(224,'description','Description',9,27,14,'sales_order',2,'',0,1),(225,'added_on','Sales Order Date Added',0,0,14,'sales_order',9,NULL,0,0),(226,'last_modified','Sales Order Last Modified Date',0,0,14,'sales_order',9,NULL,0,0),(227,'idsales_order','Sales Order Id',0,27,14,'sales_order',1,NULL,0,0),(228,'net_total','Net Total',0,27,14,'sales_order',30,NULL,0,0),(229,'discount_type','Discount Type',0,27,14,'sales_order',1,NULL,0,0),(230,'discount_value','Discount Value',0,27,14,'sales_order',30,NULL,0,0),(231,'discounted_amount','Discounted Amount',0,27,14,'sales_order',30,NULL,0,0),(232,'tax_values','Tax Values',0,27,14,'sales_order',1,NULL,0,0),(233,'taxed_amount','Taxed Amount',0,27,14,'sales_order',30,NULL,0,0),(234,'shipping_handling_charge','Shipping and Handling Charges',0,27,14,'sales_order',30,NULL,0,0),(235,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,27,14,'sales_order',1,NULL,0,0),(236,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,27,14,'sales_order',30,NULL,0,0),(237,'final_adjustment_type','Final Adjustment Type',0,27,14,'sales_order',1,NULL,0,0),(238,'final_adjustment_amount','Final Adjustment Amount',0,27,14,'sales_order',30,NULL,0,0),(239,'grand_total','Grand Total',0,27,14,'sales_order',30,NULL,0,0),(240,'so_billing_address','Billing Address',1,28,14,'sales_order_address',2,'',0,1),(241,'so_shipping_address','Shipping Address',2,28,14,'sales_order_address',2,'',0,1),(242,'so_billing_po_box','Billing PO Box',3,28,14,'sales_order_address',1,'',0,1),(243,'so_shipping_po_box','Shipping PO Box',4,28,14,'sales_order_address',1,'',0,1),(244,'so_billing_po_code','Billing Code',5,28,14,'sales_order_address',1,'',0,1),(245,'so_shipping_po_code','Shipping Code',6,28,14,'sales_order_address',1,'',0,1),(246,'so_billing_city','Billing City',7,28,14,'sales_order_address',1,'',0,1),(247,'so_shipping_city','Shipping City',8,28,14,'sales_order_address',1,'',0,1),(248,'so_billing_state','Billing State',9,28,14,'sales_order_address',1,'',0,1),(249,'so_shipping_state','Shipping State',10,28,14,'sales_order_address',1,'',0,1),(250,'so_billing_country','Billing Country',11,28,14,'sales_order_address',1,'',0,1),(251,'so_shipping_country','Shipping Country',12,28,14,'sales_order_address',1,'',0,1),(252,'subject','Subject',1,31,15,'invoice',1,'{\"required\":true}',0,1),(253,'invoice_status','Invoice Status',2,31,15,'invoice',5,'{\"required\":true}',0,1),(254,'idorganization','Organization',3,31,15,'invoice',141,'{\"required\":true}',0,1),(255,'idpotentials','Potential Name',4,31,15,'invoice',133,'',0,1),(256,'idcontacts','Contact Name',5,31,15,'invoice',142,'',0,1),(257,'idsales_order','Sales Order',6,31,15,'invoice',180,'',0,1),(258,'due_date','Due Date',7,31,15,'invoice',9,'',0,1),(259,'assigned_to','Assigned To',8,31,15,'invoice',15,'',0,1),(260,'description','Description',9,31,15,'invoice',2,'',0,1),(261,'added_on','Invoice Date Added',0,0,15,'invoice',9,NULL,0,0),(262,'last_modified','Invoice Last Modified Date',0,0,15,'invoice',9,NULL,0,0),(263,'idinvoice','Invoice Id',0,31,15,'invoice',1,NULL,0,0),(264,'net_total','Net Total',0,31,15,'invoice',30,NULL,0,0),(265,'discount_type','Discount Type',0,31,15,'invoice',1,NULL,0,0),(266,'discount_value','Discount Value',0,31,15,'invoice',30,NULL,0,0),(267,'discounted_amount','Discounted Amount',0,31,15,'invoice',30,NULL,0,0),(268,'tax_values','Tax Values',0,31,15,'invoice',1,NULL,0,0),(269,'taxed_amount','Taxed Amount',0,31,15,'invoice',30,NULL,0,0),(270,'shipping_handling_charge','Shipping and Handling Charges',0,31,15,'invoice',30,NULL,0,0),(271,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,31,15,'invoice',1,NULL,0,0),(272,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,31,15,'invoice',30,NULL,0,0),(273,'final_adjustment_type','Final Adjustment Type',0,31,15,'invoice',1,NULL,0,0),(274,'final_adjustment_amount','Final Adjustment Amount',0,31,15,'invoice',30,NULL,0,0),(275,'grand_total','Grand Total',0,31,15,'invoice',30,NULL,0,0),(276,'inv_billing_address','Billing Address',1,32,15,'invoice_address',2,'',0,1),(277,'inv_shipping_address','Shipping Address',2,32,15,'invoice_address',2,'',0,1),(278,'inv_billing_po_box','Billing PO Box',3,32,15,'invoice_address',1,'',0,1),(279,'inv_shipping_po_box','Shipping PO Box',4,32,15,'invoice_address',1,'',0,1),(280,'inv_billing_po_code','Billing Code',5,32,15,'invoice_address',1,'',0,1),(281,'inv_shipping_po_code','Shipping Code',6,32,15,'invoice_address',1,'',0,1),(282,'inv_billing_city','Billing City',7,32,15,'invoice_address',1,'',0,1),(283,'inv_shipping_city','Shipping City',8,32,15,'invoice_address',1,'',0,1),(284,'inv_billing_state','Billing State',9,32,15,'invoice_address',1,'',0,1),(285,'inv_shipping_state','Shipping State',10,32,15,'invoice_address',1,'',0,1),(286,'inv_billing_country','Billing Country',11,32,15,'invoice_address',1,'',0,1),(287,'inv_shipping_country','Shipping Country',12,32,15,'invoice_address',1,'',0,1),(288,'po_subject','Subject',1,34,16,'purchase_order',1,'{\"required\":true}',0,1),(289,'po_status','Purchase Order Status',2,34,16,'purchase_order',5,'{\"required\":true}',0,1),(290,'idvendor','Vendor',3,34,16,'purchase_order',160,'',0,1),(291,'idcontacts','Contact',4,34,16,'purchase_order',143,'',0,1),(292,'due_date','Due Date',5,34,16,'purchase_order',9,'',0,1),(293,'assigned_to','Assigned To',6,34,16,'purchase_order',15,'',0,1),(294,'description','Description',7,34,16,'purchase_order',2,'',0,1),(295,'added_on','Purchase Order Date Added',0,0,16,'purchase_order',9,NULL,0,0),(296,'last_modified','Purchase Order Last Modified Date',0,0,16,'purchase_order',9,NULL,0,0),(297,'idpurchase_order','Purchase Order Id',0,34,16,'purchase_order',1,NULL,0,0),(298,'net_total','Net Total',0,34,16,'purchase_order',30,NULL,0,0),(299,'discount_type','Discount Type',0,34,16,'purchase_order',1,NULL,0,0),(300,'discount_value','Discount Value',0,34,16,'purchase_order',30,NULL,0,0),(301,'discounted_amount','Discounted Amount',0,34,16,'purchase_order',30,NULL,0,0),(302,'tax_values','Tax Values',0,34,16,'purchase_order',1,NULL,0,0),(303,'taxed_amount','Taxed Amount',0,34,16,'purchase_order',30,NULL,0,0),(304,'shipping_handling_charge','Shipping and Handling Charges',0,34,16,'purchase_order',30,NULL,0,0),(305,'shipping_handling_tax_values','Shipping/Handling Tax Values',0,34,16,'purchase_order',1,NULL,0,0),(306,'shipping_handling_taxed_amount','Shipping/Handling Taxed Amount',0,34,16,'purchase_order',30,NULL,0,0),(307,'final_adjustment_type','Final Adjustment Type',0,34,16,'purchase_order',1,NULL,0,0),(308,'final_adjustment_amount','Final Adjustment Amount',0,34,16,'purchase_order',30,NULL,0,0),(309,'grand_total','Grand Total',0,34,16,'purchase_order',30,NULL,0,0),(310,'po_billing_address','Billing Address',1,35,16,'purchase_order_address',2,'',0,1),(311,'po_shipping_address','Shipping Address',2,35,16,'purchase_order_address',2,'',0,1),(312,'po_billing_po_box','Billing PO Box',3,35,16,'purchase_order_address',1,'',0,1),(313,'po_shipping_po_box','Shipping PO Box',4,35,16,'purchase_order_address',1,'',0,1),(314,'po_billing_po_code','Billing Code',5,35,16,'purchase_order_address',1,'',0,1),(315,'po_shipping_po_code','Shipping Code',6,35,16,'purchase_order_address',1,'',0,1),(316,'po_billing_city','Billing City',7,35,16,'purchase_order_address',1,'',0,1),(317,'po_shipping_city','Shipping City',8,35,16,'purchase_order_address',1,'',0,1),(318,'po_billing_state','Billing State',9,35,16,'purchase_order_address',1,'',0,1),(319,'po_shipping_state','Shipping State',10,35,16,'purchase_order_address',1,'',0,1),(320,'po_billing_country','Billing Country',11,35,16,'purchase_order_address',1,'',0,1),(321,'po_shipping_country','Shipping Country',12,35,16,'purchase_order_address',1,'',0,1),(322,'lost_reason','Lost Reason',11,37,5,'potentials',5,NULL,0,1),(323,'competitor_name','Competitor Name',12,37,5,'potentials',5,NULL,0,1),(324,'project_name','Project Name',1,38,19,'project',1,'{\"required\":true}',0,1),(325,'idorganization','Organization Name',2,38,19,'project',131,'',0,1),(326,'project_status','Project Status',3,38,19,'project',5,'',0,1),(327,'description','Project Description',4,38,19,'project',2,'',0,1),(328,'start_date','Start Date',5,38,19,'project',9,'',0,1),(329,'due_date','Due Date',6,38,19,'project',9,'',0,1),(330,'assigned_to','Assigned To',7,38,19,'project',15,'',0,1),(331,'budgeted_hours','Budgeted Hours',8,38,19,'project',1,'',0,1),(332,'budgeted_amount','Budgeted Amount',9,38,19,'project',30,'',0,1),(333,'added_on','Project Date Added',0,0,19,'project',9,NULL,0,0),(334,'last_modified','Project Last Modified Date',0,0,19,'project',9,NULL,0,0),(335,'last_modified','Project Last Modified Date',0,0,19,'project',9,NULL,0,0),(336,'idproject','Project Id',0,0,19,'project',1,NULL,0,0);
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1548,7 +1548,7 @@ CREATE TABLE `module` (
   PRIMARY KEY (`idmodule`),
   KEY `module_idmodule_idx` (`idmodule`),
   KEY `module_module_label_idx` (`module_label`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1557,7 +1557,7 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` VALUES (1,'Home',1,'Home',1,1),(2,'Calendar',1,'Calendar',2,1),(3,'Leads',1,'Leads',3,1),(4,'Contacts',1,'Contacts',4,1),(5,'Potentials',1,'Prospects',5,1),(6,'Organization',1,'Organization',6,1),(7,'User',1,'User',7,1),(8,'Notes',1,'Notes',8,0),(9,'Import',1,'Import',9,0),(10,'Report',1,'Report',10,1),(11,'Vendor',1,'Vendor',11,1),(12,'Products',1,'Products',12,1),(13,'Quotes',1,'Quotes',13,1),(14,'SalesOrder',1,'Sales Order',14,1),(15,'Invoice',1,'Invoice',15,1),(16,'PurchaseOrder',1,'Purchase Order',16,1),(17,'CustomView',1,'Custom View',17,0),(18,'Queue',1,'Queue',18,1);
+INSERT INTO `module` VALUES (1,'Home',1,'Home',1,1),(2,'Calendar',1,'Calendar',2,1),(3,'Leads',1,'Leads',3,1),(4,'Contacts',1,'Contacts',4,1),(5,'Potentials',1,'Prospects',5,1),(6,'Organization',1,'Organization',6,1),(7,'User',1,'User',7,1),(8,'Notes',1,'Notes',8,0),(9,'Import',1,'Import',9,0),(10,'Report',1,'Report',10,1),(11,'Vendor',1,'Vendor',11,1),(12,'Products',1,'Products',12,1),(13,'Quotes',1,'Quotes',13,1),(14,'SalesOrder',1,'Sales Order',14,1),(15,'Invoice',1,'Invoice',15,1),(16,'PurchaseOrder',1,'Purchase Order',16,1),(17,'CustomView',1,'Custom View',17,0),(18,'Queue',1,'Queue',18,1),(19,'Project',1,'Project',19,1);
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2324,7 +2324,7 @@ CREATE TABLE `profile_module_rel` (
   KEY `profile_module_rel_idprofile_module_rel_idx` (`idprofile_module_rel`),
   KEY `profile_module_rel_idprofile_idx` (`idprofile`),
   KEY `profile_module_rel_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2333,7 +2333,7 @@ CREATE TABLE `profile_module_rel` (
 
 LOCK TABLES `profile_module_rel` WRITE;
 /*!40000 ALTER TABLE `profile_module_rel` DISABLE KEYS */;
-INSERT INTO `profile_module_rel` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,2,1,1),(8,2,2,1),(9,2,3,1),(10,2,4,1),(11,2,5,1),(12,2,6,1),(13,1,8,1),(14,2,8,1),(15,1,9,1),(16,2,9,1),(17,1,10,1),(18,2,10,1),(19,1,11,1),(20,2,11,1),(21,3,11,1),(22,1,12,1),(23,2,12,1),(24,3,12,1),(25,3,1,1),(26,3,2,1),(27,3,3,1),(28,3,4,1),(29,3,5,1),(30,3,6,1),(31,3,8,1),(32,3,9,1),(33,3,10,1),(34,3,11,1),(35,3,12,1),(36,1,13,1),(37,2,13,1),(38,3,13,1),(39,1,14,1),(40,2,14,1),(41,3,14,1),(42,1,15,1),(43,2,15,1),(44,3,15,1),(45,1,16,1),(46,2,16,1),(47,3,16,1),(48,1,17,1),(49,2,17,1),(50,3,17,1),(51,1,18,1),(52,2,18,1),(53,3,18,1);
+INSERT INTO `profile_module_rel` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,2,1,1),(8,2,2,1),(9,2,3,1),(10,2,4,1),(11,2,5,1),(12,2,6,1),(13,1,8,1),(14,2,8,1),(15,1,9,1),(16,2,9,1),(17,1,10,1),(18,2,10,1),(19,1,11,1),(20,2,11,1),(21,3,11,1),(22,1,12,1),(23,2,12,1),(24,3,12,1),(25,3,1,1),(26,3,2,1),(27,3,3,1),(28,3,4,1),(29,3,5,1),(30,3,6,1),(31,3,8,1),(32,3,9,1),(33,3,10,1),(34,3,11,1),(35,3,12,1),(36,1,13,1),(37,2,13,1),(38,3,13,1),(39,1,14,1),(40,2,14,1),(41,3,14,1),(42,1,15,1),(43,2,15,1),(44,3,15,1),(45,1,16,1),(46,2,16,1),(47,3,16,1),(48,1,17,1),(49,2,17,1),(50,3,17,1),(51,1,18,1),(52,2,18,1),(53,3,18,1),(54,1,19,1),(55,2,19,1),(56,3,19,1);
 /*!40000 ALTER TABLE `profile_module_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2354,7 +2354,7 @@ CREATE TABLE `profile_standard_permission_rel` (
   KEY `prostdperrel_idprofile_standard_permission_rel_idx` (`idprofile_standard_permission_rel`),
   KEY `prostdperrel_idprofile_idx` (`idprofile`),
   KEY `prostdperrel_idmodule_idx` (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2363,8 +2363,183 @@ CREATE TABLE `profile_standard_permission_rel` (
 
 LOCK TABLES `profile_standard_permission_rel` WRITE;
 /*!40000 ALTER TABLE `profile_standard_permission_rel` DISABLE KEYS */;
-INSERT INTO `profile_standard_permission_rel` VALUES (1,1,1,1,0),(2,1,1,2,0),(3,1,1,3,0),(4,1,2,1,1),(5,1,2,2,1),(6,1,2,3,1),(7,1,3,1,1),(8,1,3,2,1),(9,1,3,3,1),(10,1,4,1,1),(11,1,4,2,1),(12,1,4,3,1),(13,1,5,1,1),(14,1,5,2,1),(15,1,5,3,1),(16,1,6,1,1),(17,1,6,2,1),(18,1,6,3,1),(19,2,1,1,0),(20,2,1,2,0),(21,2,1,3,0),(22,2,2,1,1),(23,2,2,2,1),(24,2,2,3,1),(25,2,3,1,1),(26,2,3,2,1),(27,2,3,3,1),(28,2,4,1,1),(29,2,4,2,1),(30,2,4,3,1),(31,2,5,1,1),(32,2,5,2,1),(33,2,5,3,1),(34,2,6,1,1),(35,2,6,2,1),(36,2,6,3,1),(37,1,8,1,1),(38,1,8,2,1),(39,1,8,3,1),(40,2,8,1,1),(41,2,8,2,1),(42,2,8,3,1),(43,1,9,1,1),(44,1,9,2,1),(45,1,9,3,1),(46,2,9,1,1),(47,2,9,2,1),(48,2,9,3,1),(49,1,10,1,1),(50,1,10,2,1),(51,1,10,3,1),(52,2,10,1,1),(53,2,10,2,1),(54,2,10,3,1),(55,3,10,1,1),(56,3,10,2,1),(57,3,10,3,1),(58,1,11,1,1),(59,1,11,2,1),(60,1,11,3,1),(61,2,11,1,1),(62,2,11,2,1),(63,2,11,3,1),(64,3,11,1,1),(65,3,11,2,1),(66,3,11,3,1),(67,1,12,1,1),(68,1,12,2,1),(69,1,12,3,1),(70,2,12,1,1),(71,2,12,2,1),(72,2,12,3,1),(73,3,12,1,1),(74,3,12,2,1),(75,3,12,3,1),(76,3,1,1,0),(77,3,1,2,0),(78,3,1,3,0),(79,3,2,1,1),(80,3,2,2,1),(81,3,2,3,0),(82,3,3,1,1),(83,3,3,2,1),(84,3,3,3,0),(85,3,4,1,1),(86,3,4,2,1),(87,3,4,3,0),(88,3,5,1,1),(89,3,5,2,1),(90,3,5,3,0),(91,3,6,1,1),(92,3,6,2,1),(93,3,6,3,0),(94,3,8,1,1),(95,3,8,2,1),(96,3,8,3,0),(97,3,9,1,1),(98,3,9,2,1),(99,3,9,3,0),(100,3,10,1,1),(101,3,10,2,1),(102,3,10,3,0),(103,3,11,1,1),(104,3,11,2,1),(105,3,11,3,0),(106,3,12,1,1),(107,3,12,2,1),(108,3,12,3,0),(109,1,13,1,1),(110,1,13,2,1),(111,1,13,3,1),(112,2,13,1,1),(113,2,13,2,1),(114,2,13,3,1),(115,3,13,1,1),(116,3,13,2,1),(117,3,13,3,1),(118,1,14,1,1),(119,1,14,2,1),(120,1,14,3,1),(121,2,14,1,1),(122,2,14,2,1),(123,2,14,3,1),(124,3,14,1,1),(125,3,14,2,1),(126,3,14,3,1),(127,1,15,1,1),(128,1,15,2,1),(129,1,15,3,1),(130,2,15,1,1),(131,2,15,2,1),(132,2,15,3,1),(133,3,15,1,1),(134,3,15,2,1),(135,3,15,3,1),(136,1,16,1,1),(137,1,16,2,1),(138,1,16,3,1),(139,2,16,1,1),(140,2,16,2,1),(141,2,16,3,1),(142,3,16,1,1),(143,3,16,2,1),(144,3,16,3,1),(145,1,17,1,1),(146,1,17,2,1),(147,1,17,3,1),(148,2,17,1,1),(149,2,17,2,1),(150,2,17,3,1),(151,3,17,1,1),(152,3,17,2,1),(153,3,17,3,1),(154,1,18,1,1),(155,1,18,2,1),(156,1,18,3,1),(157,2,18,1,1),(158,2,18,2,1),(159,2,18,3,1),(160,3,18,1,1),(161,3,18,2,1),(162,3,18,3,1);
+INSERT INTO `profile_standard_permission_rel` VALUES (1,1,1,1,0),(2,1,1,2,0),(3,1,1,3,0),(4,1,2,1,1),(5,1,2,2,1),(6,1,2,3,1),(7,1,3,1,1),(8,1,3,2,1),(9,1,3,3,1),(10,1,4,1,1),(11,1,4,2,1),(12,1,4,3,1),(13,1,5,1,1),(14,1,5,2,1),(15,1,5,3,1),(16,1,6,1,1),(17,1,6,2,1),(18,1,6,3,1),(19,2,1,1,0),(20,2,1,2,0),(21,2,1,3,0),(22,2,2,1,1),(23,2,2,2,1),(24,2,2,3,1),(25,2,3,1,1),(26,2,3,2,1),(27,2,3,3,1),(28,2,4,1,1),(29,2,4,2,1),(30,2,4,3,1),(31,2,5,1,1),(32,2,5,2,1),(33,2,5,3,1),(34,2,6,1,1),(35,2,6,2,1),(36,2,6,3,1),(37,1,8,1,1),(38,1,8,2,1),(39,1,8,3,1),(40,2,8,1,1),(41,2,8,2,1),(42,2,8,3,1),(43,1,9,1,1),(44,1,9,2,1),(45,1,9,3,1),(46,2,9,1,1),(47,2,9,2,1),(48,2,9,3,1),(49,1,10,1,1),(50,1,10,2,1),(51,1,10,3,1),(52,2,10,1,1),(53,2,10,2,1),(54,2,10,3,1),(55,3,10,1,1),(56,3,10,2,1),(57,3,10,3,1),(58,1,11,1,1),(59,1,11,2,1),(60,1,11,3,1),(61,2,11,1,1),(62,2,11,2,1),(63,2,11,3,1),(64,3,11,1,1),(65,3,11,2,1),(66,3,11,3,1),(67,1,12,1,1),(68,1,12,2,1),(69,1,12,3,1),(70,2,12,1,1),(71,2,12,2,1),(72,2,12,3,1),(73,3,12,1,1),(74,3,12,2,1),(75,3,12,3,1),(76,3,1,1,0),(77,3,1,2,0),(78,3,1,3,0),(79,3,2,1,1),(80,3,2,2,1),(81,3,2,3,0),(82,3,3,1,1),(83,3,3,2,1),(84,3,3,3,0),(85,3,4,1,1),(86,3,4,2,1),(87,3,4,3,0),(88,3,5,1,1),(89,3,5,2,1),(90,3,5,3,0),(91,3,6,1,1),(92,3,6,2,1),(93,3,6,3,0),(94,3,8,1,1),(95,3,8,2,1),(96,3,8,3,0),(97,3,9,1,1),(98,3,9,2,1),(99,3,9,3,0),(100,3,10,1,1),(101,3,10,2,1),(102,3,10,3,0),(103,3,11,1,1),(104,3,11,2,1),(105,3,11,3,0),(106,3,12,1,1),(107,3,12,2,1),(108,3,12,3,0),(109,1,13,1,1),(110,1,13,2,1),(111,1,13,3,1),(112,2,13,1,1),(113,2,13,2,1),(114,2,13,3,1),(115,3,13,1,1),(116,3,13,2,1),(117,3,13,3,1),(118,1,14,1,1),(119,1,14,2,1),(120,1,14,3,1),(121,2,14,1,1),(122,2,14,2,1),(123,2,14,3,1),(124,3,14,1,1),(125,3,14,2,1),(126,3,14,3,1),(127,1,15,1,1),(128,1,15,2,1),(129,1,15,3,1),(130,2,15,1,1),(131,2,15,2,1),(132,2,15,3,1),(133,3,15,1,1),(134,3,15,2,1),(135,3,15,3,1),(136,1,16,1,1),(137,1,16,2,1),(138,1,16,3,1),(139,2,16,1,1),(140,2,16,2,1),(141,2,16,3,1),(142,3,16,1,1),(143,3,16,2,1),(144,3,16,3,1),(145,1,17,1,1),(146,1,17,2,1),(147,1,17,3,1),(148,2,17,1,1),(149,2,17,2,1),(150,2,17,3,1),(151,3,17,1,1),(152,3,17,2,1),(153,3,17,3,1),(154,1,18,1,1),(155,1,18,2,1),(156,1,18,3,1),(157,2,18,1,1),(158,2,18,2,1),(159,2,18,3,1),(160,3,18,1,1),(161,3,18,2,1),(162,3,18,3,1),(163,1,19,1,1),(164,1,19,2,1),(165,1,19,3,1),(166,2,19,1,1),(167,2,19,2,1),(168,2,19,3,1),(169,3,19,1,1),(170,3,19,2,1),(171,3,19,3,1);
 /*!40000 ALTER TABLE `profile_standard_permission_rel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project` (
+  `idproject` int(11) NOT NULL AUTO_INCREMENT,
+  `project_name` varchar(200) DEFAULT NULL,
+  `idorganization` int(11) DEFAULT NULL,
+  `project_status` varchar(100) DEFAULT NULL,
+  `description` text,
+  `iduser` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `start_date` date DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `budgeted_hours` decimal(7,2) DEFAULT NULL,
+  `budgeted_amount` decimal(10,3) DEFAULT NULL,
+  `added_on` datetime DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `last_modified_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idproject`),
+  KEY `project_name_idx` (`project_name`),
+  KEY `project_status_idx` (`project_status`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `deleted_idx` (`deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project`
+--
+
+LOCK TABLES `project` WRITE;
+/*!40000 ALTER TABLE `project` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_custom_fld`
+--
+
+DROP TABLE IF EXISTS `project_custom_fld`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_custom_fld` (
+  `idproject_custom_fld` int(11) NOT NULL AUTO_INCREMENT,
+  `idproject` int(11) NOT NULL,
+  PRIMARY KEY (`idproject_custom_fld`),
+  KEY `idproducts_idx` (`idproject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_custom_fld`
+--
+
+LOCK TABLES `project_custom_fld` WRITE;
+/*!40000 ALTER TABLE `project_custom_fld` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_custom_fld` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_email_subscription`
+--
+
+DROP TABLE IF EXISTS `project_email_subscription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_email_subscription` (
+  `idproject_email_subscription` int(11) NOT NULL AUTO_INCREMENT,
+  `idproject` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `subscription_flag` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`idproject_email_subscription`),
+  KEY `idproject_idx` (`idproject`),
+  KEY `iduser_idx` (`iduser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_email_subscription`
+--
+
+LOCK TABLES `project_email_subscription` WRITE;
+/*!40000 ALTER TABLE `project_email_subscription` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_email_subscription` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_members`
+--
+
+DROP TABLE IF EXISTS `project_members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_members` (
+  `idproject_members` int(11) NOT NULL AUTO_INCREMENT,
+  `idproject` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `sender` int(11) DEFAULT NULL,
+  `accepted` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`idproject_members`),
+  KEY `idproject_idx` (`idproject`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `accepted_idx` (`accepted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_members`
+--
+
+LOCK TABLES `project_members` WRITE;
+/*!40000 ALTER TABLE `project_members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_permission`
+--
+
+DROP TABLE IF EXISTS `project_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_permission` (
+  `idproject_permission` int(11) NOT NULL AUTO_INCREMENT,
+  `idproject` int(11) DEFAULT NULL,
+  `task_create` tinyint(1) DEFAULT NULL,
+  `task_edit` tinyint(1) DEFAULT NULL,
+  `task_close` tinyint(1) DEFAULT NULL,
+  `task_assignees` tinyint(1) DEFAULT NULL,
+  `project_members` tinyint(1) DEFAULT NULL,
+  `permission_changer` text,
+  PRIMARY KEY (`idproject_permission`),
+  KEY `idproject_idx` (`idproject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_permission`
+--
+
+LOCK TABLES `project_permission` WRITE;
+/*!40000 ALTER TABLE `project_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_to_grp_rel`
+--
+
+DROP TABLE IF EXISTS `project_to_grp_rel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_to_grp_rel` (
+  `idproject_to_grp_rel` int(11) NOT NULL AUTO_INCREMENT,
+  `idproject` int(11) NOT NULL,
+  `idgroup` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idproject_to_grp_rel`),
+  KEY `idproject_idx` (`idproject`),
+  KEY `idgroup_idx` (`idgroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_to_grp_rel`
+--
+
+LOCK TABLES `project_to_grp_rel` WRITE;
+/*!40000 ALTER TABLE `project_to_grp_rel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_to_grp_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3184,6 +3359,196 @@ INSERT INTO `standard_permission` VALUES (1,'Add/Edit'),(2,'View'),(3,'Delete');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `task_activity`
+--
+
+DROP TABLE IF EXISTS `task_activity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_activity` (
+  `idtask_activity` int(11) NOT NULL AUTO_INCREMENT,
+  `idtasks` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `description` text,
+  `date_added` datetime DEFAULT NULL,
+  `activity_type` tinyint(2) DEFAULT NULL,
+  `allow_note_edit` tinyint(1) DEFAULT '0',
+  `time_log` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`idtask_activity`),
+  KEY `idtasks_idx` (`idtasks`),
+  KEY `iduser_idx` (`iduser`),
+  KEY `activity_type_idx` (`activity_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_activity`
+--
+
+LOCK TABLES `task_activity` WRITE;
+/*!40000 ALTER TABLE `task_activity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `task_activity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task_assignee`
+--
+
+DROP TABLE IF EXISTS `task_assignee`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_assignee` (
+  `idtask_assignee` int(11) NOT NULL AUTO_INCREMENT,
+  `idtasks` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtask_assignee`),
+  KEY `idtasks_idx` (`idtasks`),
+  KEY `iduser_idx` (`iduser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_assignee`
+--
+
+LOCK TABLES `task_assignee` WRITE;
+/*!40000 ALTER TABLE `task_assignee` DISABLE KEYS */;
+/*!40000 ALTER TABLE `task_assignee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task_label_rel`
+--
+
+DROP TABLE IF EXISTS `task_label_rel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_label_rel` (
+  `idtask_label_rel` int(11) NOT NULL AUTO_INCREMENT,
+  `idtasks` int(11) DEFAULT NULL,
+  `idtask_labels` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtask_label_rel`),
+  KEY `idtasks_idx` (`idtasks`),
+  KEY `idtask_labels_idx` (`idtask_labels`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_label_rel`
+--
+
+LOCK TABLES `task_label_rel` WRITE;
+/*!40000 ALTER TABLE `task_label_rel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `task_label_rel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task_labels`
+--
+
+DROP TABLE IF EXISTS `task_labels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_labels` (
+  `idtask_labels` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idtask_labels`),
+  KEY `label_idx` (`label`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_labels`
+--
+
+LOCK TABLES `task_labels` WRITE;
+/*!40000 ALTER TABLE `task_labels` DISABLE KEYS */;
+INSERT INTO `task_labels` VALUES (1,'bug'),(7,'documentation'),(3,'enhancement'),(2,'feature'),(4,'help wanted'),(6,'invalid'),(5,'question'),(8,'research'),(9,'specification');
+/*!40000 ALTER TABLE `task_labels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task_priority`
+--
+
+DROP TABLE IF EXISTS `task_priority`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_priority` (
+  `idtask_priority` int(11) NOT NULL AUTO_INCREMENT,
+  `priority` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idtask_priority`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_priority`
+--
+
+LOCK TABLES `task_priority` WRITE;
+/*!40000 ALTER TABLE `task_priority` DISABLE KEYS */;
+INSERT INTO `task_priority` VALUES (1,'None'),(2,'Low'),(3,'Medium'),(4,'High'),(5,'Critical');
+/*!40000 ALTER TABLE `task_priority` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `task_status`
+--
+
+DROP TABLE IF EXISTS `task_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_status` (
+  `idtask_status` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idtask_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task_status`
+--
+
+LOCK TABLES `task_status` WRITE;
+/*!40000 ALTER TABLE `task_status` DISABLE KEYS */;
+INSERT INTO `task_status` VALUES (1,'Open'),(2,'Closed'),(3,'Reopen');
+/*!40000 ALTER TABLE `task_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tasks`
+--
+
+DROP TABLE IF EXISTS `tasks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tasks` (
+  `idtasks` int(11) NOT NULL AUTO_INCREMENT,
+  `task_title` varchar(200) DEFAULT NULL,
+  `idproject` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `task_status` int(11) DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  PRIMARY KEY (`idtasks`),
+  KEY `idproject_idx` (`idproject`),
+  KEY `created_by_idx` (`created_by`),
+  KEY `priority_idx` (`priority`),
+  KEY `task_status_idx` (`task_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tasks`
+--
+
+LOCK TABLES `tasks` WRITE;
+/*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -3415,4 +3780,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-28 21:37:15
+-- Dump completed on 2017-03-06 22:45:21
