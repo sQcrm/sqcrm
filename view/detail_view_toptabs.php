@@ -58,6 +58,16 @@ if ($converted_lead == true && $module_id == 3) {
 		<?php 
 		} ?>
 		<?php
+		if ($module_id == 19) { ?>
+		<li id="topbar_project_permission" class="">
+			<a href="#" onclick = "load_deail_view_data('<?php echo $module?>','<?php echo $sqcrm_record_id?>','project_permission')" data-toggle ="tab" >
+			<?php echo _('Project Permission');?>
+			</a>
+		</li>
+		<?php
+		}
+		?>
+		<?php
 		// process the detail view right block active modules
 		$do_process_plugins = new CRMPluginProcessor() ;
 		$do_process_plugins->process_detail_view_tab_plugin($module_id,$sqcrm_record_id,$active_plugins);

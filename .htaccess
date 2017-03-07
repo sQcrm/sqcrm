@@ -3,6 +3,11 @@ DirectoryIndex index.php index.html
 RewriteEngine On
 RewriteBase   /
 
+RewriteRule ^modules/(Project)/([0-9]+)/task/(add)$ /module.php?sfmodname=$1&sqrecord=$2&sfaction=task_create
+RewriteRule ^modules/(Project)/(invitation)/([0-9]+)$ /module.php?sfmodname=$1&sfaction=$2&idinvite=$3
+RewriteRule ^modules/(Project)/([0-9]+)/task/([0-9]+)$ /module.php?sfmodname=$1&sqrecord=$2&sfaction=task_detail&idtasks=$3
+RewriteRule ^modules/(Project)/([0-9]+)/task/(list)$ /module.php?sfmodname=$1&sqrecord=$2&sfaction=task_list&%{QUERY_STRING}
+
 RewriteRule ^modules/(.*)/(.*)$ /module.php?sfmodname=$1&sfaction=$2&%{QUERY_STRING}
 RewriteRule ^popups/(.*)$ /popup_modal.php?modalname=$1&%{QUERY_STRING}
 

@@ -120,7 +120,10 @@ class DataHistoryDisplay extends DataHistory {
 					}
 				}
 				$do_crm_fields->free();
-				break ;       
+				break ;
+			case 'custom_history':
+				$row2 = $obj->new_value;
+				break;
 		}
 		if ($obj->user_avatar != '') {
 			$avatar_path = $GLOBALS['AVATAR_DISPLAY_PATH'] ;

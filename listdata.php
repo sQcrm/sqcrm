@@ -126,7 +126,12 @@ $do_data_display->set_ds_order_by($sOrder);
   
 // Get the security parameter for the user and add to the where condition
 $security_where = "";
-$security_where = $_SESSION["do_crm_action_permission"]->get_user_where_condition($entity_table_name,$mid);
+$module_object = new $m();
+if (true === $_SESSION["do_crm_action_permission"]->has_custom_permissions($module_object)) {
+	$security_where = $module_object->get_custom_where_cond();
+} else {
+	$security_where = $_SESSION["do_crm_action_permission"]->get_user_where_condition($entity_table_name,$mid);
+}
 
 $do_data_display->set_ds_list_security($security_where);
   

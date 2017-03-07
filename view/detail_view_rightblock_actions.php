@@ -212,6 +212,27 @@
 			</a>
 		</li>
 	</ul>
+	<?php } elseif ($module_id == 19) { 
+		if (true === $allowed_actions['task_create']) { ?>
+			<ul class="list-group">	
+				<li class="list-group-item">
+					<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/add" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-tasks"></i> <?php echo _('create a new task')?></a>
+				</li>
+				<li class="list-group-item">
+					<a href="/modules/Project/<?php echo $sqcrm_record_id;?>/task/list" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list"></i> <?php echo _('all tasks')?></a>
+				</li>
+			</ul>
+		<?php 
+		}
+		
+		// load the project member secton if allowed
+		if (true === $allowed_actions['project_members']) {
+			require("project_members_view.php");
+		}
+		
+		// load the project email subscription
+		require("project_email_subscription_view.php");
+	?>
     <?php } elseif ($module_id == 11) { ?>
 	<ul class="list-group">	
 		<li class="list-group-item">
@@ -242,8 +263,8 @@
 <?php
 if ($_SESSION["do_crm_action_permission"]->action_permitted('view',18) === true) { ?>
 <script>
-// if queue view is allowed then load the queue section 
 $(document).ready(function() {
+	// if queue view is allowed then load the queue section 
 	$.ajax({
 		type: "GET",
 		url: "/modules/Queue/list",

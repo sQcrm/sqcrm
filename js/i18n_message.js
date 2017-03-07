@@ -16,14 +16,27 @@ var SAVE_LW = 'save';
 var EDIT_LW = 'edit';
 var CANCEL_LW = 'cancel' ;
 var CLOSE = 'Close' ;
+var CLOSE_LW = 'close';
+var CLOSED = 'Closed' ;
+var DELETE = 'Delete';
+var DELETE_LW = 'delete';
 var ACTIVATE = 'activate';
 var DEACTIVATE = 'deactivate';
 var SET_PERMISSION = 'set permission';
+var ADD = 'ADD';
+var ADD_LW = 'add';
+var OPEN = 'Open';
+var REOPEN_LW = 'reopen';
+var FILES = 'Files';
+var CHANGE = 'Change';
+var CHANGE_LW = 'change';
 
 var DATA_DELETED_SUCCESSFULLY = 'Data deleted succesfully.';
 var SELECT_ONE_RECORD_BEFORE_DELETE = 'Please select atleast one record before deleting.';
 var SELECT_ONE_RECORD_BEFORE_CHANGE_USER = 'Please select atleast one record before changing assigned to.';
 var SELECT_ONE_RECORD_BEFORE_CHANGE_EVENT_STATUS = 'Please select atleast one record before changing event status.';
+var UPDATED_SUCCESSFULLY = 'Updated successfully.';
+
 // Lead conversion JS error messages
 var LEAD_CONVERT_POT_CONTACT_ORG_REQUIRE = 'Converting to Prospect requires a Contact or Organization.';
 var LEAD_CONVERT_POT_ONLY_ORG_CONTACT_SELECT = 'You have choosen to select both Organization and Contact to be attached to Prospect. You can attach only one of them.'
@@ -130,3 +143,11 @@ var UPLOAD_ERROR = 'Error uploading image, please check the image before uploadi
 
 //plugins
 var PLUGIN_PERMISSION_SET = 'Permission has been set successfully';
+
+//project
+var NO_MEMBER_TO_ADD_PROJECT = 'No member found to be added in to the project';
+var SELECT_DUE_DATE_BEFORE_SAVE = 'Please select a due date before saving';
+var SELECT_ONE_TASK_BEFORE_CLOSE = 'Please select at-least one task before closing';
+var SELECT_ONE_TASK_BEFORE_PRIORITY_CHANGE = 'Please select at-least one task before changing the priority';
+var SELECT_ONE_TASK_BEFORE_DUEDATE_CHANGE = 'Please select at-least one task before changing the due date';
+var SELECT_ONE_TASK_BEFORE_REOPEN = 'Please select at-least one task before re-open';

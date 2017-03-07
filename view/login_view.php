@@ -44,6 +44,7 @@
 					<div style="margin-top:10px" class="form-group">
 						<!-- Button -->
 						<div class="col-sm-12 controls">
+							<input type="hidden" name="scroll_to" id="scroll_to" value=''>
 							<input type="submit" name="login_submit" class="btn btn-success" value="<?php echo _('Login');?>">
 						</div>
 					</div>
@@ -52,3 +53,13 @@
 		</div>  
 	</div>
 </div>
+<script>
+$(document).ready(function() {
+	var hash = location.hash.replace('#','');
+	if (hash != '') {
+		var re = /(<([^>]+)>)/ig;
+		hash = hash.replace(re , '');
+		$('#scroll_to').val(hash);
+	}
+});
+</script>
